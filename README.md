@@ -4,7 +4,7 @@
 
 **Autor:** Iago Robo  
 **Contexto:** Prácticas del Ciclo Formativo de Automatización y Robótica Industrial — Sonepar España, A Coruña, 2026  
-**Estado:** Prototipo funcional en desarrollo activo  
+**Estado:** Fase 2 completada — 7/7 herramientas en v2.0
 
 ---
 
@@ -22,22 +22,50 @@ El proyecto nace de un análisis directo del contexto operativo de Sonepar: empr
 proyectos-sonepar/
 ├── README.md
 ├── docs/
-│   ├── SONEPAR-TOOLS-README.docx       # Documentación completa del proyecto
-│   └── SONEPAR-TOOLS-ROADMAP.docx      # Hojas de ruta por herramienta
+│   ├── SONEPAR-TOOLS-README.docx
+│   └── SONEPAR-TOOLS-ROADMAP.docx
 ├── simulador-almacen/
-│   └── sonepar-almacen-simulador.jsx
+│   ├── sonepar-almacen-simulador-v2.jsx
+│   └── docs/
+│       ├── CHANGELOG-v1.docx
+│       ├── PLAN-v2.docx
+│       └── CHANGELOG-v2.docx
 ├── fichas-tecnicas/
-│   └── sonepar-fichas-tecnicas.jsx
+│   ├── sonepar-fichas-tecnicas-v2.jsx
+│   └── docs/
+│       ├── CHANGELOG-v1.docx
+│       ├── PLAN-v2.docx
+│       └── CHANGELOG-v2.docx
 ├── dashboard-incidencias/
-│   └── sonepar-dashboard-incidencias.jsx
+│   ├── sonepar-dashboard-incidencias-v2.jsx
+│   └── docs/
+│       ├── CHANGELOG-v1.docx
+│       ├── PLAN-v2.docx
+│       └── CHANGELOG-v2.docx
 ├── kpi-logistico/
-│   └── sonepar-kpi-logistico.jsx
+│   ├── sonepar-kpi-logistico-v2.jsx
+│   └── docs/
+│       ├── CHANGELOG-v1.docx
+│       ├── PLAN-v2.docx
+│       └── CHANGELOG-v2.docx
 ├── presupuestos/
-│   └── sonepar-generador-presupuestos-v2.jsx
+│   ├── sonepar-generador-presupuestos-v2.jsx
+│   └── docs/
+│       ├── CHANGELOG-v1.docx
+│       ├── PLAN-v2.docx
+│       └── CHANGELOG-v2.docx
 ├── formacion-interna/
-│   └── sonepar-formacion-interna.jsx
+│   ├── sonepar-formacion-interna-v2.jsx
+│   └── docs/
+│       ├── CHANGELOG-v1.docx
+│       ├── PLAN-v2.docx
+│       └── CHANGELOG-v2.docx
 └── chatbot-tecnico/
-    └── sonepar-chatbot-tecnico.jsx
+    ├── sonepar-chatbot-tecnico-v2.jsx
+    └── docs/
+        ├── CHANGELOG-v1.docx
+        ├── PLAN-v2.docx
+        └── CHANGELOG-v2.docx
 ```
 
 ---
@@ -45,51 +73,51 @@ proyectos-sonepar/
 ## Herramientas
 
 ### 01 — Simulador de Flujo de Almacén
-Visualiza el ciclo completo de un pedido desde recepción hasta expedición. Útil para formación de operarios y análisis de procesos. La IA analiza el pedido completado y sugiere optimizaciones.
+Reproduce el ciclo completo de un pedido desde recepción hasta expedición. Cronómetro por etapa con semáforo de estándar en tiempo real. Útil para formación de operarios y análisis de cuellos de botella. La IA analiza los tiempos reales de la simulación y genera recomendaciones específicas por etapa.
 
-`v1.0` · En revisión
+`v2.0` · Completado ✓
 
 ---
 
 ### 02 — Asistente de Fichas Técnicas
-El técnico de mostrador introduce una referencia o descripción y obtiene la ficha técnica completa: características, aplicaciones, compatibilidades, normativas y consejo práctico.
+El técnico de mostrador introduce una referencia o descripción y obtiene la ficha técnica completa: características, aplicaciones, compatibilidades, normativas, precio orientativo y consejo práctico. Valida consultas vagas con sugerencias clicables. Modo comparativa para elegir entre dos productos. Historial persistente de 10 fichas. Exportación a PDF y copia al portapapeles.
 
-`v1.0` · En revisión
+`v2.0` · Completado ✓
 
 ---
 
 ### 03 — Dashboard de Incidencias Técnicas
-Sistema de registro y seguimiento de fallos en equipos del almacén. La IA diagnostica la incidencia a partir del síntoma: causa probable, pasos de verificación, solución y prevención.
+Sistema de registro y seguimiento de fallos en equipos del almacén. La IA diagnostica la incidencia a partir del síntoma: causa probable, pasos de verificación, solución y prevención. Alerta automática para incidencias críticas abiertas más de 2 horas. Persistencia completa en localStorage. Campo de observaciones y estadísticas de resolución por equipo.
 
-`v1.0` · En revisión
+`v2.0` · Completado ✓
 
 ---
 
 ### 04 — Calculadora de KPIs Logísticos
-Transforma los datos de un turno en 6 indicadores clave con semáforo visual comparado con benchmarks del sector. Genera un informe ejecutivo del turno con IA.
+Transforma los datos de un turno en 6 indicadores clave con semáforo visual comparado con benchmarks del sector. Historial de los últimos 30 turnos con gráficos dinámicos sobre datos reales. Comparativa lado a lado entre dos turnos. Botón de ejemplo con datos de referencia. Exportación a PDF del informe ejecutivo generado con IA.
 
-`v1.0` · En revisión
+`v2.0` · Completado ✓
 
 ---
 
 ### 05 — Generador de Presupuestos
-El instalador selecciona el tipo de instalación, introduce los parámetros y obtiene un presupuesto detallado con partidas, precios, normativas y exportación a PDF.
+El instalador selecciona el tipo de instalación, introduce los parámetros y obtiene un presupuesto detallado con partidas, precios, IVA desglosado y normativas aplicables. Numeración automática SNP-AAAAMM-XXX. Historial de 20 presupuestos. Datos del instalador persistentes. Exportación a PDF y copia de resumen.
 
-`v2.0` · Revisado ✓
+`v2.0` · Completado ✓
 
 ---
 
 ### 06 — Sistema de Formación Interna
-Tracker de progreso formativo por empleado. Gestiona módulos por área, permite marcar avances y genera planes de desarrollo personalizados con IA.
+Tracker de progreso formativo por empleado. Vista Matriz con semáforo de estado para visibilidad global del equipo. Alerta automática de módulos obligatorios pendientes tras 30 días de alta. Módulos personalizables y alta de empleados desde la interfaz. Fechas de completado registradas. Genera planes de desarrollo personalizados con IA usando el progreso real de cada empleado.
 
-`v1.0` · En revisión
+`v2.0` · Completado ✓
 
 ---
 
 ### 07 — SONEX — Chatbot Técnico
-Asistente conversacional especializado en material eléctrico e industrial. Mantiene contexto completo de la conversación y actúa como técnico de mostrador experto.
+Asistente conversacional especializado en material eléctrico e industrial. Historial de 10 conversaciones persistidas con naming automático. Indicador de confianza por respuesta (alta / media / verificar). Modo consulta rápida para preguntas puntuales. 4 modos de contexto: General, Avería, Selección, Normativa. Límite de 20 turnos por conversación con aviso.
 
-`v1.0` · En revisión
+`v2.0` · Completado ✓
 
 ---
 
@@ -97,28 +125,35 @@ Asistente conversacional especializado en material eléctrico e industrial. Mant
 
 | Tecnología | Uso |
 |---|---|
-| React 18 | Framework UI |
-| Anthropic API (Claude Sonnet) | Motor de IA en todos los artefactos |
-| Recharts | Gráficos y visualizaciones |
-| localStorage | Persistencia de datos |
-| window.print() | Exportación a PDF |
+| React 18 | Framework UI — hooks, estado, efectos |
+| Anthropic API (Claude Sonnet 4) | Motor de IA en todos los artefactos |
+| Recharts | Gráficos y visualizaciones (KPI Logístico) |
+| localStorage | Persistencia de datos entre sesiones |
+| window.print() | Exportación a PDF con @media print |
+| docx (npm) | Generación de documentación Word |
 | GitHub + Vercel | Control de versiones y despliegue |
 
 ---
 
 ## Documentación
 
-La documentación completa está en la carpeta `/docs`:
+Cada herramienta tiene su propia carpeta `/docs` con:
 
-- **SONEPAR-TOOLS-README.docx** — Descripción detallada del proyecto, stack técnico y hoja de ruta global
-- **SONEPAR-TOOLS-ROADMAP.docx** — Historial de versiones y mejoras planificadas por cada herramienta
+- **CHANGELOG-v1.docx** — Registro de la versión inicial
+- **PLAN-v2.docx** — Planificación previa al desarrollo de v2
+- **CHANGELOG-v2.docx** — Registro detallado de todos los cambios de v2
+
+La documentación global del proyecto está en `/docs`:
+
+- **SONEPAR-TOOLS-README.docx** — Descripción completa del proyecto, stack y contexto
+- **SONEPAR-TOOLS-ROADMAP.docx** — Hojas de ruta globales por herramienta
 
 ---
 
 ## Fases del proyecto
 
-- [x] Fase 1 — Desarrollo de los 7 prototipos funcionales
-- [ ] Fase 2 — Revisión y pulido de todos los artefactos
+- [x] Fase 1 — Desarrollo de los 7 prototipos funcionales (v1.0)
+- [x] Fase 2 — Revisión y pulido de todos los artefactos (v2.0)
 - [ ] Fase 3 — Publicación en Vercel con URLs independientes
 - [ ] Fase 4 — Presentación interna en Sonepar A Coruña
 - [ ] Fase 5 — Evaluación de implantación real
