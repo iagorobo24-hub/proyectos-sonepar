@@ -1,774 +1,634 @@
 import { useState, useEffect, useRef } from "react";
 
-const MARCAS_POR_FAMILIA = {
-  "Protección y Maniobra": ["ABB", "Schneider Electric", "Legrand", "Hager", "Eaton", "Siemens"],
-  "Variadores y Arranque": ["Schneider Electric (ATV)", "ABB (ACS)", "Siemens (SINAMICS)", "Danfoss", "WEG"],
-  "PLC y Automatización": ["Schneider Electric (Modicon)", "Siemens (S7)", "ABB", "Phoenix Contact", "Omron"],
-  "Iluminación": ["Philips", "Osram", "Simon", "Legrand", "Gewiss"],
-  "Cableado y Canalizaciones": ["Prysmian", "Nexans", "OBO Bettermann", "Legrand", "Hager"],
-  "Protección Eléctrica (IGA/ICP/Diferencial)": ["Schneider Electric", "Legrand", "Hager", "ABB", "Eaton"],
-  "Vehículo Eléctrico": ["Schneider Electric (EVlink)", "ABB (Terra)", "Wallbox", "Simon", "Legrand"],
-  "Energías Renovables": ["Fronius", "SMA", "Huawei", "Victron Energy", "Schneider Electric"],
-  "Conectividad y Señal": ["Phoenix Contact", "Wago", "Finder", "Schneider Electric"],
+// ── Paleta de marca Sonepar ──────────────────────────────────────────────────
+const C = {
+  azulOscuro:  "#003087",
+  azulMedio:   "#1A4A8A",
+  azulClaro:   "#4A90D9",
+  azulSuave:   "#EBF1FA",
+  blanco:      "#FFFFFF",
+  fondo:       "#F5F6F8",
+  texto:       "#1A1A2E",
+  textoSec:    "#4A5568",
+  textoTer:    "#8A94A6",
+  borde:       "#D1D9E6",
+  bordeAct:    "#4A90D9",
+  verde:       "#1B6B3A",
+  verdeSuave:  "#EDF7F2",
+  amarillo:    "#C07010",
+  amarilloS:   "#FFF8EE",
+  rojo:        "#C62828",
+  rojoSuave:   "#FDECEA",
 };
 
+const LogoSonepar = ({ size = 28, color = "#003087" }) => (
+  <svg width={size * 3.2} height={size} viewBox="0 0 120 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="16" cy="19" rx="14" ry="7.5" stroke={C.azulClaro} strokeWidth="2.2" fill="none" transform="rotate(-20 16 19)" />
+    <ellipse cx="16" cy="19" rx="14" ry="7.5" stroke={color} strokeWidth="2.2" fill="none" transform="rotate(20 16 19)" />
+    <text x="34" y="25" fontFamily="Helvetica Neue, Arial, sans-serif" fontWeight="700" fontSize="17" fill={color} letterSpacing="0.5">sonepar</text>
+  </svg>
+);
+
+// ── Catálogo ampliado — 9 familias, ~80 productos ────────────────────────────
+const CATALOGO = [
+  // PROTECCIÓN Y MANIOBRA
+  { ref:"AF09-30-10-13",  desc:"Contactor ABB 9A 3P 230VAC",             marca:"ABB",                familia:"Protección y Maniobra",    specs:["9A 400V","3P","bobina 230VAC","1NA"],                        precio:"18-22€" },
+  { ref:"AF16-30-10-13",  desc:"Contactor ABB 16A 3P 230VAC",            marca:"ABB",                familia:"Protección y Maniobra",    specs:["16A 400V","3P","bobina 230VAC","1NA"],                       precio:"22-28€" },
+  { ref:"AF26-30-10-13",  desc:"Contactor ABB 26A 3P 230VAC",            marca:"ABB",                familia:"Protección y Maniobra",    specs:["26A 400V","3P","bobina 230VAC","1NA"],                       precio:"32-40€" },
+  { ref:"AF40-30-11-13",  desc:"Contactor ABB 40A 3P 230VAC",            marca:"ABB",                familia:"Protección y Maniobra",    specs:["40A 400V","3P","bobina 230VAC","1NA+1NC"],                   precio:"48-58€" },
+  { ref:"AF65-30-11-13",  desc:"Contactor ABB 65A 3P 230VAC",            marca:"ABB",                familia:"Protección y Maniobra",    specs:["65A 400V","3P","bobina 230VAC","motor 30kW"],                precio:"72-88€" },
+  { ref:"MS116-1.6",      desc:"Guardamotor ABB 1-1.6A",                 marca:"ABB",                familia:"Protección y Maniobra",    specs:["rango 1-1.6A","Clase 10","térmico+magnético"],              precio:"28-35€" },
+  { ref:"MS116-6.3",      desc:"Guardamotor ABB 4-6.3A",                 marca:"ABB",                familia:"Protección y Maniobra",    specs:["rango 4-6.3A","Clase 10","motor 2.2kW 400V"],               precio:"30-38€" },
+  { ref:"MS116-16",       desc:"Guardamotor ABB 10-16A",                 marca:"ABB",                familia:"Protección y Maniobra",    specs:["rango 10-16A","motor 7.5kW 400V","arranque directo"],       precio:"35-44€" },
+  { ref:"MS116-25",       desc:"Guardamotor ABB 16-25A",                 marca:"ABB",                familia:"Protección y Maniobra",    specs:["rango 16-25A","motor 11kW 400V"],                           precio:"42-52€" },
+  { ref:"MS132-32",       desc:"Guardamotor ABB 25-32A",                 marca:"ABB",                familia:"Protección y Maniobra",    specs:["rango 25-32A","motor 15kW 400V","conexión directa AF"],     precio:"65-80€" },
+  { ref:"LC1D09M7",       desc:"Contactor Schneider TeSys D 9A 220VAC",  marca:"Schneider Electric", familia:"Protección y Maniobra",    specs:["9A 400V","3P","bobina 220VAC","motor 4kW"],                 precio:"16-20€" },
+  { ref:"LC1D25M7",       desc:"Contactor Schneider TeSys D 25A 220VAC", marca:"Schneider Electric", familia:"Protección y Maniobra",    specs:["25A 400V","3P","bobina 220VAC","motor 11kW"],               precio:"28-35€" },
+  { ref:"LC1D40AM7",      desc:"Contactor Schneider TeSys D 40A 220VAC", marca:"Schneider Electric", familia:"Protección y Maniobra",    specs:["40A 400V","3P","bobina 220VAC","motor 18.5kW"],             precio:"42-52€" },
+  { ref:"LC1D65AM7",      desc:"Contactor Schneider TeSys D 65A 220VAC", marca:"Schneider Electric", familia:"Protección y Maniobra",    specs:["65A 400V","3P","bobina 220VAC","motor 30kW"],               precio:"68-85€" },
+  { ref:"GV2ME16",        desc:"Guardamotor Schneider TeSys 10-16A",     marca:"Schneider Electric", familia:"Protección y Maniobra",    specs:["rango 10-16A","motor 7.5kW 400V","clase 10A"],              precio:"38-47€" },
+  { ref:"GV2ME22",        desc:"Guardamotor Schneider TeSys 16-22A",     marca:"Schneider Electric", familia:"Protección y Maniobra",    specs:["rango 16-22A","motor 11kW 400V"],                           precio:"44-55€" },
+  { ref:"GV3ME40",        desc:"Guardamotor Schneider TeSys 29-40A",     marca:"Schneider Electric", familia:"Protección y Maniobra",    specs:["rango 29-40A","motor 18.5kW 400V","caja moldeada"],         precio:"95-115€" },
+
+  // VARIADORES Y ARRANQUE
+  { ref:"ATV320U07M2C",      desc:"Variador Schneider ATV320 0.75kW mono",    marca:"Schneider Electric", familia:"Variadores y Arranque", specs:["0.75kW","230V mono entrada","IP20"],                          precio:"180-220€" },
+  { ref:"ATV320U15N4B",      desc:"Variador Schneider ATV320 1.5kW tri",      marca:"Schneider Electric", familia:"Variadores y Arranque", specs:["1.5kW","400V tri","IP20","bus SoMove"],                       precio:"240-290€" },
+  { ref:"ATV320U40N4B",      desc:"Variador Schneider ATV320 4kW tri",        marca:"Schneider Electric", familia:"Variadores y Arranque", specs:["4kW","400V tri","IP20","Modbus integrado"],                   precio:"380-450€" },
+  { ref:"ATV320U75N4B",      desc:"Variador Schneider ATV320 7.5kW tri",      marca:"Schneider Electric", familia:"Variadores y Arranque", specs:["7.5kW","400V tri","IP20"],                                   precio:"520-620€" },
+  { ref:"ATV320D11N4B",      desc:"Variador Schneider ATV320 11kW tri",       marca:"Schneider Electric", familia:"Variadores y Arranque", specs:["11kW","400V tri","IP20","pantalla integrada"],               precio:"680-820€" },
+  { ref:"ATV320D15N4B",      desc:"Variador Schneider ATV320 15kW tri",       marca:"Schneider Electric", familia:"Variadores y Arranque", specs:["15kW","400V tri","IP20"],                                    precio:"850-1020€" },
+  { ref:"ACS310-03E-07A5-4", desc:"Variador ABB ACS310 3kW 400V",            marca:"ABB",                familia:"Variadores y Arranque", specs:["3kW","400V tri","7.5A","IP20","panel básico"],               precio:"320-390€" },
+  { ref:"ACS310-03E-17A2-4", desc:"Variador ABB ACS310 7.5kW 400V",          marca:"ABB",                familia:"Variadores y Arranque", specs:["7.5kW","400V tri","17.2A","IP20"],                           precio:"580-680€" },
+  { ref:"ACS310-03E-24A4-4", desc:"Variador ABB ACS310 11kW 400V",           marca:"ABB",                familia:"Variadores y Arranque", specs:["11kW","400V tri","24.4A","IP20"],                            precio:"750-900€" },
+  { ref:"ACS580-01-07A2-4",  desc:"Variador ABB ACS580 3kW con panel",       marca:"ABB",                familia:"Variadores y Arranque", specs:["3kW","400V tri","IP21","asistente arranque","Modbus"],       precio:"420-510€" },
+
+  // PROTECCIÓN ELÉCTRICA
+  { ref:"A9F74206",   desc:"iC60N Schneider 2P 6A curva C 6kA",     marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["2P","6A","curva C","6kA","IEC 60898"],                  precio:"12-16€" },
+  { ref:"A9F74210",   desc:"iC60N Schneider 2P 10A curva C 6kA",    marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["2P","10A","curva C","6kA"],                             precio:"12-16€" },
+  { ref:"A9F74216",   desc:"iC60N Schneider 2P 16A curva C 6kA",    marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["2P","16A","curva C","6kA"],                             precio:"13-17€" },
+  { ref:"A9F74316",   desc:"iC60N Schneider 3P 16A curva C 6kA",    marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["3P","16A","curva C","6kA"],                             precio:"22-28€" },
+  { ref:"A9F74332",   desc:"iC60N Schneider 3P 32A curva C 6kA",    marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["3P","32A","curva C","6kA"],                             precio:"28-35€" },
+  { ref:"A9F74363",   desc:"iC60N Schneider 3P 63A curva C 6kA",    marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["3P","63A","curva C","6kA"],                             precio:"42-52€" },
+  { ref:"A9R14225",   desc:"iID Schneider 2P 25A 30mA Tipo AC",     marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["2P","25A","30mA","Tipo AC","IEC 61008"],                precio:"28-35€" },
+  { ref:"A9R14240",   desc:"iID Schneider 2P 40A 30mA Tipo AC",     marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["2P","40A","30mA","Tipo AC"],                            precio:"30-38€" },
+  { ref:"A9R14440",   desc:"iID Schneider 4P 40A 30mA Tipo AC",     marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["4P","40A","30mA","Tipo AC"],                            precio:"55-68€" },
+  { ref:"A9R21440",   desc:"iID Schneider 4P 40A 300mA selectivo",  marca:"Schneider Electric", familia:"Protección Eléctrica", specs:["4P","40A","300mA","selectivo","Tipo AC"],               precio:"72-88€" },
+  { ref:"MBN116",     desc:"Magnetotérmico Hager 1P+N 16A curva C", marca:"Hager",              familia:"Protección Eléctrica", specs:["1P+N","16A","curva C","6kA","ancho 18mm"],              precio:"14-18€" },
+  { ref:"MBN120",     desc:"Magnetotérmico Hager 1P+N 20A curva C", marca:"Hager",              familia:"Protección Eléctrica", specs:["1P+N","20A","curva C","6kA"],                           precio:"15-19€" },
+  { ref:"CDN440D",    desc:"Diferencial Hager 4P 40A 30mA Tipo A",  marca:"Hager",              familia:"Protección Eléctrica", specs:["4P","40A","30mA","Tipo A","super-inmunizado"],          precio:"65-80€" },
+  { ref:"CDN440F",    desc:"Diferencial Hager 4P 40A 300mA Tipo A", marca:"Hager",              familia:"Protección Eléctrica", specs:["4P","40A","300mA","Tipo A selectivo"],                  precio:"78-95€" },
+  { ref:"S201M-C16",  desc:"Magnetotérmico ABB S200 1P 16A 10kA",   marca:"ABB",                familia:"Protección Eléctrica", specs:["1P","16A","curva C","10kA","S200M"],                   precio:"12-16€" },
+  { ref:"S203M-C32",  desc:"Magnetotérmico ABB S200 3P 32A 10kA",   marca:"ABB",                familia:"Protección Eléctrica", specs:["3P","32A","curva C","10kA"],                            precio:"32-42€" },
+
+  // CABLEADO
+  { ref:"RVK 1X1.5",    desc:"Cable RVK 1x1.5mm² (metro)",   marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["1.5mm²","0.6/1kV","XLPE+PVC","90°C"],    precio:"0.5-0.7€/m" },
+  { ref:"RVK 1X2.5",    desc:"Cable RVK 1x2.5mm² (metro)",   marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["2.5mm²","0.6/1kV","XLPE+PVC","90°C"],    precio:"0.8-1.1€/m" },
+  { ref:"RVK 1X6",      desc:"Cable RVK 1x6mm² (metro)",     marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["6mm²","0.6/1kV","XLPE+PVC"],             precio:"1.8-2.4€/m" },
+  { ref:"RVK 1X16",     desc:"Cable RVK 1x16mm² (metro)",    marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["16mm²","0.6/1kV","XLPE+PVC"],            precio:"4.2-5.5€/m" },
+  { ref:"RVK 1X35",     desc:"Cable RVK 1x35mm² (metro)",    marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["35mm²","0.6/1kV","XLPE+PVC"],            precio:"8.5-11€/m" },
+  { ref:"RVK 1X70",     desc:"Cable RVK 1x70mm² (metro)",    marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["70mm²","0.6/1kV","XLPE+PVC"],            precio:"16-21€/m" },
+  { ref:"H07V-K 1.5",   desc:"Cable H07V-K 1x1.5mm² (metro)",marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["1.5mm²","450/750V","PVC flexible","tubo"],precio:"0.35-0.5€/m" },
+  { ref:"H07V-K 2.5",   desc:"Cable H07V-K 1x2.5mm² (metro)",marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["2.5mm²","450/750V","PVC flexible"],      precio:"0.55-0.75€/m" },
+  { ref:"H07V-K 4",     desc:"Cable H07V-K 1x4mm² (metro)",  marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["4mm²","450/750V","PVC flexible"],        precio:"0.85-1.1€/m" },
+  { ref:"H07V-K 6",     desc:"Cable H07V-K 1x6mm² (metro)",  marca:"Prysmian", familia:"Cableado y Canalizaciones", specs:["6mm²","450/750V","PVC flexible"],        precio:"1.3-1.7€/m" },
+  { ref:"MANGUERA 3G1.5",desc:"Manguera H05VV-F 3G1.5mm² (metro)",marca:"Prysmian",familia:"Cableado y Canalizaciones",specs:["3 cond.","1.5mm²","300/500V","flexible"],precio:"0.9-1.2€/m" },
+  { ref:"MANGUERA 5G2.5",desc:"Manguera H05VV-F 5G2.5mm² (metro)",marca:"Prysmian",familia:"Cableado y Canalizaciones",specs:["5 cond.","2.5mm²","300/500V","flexible"],precio:"2.2-2.8€/m" },
+
+  // VEHÍCULO ELÉCTRICO
+  { ref:"EVL1S3P0A",    desc:"EVlink Smart 7.4kW mono Schneider",         marca:"Schneider Electric", familia:"Vehículo Eléctrico", specs:["7.4kW","230V mono","32A","Modo 3","IP54","cable 4.5m T2"],  precio:"480-580€" },
+  { ref:"EVH2S22P0AK",  desc:"EVlink Home 22kW tri Schneider",            marca:"Schneider Electric", familia:"Vehículo Eléctrico", specs:["22kW","400V tri","32A","Modo 3","IP55","T2"],               precio:"680-820€" },
+  { ref:"EVB1A22PCSS",  desc:"EVlink Business 2x22kW doble toma",         marca:"Schneider Electric", familia:"Vehículo Eléctrico", specs:["2×22kW","400V tri","IP55","RFID","OCPP"],                   precio:"1850-2200€" },
+  { ref:"W22G-MC-1-1-T2-5",desc:"Wallbox Pulsar Plus 7.4kW",            marca:"Wallbox",            familia:"Vehículo Eléctrico", specs:["7.4kW mono","32A","Modo 3","IP54","WiFi+BT","App"],         precio:"420-500€" },
+  { ref:"W22G-MC-0-T2-5",  desc:"Wallbox Pulsar Plus 22kW",             marca:"Wallbox",            familia:"Vehículo Eléctrico", specs:["22kW tri","32A","Modo 3","IP54","WiFi+BT"],                 precio:"560-680€" },
+  { ref:"CMX2-2-SOCKET",   desc:"Wallbox Commander 2 22kW pantalla",    marca:"Wallbox",            familia:"Vehículo Eléctrico", specs:["22kW tri","32A","pantalla 5\" táctil","RFID","OCPP","IP54"],precio:"1200-1450€" },
+  { ref:"EVE200WS",        desc:"ABB Terra 7kW monofásico",              marca:"ABB",                familia:"Vehículo Eléctrico", specs:["7kW mono","32A","Modo 3","IP55","T2","sin cable"],          precio:"520-620€" },
+
+  // ENERGÍAS RENOVABLES
+  { ref:"SYMO-3.0-3-M",     desc:"Fronius Symo 3kW trifásico",           marca:"Fronius",        familia:"Energías Renovables", specs:["3kW","trifásico","2 MPPT","98%","Wi-Fi integrado"],         precio:"980-1180€" },
+  { ref:"SYMO-5.0-3-M",     desc:"Fronius Symo 5kW trifásico",           marca:"Fronius",        familia:"Energías Renovables", specs:["5kW","trifásico","2 MPPT","98.1%","Solar.web"],             precio:"1250-1500€" },
+  { ref:"SYMO-8.2-3-M",     desc:"Fronius Symo 8.2kW trifásico",         marca:"Fronius",        familia:"Energías Renovables", specs:["8.2kW","trifásico","2 MPPT","98.3%"],                       precio:"1650-1950€" },
+  { ref:"SB3.0-1AV-41",     desc:"SMA Sunny Boy 3kW monofásico",          marca:"SMA",            familia:"Energías Renovables", specs:["3kW mono","1 MPPT","97.2%","ShadeFix","Webconnect"],       precio:"850-1050€" },
+  { ref:"SB5.0-1SP-US-40",  desc:"SMA Sunny Boy 5kW monofásico",          marca:"SMA",            familia:"Energías Renovables", specs:["5kW mono","2 MPPT","97.5%","OptiTrac MPPT"],               precio:"1100-1320€" },
+  { ref:"PYLONTECH-US3000",  desc:"Batería Pylontech US3000 3.5kWh",      marca:"Pylontech",      familia:"Energías Renovables", specs:["3.5kWh","LiFePO4","48V","BMS integrado","apilable"],       precio:"1400-1700€" },
+  { ref:"VICTRON-MPPT100/30",desc:"Victron SmartSolar MPPT 100/30",       marca:"Victron Energy", familia:"Energías Renovables", specs:["Voc 100V","30A","12/24/48V auto","Bluetooth"],              precio:"145-175€" },
+
+  // ILUMINACIÓN
+  { ref:"CoreLine-Led-G4",  desc:"Philips CoreLine Panel LED 36W 4000K",  marca:"Philips",   familia:"Iluminación", specs:["36W","4000K","3400lm","IP44","600x600mm"],           precio:"65-85€" },
+  { ref:"WT120C-LED36",     desc:"Philips WT120C LED 36W IP65 nave",      marca:"Philips",   familia:"Iluminación", specs:["36W","4000K","4000lm","IP65","industrial"],           precio:"88-110€" },
+  { ref:"BY120P-G4-LED105", desc:"Philips BY120P LED 105W highbay",       marca:"Philips",   familia:"Iluminación", specs:["105W","4000K","12000lm","IP65","highbay"],            precio:"210-260€" },
+  { ref:"LEDVANCE-T8-18W",  desc:"Ledvance SubstiTUBE T8 LED 18W 1200mm",marca:"Ledvance",  familia:"Iluminación", specs:["18W","4000K","2000lm","1200mm","driver externo"],      precio:"12-16€" },
+  { ref:"DISANO-161",       desc:"Disano Eco Performances LED 44W",       marca:"Disano",    familia:"Iluminación", specs:["44W","840 neutro","4400lm","IP65","industrial"],       precio:"135-165€" },
+  { ref:"ZEMPER-LED-EM",    desc:"Zemper bloque autónomo LED emergencia",  marca:"Zemper",    familia:"Iluminación", specs:["1h autonomía","LED","autotest","IP42"],               precio:"35-45€" },
+
+  // AUTOMATIZACIÓN / PLC
+  { ref:"M221CE16R",      desc:"PLC Schneider Modicon M221 16 E/S relé",  marca:"Schneider Electric", familia:"PLC y Automatización", specs:["16 E/S","8DI+8DO relé","Modbus RTU","CANopen"],  precio:"285-345€" },
+  { ref:"TM221CE24R",     desc:"PLC Schneider TM221 24 E/S Ethernet",     marca:"Schneider Electric", familia:"PLC y Automatización", specs:["24 E/S","14DI+10DO relé","Ethernet","USB"],       precio:"380-460€" },
+  { ref:"SIEMENS-LOGO-12",desc:"Módulo lógico Siemens LOGO! 12/24RC",     marca:"Siemens",            familia:"PLC y Automatización", specs:["12/24V DC/AC","8DI","4DO relé","pantalla"],       precio:"155-190€" },
+  { ref:"XB5AA31",        desc:"Pulsador Schneider NA 22mm verde",         marca:"Schneider Electric", familia:"PLC y Automatización", specs:["22mm","contacto NA","verde","IP65","XB5"],        precio:"8-11€" },
+  { ref:"XB5AT42",        desc:"Pulsador seta emergencia NC 22mm rojo",    marca:"Schneider Electric", familia:"PLC y Automatización", specs:["22mm","seta NC","rojo","IP65","giro desbloqueo"], precio:"18-22€" },
+
+  // HVAC
+  { ref:"ACS355-03E-07A3-4",desc:"Variador ABB ACS355 3kW HVAC",   marca:"ABB", familia:"HVAC y Climatización", specs:["3kW","400V tri","PID integrado","IP20","HVAC optimizado"],  precio:"340-420€" },
+  { ref:"ACS355-03E-15A6-4",desc:"Variador ABB ACS355 7.5kW HVAC", marca:"ABB", familia:"HVAC y Climatización", specs:["7.5kW","400V tri","PID+BACnet opcional","IP20"],            precio:"620-750€" },
+
+  // HERRAMIENTAS TRADEFORCE
+  { ref:"TF-TESTKIP100",   desc:"Tester aislamiento TradeForce 1000V",      marca:"TradeForce", familia:"Seguridad y Herramientas", specs:["prueba hasta 1000V","rango MΩ","continuidad","IEC 61557"],precio:"95-115€" },
+  { ref:"TF-CLAMP600",     desc:"Pinza amperimétrica TradeForce TRMS 600A", marca:"TradeForce", familia:"Seguridad y Herramientas", specs:["600A AC","TRMS","600V CAT III","armónicos"],             precio:"68-85€" },
+  { ref:"TF-MULTID1000",   desc:"Multímetro TradeForce TRMS 1000V CAT III", marca:"TradeForce", familia:"Seguridad y Herramientas", specs:["1000V CAT III","TRMS","continuidad","diodo","frec."],    precio:"48-62€" },
+];
+
+function contextoProductos(familia) {
+  if (!familia) return "";
+  const prods = CATALOGO.filter(p => p.familia === familia).slice(0, 12);
+  if (prods.length === 0) return "";
+  const lineas = prods.map(p => `- ${p.ref} | ${p.desc} | ${p.specs.join(", ")} | Precio orientativo: ${p.precio}`).join("\n");
+  return `\n\nPRODUCTOS SONEPAR A CORUÑA — ${familia.toUpperCase()} (stock habitual):\n${lineas}\nUsa estas referencias cuando recomiendes producto de esta familia. Confirma siempre que precio y disponibilidad se verifican en el sistema de la delegación.`;
+}
+
+// ── System prompt ────────────────────────────────────────────────────────────
 const SYSTEM_PROMPT = `Eres SONEX, el asistente técnico de Sonepar España en la delegación de A Coruña. Actúas como un técnico de mostrador senior con 15 años de experiencia en Sonepar, especializado en material eléctrico e industrial para instaladores, contratistas y mantenedores.
 
 QUIÉN ERES:
 - Técnico de mostrador de Sonepar España, delegación A Coruña
-- Conoces el portfolio completo de Sonepar: protección y maniobra, variadores, automatización, iluminación, cableado, protección eléctrica, vehículo eléctrico y energías renovables
-- Recomiendas ÚNICAMENTE marcas que Sonepar distribuye. Nunca recomiendes marcas fuera del portfolio.
+- Conoces el portfolio completo: protección y maniobra, variadores, automatización, iluminación, cableado, protección eléctrica, VE, energías renovables, HVAC y herramientas TradeForce
+- Recomiendas ÚNICAMENTE marcas que Sonepar distribuye
 
-MARCAS POR FAMILIA QUE DISTRIBUYE SONEPAR:
-- Protección y Maniobra: ABB, Schneider Electric, Legrand, Hager, Eaton, Siemens
-- Variadores y Arranque: Schneider Electric (ATV), ABB (ACS), Siemens (SINAMICS), Danfoss, WEG
-- PLC y Automatización: Schneider Electric (Modicon), Siemens (S7), ABB, Phoenix Contact
-- Iluminación: Philips, Osram, Simon, Legrand, Gewiss
-- Cableado y Canalizaciones: Prysmian, Nexans, OBO Bettermann, Legrand, Hager
-- Protección Eléctrica (IGA/ICP/Diferencial): Schneider Electric, Legrand, Hager, ABB, Eaton
-- Vehículo Eléctrico: Schneider Electric (EVlink), ABB (Terra), Wallbox, Simon, Legrand
-- Energías Renovables: Fronius, SMA, Huawei, Victron Energy, Schneider Electric
-- Conectividad y Señal: Phoenix Contact, Wago, Finder, Schneider Electric
+MARCAS POR FAMILIA:
+- Protección y Maniobra: ABB (AF/MS), Schneider (TeSys D/GV2), Hager, Eaton, Siemens
+- Variadores: Schneider (ATV320), ABB (ACS310/ACS580), Siemens (SINAMICS G120), Danfoss
+- PLC/Automatización: Schneider (M221/TM221), Siemens LOGO!, ABB AC500, Phoenix Contact
+- Iluminación: Philips (CoreLine/WT), Ledvance, Disano, Zemper, LedsC4, Normagrup
+- Cableado: Prysmian (RVK/H07V-K), Nexans, OBO Bettermann, Legrand
+- Protección Eléctrica: Schneider (iC60N/iID), Hager (MBN/CDN), ABB (S200M), Eaton
+- Vehículo Eléctrico: Schneider (EVlink), Wallbox (Pulsar/Commander), ABB Terra
+- Energías Renovables: Fronius, SMA, Pylontech, Victron Energy, Trina
+- HVAC: ABB (ACS355), Siemens LOGO!, Schneider Electric
+- Herramientas: TradeForce (marca exclusiva Sonepar), Fluke, Testo
 
-PERFIL DEL CLIENTE HABITUAL EN SONEPAR:
-- Instalador eléctrico autónomo o de pequeña empresa: obra nueva residencial y terciario
-- Contratista industrial: mantenimiento de maquinaria, cuadros eléctricos, automatización
-- Responsable de mantenimiento: fallos en equipos del almacén o planta, urgencias
-- Técnico de climatización: controles, variadores, protecciones para equipos HVAC
-- Administrador de fincas / empresa de mantenimiento: instalaciones comunes, iluminación, VE
+ESTRUCTURA DE RESPUESTA:
+Avería: Causa probable → Verificaciones → Solución → Prevención → Consejo práctico
+Selección: Confirmar parámetros → Recomendación con ref → Argumentación técnica → ALTERNATIVA
+Normativa: Norma exacta (IEC/UNE/RD/ITC-BT) → Requisito concreto → Aplicación → Nota práctica
+Residencial: ITC-BT aplicable → Requisito REBT → Producto Sonepar → Lo que más se pide
 
-ESTRUCTURA DE RESPUESTA SEGÚN TIPO DE CONSULTA:
-
-Si es una AVERÍA o diagnóstico de fallo:
-1. Causa probable: la más frecuente primero, en una frase directa
-2. Verificaciones: pasos ordenados de más fácil a más complejo
-3. Solución: qué hacer una vez confirmada la causa
-4. Prevención: cómo evitar que vuelva a ocurrir
-5. Consejo práctico: una frase de experiencia de mostrador
-
-Si es SELECCIÓN de producto:
-1. Datos que necesitas confirmar (si faltan parámetros clave, pídelos antes de responder)
-2. Recomendación: marca Sonepar + referencia orientativa + por qué esa elección
-3. Argumentación técnica: los 2-3 parámetros que justifican la elección
-4. Alternativa: si no hay stock o el cliente pide otra opción, qué recomendar
-
-Si es NORMATIVA:
-1. Norma exacta: IEC, UNE, RD, ITC-BT con número y apartado si lo conoces
-2. Requisito concreto que aplica al caso
-3. Cómo se aplica en la instalación que describe el cliente
-4. Nota práctica: lo que más se pasa por alto en inspecciones
-
-Si es INSTALACIÓN RESIDENCIAL:
-1. Referencia a ITC-BT aplicable
-2. Requisito mínimo según REBT
-3. Recomendación de producto Sonepar para ese circuito
-4. Lo que suele pedir el instalador de más en obra nueva
-
-NORMAS DE RESPUESTA:
-- Respuestas concretas y directas. Sin frases de relleno ni presentaciones.
-- Si falta un dato clave para responder bien, pídelo antes de responder.
-- Usa vocabulario de taller y mostrador, no de manual técnico.
-- Si la pregunta es sobre una referencia específica de otra marca que no distribuimos, explica qué equivalente tiene Sonepar.
-- Nunca inventes referencias de catálogo. Si no tienes la referencia exacta, describe las características y di que la referencia exacta se confirma en catálogo.
+NORMAS: Respuestas concretas y directas. Si falta dato clave, pídelo antes. Vocabulario de mostrador, no manual técnico. Nunca inventes referencias — si no la tienes exacta, descríbela.
 
 Al final de cada respuesta incluye ÚNICAMENTE en la última línea:
 [CONFIANZA:X] donde X es 1 (baja — verificar con fabricante), 2 (media — orientativo), 3 (alta — dato contrastado)`;
 
-// ── Base de conocimiento de producto Sonepar A Coruña ───
-const CATALOGO_SONEPAR = [
-  // PROTECCIÓN Y MANIOBRA
-  { ref: "AF09-30-10-13", desc: "Contactor ABB 9A 3P bobina 230VAC", marca: "ABB", familia: "Protección y Maniobra", specs: ["9A 400V", "3 polos", "bobina 230VAC", "1NA"], precio: "18-22€" },
-  { ref: "AF16-30-10-13", desc: "Contactor ABB 16A 3P bobina 230VAC", marca: "ABB", familia: "Protección y Maniobra", specs: ["16A 400V", "3 polos", "bobina 230VAC", "1NA"], precio: "22-28€" },
-  { ref: "AF26-30-10-13", desc: "Contactor ABB 26A 3P bobina 230VAC", marca: "ABB", familia: "Protección y Maniobra", specs: ["26A 400V", "3 polos", "bobina 230VAC", "1NA"], precio: "32-40€" },
-  { ref: "AF40-30-11-13", desc: "Contactor ABB 40A 3P bobina 230VAC", marca: "ABB", familia: "Protección y Maniobra", specs: ["40A 400V", "3 polos", "bobina 230VAC", "1NA+1NC"], precio: "48-58€" },
-  { ref: "MS116-1.6", desc: "Guardamotor ABB 1-1.6A", marca: "ABB", familia: "Protección y Maniobra", specs: ["rango 1-1.6A", "protección Clase 10", "disparo térmico y magnético"], precio: "28-35€" },
-  { ref: "MS116-6.3", desc: "Guardamotor ABB 4-6.3A", marca: "ABB", familia: "Protección y Maniobra", specs: ["rango 4-6.3A", "protección Clase 10", "motor hasta 2.2kW 400V"], precio: "30-38€" },
-  { ref: "MS116-16", desc: "Guardamotor ABB 10-16A", marca: "ABB", familia: "Protección y Maniobra", specs: ["rango 10-16A", "motor hasta 7.5kW 400V", "arranque directo"], precio: "35-44€" },
-  { ref: "MS116-25", desc: "Guardamotor ABB 16-25A", marca: "ABB", familia: "Protección y Maniobra", specs: ["rango 16-25A", "motor hasta 11kW 400V"], precio: "42-52€" },
-  { ref: "LC1D09M7", desc: "Contactor Schneider 9A bobina 220VAC", marca: "Schneider Electric", familia: "Protección y Maniobra", specs: ["9A 400V", "3 polos", "bobina 220VAC", "motor hasta 4kW"], precio: "16-20€" },
-  { ref: "LC1D25M7", desc: "Contactor Schneider 25A bobina 220VAC", marca: "Schneider Electric", familia: "Protección y Maniobra", specs: ["25A 400V", "3 polos", "bobina 220VAC", "motor hasta 11kW"], precio: "28-35€" },
-  { ref: "GV2ME16", desc: "Guardamotor Schneider 10-16A", marca: "Schneider Electric", familia: "Protección y Maniobra", specs: ["rango 10-16A", "motor hasta 7.5kW 400V", "clase 10A"], precio: "38-47€" },
-  { ref: "GV2ME22", desc: "Guardamotor Schneider 16-22A", marca: "Schneider Electric", familia: "Protección y Maniobra", specs: ["rango 16-22A", "motor hasta 11kW 400V"], precio: "44-55€" },
-
-  // VARIADORES
-  { ref: "ATV320U07M2C", desc: "Variador Schneider ATV320 0.75kW 230V monofásico", marca: "Schneider Electric", familia: "Variadores y Arranque", specs: ["0.75kW", "230V monofásico entrada", "400V trifásico salida", "IP20"], precio: "180-220€" },
-  { ref: "ATV320U15N4B", desc: "Variador Schneider ATV320 1.5kW 400V trifásico", marca: "Schneider Electric", familia: "Variadores y Arranque", specs: ["1.5kW", "400V trifásico", "IP20", "bus SoMove"], precio: "240-290€" },
-  { ref: "ATV320U40N4B", desc: "Variador Schneider ATV320 4kW 400V trifásico", marca: "Schneider Electric", familia: "Variadores y Arranque", specs: ["4kW", "400V trifásico", "IP20", "Modbus integrado"], precio: "380-450€" },
-  { ref: "ATV320U75N4B", desc: "Variador Schneider ATV320 7.5kW 400V trifásico", marca: "Schneider Electric", familia: "Variadores y Arranque", specs: ["7.5kW", "400V trifásico", "IP20"], precio: "520-620€" },
-  { ref: "ACS310-03E-07A5-4", desc: "Variador ABB ACS310 3kW 400V trifásico", marca: "ABB", familia: "Variadores y Arranque", specs: ["3kW", "400V trifásico", "7.5A", "IP20", "panel básico incluido"], precio: "320-390€" },
-  { ref: "ACS310-03E-17A2-4", desc: "Variador ABB ACS310 7.5kW 400V trifásico", marca: "ABB", familia: "Variadores y Arranque", specs: ["7.5kW", "400V trifásico", "17.2A", "IP20"], precio: "580-680€" },
-
-  // PROTECCIÓN ELÉCTRICA
-  { ref: "A9F74206", desc: "iC60N Schneider 2P 6A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "6A", "curva C", "6kA", "IEC 60898"], precio: "12-16€" },
-  { ref: "A9F74210", desc: "iC60N Schneider 2P 10A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "10A", "curva C", "6kA"], precio: "12-16€" },
-  { ref: "A9F74216", desc: "iC60N Schneider 2P 16A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "16A", "curva C", "6kA"], precio: "13-17€" },
-  { ref: "A9F74316", desc: "iC60N Schneider 3P 16A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["3 polos", "16A", "curva C", "6kA"], precio: "22-28€" },
-  { ref: "A9F74332", desc: "iC60N Schneider 3P 32A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["3 polos", "32A", "curva C", "6kA"], precio: "28-35€" },
-  { ref: "A9R14225", desc: "iID Schneider diferencial 2P 25A 30mA Tipo AC", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "25A", "30mA", "Tipo AC", "IEC 61008"], precio: "28-35€" },
-  { ref: "A9R14240", desc: "iID Schneider diferencial 2P 40A 30mA Tipo AC", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "40A", "30mA", "Tipo AC"], precio: "30-38€" },
-  { ref: "A9R14440", desc: "iID Schneider diferencial 4P 40A 30mA Tipo AC", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["4 polos", "40A", "30mA", "Tipo AC"], precio: "55-68€" },
-  { ref: "A9R21440", desc: "iID Schneider diferencial 4P 40A 300mA Tipo AC", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["4 polos", "40A", "300mA", "selectivo", "Tipo AC"], precio: "72-88€" },
-  { ref: "MBN116", desc: "Magnetotérmico Hager 1P+N 16A curva C", marca: "Hager", familia: "Protección Eléctrica", specs: ["1P+N", "16A", "curva C", "6kA", "ancho 18mm"], precio: "14-18€" },
-  { ref: "CDN440D", desc: "Diferencial Hager 4P 40A 30mA Tipo A", marca: "Hager", familia: "Protección Eléctrica", specs: ["4 polos", "40A", "30mA", "Tipo A", "super-inmunizado"], precio: "65-80€" },
-
-  // CABLEADO
-  { ref: "RVK 1X2.5", desc: "Cable RVK 1x2.5mm² negro (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 2.5mm²", "tensión 0.6/1kV", "XLPE + PVC", "temperatura max 90°C"], precio: "0.8-1.1€/m" },
-  { ref: "RVK 1X6", desc: "Cable RVK 1x6mm² negro (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 6mm²", "tensión 0.6/1kV", "XLPE + PVC", "temp max 90°C"], precio: "1.8-2.4€/m" },
-  { ref: "RVK 1X16", desc: "Cable RVK 1x16mm² negro (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 16mm²", "tensión 0.6/1kV", "XLPE + PVC"], precio: "4.2-5.5€/m" },
-  { ref: "RVK 1X35", desc: "Cable RVK 1x35mm² negro (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 35mm²", "tensión 0.6/1kV", "XLPE + PVC"], precio: "8.5-11€/m" },
-  { ref: "H07V-K 1.5", desc: "Cable H07V-K 1x1.5mm² (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 1.5mm²", "450/750V", "PVC flexible", "uso en tubo"], precio: "0.35-0.5€/m" },
-  { ref: "H07V-K 2.5", desc: "Cable H07V-K 1x2.5mm² (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 2.5mm²", "450/750V", "PVC flexible", "uso en tubo"], precio: "0.55-0.75€/m" },
-
-  // VEHÍCULO ELÉCTRICO
-  { ref: "EVL1S3P0A", desc: "Cargador Schneider EVlink Smart 7.4kW monofásico", marca: "Schneider Electric", familia: "Vehículo Eléctrico", specs: ["7.4kW", "230V monofásico", "32A", "Modo 3", "IP54", "cable 4.5m Tipo 2"], precio: "480-580€" },
-  { ref: "EVH2S22P0AK", desc: "Cargador Schneider EVlink Home 22kW trifásico", marca: "Schneider Electric", familia: "Vehículo Eléctrico", specs: ["22kW", "400V trifásico", "32A", "Modo 3", "IP55", "Tipo 2"], precio: "680-820€" },
-  { ref: "W22G-MC-1-1-T2-5", desc: "Wallbox Pulsar Plus 7.4kW", marca: "Wallbox", familia: "Vehículo Eléctrico", specs: ["7.4kW monofásico", "32A", "Modo 3", "IP54", "WiFi+Bluetooth", "App"], precio: "420-500€" },
-  { ref: "W22G-MC-0-T2-5", desc: "Wallbox Pulsar Plus 22kW", marca: "Wallbox", familia: "Vehículo Eléctrico", specs: ["22kW trifásico", "32A", "Modo 3", "IP54", "WiFi+Bluetooth"], precio: "560-680€" },
-
-  // ENERGÍAS RENOVABLES
-  { ref: "SYMO-3.0-3-M", desc: "Inversor Fronius Symo 3kW trifásico", marca: "Fronius", familia: "Energías Renovables", specs: ["3kW", "trifásico", "2 MPPT", "rendimiento 98%", "Wi-Fi integrado"], precio: "980-1.180€" },
-  { ref: "SYMO-5.0-3-M", desc: "Inversor Fronius Symo 5kW trifásico", marca: "Fronius", familia: "Energías Renovables", specs: ["5kW", "trifásico", "2 MPPT", "rendimiento 98.1%"], precio: "1.250-1.500€" },
-  { ref: "SB3.0-1AV-41", desc: "Inversor SMA Sunny Boy 3kW monofásico", marca: "SMA", familia: "Energías Renovables", specs: ["3kW monofásico", "1 MPPT", "rendimiento 97.2%", "SMA ShadeFix"], precio: "850-1.050€" },
-];
-
-function getProductosPorFamilia(familia) {
-  return CATALOGO_SONEPAR.filter(p => p.familia === familia).slice(0, 10);
-}
-
-function contextoProductos(familia) {
-  if (!familia) return "";
-  const prods = getProductosPorFamilia(familia);
-  if (prods.length === 0) return "";
-  const lineas = prods.map(p => `- ${p.ref} | ${p.desc} | ${p.specs.join(", ")} | Precio orientativo: ${p.precio}`).join("\n");
-  return `\n\nPRODUCTOS SONEPAR A CORUÑA — ${familia.toUpperCase()} (stock habitual):\n${lineas}\nUsa estas referencias cuando recomiendes producto de esta familia. Confirma siempre que el precio y disponibilidad deben verificarse en el sistema de la delegación.`;
-}
-
 const MODOS = [
-  { id: "general",      label: "General",     desc: "Cualquier consulta técnica" },
-  { id: "averia",       label: "Avería",       desc: "Diagnóstico de fallos" },
-  { id: "seleccion",    label: "Selección",    desc: "Elegir el producto correcto" },
-  { id: "normas",       label: "Normativa",    desc: "IEC, UNE, reglamentos" },
-  { id: "residencial",  label: "Residencial",  desc: "Instalaciones domésticas y terciario" },
-  { id: "comparativa",  label: "Comparativa",  desc: "Comparar dos productos o referencias" },
+  { id:"general",     label:"General",     icon:"◎", desc:"Cualquier consulta técnica" },
+  { id:"averia",      label:"Avería",       icon:"⚡", desc:"Diagnóstico de fallos" },
+  { id:"seleccion",   label:"Selección",    icon:"✓", desc:"Elegir el producto correcto" },
+  { id:"normas",      label:"Normativa",    icon:"§", desc:"IEC, UNE, reglamentos" },
+  { id:"residencial", label:"Residencial",  icon:"⌂", desc:"Instalaciones domésticas" },
+  { id:"comparativa", label:"Comparativa",  icon:"⇄", desc:"Comparar referencias" },
 ];
 
 const PROMPT_MODO = {
   general:     "",
   averia:      "\n\nMODO AVERÍA ACTIVO: El cliente tiene un equipo con fallo. Aplica siempre la estructura: Causa probable → Verificaciones → Solución → Prevención → Consejo práctico. Sé directo — el cliente está delante del equipo.",
-  seleccion:   "\n\nMODO SELECCIÓN ACTIVO: El cliente necesita elegir un producto. Confirma los parámetros clave si faltan. Recomienda siempre marca Sonepar con argumentación técnica. Termina siempre con una sección 'ALTERNATIVA:' indicando otro producto del portfolio Sonepar para el mismo caso, con la diferencia técnica principal respecto a tu recomendación.",
-  normas:      "\n\nMODO NORMATIVA ACTIVO: Cita siempre la norma exacta (IEC, UNE, RD, ITC-BT con número y apartado). Explica el requisito concreto y cómo aplica al caso del cliente.",
-  residencial: "\n\nMODO RESIDENCIAL ACTIVO: Instalación doméstica o terciario. Usa vocabulario REBT/ITC-BT. Referencia el ITC-BT aplicable. Recomienda productos Sonepar para instalación doméstica (Hager, Legrand, Schneider Homeline, Simon). El cliente suele ser instalador autónomo de obra nueva o reforma.",
-  comparativa: "\n\nMODO COMPARATIVA ACTIVO: El cliente quiere comparar dos productos o referencias. Si no te da las dos referencias, pídelas. Luego devuelve una tabla de texto con este formato exacto:\n\nPARÁMETRO          | PRODUCTO A        | PRODUCTO B\n-------------------+-------------------+-------------------\n[parámetro 1]      | [valor A]         | [valor B]\n[parámetro 2]      | [valor A]         | [valor B]\n\nAl final de la tabla añade: RECOMENDACIÓN: [cuál elegir y por qué en una frase]. Usa mínimo 5 parámetros técnicos relevantes para la familia del producto.",
+  seleccion:   "\n\nMODO SELECCIÓN ACTIVO: El cliente necesita elegir un producto. Confirma los parámetros clave si faltan. Recomienda siempre marca Sonepar con argumentación técnica. Termina siempre con una sección 'ALTERNATIVA:' indicando otro producto del portfolio Sonepar.",
+  normas:      "\n\nMODO NORMATIVA ACTIVO: Cita siempre la norma exacta (IEC, UNE, RD, ITC-BT con número y apartado). Explica el requisito concreto y cómo aplica al caso.",
+  residencial: "\n\nMODO RESIDENCIAL ACTIVO: Instalación doméstica. Usa vocabulario REBT/ITC-BT. Referencia el ITC-BT aplicable. Recomienda productos Sonepar (Hager, Legrand, Schneider, Simon).",
+  comparativa: "\n\nMODO COMPARATIVA ACTIVO: El cliente quiere comparar dos productos. Si no te da las dos referencias, pídelas. Devuelve una tabla:\n\nPARÁMETRO          | PRODUCTO A        | PRODUCTO B\n-------------------+-------------------+-------------------\n[parámetro 1]      | [valor A]         | [valor B]\n\nAl final: RECOMENDACIÓN: [cuál elegir y por qué en una frase]. Mínimo 5 parámetros técnicos relevantes.",
 };
 
-const SUGERENCIAS_POR_MODO = {
-  general: [
-    "¿Cuál es la diferencia entre un contactor y un relé de maniobra?",
-    "El variador ATV320 da fallo OHF, ¿qué significa?",
-    "¿Qué sección de cable necesito para un motor de 11kW a 400V?",
-    "¿Qué normativa aplica a instalaciones de carga de VE?",
-    "¿Cómo selecciono el guardamotor correcto para un motor de 7.5kW?",
-  ],
-  averia: [
-    "Un contactor ABB AF09 no cierra. El piloto de bobina enciende pero los contactos no cierran.",
-    "El variador da OHF en arranque aunque la temperatura ambiente es normal.",
-    "Un motor trifásico vibra y consume más amperios de lo normal.",
-    "El diferencial salta al conectar la bomba pero no hay fallo de aislamiento.",
-    "El PLC no reconoce la señal del sensor de proximidad aunque hay tensión.",
-  ],
-  seleccion: [
-    "Necesito un guardamotor para un motor de 7.5kW, 400V, arranque directo.",
-    "¿Qué variador me recomiendas para una bomba de 15kW con control de presión?",
-    "Necesito un diferencial para un circuito de tomas de corriente en nave industrial.",
-    "¿Qué contactor uso para un motor de 22kW con inversión de giro?",
-    "Necesito un cable para bandeja portacables en exterior, 6mm², 50 metros.",
-  ],
-  normas: [
-    "¿Qué normativa aplica a las instalaciones de recarga de VE en garaje comunitario?",
-    "¿Qué grado de protección mínimo necesita un cuadro eléctrico en exterior?",
-    "¿Cuál es la sección mínima de cable para una instalación trifásica de 22kW a 30 metros?",
-    "¿Qué dice el REBT sobre los circuitos mínimos en una vivienda?",
-    "¿Qué normativa regula la instalación de paneles solares en cubierta?",
-  ],
-  residencial: [
-    "¿Qué circuitos mínimos necesita una vivienda de grado de electrificación básico?",
-    "¿Qué diferencial pongo para el circuito del termo eléctrico?",
-    "¿Qué sección de cable uso para el circuito de cocina y horno?",
-    "¿Qué punto de recarga de VE me recomiendas para garaje de vivienda unifamiliar?",
-    "¿Cuántos puntos de luz puede tener un circuito de iluminación?",
-  ],
-  comparativa: [
-    "Compara contactor ABB AF09 vs Schneider LC1D09.",
-    "Diferencias entre variador ATV320 y ABB ACS310 para una bomba de 7.5kW.",
-    "Compara diferencial Schneider iID 4P 40A 30mA Tipo AC vs Hager CDN440D.",
-    "¿Qué es mejor para un guardamotor de 7.5kW, el ABB MS116-16 o el Schneider GV2ME16?",
-    "Compara cable RVK vs H07V-K para instalación en bandeja interior.",
-  ],
+const SUGERENCIAS = {
+  general:     ["¿Diferencia entre contactor y relé de maniobra?","El ATV320 da fallo OHF, ¿qué significa?","¿Sección de cable para motor de 11kW a 400V?","¿Normativa para instalaciones de carga de VE?","¿Cómo selecciono el guardamotor correcto para un 7.5kW?"],
+  averia:      ["Contactor ABB AF09 no cierra. Piloto de bobina enciende pero contactos no cierran.","Variador da OHF en arranque aunque la temperatura ambiente es normal.","Motor trifásico vibra y consume más amperios de lo normal.","Diferencial salta al conectar la bomba pero no hay fallo de aislamiento.","PLC no reconoce señal del sensor de proximidad aunque hay tensión."],
+  seleccion:   ["Guardamotor para motor de 7.5kW, 400V, arranque directo.","¿Qué variador para bomba de 15kW con control de presión?","Diferencial para tomas de corriente en nave industrial.","Contactor para motor de 22kW con inversión de giro.","Cable para bandeja en exterior, 6mm², 50 metros."],
+  normas:      ["¿Normativa para recarga de VE en garaje comunitario?","Grado de protección mínimo para cuadro en exterior.","Sección mínima para instalación trifásica 22kW a 30 metros.","¿Qué dice el REBT sobre circuitos mínimos en vivienda?","Normativa para instalación de paneles solares en cubierta."],
+  residencial: ["¿Circuitos mínimos en vivienda de electrificación básica?","¿Diferencial para el circuito del termo eléctrico?","¿Sección de cable para circuito de cocina y horno?","¿Punto de recarga VE para garaje de vivienda unifamiliar?","¿Cuántos puntos de luz puede tener un circuito de iluminación?"],
+  comparativa: ["Contactor ABB AF09 vs Schneider LC1D09.","Variador ATV320 vs ABB ACS310 para bomba de 7.5kW.","Diferencial Schneider iID 4P 40A 30mA vs Hager CDN440D.","Guardamotor ABB MS116-16 vs Schneider GV2ME16 para 7.5kW.","Cable RVK vs H07V-K para instalación en bandeja interior."],
 };
 
-const CONV_NUEVA = (id) => ({ id, nombre: "Nueva conversación", mensajes: [], ts: Date.now() });
-
-// ── Detección de familia por palabras clave ──────────────
-const KEYWORDS_FAMILIA = [
-  { familia: "Protección y Maniobra",            keys: ["contactor", "relé", "guardamotor", "bobina", "af09", "lc1", "ms", "msx", "rm"] },
-  { familia: "Variadores y Arranque",             keys: ["variador", "atv", "acs", "sinamics", "vfd", "arrancador", "inverter", "frecuencia"] },
-  { familia: "PLC y Automatización",              keys: ["plc", "autómata", "modicon", "s7", "simatic", "hmi", "scada", "sensor", "encoder"] },
-  { familia: "Iluminación",                       keys: ["luminaria", "led", "downlight", "pantalla", "alumbrado", "proyector", "lámpara"] },
-  { familia: "Cableado y Canalizaciones",         keys: ["cable", "sección", "bandeja", "tubo", "rvk", "xlpe", "pvc", "canaleta", "manguera"] },
-  { familia: "Protección Eléctrica",              keys: ["diferencial", "magnetotérmico", "iga", "icp", "interruptor", "rccb", "mcb", "fusible"] },
-  { familia: "Vehículo Eléctrico",                keys: ["vehículo eléctrico", "recarga", "carga ve", "evlink", "wallbox", "punto de carga", "modo 2", "modo 3"] },
-  { familia: "Energías Renovables",               keys: ["solar", "fotovoltaica", "inversor", "batería", "fronius", "sma", "huawei", "panel"] },
-  { familia: "Conectividad y Señal",              keys: ["relé de señal", "finder", "phoenix", "wago", "regleta", "borner", "conector"] },
+const KEYWORDS = [
+  { f:"Protección y Maniobra",    k:["contactor","relé","guardamotor","bobina","af09","af16","lc1d","ms116","gv2","tesys","maniobra"] },
+  { f:"Variadores y Arranque",    k:["variador","atv","acs","sinamics","vfd","arrancador","inverter","frecuencia","altivar"] },
+  { f:"PLC y Automatización",     k:["plc","autómata","modicon","s7","simatic","logo","hmi","scada","sensor inductivo","encoder","m221"] },
+  { f:"Iluminación",              k:["luminaria","led","downlight","alumbrado","proyector","lámpara","philips","ledvance","disano","emergencia"] },
+  { f:"Cableado y Canalizaciones",k:["cable","sección","bandeja","tubo","rvk","xlpe","h07v","pvc","canaleta","manguera","prysmian"] },
+  { f:"Protección Eléctrica",     k:["diferencial","magnetotérmico","iga","icp","interruptor automático","rccb","mcb","ic60","hager","a9f","a9r","fusible"] },
+  { f:"Vehículo Eléctrico",       k:["vehículo eléctrico","recarga","carga ve","evlink","wallbox","punto de carga","modo 3","tipo 2"] },
+  { f:"Energías Renovables",      k:["solar","fotovoltaica","inversor string","batería","fronius","sma","sunny","pylontech","victron","panel solar"] },
+  { f:"HVAC y Climatización",     k:["hvac","climatización","bomba calor","ventilador","acs355","fan coil","presostato","termostato industrial"] },
+  { f:"Seguridad y Herramientas", k:["tester","multímetro","pinza amperimétrica","medidor","tradeforce","epi","casco","guantes dieléctricos"] },
 ];
 
 function detectarFamilia(texto) {
   const t = texto.toLowerCase();
-  for (const { familia, keys } of KEYWORDS_FAMILIA) {
-    if (keys.some(k => t.includes(k))) return familia;
+  for (const { f, k } of KEYWORDS) {
+    if (k.some(kw => t.includes(kw))) return f;
   }
   return null;
 }
 
-// ── Stats ────────────────────────────────────────────────
+const CONV_NUEVA = (id) => ({ id, nombre:"Nueva conversación", mensajes:[], ts:Date.now() });
+
 function guardarStat({ modo, confianza, familia }) {
   try {
-    const raw = localStorage.getItem("sonepar_sonex_stats");
-    const stats = raw ? JSON.parse(raw) : [];
-    stats.push({ ts: Date.now(), modo, confianza, familia });
+    const stats = JSON.parse(localStorage.getItem("sonepar_sonex_stats") || "[]");
+    stats.push({ ts:Date.now(), modo, confianza, familia });
     if (stats.length > 200) stats.splice(0, stats.length - 200);
     localStorage.setItem("sonepar_sonex_stats", JSON.stringify(stats));
   } catch {}
 }
 
 function leerStats() {
-  try {
-    const raw = localStorage.getItem("sonepar_sonex_stats");
-    return raw ? JSON.parse(raw) : [];
-  } catch { return []; }
+  try { return JSON.parse(localStorage.getItem("sonepar_sonex_stats") || "[]"); } catch { return []; }
 }
 
-function parseConfianza(texto) {
-  const match = texto.match(/\[CONFIANZA:(\d)\]/);
-  return match ? parseInt(match[1]) : null;
+function parseConfianza(t) { const m = t.match(/\[CONFIANZA:(\d)\]/); return m ? parseInt(m[1]) : null; }
+function limpiarConfianza(t) { return t.replace(/\[CONFIANZA:\d\]\s*$/, "").trimEnd(); }
+
+function renderNeg(texto) {
+  return texto.split(/(\*\*[^*]+\*\*)/g).map((p, i) =>
+    p.startsWith("**") && p.endsWith("**")
+      ? <strong key={i} style={{ color:C.texto, fontWeight:"600" }}>{p.slice(2,-2)}</strong> : p
+  );
 }
 
-function limpiarConfianza(texto) {
-  return texto.replace(/\[CONFIANZA:\d\]\s*$/, "").trimEnd();
-}
-
-// ── Parser de formato básico para respuestas bot ─────────
 function RenderTexto({ texto }) {
-  const lineas = texto.split("\n");
   return (
-    <div>
-      {lineas.map((linea, i) => {
-        // Línea numerada: "1. Texto" o "1) Texto"
-        if (/^\d+[\.\)]\s/.test(linea)) {
-          const contenido = linea.replace(/^\d+[\.\)]\s/, "");
-          return (
-            <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "4px", paddingLeft: "4px" }}>
-              <span style={{ color: "#4a7ab5", fontFamily: "'Courier New', monospace", fontSize: "11px", flexShrink: 0, minWidth: "16px" }}>
-                {linea.match(/^\d+/)[0]}.
-              </span>
-              <span>{renderNegritas(contenido)}</span>
+    <div style={{ fontSize:"14px", lineHeight:"1.65", color:C.texto }}>
+      {texto.split("\n").map((ln, i) => {
+        if (/^\d+[\.\)]\s/.test(ln)) return (
+          <div key={i} style={{ display:"flex", gap:"10px", marginBottom:"5px" }}>
+            <span style={{ color:C.azulClaro, fontFamily:"monospace", fontSize:"12px", flexShrink:0, minWidth:"18px", paddingTop:"1px" }}>{ln.match(/^\d+/)[0]}.</span>
+            <span>{renderNeg(ln.replace(/^\d+[\.\)]\s/, ""))}</span>
+          </div>
+        );
+        if (/^[-–•]\s/.test(ln)) return (
+          <div key={i} style={{ display:"flex", gap:"10px", marginBottom:"4px", paddingLeft:"6px" }}>
+            <span style={{ color:C.azulClaro, flexShrink:0, fontSize:"12px" }}>—</span>
+            <span>{renderNeg(ln.replace(/^[-–•]\s/, ""))}</span>
+          </div>
+        );
+        if (/^[-+|]+$/.test(ln.replace(/\s/g,""))) return <div key={i} style={{ borderBottom:`1px solid ${C.borde}`, margin:"3px 0" }} />;
+        if (ln.includes("|") && ln.trim()) {
+          const cells = ln.split("|").map(c=>c.trim()).filter(Boolean);
+          if (cells.length >= 2) return (
+            <div key={i} style={{ display:"flex", marginBottom:"1px", fontFamily:"monospace", fontSize:"11px", borderBottom:`1px solid ${C.borde}` }}>
+              {cells.map((c,j) => <span key={j} style={{ flex:1, padding:"3px 8px", borderRight:j<cells.length-1?`1px solid ${C.borde}`:"none", color:j===0?C.textoSec:C.texto, background:j===0?C.fondo:"transparent" }}>{c}</span>)}
             </div>
           );
         }
-        // Línea con guión o bullet
-        if (/^[-–•]\s/.test(linea)) {
-          return (
-            <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "4px", paddingLeft: "8px" }}>
-              <span style={{ color: "#4a7ab5", flexShrink: 0 }}>–</span>
-              <span>{renderNegritas(linea.replace(/^[-–•]\s/, ""))}</span>
-            </div>
-          );
-        }
-        // Separador de tabla (---|---|---)
-        if (/^[-+|]+$/.test(linea.replace(/\s/g, ""))) {
-          return <div key={i} style={{ borderBottom: "1px solid #1a2a4a", margin: "2px 0" }} />;
-        }
-        // Línea de tabla con pipes
-        if (linea.includes("|") && linea.trim().startsWith("|") === false && linea.includes("|")) {
-          const celdas = linea.split("|").map(c => c.trim()).filter(Boolean);
-          if (celdas.length >= 2) {
-            return (
-              <div key={i} style={{ display: "flex", gap: "0", marginBottom: "1px", fontFamily: "'Courier New', monospace", fontSize: "11px" }}>
-                {celdas.map((c, j) => (
-                  <span key={j} style={{ flex: 1, padding: "2px 6px", borderRight: j < celdas.length - 1 ? "1px solid #1a2a4a" : "none", color: j === 0 ? "#888" : "#d4ccc4" }}>
-                    {c}
-                  </span>
-                ))}
-              </div>
-            );
-          }
-        }
-        // Encabezado tipo "CAUSA PROBABLE:" o "Consejo práctico:"
-        if (/^[A-ZÁÉÍÓÚ][^:]+:\s*$/.test(linea) || /^[A-ZÁÉÍÓÚ ]{4,}:/.test(linea)) {
-          return <div key={i} style={{ fontWeight: "700", color: "#c8c0b8", marginTop: i > 0 ? "10px" : "0", marginBottom: "4px" }}>{linea}</div>;
-        }
-        // Línea vacía → separador visual
-        if (linea.trim() === "") {
-          return <div key={i} style={{ height: "6px" }} />;
-        }
-        // Texto normal
-        return <div key={i} style={{ marginBottom: "2px" }}>{renderNegritas(linea)}</div>;
+        if (/^[A-ZÁÉÍÓÚ][^:]+:\s*$/.test(ln) || /^[A-ZÁÉÍÓÚ ]{4,}:/.test(ln))
+          return <div key={i} style={{ fontWeight:"600", color:C.azulMedio, marginTop:i>0?"12px":"0", marginBottom:"4px", fontSize:"13px" }}>{ln}</div>;
+        if (!ln.trim()) return <div key={i} style={{ height:"7px" }} />;
+        return <div key={i} style={{ marginBottom:"3px" }}>{renderNeg(ln)}</div>;
       })}
     </div>
   );
 }
 
-function renderNegritas(texto) {
-  const partes = texto.split(/(\*\*[^*]+\*\*)/g);
-  return partes.map((p, i) =>
-    p.startsWith("**") && p.endsWith("**")
-      ? <strong key={i} style={{ color: "#e8e0d4" }}>{p.slice(2, -2)}</strong>
-      : p
-  );
-}
-
-function BadgeConfianza({ nivel }) {
+function Badge({ nivel }) {
   if (!nivel) return null;
-  const cfg = {
-    3: { label: "Alta confianza",  color: "#2e7d32", bg: "#e8f5e9" },
-    2: { label: "Confianza media", color: "#f9a825", bg: "#fffde7" },
-    1: { label: "Verificar",       color: "#c62828", bg: "#ffebee" },
-  }[nivel];
+  const m = { 3:{l:"Alta confianza",c:C.verde,bg:C.verdeSuave}, 2:{l:"Confianza media",c:C.amarillo,bg:C.amarilloS}, 1:{l:"Verificar",c:C.rojo,bg:C.rojoSuave} }[nivel];
   return (
-    <span style={{ padding: "2px 8px", background: cfg.bg, color: cfg.color, fontSize: "9px", fontFamily: "'Courier New', monospace", fontWeight: "700", letterSpacing: "0.5px" }}>
-      {cfg.label}
+    <span style={{ display:"inline-flex", alignItems:"center", gap:"5px", padding:"3px 10px", background:m.bg, color:m.c, fontSize:"10px", fontWeight:"600", borderRadius:"3px" }}>
+      <span style={{ width:"6px", height:"6px", borderRadius:"50%", background:m.c, flexShrink:0 }} />{m.l}
     </span>
   );
 }
 
+// ── Componente principal ─────────────────────────────────────────────────────
 export default function Sonex() {
-  const [conversaciones, setConversaciones] = useState([]);
-  const [convActiva, setConvActiva] = useState(null);
-  const [input, setInput] = useState("");
-  const [cargando, setCargando] = useState(false);
-  const [modo, setModo] = useState("general");
-  const [sidebarAbierto, setSidebarAbierto] = useState(true);
-  const [toast, setToast] = useState("");
-  const [modoRapido, setModoRapido] = useState(false);
-  const [respuestaRapida, setRespuestaRapida] = useState("");
-  const [cargandoRapido, setCargandoRapido] = useState(false);
-  const [inputRapido, setInputRapido] = useState("");
-  const [verAnalytics, setVerAnalytics] = useState(false);
-  const [busqueda, setBusqueda] = useState("");
-
+  const [convs, setConvs]           = useState([]);
+  const [activa, setActiva]         = useState(null);
+  const [input, setInput]           = useState("");
+  const [cargando, setCargando]     = useState(false);
+  const [modo, setModo]             = useState("general");
+  const [sidebar, setSidebar]       = useState(true);
+  const [toast, setToast]           = useState("");
+  const [rapido, setRapido]         = useState(false);
+  const [respRapida, setRespRapida] = useState("");
+  const [cargRap, setCargRap]       = useState(false);
+  const [inputRap, setInputRap]     = useState("");
+  const [verStats, setVerStats]     = useState(false);
+  const [busq, setBusq]             = useState("");
   const bottomRef = useRef(null);
 
   useEffect(() => {
     try {
       const saved = localStorage.getItem("sonepar_sonex_conversaciones");
       if (saved) {
-        const convs = JSON.parse(saved);
-        setConversaciones(convs);
-        if (convs.length > 0) setConvActiva(convs[0].id);
+        const cs = JSON.parse(saved);
+        setConvs(cs);
+        if (cs.length > 0) setActiva(cs[0].id);
       } else {
         const init = CONV_NUEVA("c0");
-        setConversaciones([init]);
-        setConvActiva("c0");
+        setConvs([init]); setActiva("c0");
       }
     } catch {
       const init = CONV_NUEVA("c0");
-      setConversaciones([init]);
-      setConvActiva("c0");
+      setConvs([init]); setActiva("c0");
     }
   }, []);
 
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [conversaciones, convActiva]);
+  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior:"smooth" }); }, [convs, activa]);
 
-  const guardar = (convs) => {
-    try { localStorage.setItem("sonepar_sonex_conversaciones", JSON.stringify(convs)); } catch {}
-  };
+  const save = (cs) => { try { localStorage.setItem("sonepar_sonex_conversaciones", JSON.stringify(cs)); } catch {} };
+  const showToast = (m) => { setToast(m); setTimeout(()=>setToast(""), 2500); };
 
-  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(""), 2500); };
+  const conv           = convs.find(c=>c.id===activa);
+  const msgs           = conv?.mensajes || [];
+  const LIMITE         = 20;
+  const limitado       = msgs.filter(m=>m.rol==="user").length >= LIMITE;
+  const modoObj        = MODOS.find(m=>m.id===modo);
+  const sugs           = SUGERENCIAS[modo] || SUGERENCIAS.general;
+  const convsFilt      = busq.trim() ? convs.filter(c=>c.nombre.toLowerCase().includes(busq.toLowerCase())) : convs;
+  const puedeEscalar   = msgs.filter(m=>m.rol==="user").length >= 2;
 
-  const conv = conversaciones.find(c => c.id === convActiva);
-  const mensajes = conv?.mensajes || [];
-  const LIMITE = 20;
-  const limitAlcanzado = mensajes.filter(m => m.rol === "user").length >= LIMITE;
-  const modoActual = MODOS.find(m => m.id === modo);
-  const sugerencias = SUGERENCIAS_POR_MODO[modo] || SUGERENCIAS_POR_MODO.general;
-  const convsFiltradas = busqueda.trim()
-    ? conversaciones.filter(c => c.nombre.toLowerCase().includes(busqueda.toLowerCase()))
-    : conversaciones;
-  const puedeEscalar = mensajes.filter(m => m.rol === "user").length >= 2;
+  const systemFinal = (fam) => SYSTEM_PROMPT + (PROMPT_MODO[modo]||"") + contextoProductos(fam);
 
-  const systemFinal = (familiaDetectada) => {
-    const base = SYSTEM_PROMPT + (PROMPT_MODO[modo] || "");
-    return base + contextoProductos(familiaDetectada);
-  };
-
-  const enviar = async (textoOverride) => {
-    const texto = (textoOverride || input).trim();
-    if (!texto || cargando || limitAlcanzado) return;
+  const enviar = async (override) => {
+    const texto = (override||input).trim();
+    if (!texto||cargando||limitado) return;
     setInput("");
-
-    const mensajeUser = { rol: "user", texto, ts: Date.now() };
-    const historialActualizado = [...mensajes, mensajeUser];
-
-    let nombreConv = conv?.nombre || "Nueva conversación";
-    if (mensajes.length === 0) {
-      nombreConv = texto.slice(0, 40) + (texto.length > 40 ? "..." : "");
-    }
-
-    const nuevasConvs = conversaciones.map(c => c.id === convActiva ? { ...c, nombre: nombreConv, mensajes: historialActualizado } : c);
-    setConversaciones(nuevasConvs);
-    guardar(nuevasConvs);
-    setCargando(true);
-
-    const familiaDetectada = detectarFamilia(texto);
-
+    const mu = { rol:"user", texto, ts:Date.now() };
+    const hist = [...msgs, mu];
+    let nombre = conv?.nombre||"Nueva conversación";
+    if (msgs.length===0) nombre = texto.slice(0,40)+(texto.length>40?"...":"");
+    const nc = convs.map(c=>c.id===activa?{...c,nombre,mensajes:hist}:c);
+    setConvs(nc); save(nc); setCargando(true);
+    const fam = detectarFamilia(texto);
     try {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1200,
-          system: systemFinal(familiaDetectada),
-          messages: historialActualizado.map(m => ({ role: m.rol === "user" ? "user" : "assistant", content: m.texto })),
-        }),
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:1200, system:systemFinal(fam), messages:hist.map(m=>({ role:m.rol==="user"?"user":"assistant", content:m.texto })) }),
       });
       const data = await res.json();
-      const respuesta = data.content?.map(i => i.text || "").join("") || "";
-      const confianza = parseConfianza(respuesta);
-      const textoLimpio = limpiarConfianza(respuesta);
-
-      const mensajeBot = { rol: "bot", texto: textoLimpio, confianza, familia: familiaDetectada, ts: Date.now() };
-      guardarStat({ modo, confianza, familia: familiaDetectada });
-      const conFinal = [...historialActualizado, mensajeBot];
-      const convsFinales = conversaciones.map(c => c.id === convActiva ? { ...c, nombre: nombreConv, mensajes: conFinal } : c);
-      setConversaciones(convsFinales);
-      guardar(convsFinales);
+      const resp = data.content?.map(i=>i.text||"").join("")||"";
+      const conf = parseConfianza(resp);
+      const mb = { rol:"bot", texto:limpiarConfianza(resp), confianza:conf, familia:fam, ts:Date.now() };
+      guardarStat({ modo, confianza:conf, familia:fam });
+      const cf = [...hist, mb];
+      const nf = convs.map(c=>c.id===activa?{...c,nombre,mensajes:cf}:c);
+      setConvs(nf); save(nf);
     } catch {
-      const err = { rol: "bot", texto: "Error de conexión. Inténtalo de nuevo.", confianza: null, ts: Date.now() };
-      const convsErr = conversaciones.map(c => c.id === convActiva ? { ...c, mensajes: [...historialActualizado, err] } : c);
-      setConversaciones(convsErr);
-      guardar(convsErr);
+      const err = { rol:"bot", texto:"Error de conexión. Inténtalo de nuevo.", confianza:null, ts:Date.now() };
+      const ne = convs.map(c=>c.id===activa?{...c,mensajes:[...hist,err]}:c);
+      setConvs(ne); save(ne);
     }
     setCargando(false);
   };
 
   const consultaRapida = async () => {
-    const texto = inputRapido.trim();
-    if (!texto || cargandoRapido) return;
-    setCargandoRapido(true);
-    setRespuestaRapida("");
+    const texto = inputRap.trim();
+    if (!texto||cargRap) return;
+    setCargRap(true); setRespRapida("");
     try {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 400,
-          system: SYSTEM_PROMPT + "\n\nResponde en máximo 3 frases. Ve directo al dato. Sin estructura, sin encabezados.",
-          messages: [{ role: "user", content: texto }],
-        }),
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ model:"claude-sonnet-4-20250514", max_tokens:400, system:SYSTEM_PROMPT+"\n\nResponde en máximo 3 frases. Ve directo al dato. Sin estructura ni encabezados.", messages:[{role:"user",content:texto}] }),
       });
       const data = await res.json();
-      const respuesta = data.content?.map(i => i.text || "").join("") || "";
-      setRespuestaRapida(limpiarConfianza(respuesta));
-    } catch { setRespuestaRapida("Error de conexión."); }
-    setCargandoRapido(false);
+      setRespRapida(limpiarConfianza(data.content?.map(i=>i.text||"").join("")||""));
+    } catch { setRespRapida("Error de conexión."); }
+    setCargRap(false);
   };
 
-  const nuevaConversacion = () => {
-    const id = `c${Date.now()}`;
-    const nueva = CONV_NUEVA(id);
-    const nuevas = [nueva, ...conversaciones].slice(0, 10);
-    setConversaciones(nuevas);
-    setConvActiva(id);
-    guardar(nuevas);
+  const nuevaConv = () => {
+    const id=`c${Date.now()}`, n=CONV_NUEVA(id);
+    const ns=[n,...convs].slice(0,10);
+    setConvs(ns); setActiva(id); save(ns);
   };
 
-  const borrarConversacion = (id) => {
-    const nuevas = conversaciones.filter(c => c.id !== id);
-    if (nuevas.length === 0) {
-      const init = CONV_NUEVA("c_new");
-      setConversaciones([init]);
-      setConvActiva("c_new");
-      guardar([init]);
-    } else {
-      setConversaciones(nuevas);
-      if (convActiva === id) setConvActiva(nuevas[0].id);
-      guardar(nuevas);
-    }
+  const borrarConv = (id) => {
+    const ns = convs.filter(c=>c.id!==id);
+    if (ns.length===0) { const i=CONV_NUEVA("c_new"); setConvs([i]); setActiva("c_new"); save([i]); }
+    else { setConvs(ns); if (activa===id) setActiva(ns[0].id); save(ns); }
   };
 
-  const copiarMensaje = (texto) => {
-    navigator.clipboard.writeText(texto).then(() => showToast("Respuesta copiada"));
+  const copiar = (t) => navigator.clipboard.writeText(t).then(()=>showToast("Respuesta copiada al portapapeles"));
+
+  const exportarConsulta = (preg, resp) => {
+    const txt=`CONSULTA SONEX — ${new Date().toLocaleString("es-ES")}\nModo: ${modoObj?.label}\n\nPREGUNTA:\n${preg}\n\nRESPUESTA:\n${resp}\n\n⚠ Verificar con documentación del fabricante y catálogo Sonepar.`;
+    navigator.clipboard.writeText(txt).then(()=>showToast("Consulta exportada al portapapeles"));
   };
 
-  const exportarConsulta = (pregunta, respuesta) => {
-    const fecha = new Date().toLocaleString("es-ES");
-    const txt = `CONSULTA SONEX — ${fecha}\nModo: ${modoActual?.label}\n\nPREGUNTA:\n${pregunta}\n\nRESPUESTA:\n${respuesta}\n\n⚠ Verificar con documentación técnica del fabricante y catálogo Sonepar antes de cualquier instalación o pedido.`;
-    navigator.clipboard.writeText(txt).then(() => showToast("Consulta exportada al portapapeles"));
+  const escalar = () => {
+    const ub=[...msgs].reverse().find(m=>m.rol==="bot"), uu=[...msgs].reverse().find(m=>m.rol==="user");
+    const cl=ub?.confianza===1?"Baja":ub?.confianza===2?"Media":"Alta";
+    const txt=`ESCALADO SONEX — ${new Date().toLocaleString("es-ES")}\nModo: ${modoObj?.label} | Confianza: ${cl}\n\nÚLTIMA PREGUNTA:\n${uu?.texto||""}\n\nÚLTIMA RESPUESTA:\n${ub?.texto||""}\n\nSolicito revisión por técnico senior.`;
+    navigator.clipboard.writeText(txt).then(()=>showToast("Escalado copiado al portapapeles"));
   };
 
-  const escalarTecnico = () => {
-    const fecha = new Date().toLocaleString("es-ES");
-    const ultimaBot = [...mensajes].reverse().find(m => m.rol === "bot");
-    const ultimaUser = [...mensajes].reverse().find(m => m.rol === "user");
-    const confianzaLabel = ultimaBot?.confianza === 1 ? "Baja — verificar" : ultimaBot?.confianza === 2 ? "Media" : "Alta";
-    const txt = `ESCALADO SONEX — ${fecha}\nModo: ${modoActual?.label} | Confianza última respuesta: ${confianzaLabel}\n\nÚLTIMA PREGUNTA:\n${ultimaUser?.texto || ""}\n\nÚLTIMA RESPUESTA SONEX:\n${ultimaBot?.texto || ""}\n\nSolicito revisión por técnico senior.`;
-    navigator.clipboard.writeText(txt).then(() => showToast("Escalado copiado al portapapeles"));
-  };
-
-  const exportarConversacion = () => {
-    if (!conv || mensajes.length === 0) return;
-    const fecha = new Date().toLocaleString("es-ES");
-    const lineas = [`CONVERSACIÓN SONEX — ${fecha}`, `Modo: ${modoActual?.label}`, `Consultas: ${mensajes.filter(m => m.rol === "user").length}`, "═".repeat(60), ""];
-    mensajes.forEach((m, i) => {
-      const hora = new Date(m.ts).toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
-      if (m.rol === "user") {
-        lineas.push(`[${hora}] TÉCNICO:`);
-        lineas.push(m.texto);
-      } else {
-        const conf = m.confianza === 3 ? "Alta" : m.confianza === 2 ? "Media" : m.confianza === 1 ? "Baja" : "—";
-        lineas.push(`[${hora}] SONEX (Confianza: ${conf}${m.familia ? ` · ${m.familia}` : ""}):`);
-        lineas.push(m.texto);
-      }
+  const guardarConv = () => {
+    if (!conv||msgs.length===0) return;
+    const lineas=[`CONVERSACIÓN SONEX — ${new Date().toLocaleString("es-ES")}`,`Modo: ${modoObj?.label}`,`Consultas: ${msgs.filter(m=>m.rol==="user").length}`,"═".repeat(60),""];
+    msgs.forEach(m=>{
+      const h=new Date(m.ts).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"});
+      if (m.rol==="user") { lineas.push(`[${h}] TÉCNICO:`); lineas.push(m.texto); }
+      else { const c=m.confianza===3?"Alta":m.confianza===2?"Media":m.confianza===1?"Baja":"—"; lineas.push(`[${h}] SONEX (Confianza: ${c}${m.familia?` · ${m.familia}`:""}):`) ; lineas.push(m.texto); }
       lineas.push("");
     });
-    lineas.push("─".repeat(60));
-    lineas.push("⚠ Verificar con documentación técnica del fabricante y catálogo Sonepar antes de cualquier instalación o pedido.");
-    const blob = new Blob([lineas.join("\n")], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `SONEX-${conv.nombre.slice(0, 30).replace(/[^a-zA-Z0-9]/g, "-")}-${Date.now()}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
+    lineas.push("─".repeat(60)); lineas.push("⚠ Verificar con documentación del fabricante y catálogo Sonepar antes de cualquier pedido o instalación.");
+    const blob=new Blob([lineas.join("\n")],{type:"text/plain;charset=utf-8"});
+    const url=URL.createObjectURL(blob), a=document.createElement("a");
+    a.href=url; a.download=`SONEX-${conv.nombre.slice(0,30).replace(/[^a-zA-Z0-9]/g,"-")}-${Date.now()}.txt`; a.click(); URL.revokeObjectURL(url);
     showToast("Conversación descargada");
   };
 
-  const calcularAnalytics = () => {
-    const stats = leerStats();
-    if (stats.length === 0) return null;
-    const total = stats.length;
-    const alta = stats.filter(s => s.confianza === 3).length;
-    const baja = stats.filter(s => s.confianza === 1).length;
-    const modoCount = {};
-    stats.forEach(s => { modoCount[s.modo] = (modoCount[s.modo] || 0) + 1; });
-    const modoTop = Object.entries(modoCount).sort((a, b) => b[1] - a[1])[0];
-    const familiaCount = {};
-    stats.filter(s => s.familia).forEach(s => { familiaCount[s.familia] = (familiaCount[s.familia] || 0) + 1; });
-    const familiaTop = Object.entries(familiaCount).sort((a, b) => b[1] - a[1])[0];
-    return { total, pctAlta: Math.round(alta / total * 100), pctBaja: Math.round(baja / total * 100), modoTop: modoTop?.[0], familiaTop: familiaTop?.[0] };
-  };
+  const stats = (() => {
+    const s=leerStats(); if (s.length===0) return null;
+    const total=s.length, alta=s.filter(x=>x.confianza===3).length, baja=s.filter(x=>x.confianza===1).length;
+    const mc={},fc={};
+    s.forEach(x=>{mc[x.modo]=(mc[x.modo]||0)+1;});
+    s.filter(x=>x.familia).forEach(x=>{fc[x.familia]=(fc[x.familia]||0)+1;});
+    const mt=Object.entries(mc).sort((a,b)=>b[1]-a[1])[0];
+    const ft=Object.entries(fc).sort((a,b)=>b[1]-a[1])[0];
+    return { total, pA:Math.round(alta/total*100), pB:Math.round(baja/total*100), mT:mt?.[0], fT:ft?.[0] };
+  })();
 
-  const analytics = calcularAnalytics();
-
-  const S = {
-    btn: (color = "#1a1a2e", full = false) => ({
-      padding: "8px 18px", fontSize: "10px", letterSpacing: "1.5px",
-      fontFamily: "'Courier New', monospace", fontWeight: "700",
-      background: color, color: "#fff", border: "none", cursor: "pointer",
-      width: full ? "100%" : "auto",
-    }),
-    btnOutline: (color = "#1a1a2e") => ({
-      padding: "6px 12px", fontSize: "10px", letterSpacing: "1.5px",
-      fontFamily: "'Courier New', monospace", fontWeight: "700",
-      background: "transparent", color, border: `1px solid ${color}`, cursor: "pointer",
-    }),
-  };
+  const B = (bg=C.azulOscuro, outline=false) => ({
+    padding:"7px 15px", fontSize:"11px", fontWeight:"600",
+    fontFamily:"system-ui, Arial, sans-serif",
+    background:outline?"transparent":bg,
+    color:outline?bg:C.blanco, border:`1px solid ${bg}`,
+    cursor:"pointer", borderRadius:"4px",
+  });
 
   return (
     <>
       <style>{`
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #333; }
-        @keyframes pulse {
-          0%, 100% { opacity: 0.3; transform: scale(0.8); }
-          50% { opacity: 1; transform: scale(1); }
-        }
+        *{box-sizing:border-box;margin:0;padding:0;}
+        body{font-family:system-ui,-apple-system,'Segoe UI',Arial,sans-serif;}
+        ::-webkit-scrollbar{width:5px;height:5px;}
+        ::-webkit-scrollbar-track{background:${C.fondo};}
+        ::-webkit-scrollbar-thumb{background:${C.borde};border-radius:3px;}
+        ::-webkit-scrollbar-thumb:hover{background:${C.azulClaro};}
+        @keyframes pulse{0%,100%{opacity:.3;transform:scale(.8);}50%{opacity:1;transform:scale(1.1);}}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+        textarea:focus,input:focus{outline:none;border-color:${C.azulClaro}!important;box-shadow:0 0 0 3px rgba(74,144,217,.12);}
+        button:hover{opacity:.85;}
+        button:active{opacity:.7;}
+        .conv-item:hover{background:${C.fondo}!important;}
+        .sug-btn:hover{border-color:${C.azulClaro}!important;background:${C.azulSuave}!important;}
       `}</style>
 
       {toast && (
-        <div style={{ position: "fixed", bottom: 24, right: 24, background: "#1a1a2e", color: "#e8a020", padding: "12px 20px", fontSize: "11px", fontFamily: "'Courier New', monospace", letterSpacing: "1px", zIndex: 9999, boxShadow: "0 4px 20px rgba(0,0,0,0.3)" }}>
+        <div style={{ position:"fixed", bottom:24, right:24, background:C.azulOscuro, color:C.blanco, padding:"11px 20px", fontSize:"13px", fontWeight:"500", zIndex:9999, borderRadius:"6px", boxShadow:"0 4px 20px rgba(0,48,135,.3)", animation:"fadeIn .2s ease" }}>
           {toast}
         </div>
       )}
 
-      <div style={{ height: "100vh", display: "flex", flexDirection: "column", background: "#0f0f1a", fontFamily: "'Georgia', serif", color: "#e8e0d4" }}>
+      <div style={{ height:"100vh", display:"flex", flexDirection:"column", background:C.fondo, fontFamily:"system-ui,-apple-system,'Segoe UI',Arial,sans-serif", color:C.texto }}>
 
-        {/* Header */}
-        <div style={{ background: "#0f0f1a", padding: "0 20px", display: "flex", alignItems: "stretch", borderBottom: "1px solid #1a1a2e", flexShrink: 0 }}>
-          <button onClick={() => setSidebarAbierto(!sidebarAbierto)}
-            style={{ background: "none", border: "none", color: "#555", cursor: "pointer", padding: "0 16px 0 0", fontSize: "16px" }}>
+        {/* HEADER */}
+        <div style={{ background:C.azulOscuro, padding:"0 20px", display:"flex", alignItems:"center", gap:"16px", height:"56px", flexShrink:0, boxShadow:"0 2px 8px rgba(0,48,135,.25)" }}>
+          <button onClick={()=>setSidebar(!sidebar)}
+            style={{ background:"none", border:"none", color:"rgba(255,255,255,.7)", cursor:"pointer", padding:"4px 8px", fontSize:"18px", borderRadius:"4px" }}>
             ☰
           </button>
-          <div style={{ background: "#1a2a4a", padding: "12px 18px", display: "flex", alignItems: "center", marginRight: "16px" }}>
-            <span style={{ fontWeight: "900", fontSize: "11px", letterSpacing: "3px", color: "#fff", fontFamily: "'Courier New', monospace" }}>SONEPAR</span>
+          <div style={{ display:"flex", alignItems:"center", gap:"10px", borderRight:"1px solid rgba(255,255,255,.15)", paddingRight:"16px" }}>
+            <LogoSonepar size={22} color={C.blanco} />
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1 }}>
-            <span style={{ color: "#4a7ab5", fontFamily: "'Courier New', monospace", fontSize: "13px", letterSpacing: "4px", fontWeight: "700" }}>SONEX</span>
-            <span style={{ color: "#333", fontSize: "10px", fontFamily: "'Courier New', monospace", letterSpacing: "2px" }}>ASISTENTE TÉCNICO · v5 · SONEPAR</span>
-            {!sidebarAbierto && (
-              <span style={{ padding: "2px 8px", background: "#1a2a4a", color: "#4a9eff", fontSize: "9px", fontFamily: "'Courier New', monospace", letterSpacing: "1px", fontWeight: "700" }}>
-                {modoActual?.label.toUpperCase()}
+          <div style={{ display:"flex", alignItems:"center", gap:"10px", flex:1 }}>
+            <span style={{ color:C.blanco, fontSize:"16px", fontWeight:"700", letterSpacing:".3px" }}>SONEX</span>
+            <span style={{ color:"rgba(255,255,255,.4)", fontSize:"13px" }}>·</span>
+            <span style={{ color:"rgba(255,255,255,.55)", fontSize:"12px" }}>Asistente Técnico · A Coruña</span>
+            {!sidebar && modoObj && (
+              <span style={{ padding:"2px 10px", background:"rgba(255,255,255,.12)", color:"rgba(255,255,255,.85)", fontSize:"11px", borderRadius:"12px", border:"1px solid rgba(255,255,255,.2)", fontWeight:"500" }}>
+                {modoObj.icon} {modoObj.label}
               </span>
             )}
           </div>
-          <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
-            {mensajes.length > 0 && (
-              <button onClick={exportarConversacion}
-                style={{ ...S.btn("#1a2a4a") }}>
-                ↓ GUARDAR
+          <div style={{ display:"flex", gap:"8px" }}>
+            {msgs.length>0 && (
+              <button onClick={guardarConv} style={{ padding:"6px 14px", background:"rgba(255,255,255,.1)", color:C.blanco, border:"1px solid rgba(255,255,255,.25)", borderRadius:"4px", fontSize:"11px", fontWeight:"500", cursor:"pointer" }}>
+                ↓ Guardar
               </button>
             )}
-            <button onClick={() => { setModoRapido(!modoRapido); setRespuestaRapida(""); setInputRapido(""); }}
-              style={{ ...S.btn(modoRapido ? "#c07010" : "#1a2a4a") }}>
-              {modoRapido ? "MODO NORMAL" : "⚡ CONSULTA RÁPIDA"}
+            <button onClick={()=>{setRapido(!rapido);setRespRapida("");setInputRap("");}}
+              style={{ padding:"6px 14px", background:rapido?C.amarillo:"rgba(255,255,255,.1)", color:C.blanco, border:`1px solid ${rapido?C.amarillo:"rgba(255,255,255,.25)"}`, borderRadius:"4px", fontSize:"11px", fontWeight:"500", cursor:"pointer" }}>
+              {rapido?"✕ Cerrar rápido":"⚡ Consulta rápida"}
             </button>
           </div>
         </div>
 
-        <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
+        {/* Línea acento azul */}
+        <div style={{ height:"3px", background:`linear-gradient(90deg,${C.azulOscuro},${C.azulClaro},${C.azulOscuro})`, flexShrink:0 }} />
 
-          {/* Sidebar */}
-          {sidebarAbierto && (
-            <div style={{ width: "240px", background: "#0a0a14", borderRight: "1px solid #1a1a2e", display: "flex", flexDirection: "column", flexShrink: 0 }}>
-              <div style={{ padding: "12px" }}>
-                <button onClick={nuevaConversacion} style={{ ...S.btn("#1a2a4a", true), padding: "10px" }}>
-                  + NUEVA CONVERSACIÓN
+        <div style={{ flex:1, display:"flex", overflow:"hidden" }}>
+
+          {/* SIDEBAR */}
+          {sidebar && (
+            <div style={{ width:"256px", background:C.blanco, borderRight:`1px solid ${C.borde}`, display:"flex", flexDirection:"column", flexShrink:0 }}>
+              <div style={{ padding:"12px 14px", borderBottom:`1px solid ${C.borde}` }}>
+                <button onClick={nuevaConv} style={{ ...B(C.azulOscuro), width:"100%", padding:"10px 14px", textAlign:"left", borderRadius:"6px" }}>
+                  + Nueva conversación
                 </button>
               </div>
-
-              <div style={{ padding: "8px 12px", borderBottom: "1px solid #1a1a2e" }}>
-                <input
-                  value={busqueda}
-                  onChange={e => setBusqueda(e.target.value)}
-                  placeholder="Buscar conversación..."
-                  style={{ width: "100%", padding: "6px 10px", background: "#0f0f1a", border: "1px solid #1a2a4a", color: "#888", fontSize: "11px", fontFamily: "'Courier New', monospace", outline: "none" }}
-                />
+              <div style={{ padding:"10px 14px", borderBottom:`1px solid ${C.borde}` }}>
+                <input value={busq} onChange={e=>setBusq(e.target.value)} placeholder="Buscar conversación..."
+                  style={{ width:"100%", padding:"7px 11px", background:C.fondo, border:`1px solid ${C.borde}`, color:C.texto, fontSize:"12px", borderRadius:"5px" }} />
               </div>
-
-              <div style={{ flex: 1, overflowY: "auto", padding: "0 8px" }}>
-                <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#333", fontFamily: "'Courier New', monospace", padding: "8px 4px", marginBottom: "4px" }}>
-                  CONVERSACIONES ({conversaciones.length}/10)
+              <div style={{ flex:1, overflowY:"auto", padding:"6px 8px" }}>
+                <div style={{ fontSize:"10px", fontWeight:"600", color:C.textoTer, letterSpacing:".8px", textTransform:"uppercase", padding:"6px 6px", marginBottom:"2px" }}>
+                  Conversaciones ({convs.length}/10)
                 </div>
-                {convsFiltradas.map(c => (
-                  <div key={c.id}
-                    style={{ padding: "10px 10px", marginBottom: "2px", cursor: "pointer", background: c.id === convActiva ? "#1a2a4a" : "transparent", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}
-                    onClick={() => setConvActiva(c.id)}>
-                    <div style={{ flex: 1, overflow: "hidden" }}>
-                      <div style={{ fontSize: "11px", color: c.id === convActiva ? "#e8e0d4" : "#888", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginBottom: "2px" }}>
-                        {c.nombre}
-                      </div>
-                      <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace" }}>
-                        {c.mensajes.filter(m => m.rol === "user").length} mensajes
-                      </div>
+                {convsFilt.map(c => (
+                  <div key={c.id} className="conv-item"
+                    style={{ padding:"9px 10px", marginBottom:"2px", cursor:"pointer", borderRadius:"6px", background:c.id===activa?C.azulSuave:"transparent", border:`1px solid ${c.id===activa?C.bordeAct:"transparent"}`, display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:"8px" }}
+                    onClick={()=>setActiva(c.id)}>
+                    <div style={{ flex:1, overflow:"hidden" }}>
+                      <div style={{ fontSize:"12px", color:c.id===activa?C.azulMedio:C.textoSec, whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis", fontWeight:c.id===activa?"600":"400" }}>{c.nombre}</div>
+                      <div style={{ fontSize:"10px", color:C.textoTer, marginTop:"2px" }}>{c.mensajes.filter(m=>m.rol==="user").length} mensajes</div>
                     </div>
-                    <button onClick={e => { e.stopPropagation(); borrarConversacion(c.id); }}
-                      style={{ background: "none", border: "none", color: "#333", cursor: "pointer", fontSize: "12px", padding: "0", flexShrink: 0 }}>
-                      ×
-                    </button>
+                    <button onClick={e=>{e.stopPropagation();borrarConv(c.id);}}
+                      style={{ background:"none", border:"none", color:C.textoTer, cursor:"pointer", fontSize:"14px", padding:"0", lineHeight:"1" }}>×</button>
                   </div>
                 ))}
               </div>
 
               {/* Modos */}
-              <div style={{ padding: "12px", borderTop: "1px solid #1a1a2e" }}>
-                <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "8px" }}>MODO DE CONSULTA</div>
+              <div style={{ padding:"12px 14px", borderTop:`1px solid ${C.borde}` }}>
+                <div style={{ fontSize:"10px", fontWeight:"600", color:C.textoTer, letterSpacing:".8px", textTransform:"uppercase", marginBottom:"8px" }}>Modo de consulta</div>
                 {MODOS.map(m => (
-                  <button key={m.id} onClick={() => setModo(m.id)}
-                    style={{ display: "block", width: "100%", padding: "7px 10px", marginBottom: "3px", textAlign: "left", fontSize: "11px", fontFamily: "'Courier New', monospace", cursor: "pointer", background: modo === m.id ? "#1a2a4a" : "transparent", color: modo === m.id ? "#4a9eff" : "#555", border: `1px solid ${modo === m.id ? "#1a2a4a" : "transparent"}` }}>
-                    {m.label}
-                    <div style={{ fontSize: "9px", color: "#333", marginTop: "1px" }}>{m.desc}</div>
+                  <button key={m.id} onClick={()=>setModo(m.id)}
+                    style={{ display:"flex", alignItems:"center", gap:"9px", width:"100%", padding:"8px 10px", marginBottom:"2px", textAlign:"left", fontSize:"12px", cursor:"pointer", borderRadius:"5px", background:modo===m.id?C.azulSuave:"transparent", color:modo===m.id?C.azulMedio:C.textoSec, border:`1px solid ${modo===m.id?C.bordeAct:"transparent"}`, fontWeight:modo===m.id?"600":"400" }}>
+                    <span style={{ fontSize:"14px", width:"16px", textAlign:"center", flexShrink:0 }}>{m.icon}</span>
+                    <div>
+                      <div>{m.label}</div>
+                      <div style={{ fontSize:"10px", color:modo===m.id?C.azulClaro:C.textoTer, fontWeight:"400" }}>{m.desc}</div>
+                    </div>
                   </button>
                 ))}
               </div>
 
-              {/* Analytics */}
-              <div style={{ padding: "8px 12px", borderTop: "1px solid #1a1a2e" }}>
-                <button onClick={() => setVerAnalytics(!verAnalytics)}
-                  style={{ width: "100%", padding: "7px 10px", background: "transparent", border: "1px solid #1a2a4a", color: "#555", fontSize: "9px", fontFamily: "'Courier New', monospace", cursor: "pointer", letterSpacing: "1px", textAlign: "left" }}>
-                  {verAnalytics ? "▲ OCULTAR STATS" : "▼ VER ESTADÍSTICAS"}
+              {/* Stats */}
+              <div style={{ padding:"10px 14px", borderTop:`1px solid ${C.borde}` }}>
+                <button onClick={()=>setVerStats(!verStats)}
+                  style={{ width:"100%", padding:"7px 10px", background:"transparent", border:`1px solid ${C.borde}`, color:C.textoSec, fontSize:"11px", cursor:"pointer", borderRadius:"5px", textAlign:"left", fontWeight:"500" }}>
+                  {verStats?"▲ Ocultar estadísticas":"▼ Ver estadísticas"}
                 </button>
-                {verAnalytics && (
-                  <div style={{ marginTop: "8px", padding: "10px", background: "#0f0f1a", border: "1px solid #1a2a4a" }}>
-                    {!analytics ? (
-                      <div style={{ fontSize: "10px", color: "#333", fontFamily: "'Courier New', monospace" }}>Sin datos aún. Haz algunas consultas primero.</div>
-                    ) : (
+                {verStats && (
+                  <div style={{ marginTop:"8px", padding:"10px 12px", background:C.fondo, border:`1px solid ${C.borde}`, borderRadius:"5px" }}>
+                    {!stats ? <div style={{ fontSize:"11px", color:C.textoTer }}>Sin datos aún. Haz algunas consultas primero.</div> : (
                       <>
-                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>CONSULTAS TOTALES: <span style={{ color: "#4a9eff" }}>{analytics.total}</span></div>
-                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>CONFIANZA ALTA: <span style={{ color: "#4caf82" }}>{analytics.pctAlta}%</span></div>
-                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>CONFIANZA BAJA: <span style={{ color: "#e57373" }}>{analytics.pctBaja}%</span></div>
-                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>MODO TOP: <span style={{ color: "#ffb74d" }}>{analytics.modoTop || "—"}</span></div>
-                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace" }}>FAMILIA TOP: <span style={{ color: "#4a7ab5" }}>{analytics.familiaTop || "—"}</span></div>
+                        <div style={{ fontSize:"11px", color:C.textoSec, marginBottom:"5px" }}>Consultas totales: <strong style={{color:C.azulMedio}}>{stats.total}</strong></div>
+                        <div style={{ fontSize:"11px", color:C.textoSec, marginBottom:"5px" }}>Alta confianza: <strong style={{color:C.verde}}>{stats.pA}%</strong></div>
+                        <div style={{ fontSize:"11px", color:C.textoSec, marginBottom:"5px" }}>A verificar: <strong style={{color:C.rojo}}>{stats.pB}%</strong></div>
+                        {stats.mT && <div style={{ fontSize:"11px", color:C.textoSec, marginBottom:"5px" }}>Modo más usado: <strong style={{color:C.azulMedio}}>{stats.mT}</strong></div>}
+                        {stats.fT && <div style={{ fontSize:"11px", color:C.textoSec }}>Familia top: <strong style={{color:C.azulMedio}}>{stats.fT}</strong></div>}
                       </>
                     )}
                   </div>
                 )}
               </div>
-
-              {/* Disclaimer */}
-              <div style={{ padding: "10px 12px", borderTop: "1px solid #1a1a2e" }}>
-                <div style={{ fontSize: "9px", color: "#333", lineHeight: "1.5", fontFamily: "'Courier New', monospace" }}>
-                  ⚠ SONEX es una herramienta de apoyo para el técnico de mostrador. Las respuestas son orientativas — verificar con documentación del fabricante y catálogo Sonepar antes de cualquier instalación o pedido.
-                </div>
-              </div>
             </div>
           )}
 
-          {/* Área principal */}
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          {/* ÁREA PRINCIPAL */}
+          <div style={{ flex:1, display:"flex", flexDirection:"column", overflow:"hidden", background:C.fondo }}>
 
-            {/* Modo consulta rápida */}
-            {modoRapido && (
-              <div style={{ background: "#0f0f1a", borderBottom: "1px solid #1a1a2e", padding: "16px 24px" }}>
-                <div style={{ fontSize: "9px", letterSpacing: "3px", color: "#c07010", fontFamily: "'Courier New', monospace", marginBottom: "10px" }}>⚡ CONSULTA RÁPIDA — respuesta en máx. 3 frases · no guarda historial</div>
-                <div style={{ display: "flex", gap: "8px", marginBottom: respuestaRapida ? "12px" : "0" }}>
-                  <input
-                    value={inputRapido}
-                    onChange={e => setInputRapido(e.target.value)}
-                    placeholder="Pregunta directa..."
-                    style={{ flex: 1, padding: "9px 14px", background: "#0a0a14", border: "1px solid #1a2a4a", color: "#e8e0d4", fontSize: "13px", fontFamily: "'Georgia', serif", outline: "none" }}
-                    onKeyDown={e => e.key === "Enter" && consultaRapida()}
-                  />
-                  <button onClick={consultaRapida} disabled={cargandoRapido}
-                    style={{ ...S.btn(cargandoRapido ? "#333" : "#c07010") }}>
-                    {cargandoRapido ? "..." : "›"}
-                  </button>
-                </div>
-                {respuestaRapida && (
-                  <div style={{ background: "#0a0a14", border: "1px solid #1a2a4a", padding: "12px 16px", fontSize: "13px", color: "#e8e0d4", lineHeight: "1.6" }}>
-                    {respuestaRapida}
-                    <div style={{ marginTop: "10px" }}>
-                      <button onClick={() => { navigator.clipboard.writeText(respuestaRapida); showToast("Copiado"); }}
-                        style={{ ...S.btnOutline("#333"), padding: "3px 8px", fontSize: "9px" }}>
-                        COPIAR
-                      </button>
-                    </div>
+            {/* Consulta rápida */}
+            {rapido && (
+              <div style={{ padding:"16px 24px", background:C.blanco, borderBottom:`1px solid ${C.borde}`, flexShrink:0 }}>
+                <div style={{ maxWidth:"720px" }}>
+                  <div style={{ fontSize:"11px", fontWeight:"600", color:C.textoTer, letterSpacing:".5px", textTransform:"uppercase", marginBottom:"8px" }}>⚡ Consulta rápida — sin historial</div>
+                  <div style={{ display:"flex", gap:"8px" }}>
+                    <input value={inputRap} onChange={e=>setInputRap(e.target.value)} onKeyDown={e=>{if(e.key==="Enter")consultaRapida();}}
+                      placeholder="Consulta de dato rápido..."
+                      style={{ flex:1, padding:"9px 13px", border:`1px solid ${C.borde}`, borderRadius:"5px", fontSize:"13px", color:C.texto, background:C.fondo }} />
+                    <button onClick={consultaRapida} disabled={cargRap||!inputRap.trim()}
+                      style={{ ...B(C.azulOscuro), borderRadius:"5px", opacity:cargRap||!inputRap.trim()?0.4:1 }}>
+                      {cargRap?"...":"Preguntar"}
+                    </button>
                   </div>
-                )}
+                  {respRapida && (
+                    <div style={{ marginTop:"10px", padding:"12px 15px", background:C.azulSuave, border:`1px solid ${C.bordeAct}`, borderRadius:"5px", fontSize:"13px", color:C.texto, lineHeight:"1.6" }}>
+                      {respRapida}
+                    </div>
+                  )}
+                </div>
               </div>
             )}
 
             {/* Mensajes */}
-            <div style={{ flex: 1, overflowY: "auto", padding: "24px" }}>
-              {mensajes.length === 0 && (
-                <div style={{ maxWidth: "580px", margin: "0 auto" }}>
-                  <div style={{ textAlign: "center", marginBottom: "32px" }}>
-                    <div style={{ fontSize: "48px", marginBottom: "12px", opacity: 0.15 }}>◈</div>
-                    <div style={{ fontSize: "20px", fontWeight: "700", color: "#4a7ab5", marginBottom: "8px" }}>SONEX</div>
-                    <div style={{ fontSize: "12px", color: "#444", fontFamily: "'Courier New', monospace", letterSpacing: "2px" }}>ASISTENTE TÉCNICO · SONEPAR A CORUÑA</div>
-                    <div style={{ marginTop: "8px", fontSize: "11px", color: "#333", fontFamily: "'Courier New', monospace" }}>
-                      Modo: <span style={{ color: "#4a9eff" }}>{modoActual?.label}</span> — {modoActual?.desc}
+            <div style={{ flex:1, overflowY:"auto", padding:"24px 28px" }}>
+              {msgs.length===0 && (
+                <div style={{ maxWidth:"640px", margin:"0 auto" }}>
+                  <div style={{ display:"flex", alignItems:"center", gap:"14px", marginBottom:"6px" }}>
+                    <div style={{ width:"48px", height:"48px", borderRadius:"10px", background:C.azulOscuro, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}>
+                      <LogoSonepar size={16} color={C.blanco} />
+                    </div>
+                    <div>
+                      <div style={{ fontSize:"20px", fontWeight:"700", color:C.texto }}>SONEX</div>
+                      <div style={{ fontSize:"13px", color:C.textoSec }}>Asistente técnico · Sonepar España · A Coruña</div>
                     </div>
                   </div>
-                  <div style={{ fontSize: "9px", letterSpacing: "3px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "12px" }}>CONSULTAS FRECUENTES — {modoActual?.label.toUpperCase()}</div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                    {sugerencias.map((s, i) => (
-                      <button key={i} onClick={() => enviar(s)}
-                        style={{ padding: "12px 16px", background: "#0a0a14", border: "1px solid #1a2a4a", color: "#888", fontSize: "12px", textAlign: "left", cursor: "pointer", fontFamily: "'Georgia', serif", lineHeight: "1.4" }}>
+                  <p style={{ fontSize:"14px", color:C.textoSec, lineHeight:"1.6", marginBottom:"20px", paddingLeft:"62px" }}>
+                    Modo activo: <strong style={{color:C.azulMedio}}>{modoObj?.icon} {modoObj?.label}</strong> — {modoObj?.desc}
+                  </p>
+                  <div style={{ fontSize:"11px", fontWeight:"600", color:C.textoTer, letterSpacing:".6px", textTransform:"uppercase", marginBottom:"10px" }}>Consultas frecuentes</div>
+                  <div style={{ display:"flex", flexDirection:"column", gap:"6px" }}>
+                    {sugs.map((s,i) => (
+                      <button key={i} className="sug-btn" onClick={()=>enviar(s)}
+                        style={{ padding:"11px 15px", background:C.blanco, border:`1px solid ${C.borde}`, borderRadius:"6px", color:C.textoSec, fontSize:"13px", textAlign:"left", cursor:"pointer", lineHeight:"1.4" }}>
                         {s}
                       </button>
                     ))}
@@ -776,40 +636,25 @@ export default function Sonex() {
                 </div>
               )}
 
-              {mensajes.map((msg, i) => (
-                <div key={i} style={{ marginBottom: "20px", display: "flex", flexDirection: msg.rol === "user" ? "row-reverse" : "row", gap: "12px", alignItems: "flex-start" }}>
-                  <div style={{ width: "28px", height: "28px", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", background: msg.rol === "user" ? "#1a2a4a" : "#0a0a14", border: "1px solid #1a2a4a", fontSize: "10px", fontFamily: "'Courier New', monospace", color: msg.rol === "user" ? "#4a9eff" : "#4a7ab5", fontWeight: "700" }}>
-                    {msg.rol === "user" ? "YO" : "SX"}
+              {msgs.map((msg, i) => (
+                <div key={i} style={{ marginBottom:"20px", display:"flex", flexDirection:msg.rol==="user"?"row-reverse":"row", gap:"12px", alignItems:"flex-start", animation:"fadeIn .2s ease" }}>
+                  <div style={{ width:"32px", height:"32px", borderRadius:"8px", flexShrink:0, display:"flex", alignItems:"center", justifyContent:"center", background:msg.rol==="user"?C.azulSuave:C.azulOscuro, border:`1px solid ${msg.rol==="user"?C.bordeAct:C.azulOscuro}`, fontSize:"10px", fontWeight:"700", color:msg.rol==="user"?C.azulMedio:C.blanco }}>
+                    {msg.rol==="user"?"TÚ":"SX"}
                   </div>
-                  <div style={{ maxWidth: "75%" }}>
-                  <div style={{ background: msg.rol === "user" ? "#0d1a2e" : "#0a0a14", border: `1px solid ${msg.rol === "user" ? "#1a2a4a" : "#1a1a2e"}`, padding: "14px 18px", fontSize: "13px", lineHeight: "1.7", color: "#d4ccc4", wordBreak: "break-word" }}>
-                      {msg.rol === "user"
-                        ? <span style={{ whiteSpace: "pre-wrap" }}>{msg.texto}</span>
+                  <div style={{ maxWidth:"74%" }}>
+                    <div style={{ background:msg.rol==="user"?C.azulSuave:C.blanco, border:`1px solid ${msg.rol==="user"?C.bordeAct:C.borde}`, borderRadius:msg.rol==="user"?"12px 4px 12px 12px":"4px 12px 12px 12px", padding:"13px 17px", boxShadow:"0 1px 3px rgba(0,0,0,.06)" }}>
+                      {msg.rol==="user"
+                        ? <span style={{ whiteSpace:"pre-wrap", fontSize:"14px", color:C.texto, lineHeight:"1.6" }}>{msg.texto}</span>
                         : <RenderTexto texto={msg.texto} />
                       }
                     </div>
-                    {msg.rol === "bot" && (
-                      <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "6px", flexWrap: "wrap" }}>
-                        <BadgeConfianza nivel={msg.confianza} />
-                        {msg.familia && (
-                          <span style={{ padding: "2px 8px", background: "#0d1a2e", color: "#4a7ab5", fontSize: "9px", fontFamily: "'Courier New', monospace", letterSpacing: "0.5px", border: "1px solid #1a2a4a" }}>
-                            {msg.familia}
-                          </span>
-                        )}
-                        <button onClick={() => copiarMensaje(msg.texto)}
-                          style={{ ...S.btnOutline("#333"), padding: "3px 8px", fontSize: "9px", color: "#444" }}>
-                          COPIAR
-                        </button>
-                        <button onClick={() => {
-                          const prev = mensajes[mensajes.indexOf(msg) - 1];
-                          exportarConsulta(prev?.texto || "", msg.texto);
-                        }}
-                          style={{ ...S.btnOutline("#1a2a4a"), padding: "3px 8px", fontSize: "9px", color: "#4a7ab5" }}>
-                          EXPORTAR
-                        </button>
-                        <span style={{ fontSize: "9px", color: "#2a2a3e", fontFamily: "'Courier New', monospace" }}>
-                          {new Date(msg.ts).toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" })}
-                        </span>
+                    {msg.rol==="bot" && (
+                      <div style={{ display:"flex", gap:"6px", alignItems:"center", marginTop:"6px", flexWrap:"wrap" }}>
+                        <Badge nivel={msg.confianza} />
+                        {msg.familia && <span style={{ padding:"2px 9px", background:C.fondo, color:C.textoSec, fontSize:"10px", borderRadius:"10px", border:`1px solid ${C.borde}`, fontWeight:"500" }}>{msg.familia}</span>}
+                        <button onClick={()=>copiar(msg.texto)} style={{ ...B(C.textoTer,true), padding:"2px 9px", fontSize:"10px" }}>Copiar</button>
+                        <button onClick={()=>{ const p=msgs[msgs.indexOf(msg)-1]; exportarConsulta(p?.texto||"",msg.texto); }} style={{ ...B(C.azulClaro,true), padding:"2px 9px", fontSize:"10px" }}>Exportar</button>
+                        <span style={{ fontSize:"10px", color:C.textoTer }}>{new Date(msg.ts).toLocaleTimeString("es-ES",{hour:"2-digit",minute:"2-digit"})}</span>
                       </div>
                     )}
                   </div>
@@ -817,63 +662,55 @@ export default function Sonex() {
               ))}
 
               {cargando && (
-                <div style={{ display: "flex", gap: "12px", alignItems: "flex-start", marginBottom: "20px" }}>
-                  <div style={{ width: "28px", height: "28px", display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0a14", border: "1px solid #1a2a4a", fontSize: "10px", fontFamily: "'Courier New', monospace", color: "#4a7ab5", fontWeight: "700" }}>SX</div>
-                  <div style={{ background: "#0a0a14", border: "1px solid #1a2a4a", padding: "14px 18px", display: "flex", gap: "6px", alignItems: "center" }}>
-                    {[0, 1, 2].map(i => (
-                      <div key={i} style={{ width: "5px", height: "5px", background: "#4a7ab5", borderRadius: "50%", animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite` }} />
-                    ))}
+                <div style={{ display:"flex", gap:"12px", alignItems:"flex-start", marginBottom:"20px" }}>
+                  <div style={{ width:"32px", height:"32px", borderRadius:"8px", display:"flex", alignItems:"center", justifyContent:"center", background:C.azulOscuro, fontSize:"10px", fontWeight:"700", color:C.blanco }}>SX</div>
+                  <div style={{ background:C.blanco, border:`1px solid ${C.borde}`, borderRadius:"4px 12px 12px 12px", padding:"14px 18px", display:"flex", gap:"5px", alignItems:"center", boxShadow:"0 1px 3px rgba(0,0,0,.06)" }}>
+                    {[0,1,2].map(i=><div key={i} style={{ width:"6px", height:"6px", background:C.azulClaro, borderRadius:"50%", animation:`pulse 1.2s ease-in-out ${i*.2}s infinite` }} />)}
                   </div>
                 </div>
               )}
 
-              {limitAlcanzado && (
-                <div style={{ background: "#1a0a0a", border: "1px solid #c62828", padding: "12px 18px", marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <span style={{ fontSize: "11px", color: "#c62828", fontFamily: "'Courier New', monospace" }}>
-                    Límite de {LIMITE} mensajes alcanzado
-                  </span>
-                  <button onClick={nuevaConversacion} style={{ ...S.btn("#c62828"), padding: "6px 14px", fontSize: "9px" }}>
-                    NUEVA CONVERSACIÓN
-                  </button>
+              {limitado && (
+                <div style={{ background:C.rojoSuave, border:`1px solid ${C.rojo}`, borderRadius:"6px", padding:"12px 18px", marginBottom:"16px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                  <span style={{ fontSize:"13px", color:C.rojo, fontWeight:"500" }}>Límite de {LIMITE} mensajes alcanzado</span>
+                  <button onClick={nuevaConv} style={{ ...B(C.rojo), borderRadius:"4px", fontSize:"11px" }}>Nueva conversación</button>
                 </div>
               )}
-
               <div ref={bottomRef} />
             </div>
 
-            {/* Input */}
-            <div style={{ padding: "16px 24px", background: "#0a0a14", borderTop: "1px solid #1a1a2e", flexShrink: 0 }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace" }}>
-                  MODO: <span style={{ color: "#4a7ab5" }}>{modoActual?.label.toUpperCase()}</span>
-                  <span style={{ color: "#222", marginLeft: "8px" }}>· {modoActual?.desc}</span>
-                </div>
-                <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-                  {puedeEscalar && (
-                    <button onClick={escalarTecnico}
-                      style={{ ...S.btnOutline("#c07010"), padding: "3px 10px", fontSize: "9px", color: "#c07010" }}>
-                      ESCALAR ↑
-                    </button>
-                  )}
-                  <div style={{ fontSize: "9px", color: limitAlcanzado ? "#c62828" : "#333", fontFamily: "'Courier New', monospace" }}>
-                    {mensajes.filter(m => m.rol === "user").length}/{LIMITE}
+            {/* INPUT */}
+            <div style={{ padding:"14px 24px 18px", background:C.blanco, borderTop:`1px solid ${C.borde}`, flexShrink:0 }}>
+              <div style={{ maxWidth:"860px" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px" }}>
+                  <div style={{ fontSize:"11px", color:C.textoTer }}>
+                    <span style={{ fontWeight:"600", color:C.azulMedio }}>{modoObj?.icon} {modoObj?.label}</span>
+                    <span style={{ color:C.borde, margin:"0 6px" }}>·</span>
+                    <span>{modoObj?.desc}</span>
+                  </div>
+                  <div style={{ display:"flex", gap:"8px", alignItems:"center" }}>
+                    {puedeEscalar && (
+                      <button onClick={escalar} style={{ ...B(C.amarillo,true), padding:"3px 10px", fontSize:"10px" }}>↑ Escalar</button>
+                    )}
+                    <div style={{ fontSize:"11px", color:limitado?C.rojo:C.textoTer, fontWeight:limitado?"600":"400" }}>
+                      {msgs.filter(m=>m.rol==="user").length}/{LIMITE}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div style={{ display: "flex", gap: "8px" }}>
-                <textarea
-                  value={input}
-                  onChange={e => setInput(e.target.value)}
-                  onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); enviar(); } }}
-                  placeholder={limitAlcanzado ? "Límite alcanzado — inicia una nueva conversación" : "Escribe tu consulta técnica... (Enter para enviar, Shift+Enter para nueva línea)"}
-                  disabled={limitAlcanzado}
-                  rows={2}
-                  style={{ flex: 1, padding: "11px 14px", background: "#0f0f1a", border: "1px solid #1a2a4a", color: "#e8e0d4", fontSize: "13px", fontFamily: "'Georgia', serif", outline: "none", resize: "none", opacity: limitAlcanzado ? 0.4 : 1 }}
-                />
-                <button onClick={() => enviar()} disabled={cargando || limitAlcanzado || !input.trim()}
-                  style={{ ...S.btn(cargando || limitAlcanzado || !input.trim() ? "#1a1a2e" : "#1a2a4a"), padding: "0 20px", alignSelf: "stretch", fontSize: "16px" }}>
-                  ›
-                </button>
+                <div style={{ display:"flex", gap:"10px", alignItems:"flex-end" }}>
+                  <textarea
+                    value={input} onChange={e=>setInput(e.target.value)}
+                    onKeyDown={e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();enviar();}}}
+                    placeholder={limitado?"Límite alcanzado — inicia una nueva conversación":"Escribe tu consulta técnica... (Enter envía, Shift+Enter nueva línea)"}
+                    disabled={limitado} rows={2}
+                    style={{ flex:1, padding:"11px 14px", background:C.fondo, border:`1px solid ${C.borde}`, borderRadius:"6px", color:C.texto, fontSize:"14px", resize:"none", opacity:limitado?.4:1, lineHeight:"1.5" }}
+                  />
+                  <button onClick={()=>enviar()} disabled={cargando||limitado||!input.trim()}
+                    style={{ ...B(C.azulOscuro), padding:"0 22px", height:"58px", fontSize:"20px", borderRadius:"6px", opacity:cargando||limitado||!input.trim()?0.35:1 }}>→</button>
+                </div>
+                <div style={{ fontSize:"10px", color:C.textoTer, marginTop:"7px", textAlign:"center" }}>
+                  SONEX es un prototipo de apoyo al mostrador. Verifica siempre con el catálogo Sonepar y la documentación del fabricante antes de cualquier pedido o instalación.
+                </div>
               </div>
             </div>
           </div>
