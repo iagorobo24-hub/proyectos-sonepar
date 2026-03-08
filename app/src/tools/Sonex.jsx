@@ -85,7 +85,7 @@ const MODOS = [
 const PROMPT_MODO = {
   general:     "",
   averia:      "\n\nMODO AVERÍA ACTIVO: El cliente tiene un equipo con fallo. Aplica siempre la estructura: Causa probable → Verificaciones → Solución → Prevención → Consejo práctico. Sé directo — el cliente está delante del equipo.",
-  seleccion:   "\n\nMODO SELECCIÓN ACTIVO: El cliente necesita elegir un producto. Confirma los parámetros clave si faltan. Recomienda siempre marca Sonepar con argumentación técnica y ofrece una alternativa.",
+  seleccion:   "\n\nMODO SELECCIÓN ACTIVO: El cliente necesita elegir un producto. Confirma los parámetros clave si faltan. Recomienda siempre marca Sonepar con argumentación técnica. Termina siempre con una sección 'ALTERNATIVA:' indicando otro producto del portfolio Sonepar para el mismo caso, con la diferencia técnica principal respecto a tu recomendación.",
   normas:      "\n\nMODO NORMATIVA ACTIVO: Cita siempre la norma exacta (IEC, UNE, RD, ITC-BT con número y apartado). Explica el requisito concreto y cómo aplica al caso del cliente.",
   residencial: "\n\nMODO RESIDENCIAL ACTIVO: Instalación doméstica o terciario. Usa vocabulario REBT/ITC-BT. Referencia el ITC-BT aplicable. Recomienda productos Sonepar para instalación doméstica (Hager, Legrand, Schneider Homeline, Simon). El cliente suele ser instalador autónomo de obra nueva o reforma.",
 };
@@ -130,6 +130,45 @@ const SUGERENCIAS_POR_MODO = {
 
 const CONV_NUEVA = (id) => ({ id, nombre: "Nueva conversación", mensajes: [], ts: Date.now() });
 
+// ── Detección de familia por palabras clave ──────────────
+const KEYWORDS_FAMILIA = [
+  { familia: "Protección y Maniobra",            keys: ["contactor", "relé", "guardamotor", "bobina", "af09", "lc1", "ms", "msx", "rm"] },
+  { familia: "Variadores y Arranque",             keys: ["variador", "atv", "acs", "sinamics", "vfd", "arrancador", "inverter", "frecuencia"] },
+  { familia: "PLC y Automatización",              keys: ["plc", "autómata", "modicon", "s7", "simatic", "hmi", "scada", "sensor", "encoder"] },
+  { familia: "Iluminación",                       keys: ["luminaria", "led", "downlight", "pantalla", "alumbrado", "proyector", "lámpara"] },
+  { familia: "Cableado y Canalizaciones",         keys: ["cable", "sección", "bandeja", "tubo", "rvk", "xlpe", "pvc", "canaleta", "manguera"] },
+  { familia: "Protección Eléctrica",              keys: ["diferencial", "magnetotérmico", "iga", "icp", "interruptor", "rccb", "mcb", "fusible"] },
+  { familia: "Vehículo Eléctrico",                keys: ["vehículo eléctrico", "recarga", "carga ve", "evlink", "wallbox", "punto de carga", "modo 2", "modo 3"] },
+  { familia: "Energías Renovables",               keys: ["solar", "fotovoltaica", "inversor", "batería", "fronius", "sma", "huawei", "panel"] },
+  { familia: "Conectividad y Señal",              keys: ["relé de señal", "finder", "phoenix", "wago", "regleta", "borner", "conector"] },
+];
+
+function detectarFamilia(texto) {
+  const t = texto.toLowerCase();
+  for (const { familia, keys } of KEYWORDS_FAMILIA) {
+    if (keys.some(k => t.includes(k))) return familia;
+  }
+  return null;
+}
+
+// ── Stats ────────────────────────────────────────────────
+function guardarStat({ modo, confianza, familia }) {
+  try {
+    const raw = localStorage.getItem("sonepar_sonex_stats");
+    const stats = raw ? JSON.parse(raw) : [];
+    stats.push({ ts: Date.now(), modo, confianza, familia });
+    if (stats.length > 200) stats.splice(0, stats.length - 200);
+    localStorage.setItem("sonepar_sonex_stats", JSON.stringify(stats));
+  } catch {}
+}
+
+function leerStats() {
+  try {
+    const raw = localStorage.getItem("sonepar_sonex_stats");
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
+}
+
 function parseConfianza(texto) {
   const match = texto.match(/\[CONFIANZA:(\d)\]/);
   return match ? parseInt(match[1]) : null;
@@ -165,6 +204,8 @@ export default function Sonex() {
   const [respuestaRapida, setRespuestaRapida] = useState("");
   const [cargandoRapido, setCargandoRapido] = useState(false);
   const [inputRapido, setInputRapido] = useState("");
+  const [verAnalytics, setVerAnalytics] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
 
   const bottomRef = useRef(null);
 
@@ -239,7 +280,9 @@ export default function Sonex() {
       const textoLimpio = limpiarConfianza(respuesta);
 
       const mensajeBot = { rol: "bot", texto: textoLimpio, confianza, ts: Date.now() };
-      const conFinal = [...historialActualizado, mensajeBot];
+      const familia = detectarFamilia(texto);
+      guardarStat({ modo, confianza, familia });
+      const conFinal = [...historialActualizado, { ...mensajeBot, familia }];
       const convsFinales = conversaciones.map(c => c.id === convActiva ? { ...c, nombre: nombreConv, mensajes: conFinal } : c);
       setConversaciones(convsFinales);
       guardar(convsFinales);
@@ -302,8 +345,43 @@ export default function Sonex() {
     navigator.clipboard.writeText(texto).then(() => showToast("Respuesta copiada"));
   };
 
+  const exportarConsulta = (pregunta, respuesta) => {
+    const fecha = new Date().toLocaleString("es-ES");
+    const txt = `CONSULTA SONEX — ${fecha}\nModo: ${modoActual?.label}\n\nPREGUNTA:\n${pregunta}\n\nRESPUESTA:\n${respuesta}\n\n⚠ Verificar con documentación técnica del fabricante y catálogo Sonepar antes de cualquier instalación o pedido.`;
+    navigator.clipboard.writeText(txt).then(() => showToast("Consulta exportada al portapapeles"));
+  };
+
+  const escalarTecnico = () => {
+    const fecha = new Date().toLocaleString("es-ES");
+    const ultimaBot = [...mensajes].reverse().find(m => m.rol === "bot");
+    const ultimaUser = [...mensajes].reverse().find(m => m.rol === "user");
+    const confianzaLabel = ultimaBot?.confianza === 1 ? "Baja — verificar" : ultimaBot?.confianza === 2 ? "Media" : "Alta";
+    const txt = `ESCALADO SONEX — ${fecha}\nModo: ${modoActual?.label} | Confianza última respuesta: ${confianzaLabel}\n\nÚLTIMA PREGUNTA:\n${ultimaUser?.texto || ""}\n\nÚLTIMA RESPUESTA SONEX:\n${ultimaBot?.texto || ""}\n\nSolicito revisión por técnico senior.`;
+    navigator.clipboard.writeText(txt).then(() => showToast("Escalado copiado al portapapeles"));
+  };
+
+  const calcularAnalytics = () => {
+    const stats = leerStats();
+    if (stats.length === 0) return null;
+    const total = stats.length;
+    const alta = stats.filter(s => s.confianza === 3).length;
+    const baja = stats.filter(s => s.confianza === 1).length;
+    const modoCount = {};
+    stats.forEach(s => { modoCount[s.modo] = (modoCount[s.modo] || 0) + 1; });
+    const modoTop = Object.entries(modoCount).sort((a, b) => b[1] - a[1])[0];
+    const familiaCount = {};
+    stats.filter(s => s.familia).forEach(s => { familiaCount[s.familia] = (familiaCount[s.familia] || 0) + 1; });
+    const familiaTop = Object.entries(familiaCount).sort((a, b) => b[1] - a[1])[0];
+    return { total, pctAlta: Math.round(alta / total * 100), pctBaja: Math.round(baja / total * 100), modoTop: modoTop?.[0], familiaTop: familiaTop?.[0] };
+  };
+
   const sugerencias = SUGERENCIAS_POR_MODO[modo] || SUGERENCIAS_POR_MODO.general;
   const modoActual = MODOS.find(m => m.id === modo);
+  const convsFiltradas = busqueda.trim()
+    ? conversaciones.filter(c => c.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+    : conversaciones;
+  const analytics = calcularAnalytics();
+  const puedeEscalar = mensajes.filter(m => m.rol === "user").length >= 2;
 
   const S = {
     btn: (color = "#1a1a2e", full = false) => ({
@@ -351,7 +429,7 @@ export default function Sonex() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1 }}>
             <span style={{ color: "#4a7ab5", fontFamily: "'Courier New', monospace", fontSize: "13px", letterSpacing: "4px", fontWeight: "700" }}>SONEX</span>
-            <span style={{ color: "#333", fontSize: "10px", fontFamily: "'Courier New', monospace", letterSpacing: "2px" }}>ASISTENTE TÉCNICO · v3 · SONEPAR</span>
+            <span style={{ color: "#333", fontSize: "10px", fontFamily: "'Courier New', monospace", letterSpacing: "2px" }}>ASISTENTE TÉCNICO · v4 · SONEPAR</span>
             {!sidebarAbierto && (
               <span style={{ padding: "2px 8px", background: "#1a2a4a", color: "#4a9eff", fontSize: "9px", fontFamily: "'Courier New', monospace", letterSpacing: "1px", fontWeight: "700" }}>
                 {modoActual?.label.toUpperCase()}
@@ -377,11 +455,20 @@ export default function Sonex() {
                 </button>
               </div>
 
+              <div style={{ padding: "8px 12px", borderBottom: "1px solid #1a1a2e" }}>
+                <input
+                  value={busqueda}
+                  onChange={e => setBusqueda(e.target.value)}
+                  placeholder="Buscar conversación..."
+                  style={{ width: "100%", padding: "6px 10px", background: "#0f0f1a", border: "1px solid #1a2a4a", color: "#888", fontSize: "11px", fontFamily: "'Courier New', monospace", outline: "none" }}
+                />
+              </div>
+
               <div style={{ flex: 1, overflowY: "auto", padding: "0 8px" }}>
                 <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#333", fontFamily: "'Courier New', monospace", padding: "8px 4px", marginBottom: "4px" }}>
                   CONVERSACIONES ({conversaciones.length}/10)
                 </div>
-                {conversaciones.map(c => (
+                {convsFiltradas.map(c => (
                   <div key={c.id}
                     style={{ padding: "10px 10px", marginBottom: "2px", cursor: "pointer", background: c.id === convActiva ? "#1a2a4a" : "transparent", display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}
                     onClick={() => setConvActiva(c.id)}>
@@ -411,6 +498,29 @@ export default function Sonex() {
                     <div style={{ fontSize: "9px", color: "#333", marginTop: "1px" }}>{m.desc}</div>
                   </button>
                 ))}
+              </div>
+
+              {/* Analytics */}
+              <div style={{ padding: "8px 12px", borderTop: "1px solid #1a1a2e" }}>
+                <button onClick={() => setVerAnalytics(!verAnalytics)}
+                  style={{ width: "100%", padding: "7px 10px", background: "transparent", border: "1px solid #1a2a4a", color: "#555", fontSize: "9px", fontFamily: "'Courier New', monospace", cursor: "pointer", letterSpacing: "1px", textAlign: "left" }}>
+                  {verAnalytics ? "▲ OCULTAR STATS" : "▼ VER ESTADÍSTICAS"}
+                </button>
+                {verAnalytics && (
+                  <div style={{ marginTop: "8px", padding: "10px", background: "#0f0f1a", border: "1px solid #1a2a4a" }}>
+                    {!analytics ? (
+                      <div style={{ fontSize: "10px", color: "#333", fontFamily: "'Courier New', monospace" }}>Sin datos aún. Haz algunas consultas primero.</div>
+                    ) : (
+                      <>
+                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>CONSULTAS TOTALES: <span style={{ color: "#4a9eff" }}>{analytics.total}</span></div>
+                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>CONFIANZA ALTA: <span style={{ color: "#4caf82" }}>{analytics.pctAlta}%</span></div>
+                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>CONFIANZA BAJA: <span style={{ color: "#e57373" }}>{analytics.pctBaja}%</span></div>
+                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>MODO TOP: <span style={{ color: "#ffb74d" }}>{analytics.modoTop || "—"}</span></div>
+                        <div style={{ fontSize: "9px", color: "#333", fontFamily: "'Courier New', monospace" }}>FAMILIA TOP: <span style={{ color: "#4a7ab5" }}>{analytics.familiaTop || "—"}</span></div>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Disclaimer */}
@@ -490,11 +600,23 @@ export default function Sonex() {
                       {msg.texto}
                     </div>
                     {msg.rol === "bot" && (
-                      <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "6px" }}>
+                      <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "6px", flexWrap: "wrap" }}>
                         <BadgeConfianza nivel={msg.confianza} />
+                        {msg.familia && (
+                          <span style={{ padding: "2px 8px", background: "#0d1a2e", color: "#4a7ab5", fontSize: "9px", fontFamily: "'Courier New', monospace", letterSpacing: "0.5px", border: "1px solid #1a2a4a" }}>
+                            {msg.familia}
+                          </span>
+                        )}
                         <button onClick={() => copiarMensaje(msg.texto)}
                           style={{ ...S.btnOutline("#333"), padding: "3px 8px", fontSize: "9px", color: "#444" }}>
                           COPIAR
+                        </button>
+                        <button onClick={() => {
+                          const prev = mensajes[mensajes.indexOf(msg) - 1];
+                          exportarConsulta(prev?.texto || "", msg.texto);
+                        }}
+                          style={{ ...S.btnOutline("#1a2a4a"), padding: "3px 8px", fontSize: "9px", color: "#4a7ab5" }}>
+                          EXPORTAR
                         </button>
                         <span style={{ fontSize: "9px", color: "#2a2a3e", fontFamily: "'Courier New', monospace" }}>
                           {new Date(msg.ts).toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" })}
@@ -537,8 +659,16 @@ export default function Sonex() {
                   MODO: <span style={{ color: "#4a7ab5" }}>{modoActual?.label.toUpperCase()}</span>
                   <span style={{ color: "#222", marginLeft: "8px" }}>· {modoActual?.desc}</span>
                 </div>
-                <div style={{ fontSize: "9px", color: limitAlcanzado ? "#c62828" : "#333", fontFamily: "'Courier New', monospace" }}>
-                  {mensajes.filter(m => m.rol === "user").length}/{LIMITE}
+                <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+                  {puedeEscalar && (
+                    <button onClick={escalarTecnico}
+                      style={{ ...S.btnOutline("#c07010"), padding: "3px 10px", fontSize: "9px", color: "#c07010" }}>
+                      ESCALAR ↑
+                    </button>
+                  )}
+                  <div style={{ fontSize: "9px", color: limitAlcanzado ? "#c62828" : "#333", fontFamily: "'Courier New', monospace" }}>
+                    {mensajes.filter(m => m.rol === "user").length}/{LIMITE}
+                  </div>
                 </div>
               </div>
               <div style={{ display: "flex", gap: "8px" }}>
