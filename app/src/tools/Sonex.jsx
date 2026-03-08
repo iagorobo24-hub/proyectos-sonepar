@@ -74,12 +74,82 @@ NORMAS DE RESPUESTA:
 Al final de cada respuesta incluye ÚNICAMENTE en la última línea:
 [CONFIANZA:X] donde X es 1 (baja — verificar con fabricante), 2 (media — orientativo), 3 (alta — dato contrastado)`;
 
+// ── Base de conocimiento de producto Sonepar A Coruña ───
+const CATALOGO_SONEPAR = [
+  // PROTECCIÓN Y MANIOBRA
+  { ref: "AF09-30-10-13", desc: "Contactor ABB 9A 3P bobina 230VAC", marca: "ABB", familia: "Protección y Maniobra", specs: ["9A 400V", "3 polos", "bobina 230VAC", "1NA"], precio: "18-22€" },
+  { ref: "AF16-30-10-13", desc: "Contactor ABB 16A 3P bobina 230VAC", marca: "ABB", familia: "Protección y Maniobra", specs: ["16A 400V", "3 polos", "bobina 230VAC", "1NA"], precio: "22-28€" },
+  { ref: "AF26-30-10-13", desc: "Contactor ABB 26A 3P bobina 230VAC", marca: "ABB", familia: "Protección y Maniobra", specs: ["26A 400V", "3 polos", "bobina 230VAC", "1NA"], precio: "32-40€" },
+  { ref: "AF40-30-11-13", desc: "Contactor ABB 40A 3P bobina 230VAC", marca: "ABB", familia: "Protección y Maniobra", specs: ["40A 400V", "3 polos", "bobina 230VAC", "1NA+1NC"], precio: "48-58€" },
+  { ref: "MS116-1.6", desc: "Guardamotor ABB 1-1.6A", marca: "ABB", familia: "Protección y Maniobra", specs: ["rango 1-1.6A", "protección Clase 10", "disparo térmico y magnético"], precio: "28-35€" },
+  { ref: "MS116-6.3", desc: "Guardamotor ABB 4-6.3A", marca: "ABB", familia: "Protección y Maniobra", specs: ["rango 4-6.3A", "protección Clase 10", "motor hasta 2.2kW 400V"], precio: "30-38€" },
+  { ref: "MS116-16", desc: "Guardamotor ABB 10-16A", marca: "ABB", familia: "Protección y Maniobra", specs: ["rango 10-16A", "motor hasta 7.5kW 400V", "arranque directo"], precio: "35-44€" },
+  { ref: "MS116-25", desc: "Guardamotor ABB 16-25A", marca: "ABB", familia: "Protección y Maniobra", specs: ["rango 16-25A", "motor hasta 11kW 400V"], precio: "42-52€" },
+  { ref: "LC1D09M7", desc: "Contactor Schneider 9A bobina 220VAC", marca: "Schneider Electric", familia: "Protección y Maniobra", specs: ["9A 400V", "3 polos", "bobina 220VAC", "motor hasta 4kW"], precio: "16-20€" },
+  { ref: "LC1D25M7", desc: "Contactor Schneider 25A bobina 220VAC", marca: "Schneider Electric", familia: "Protección y Maniobra", specs: ["25A 400V", "3 polos", "bobina 220VAC", "motor hasta 11kW"], precio: "28-35€" },
+  { ref: "GV2ME16", desc: "Guardamotor Schneider 10-16A", marca: "Schneider Electric", familia: "Protección y Maniobra", specs: ["rango 10-16A", "motor hasta 7.5kW 400V", "clase 10A"], precio: "38-47€" },
+  { ref: "GV2ME22", desc: "Guardamotor Schneider 16-22A", marca: "Schneider Electric", familia: "Protección y Maniobra", specs: ["rango 16-22A", "motor hasta 11kW 400V"], precio: "44-55€" },
+
+  // VARIADORES
+  { ref: "ATV320U07M2C", desc: "Variador Schneider ATV320 0.75kW 230V monofásico", marca: "Schneider Electric", familia: "Variadores y Arranque", specs: ["0.75kW", "230V monofásico entrada", "400V trifásico salida", "IP20"], precio: "180-220€" },
+  { ref: "ATV320U15N4B", desc: "Variador Schneider ATV320 1.5kW 400V trifásico", marca: "Schneider Electric", familia: "Variadores y Arranque", specs: ["1.5kW", "400V trifásico", "IP20", "bus SoMove"], precio: "240-290€" },
+  { ref: "ATV320U40N4B", desc: "Variador Schneider ATV320 4kW 400V trifásico", marca: "Schneider Electric", familia: "Variadores y Arranque", specs: ["4kW", "400V trifásico", "IP20", "Modbus integrado"], precio: "380-450€" },
+  { ref: "ATV320U75N4B", desc: "Variador Schneider ATV320 7.5kW 400V trifásico", marca: "Schneider Electric", familia: "Variadores y Arranque", specs: ["7.5kW", "400V trifásico", "IP20"], precio: "520-620€" },
+  { ref: "ACS310-03E-07A5-4", desc: "Variador ABB ACS310 3kW 400V trifásico", marca: "ABB", familia: "Variadores y Arranque", specs: ["3kW", "400V trifásico", "7.5A", "IP20", "panel básico incluido"], precio: "320-390€" },
+  { ref: "ACS310-03E-17A2-4", desc: "Variador ABB ACS310 7.5kW 400V trifásico", marca: "ABB", familia: "Variadores y Arranque", specs: ["7.5kW", "400V trifásico", "17.2A", "IP20"], precio: "580-680€" },
+
+  // PROTECCIÓN ELÉCTRICA
+  { ref: "A9F74206", desc: "iC60N Schneider 2P 6A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "6A", "curva C", "6kA", "IEC 60898"], precio: "12-16€" },
+  { ref: "A9F74210", desc: "iC60N Schneider 2P 10A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "10A", "curva C", "6kA"], precio: "12-16€" },
+  { ref: "A9F74216", desc: "iC60N Schneider 2P 16A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "16A", "curva C", "6kA"], precio: "13-17€" },
+  { ref: "A9F74316", desc: "iC60N Schneider 3P 16A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["3 polos", "16A", "curva C", "6kA"], precio: "22-28€" },
+  { ref: "A9F74332", desc: "iC60N Schneider 3P 32A curva C", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["3 polos", "32A", "curva C", "6kA"], precio: "28-35€" },
+  { ref: "A9R14225", desc: "iID Schneider diferencial 2P 25A 30mA Tipo AC", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "25A", "30mA", "Tipo AC", "IEC 61008"], precio: "28-35€" },
+  { ref: "A9R14240", desc: "iID Schneider diferencial 2P 40A 30mA Tipo AC", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["2 polos", "40A", "30mA", "Tipo AC"], precio: "30-38€" },
+  { ref: "A9R14440", desc: "iID Schneider diferencial 4P 40A 30mA Tipo AC", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["4 polos", "40A", "30mA", "Tipo AC"], precio: "55-68€" },
+  { ref: "A9R21440", desc: "iID Schneider diferencial 4P 40A 300mA Tipo AC", marca: "Schneider Electric", familia: "Protección Eléctrica", specs: ["4 polos", "40A", "300mA", "selectivo", "Tipo AC"], precio: "72-88€" },
+  { ref: "MBN116", desc: "Magnetotérmico Hager 1P+N 16A curva C", marca: "Hager", familia: "Protección Eléctrica", specs: ["1P+N", "16A", "curva C", "6kA", "ancho 18mm"], precio: "14-18€" },
+  { ref: "CDN440D", desc: "Diferencial Hager 4P 40A 30mA Tipo A", marca: "Hager", familia: "Protección Eléctrica", specs: ["4 polos", "40A", "30mA", "Tipo A", "super-inmunizado"], precio: "65-80€" },
+
+  // CABLEADO
+  { ref: "RVK 1X2.5", desc: "Cable RVK 1x2.5mm² negro (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 2.5mm²", "tensión 0.6/1kV", "XLPE + PVC", "temperatura max 90°C"], precio: "0.8-1.1€/m" },
+  { ref: "RVK 1X6", desc: "Cable RVK 1x6mm² negro (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 6mm²", "tensión 0.6/1kV", "XLPE + PVC", "temp max 90°C"], precio: "1.8-2.4€/m" },
+  { ref: "RVK 1X16", desc: "Cable RVK 1x16mm² negro (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 16mm²", "tensión 0.6/1kV", "XLPE + PVC"], precio: "4.2-5.5€/m" },
+  { ref: "RVK 1X35", desc: "Cable RVK 1x35mm² negro (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 35mm²", "tensión 0.6/1kV", "XLPE + PVC"], precio: "8.5-11€/m" },
+  { ref: "H07V-K 1.5", desc: "Cable H07V-K 1x1.5mm² (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 1.5mm²", "450/750V", "PVC flexible", "uso en tubo"], precio: "0.35-0.5€/m" },
+  { ref: "H07V-K 2.5", desc: "Cable H07V-K 1x2.5mm² (por metro)", marca: "Prysmian", familia: "Cableado y Canalizaciones", specs: ["sección 2.5mm²", "450/750V", "PVC flexible", "uso en tubo"], precio: "0.55-0.75€/m" },
+
+  // VEHÍCULO ELÉCTRICO
+  { ref: "EVL1S3P0A", desc: "Cargador Schneider EVlink Smart 7.4kW monofásico", marca: "Schneider Electric", familia: "Vehículo Eléctrico", specs: ["7.4kW", "230V monofásico", "32A", "Modo 3", "IP54", "cable 4.5m Tipo 2"], precio: "480-580€" },
+  { ref: "EVH2S22P0AK", desc: "Cargador Schneider EVlink Home 22kW trifásico", marca: "Schneider Electric", familia: "Vehículo Eléctrico", specs: ["22kW", "400V trifásico", "32A", "Modo 3", "IP55", "Tipo 2"], precio: "680-820€" },
+  { ref: "W22G-MC-1-1-T2-5", desc: "Wallbox Pulsar Plus 7.4kW", marca: "Wallbox", familia: "Vehículo Eléctrico", specs: ["7.4kW monofásico", "32A", "Modo 3", "IP54", "WiFi+Bluetooth", "App"], precio: "420-500€" },
+  { ref: "W22G-MC-0-T2-5", desc: "Wallbox Pulsar Plus 22kW", marca: "Wallbox", familia: "Vehículo Eléctrico", specs: ["22kW trifásico", "32A", "Modo 3", "IP54", "WiFi+Bluetooth"], precio: "560-680€" },
+
+  // ENERGÍAS RENOVABLES
+  { ref: "SYMO-3.0-3-M", desc: "Inversor Fronius Symo 3kW trifásico", marca: "Fronius", familia: "Energías Renovables", specs: ["3kW", "trifásico", "2 MPPT", "rendimiento 98%", "Wi-Fi integrado"], precio: "980-1.180€" },
+  { ref: "SYMO-5.0-3-M", desc: "Inversor Fronius Symo 5kW trifásico", marca: "Fronius", familia: "Energías Renovables", specs: ["5kW", "trifásico", "2 MPPT", "rendimiento 98.1%"], precio: "1.250-1.500€" },
+  { ref: "SB3.0-1AV-41", desc: "Inversor SMA Sunny Boy 3kW monofásico", marca: "SMA", familia: "Energías Renovables", specs: ["3kW monofásico", "1 MPPT", "rendimiento 97.2%", "SMA ShadeFix"], precio: "850-1.050€" },
+];
+
+function getProductosPorFamilia(familia) {
+  return CATALOGO_SONEPAR.filter(p => p.familia === familia).slice(0, 10);
+}
+
+function contextoProductos(familia) {
+  if (!familia) return "";
+  const prods = getProductosPorFamilia(familia);
+  if (prods.length === 0) return "";
+  const lineas = prods.map(p => `- ${p.ref} | ${p.desc} | ${p.specs.join(", ")} | Precio orientativo: ${p.precio}`).join("\n");
+  return `\n\nPRODUCTOS SONEPAR A CORUÑA — ${familia.toUpperCase()} (stock habitual):\n${lineas}\nUsa estas referencias cuando recomiendes producto de esta familia. Confirma siempre que el precio y disponibilidad deben verificarse en el sistema de la delegación.`;
+}
+
 const MODOS = [
   { id: "general",      label: "General",     desc: "Cualquier consulta técnica" },
   { id: "averia",       label: "Avería",       desc: "Diagnóstico de fallos" },
   { id: "seleccion",    label: "Selección",    desc: "Elegir el producto correcto" },
   { id: "normas",       label: "Normativa",    desc: "IEC, UNE, reglamentos" },
   { id: "residencial",  label: "Residencial",  desc: "Instalaciones domésticas y terciario" },
+  { id: "comparativa",  label: "Comparativa",  desc: "Comparar dos productos o referencias" },
 ];
 
 const PROMPT_MODO = {
@@ -88,6 +158,7 @@ const PROMPT_MODO = {
   seleccion:   "\n\nMODO SELECCIÓN ACTIVO: El cliente necesita elegir un producto. Confirma los parámetros clave si faltan. Recomienda siempre marca Sonepar con argumentación técnica. Termina siempre con una sección 'ALTERNATIVA:' indicando otro producto del portfolio Sonepar para el mismo caso, con la diferencia técnica principal respecto a tu recomendación.",
   normas:      "\n\nMODO NORMATIVA ACTIVO: Cita siempre la norma exacta (IEC, UNE, RD, ITC-BT con número y apartado). Explica el requisito concreto y cómo aplica al caso del cliente.",
   residencial: "\n\nMODO RESIDENCIAL ACTIVO: Instalación doméstica o terciario. Usa vocabulario REBT/ITC-BT. Referencia el ITC-BT aplicable. Recomienda productos Sonepar para instalación doméstica (Hager, Legrand, Schneider Homeline, Simon). El cliente suele ser instalador autónomo de obra nueva o reforma.",
+  comparativa: "\n\nMODO COMPARATIVA ACTIVO: El cliente quiere comparar dos productos o referencias. Si no te da las dos referencias, pídelas. Luego devuelve una tabla de texto con este formato exacto:\n\nPARÁMETRO          | PRODUCTO A        | PRODUCTO B\n-------------------+-------------------+-------------------\n[parámetro 1]      | [valor A]         | [valor B]\n[parámetro 2]      | [valor A]         | [valor B]\n\nAl final de la tabla añade: RECOMENDACIÓN: [cuál elegir y por qué en una frase]. Usa mínimo 5 parámetros técnicos relevantes para la familia del producto.",
 };
 
 const SUGERENCIAS_POR_MODO = {
@@ -125,6 +196,13 @@ const SUGERENCIAS_POR_MODO = {
     "¿Qué sección de cable uso para el circuito de cocina y horno?",
     "¿Qué punto de recarga de VE me recomiendas para garaje de vivienda unifamiliar?",
     "¿Cuántos puntos de luz puede tener un circuito de iluminación?",
+  ],
+  comparativa: [
+    "Compara contactor ABB AF09 vs Schneider LC1D09.",
+    "Diferencias entre variador ATV320 y ABB ACS310 para una bomba de 7.5kW.",
+    "Compara diferencial Schneider iID 4P 40A 30mA Tipo AC vs Hager CDN440D.",
+    "¿Qué es mejor para un guardamotor de 7.5kW, el ABB MS116-16 o el Schneider GV2ME16?",
+    "Compara cable RVK vs H07V-K para instalación en bandeja interior.",
   ],
 };
 
@@ -176,6 +254,76 @@ function parseConfianza(texto) {
 
 function limpiarConfianza(texto) {
   return texto.replace(/\[CONFIANZA:\d\]\s*$/, "").trimEnd();
+}
+
+// ── Parser de formato básico para respuestas bot ─────────
+function RenderTexto({ texto }) {
+  const lineas = texto.split("\n");
+  return (
+    <div>
+      {lineas.map((linea, i) => {
+        // Línea numerada: "1. Texto" o "1) Texto"
+        if (/^\d+[\.\)]\s/.test(linea)) {
+          const contenido = linea.replace(/^\d+[\.\)]\s/, "");
+          return (
+            <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "4px", paddingLeft: "4px" }}>
+              <span style={{ color: "#4a7ab5", fontFamily: "'Courier New', monospace", fontSize: "11px", flexShrink: 0, minWidth: "16px" }}>
+                {linea.match(/^\d+/)[0]}.
+              </span>
+              <span>{renderNegritas(contenido)}</span>
+            </div>
+          );
+        }
+        // Línea con guión o bullet
+        if (/^[-–•]\s/.test(linea)) {
+          return (
+            <div key={i} style={{ display: "flex", gap: "8px", marginBottom: "4px", paddingLeft: "8px" }}>
+              <span style={{ color: "#4a7ab5", flexShrink: 0 }}>–</span>
+              <span>{renderNegritas(linea.replace(/^[-–•]\s/, ""))}</span>
+            </div>
+          );
+        }
+        // Separador de tabla (---|---|---)
+        if (/^[-+|]+$/.test(linea.replace(/\s/g, ""))) {
+          return <div key={i} style={{ borderBottom: "1px solid #1a2a4a", margin: "2px 0" }} />;
+        }
+        // Línea de tabla con pipes
+        if (linea.includes("|") && linea.trim().startsWith("|") === false && linea.includes("|")) {
+          const celdas = linea.split("|").map(c => c.trim()).filter(Boolean);
+          if (celdas.length >= 2) {
+            return (
+              <div key={i} style={{ display: "flex", gap: "0", marginBottom: "1px", fontFamily: "'Courier New', monospace", fontSize: "11px" }}>
+                {celdas.map((c, j) => (
+                  <span key={j} style={{ flex: 1, padding: "2px 6px", borderRight: j < celdas.length - 1 ? "1px solid #1a2a4a" : "none", color: j === 0 ? "#888" : "#d4ccc4" }}>
+                    {c}
+                  </span>
+                ))}
+              </div>
+            );
+          }
+        }
+        // Encabezado tipo "CAUSA PROBABLE:" o "Consejo práctico:"
+        if (/^[A-ZÁÉÍÓÚ][^:]+:\s*$/.test(linea) || /^[A-ZÁÉÍÓÚ ]{4,}:/.test(linea)) {
+          return <div key={i} style={{ fontWeight: "700", color: "#c8c0b8", marginTop: i > 0 ? "10px" : "0", marginBottom: "4px" }}>{linea}</div>;
+        }
+        // Línea vacía → separador visual
+        if (linea.trim() === "") {
+          return <div key={i} style={{ height: "6px" }} />;
+        }
+        // Texto normal
+        return <div key={i} style={{ marginBottom: "2px" }}>{renderNegritas(linea)}</div>;
+      })}
+    </div>
+  );
+}
+
+function renderNegritas(texto) {
+  const partes = texto.split(/(\*\*[^*]+\*\*)/g);
+  return partes.map((p, i) =>
+    p.startsWith("**") && p.endsWith("**")
+      ? <strong key={i} style={{ color: "#e8e0d4" }}>{p.slice(2, -2)}</strong>
+      : p
+  );
 }
 
 function BadgeConfianza({ nivel }) {
@@ -242,8 +390,17 @@ export default function Sonex() {
   const mensajes = conv?.mensajes || [];
   const LIMITE = 20;
   const limitAlcanzado = mensajes.filter(m => m.rol === "user").length >= LIMITE;
+  const modoActual = MODOS.find(m => m.id === modo);
+  const sugerencias = SUGERENCIAS_POR_MODO[modo] || SUGERENCIAS_POR_MODO.general;
+  const convsFiltradas = busqueda.trim()
+    ? conversaciones.filter(c => c.nombre.toLowerCase().includes(busqueda.toLowerCase()))
+    : conversaciones;
+  const puedeEscalar = mensajes.filter(m => m.rol === "user").length >= 2;
 
-  const systemFinal = () => SYSTEM_PROMPT + (PROMPT_MODO[modo] || "");
+  const systemFinal = (familiaDetectada) => {
+    const base = SYSTEM_PROMPT + (PROMPT_MODO[modo] || "");
+    return base + contextoProductos(familiaDetectada);
+  };
 
   const enviar = async (textoOverride) => {
     const texto = (textoOverride || input).trim();
@@ -263,14 +420,16 @@ export default function Sonex() {
     guardar(nuevasConvs);
     setCargando(true);
 
+    const familiaDetectada = detectarFamilia(texto);
+
     try {
       const res = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          system: systemFinal(),
+          max_tokens: 1200,
+          system: systemFinal(familiaDetectada),
           messages: historialActualizado.map(m => ({ role: m.rol === "user" ? "user" : "assistant", content: m.texto })),
         }),
       });
@@ -279,10 +438,9 @@ export default function Sonex() {
       const confianza = parseConfianza(respuesta);
       const textoLimpio = limpiarConfianza(respuesta);
 
-      const mensajeBot = { rol: "bot", texto: textoLimpio, confianza, ts: Date.now() };
-      const familia = detectarFamilia(texto);
-      guardarStat({ modo, confianza, familia });
-      const conFinal = [...historialActualizado, { ...mensajeBot, familia }];
+      const mensajeBot = { rol: "bot", texto: textoLimpio, confianza, familia: familiaDetectada, ts: Date.now() };
+      guardarStat({ modo, confianza, familia: familiaDetectada });
+      const conFinal = [...historialActualizado, mensajeBot];
       const convsFinales = conversaciones.map(c => c.id === convActiva ? { ...c, nombre: nombreConv, mensajes: conFinal } : c);
       setConversaciones(convsFinales);
       guardar(convsFinales);
@@ -360,6 +518,34 @@ export default function Sonex() {
     navigator.clipboard.writeText(txt).then(() => showToast("Escalado copiado al portapapeles"));
   };
 
+  const exportarConversacion = () => {
+    if (!conv || mensajes.length === 0) return;
+    const fecha = new Date().toLocaleString("es-ES");
+    const lineas = [`CONVERSACIÓN SONEX — ${fecha}`, `Modo: ${modoActual?.label}`, `Consultas: ${mensajes.filter(m => m.rol === "user").length}`, "═".repeat(60), ""];
+    mensajes.forEach((m, i) => {
+      const hora = new Date(m.ts).toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
+      if (m.rol === "user") {
+        lineas.push(`[${hora}] TÉCNICO:`);
+        lineas.push(m.texto);
+      } else {
+        const conf = m.confianza === 3 ? "Alta" : m.confianza === 2 ? "Media" : m.confianza === 1 ? "Baja" : "—";
+        lineas.push(`[${hora}] SONEX (Confianza: ${conf}${m.familia ? ` · ${m.familia}` : ""}):`);
+        lineas.push(m.texto);
+      }
+      lineas.push("");
+    });
+    lineas.push("─".repeat(60));
+    lineas.push("⚠ Verificar con documentación técnica del fabricante y catálogo Sonepar antes de cualquier instalación o pedido.");
+    const blob = new Blob([lineas.join("\n")], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `SONEX-${conv.nombre.slice(0, 30).replace(/[^a-zA-Z0-9]/g, "-")}-${Date.now()}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast("Conversación descargada");
+  };
+
   const calcularAnalytics = () => {
     const stats = leerStats();
     if (stats.length === 0) return null;
@@ -375,13 +561,7 @@ export default function Sonex() {
     return { total, pctAlta: Math.round(alta / total * 100), pctBaja: Math.round(baja / total * 100), modoTop: modoTop?.[0], familiaTop: familiaTop?.[0] };
   };
 
-  const sugerencias = SUGERENCIAS_POR_MODO[modo] || SUGERENCIAS_POR_MODO.general;
-  const modoActual = MODOS.find(m => m.id === modo);
-  const convsFiltradas = busqueda.trim()
-    ? conversaciones.filter(c => c.nombre.toLowerCase().includes(busqueda.toLowerCase()))
-    : conversaciones;
   const analytics = calcularAnalytics();
-  const puedeEscalar = mensajes.filter(m => m.rol === "user").length >= 2;
 
   const S = {
     btn: (color = "#1a1a2e", full = false) => ({
@@ -429,7 +609,7 @@ export default function Sonex() {
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "12px", flex: 1 }}>
             <span style={{ color: "#4a7ab5", fontFamily: "'Courier New', monospace", fontSize: "13px", letterSpacing: "4px", fontWeight: "700" }}>SONEX</span>
-            <span style={{ color: "#333", fontSize: "10px", fontFamily: "'Courier New', monospace", letterSpacing: "2px" }}>ASISTENTE TÉCNICO · v4 · SONEPAR</span>
+            <span style={{ color: "#333", fontSize: "10px", fontFamily: "'Courier New', monospace", letterSpacing: "2px" }}>ASISTENTE TÉCNICO · v5 · SONEPAR</span>
             {!sidebarAbierto && (
               <span style={{ padding: "2px 8px", background: "#1a2a4a", color: "#4a9eff", fontSize: "9px", fontFamily: "'Courier New', monospace", letterSpacing: "1px", fontWeight: "700" }}>
                 {modoActual?.label.toUpperCase()}
@@ -437,6 +617,12 @@ export default function Sonex() {
             )}
           </div>
           <div style={{ display: "flex", gap: "6px", alignItems: "center" }}>
+            {mensajes.length > 0 && (
+              <button onClick={exportarConversacion}
+                style={{ ...S.btn("#1a2a4a") }}>
+                ↓ GUARDAR
+              </button>
+            )}
             <button onClick={() => { setModoRapido(!modoRapido); setRespuestaRapida(""); setInputRapido(""); }}
               style={{ ...S.btn(modoRapido ? "#c07010" : "#1a2a4a") }}>
               {modoRapido ? "MODO NORMAL" : "⚡ CONSULTA RÁPIDA"}
@@ -596,8 +782,11 @@ export default function Sonex() {
                     {msg.rol === "user" ? "YO" : "SX"}
                   </div>
                   <div style={{ maxWidth: "75%" }}>
-                    <div style={{ background: msg.rol === "user" ? "#0d1a2e" : "#0a0a14", border: `1px solid ${msg.rol === "user" ? "#1a2a4a" : "#1a1a2e"}`, padding: "14px 18px", fontSize: "13px", lineHeight: "1.7", color: "#d4ccc4", whiteSpace: "pre-wrap", wordBreak: "break-word" }}>
-                      {msg.texto}
+                  <div style={{ background: msg.rol === "user" ? "#0d1a2e" : "#0a0a14", border: `1px solid ${msg.rol === "user" ? "#1a2a4a" : "#1a1a2e"}`, padding: "14px 18px", fontSize: "13px", lineHeight: "1.7", color: "#d4ccc4", wordBreak: "break-word" }}>
+                      {msg.rol === "user"
+                        ? <span style={{ whiteSpace: "pre-wrap" }}>{msg.texto}</span>
+                        : <RenderTexto texto={msg.texto} />
+                      }
                     </div>
                     {msg.rol === "bot" && (
                       <div style={{ display: "flex", gap: "8px", alignItems: "center", marginTop: "6px", flexWrap: "wrap" }}>
