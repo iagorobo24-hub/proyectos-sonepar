@@ -1,13 +1,41 @@
 import { useState, useEffect } from "react";
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 
+// ── Paleta de marca Sonepar ──────────────────────────────────────────────────
+const C = {
+  azulOscuro:  "#003087",
+  azulMedio:   "#1A4A8A",
+  azulClaro:   "#4A90D9",
+  azulSuave:   "#EBF1FA",
+  blanco:      "#FFFFFF",
+  fondo:       "#F5F6F8",
+  texto:       "#1A1A2E",
+  textoSec:    "#4A5568",
+  textoTer:    "#8A94A6",
+  borde:       "#D1D9E6",
+  verde:       "#1B6B3A",
+  verdeSuave:  "#EDF7F2",
+  amarillo:    "#C07010",
+  amarilloS:   "#FFF8EE",
+  rojo:        "#C62828",
+  rojoSuave:   "#FDECEA",
+};
+
+const LogoSonepar = ({ size = 28, color = "#003087" }) => (
+  <svg width={size * 3.2} height={size} viewBox="0 0 120 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="16" cy="19" rx="14" ry="7.5" stroke={C.azulClaro} strokeWidth="2.2" fill="none" transform="rotate(-20 16 19)" />
+    <ellipse cx="16" cy="19" rx="14" ry="7.5" stroke={color} strokeWidth="2.2" fill="none" transform="rotate(20 16 19)" />
+    <text x="34" y="25" fontFamily="Helvetica Neue, Arial, sans-serif" fontWeight="700" fontSize="17" fill={color} letterSpacing="0.5">sonepar</text>
+  </svg>
+);
+
 const BENCHMARKS = {
-  pedidos_hora:   { bueno: 18, malo: 12, label: "Pedidos/hora", unidad: "ped/h", desc: "Número de pedidos completados por hora de turno", icono: "📦" },
-  error_picking:  { bueno: 1, malo: 3, label: "Error picking", unidad: "%", desc: "Porcentaje de líneas con error sobre total de líneas procesadas", icono: "⚠", invertido: true },
-  tiempo_ciclo:   { bueno: 5, malo: 10, label: "Tiempo ciclo", unidad: "min", desc: "Tiempo medio desde entrada de pedido hasta expedición", icono: "⏱", invertido: true },
-  ocupacion:      { bueno: 85, malo: 95, label: "Ocupación", unidad: "%", desc: "Porcentaje de ubicaciones ocupadas sobre el total disponible", icono: "🏭" },
-  devolucion:     { bueno: 2, malo: 5, label: "Devoluciones", unidad: "%", desc: "Porcentaje de líneas devueltas sobre total expedido", icono: "↩", invertido: true },
-  productividad:  { bueno: 90, malo: 70, label: "Productividad", unidad: "%", desc: "Rendimiento del equipo respecto a la capacidad teórica del turno", icono: "👥" },
+  pedidos_hora:   { bueno: 18, malo: 12, label: "Pedidos/hora",  unidad: "ped/h", desc: "Pedidos completados por hora de turno",                         icono: "📦" },
+  error_picking:  { bueno: 1,  malo: 3,  label: "Error picking", unidad: "%",     desc: "Porcentaje de líneas con error sobre total procesadas",         icono: "⚠",  invertido: true },
+  tiempo_ciclo:   { bueno: 5,  malo: 10, label: "Tiempo ciclo",  unidad: "min",   desc: "Tiempo medio desde entrada de pedido hasta expedición",         icono: "⏱",  invertido: true },
+  ocupacion:      { bueno: 85, malo: 95, label: "Ocupación",     unidad: "%",     desc: "Porcentaje de ubicaciones ocupadas sobre el total disponible",  icono: "🏭" },
+  devolucion:     { bueno: 2,  malo: 5,  label: "Devoluciones",  unidad: "%",     desc: "Porcentaje de líneas devueltas sobre total expedido",           icono: "↩",  invertido: true },
+  productividad:  { bueno: 90, malo: 70, label: "Productividad", unidad: "%",     desc: "Rendimiento del equipo respecto a capacidad teórica del turno", icono: "👥" },
 };
 
 const EJEMPLO = {
@@ -17,42 +45,18 @@ const EJEMPLO = {
   devoluciones: 7, lineas_expedidas: 420, operarios: 6,
 };
 
-const PROMPT_INFORME = (kpis, datos, delegacion, turno) => `Eres el responsable de logística de una delegación de Sonepar España. Analiza los KPIs del turno y genera un informe ejecutivo breve.
-
-Delegación: ${delegacion} | Turno: ${turno}
-
-KPIs del turno:
-- Pedidos/hora: ${kpis.pedidos_hora.toFixed(1)} (benchmark: >18)
-- Error picking: ${kpis.error_picking.toFixed(2)}% (benchmark: <1%)
-- Tiempo ciclo: ${kpis.tiempo_ciclo.toFixed(1)} min (benchmark: <5 min)
-- Ocupación almacén: ${kpis.ocupacion.toFixed(1)}% (benchmark: 75-85%)
-- Tasa devoluciones: ${kpis.devolucion.toFixed(2)}% (benchmark: <2%)
-- Productividad equipo: ${kpis.productividad.toFixed(1)}% (benchmark: >90%)
-
-Datos brutos: ${datos.pedidos} pedidos, ${datos.horas}h turno, ${datos.operarios} operarios, ${datos.errores} errores picking.
-
-Responde en 3 párrafos cortos: (1) resumen del turno en una frase, (2) puntos críticos a resolver, (3) acción concreta recomendada para el próximo turno. Tono directo, sin adornos.`;
-
-export default function KpiLogistico() {
-  const [datos, setDatos] = useState({
-    delegacion: "", turno: "Mañana",
-    pedidos: "", horas: "", errores: "", tiempo_ciclo: "",
-    ubicaciones_ocupadas: "", ubicaciones_total: "",
-    devoluciones: "", lineas_expedidas: "", operarios: "",
-  });
-  const [kpis, setKpis] = useState(null);
-  const [informe, setInforme] = useState("");
-  const [historial, setHistorial] = useState([]);
-  const [cargando, setCargando] = useState(false);
-  const [tab, setTab] = useState("calculo"); // calculo | historial | comparativa
+export default function KPILogistico() {
+  const [datos, setDatos]           = useState({ delegacion: "", turno: "Mañana", pedidos: "", horas: "", errores: "", tiempo_ciclo: "", ubicaciones_ocupadas: "", ubicaciones_total: "", devoluciones: "", lineas_expedidas: "", operarios: "" });
+  const [kpis, setKpis]             = useState(null);
+  const [informe, setInforme]       = useState("");
+  const [historial, setHistorial]   = useState([]);
+  const [cargando, setCargando]     = useState(false);
+  const [tab, setTab]               = useState("calculo");
   const [comparativa, setComparativa] = useState({ a: null, b: null });
-  const [tooltip, setTooltip] = useState("");
+  const [tooltip, setTooltip]       = useState("");
 
   useEffect(() => {
-    try {
-      const h = localStorage.getItem("sonepar_kpi_historial");
-      if (h) setHistorial(JSON.parse(h));
-    } catch {}
+    try { const h = localStorage.getItem("sonepar_kpi_historial"); if (h) setHistorial(JSON.parse(h)); } catch {}
   }, []);
 
   const guardarHistorial = (entrada) => {
@@ -76,258 +80,188 @@ export default function KpiLogistico() {
 
   const semaforo = (kpi, valor) => {
     const b = BENCHMARKS[kpi];
-    if (b.invertido) {
-      if (valor <= b.bueno) return "verde";
-      if (valor <= b.malo) return "amarillo";
-      return "rojo";
-    }
-    if (valor >= b.bueno) return "verde";
-    if (valor >= b.malo) return "amarillo";
-    return "rojo";
+    if (b.invertido) { if (valor <= b.bueno) return "verde"; if (valor >= b.malo) return "rojo"; return "amarillo"; }
+    if (valor >= b.bueno) return "verde"; if (valor <= b.malo) return "rojo"; return "amarillo";
   };
 
-  const colorSem = { verde: "#2e7d32", amarillo: "#f9a825", rojo: "#c62828" };
-  const bgSem    = { verde: "#e8f5e9", amarillo: "#fffde7", rojo: "#ffebee" };
+  const colorSem = { verde: C.verde, amarillo: C.amarillo, rojo: C.rojo };
+  const bgSem    = { verde: C.verdeSuave, amarillo: C.amarilloS, rojo: C.rojoSuave };
+  const bordeSem = { verde: "#B7DFC9", amarillo: "#F5D58B", rojo: "#F5BFBC" };
 
   const calcular = async () => {
     const k = calcularKPIs();
-    if (!k) return;
+    if (!k) return alert("Completa al menos: pedidos, horas y líneas expedidas");
     setKpis(k);
     setCargando(true);
     setInforme("");
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [{ role: "user", content: PROMPT_INFORME(k, datos, datos.delegacion || "Delegación", datos.turno) }],
-        }),
-      });
+      const prompt = `Eres el responsable de logística de Sonepar España. Analiza estos KPIs y genera un informe ejecutivo breve.\n\nDelegación: ${datos.delegacion || "Delegación"} | Turno: ${datos.turno}\n\nKPIs:\n- Pedidos/hora: ${k.pedidos_hora.toFixed(1)} (benchmark: >18)\n- Error picking: ${k.error_picking.toFixed(2)}% (benchmark: <1%)\n- Tiempo ciclo: ${k.tiempo_ciclo.toFixed(1)} min (benchmark: <5 min)\n- Ocupación: ${k.ocupacion.toFixed(1)}% (benchmark: 75-85%)\n- Devoluciones: ${k.devolucion.toFixed(2)}% (benchmark: <2%)\n- Productividad: ${k.productividad.toFixed(1)}% (benchmark: >90%)\n\nDatos: ${datos.pedidos} pedidos, ${datos.horas}h, ${datos.operarios} operarios, ${datos.errores} errores.\n\n3 párrafos cortos: (1) resumen del turno, (2) puntos críticos, (3) acción para el próximo turno. Tono directo.`;
+      const res  = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] }) });
       const data = await res.json();
-      const texto = data.content?.map(i => i.text || "").join("") || "";
-      setInforme(texto);
-      guardarHistorial({
-        fecha: Date.now(),
-        delegacion: datos.delegacion || "Delegación",
-        turno: datos.turno,
-        kpis: k,
-        informe: texto.slice(0, 500),
-      });
-    } catch { setInforme("Error al generar el informe."); }
+      const txt  = data.content?.map(b => b.text || "").join("") || "";
+      setInforme(txt);
+      guardarHistorial({ delegacion: datos.delegacion || "Delegación", turno: datos.turno, fecha: new Date().toISOString(), kpis: k, informe: txt });
+    } catch { setInforme("Error al conectar con la IA."); }
     setCargando(false);
   };
 
-  const cargarEjemplo = () => {
-    setDatos({
-      delegacion: EJEMPLO.delegacion, turno: EJEMPLO.turno,
-      pedidos: String(EJEMPLO.pedidos), horas: String(EJEMPLO.horas),
-      errores: String(EJEMPLO.errores), tiempo_ciclo: String(EJEMPLO.tiempo_ciclo),
-      ubicaciones_ocupadas: String(EJEMPLO.ubicaciones_ocupadas),
-      ubicaciones_total: String(EJEMPLO.ubicaciones_total),
-      devoluciones: String(EJEMPLO.devoluciones),
-      lineas_expedidas: String(EJEMPLO.lineas_expedidas),
-      operarios: String(EJEMPLO.operarios),
-    });
-    setKpis(null); setInforme("");
-  };
-
-  const imprimirPDF = () => window.print();
-
-  // Datos para gráficos desde historial
   const datosGrafico = historial.slice(0, 7).reverse().map((h, i) => ({
-    name: `T${i + 1}`,
-    pedidos_hora: parseFloat(h.kpis.pedidos_hora.toFixed(1)),
-    error_picking: parseFloat(h.kpis.error_picking.toFixed(2)),
-    fecha: new Date(h.fecha).toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit" }),
+    name: `T${i + 1}`, pedidos_hora: parseFloat(h.kpis.pedidos_hora.toFixed(1)), error_picking: parseFloat(h.kpis.error_picking.toFixed(2)),
   }));
 
   const CAMPOS = [
-    { key: "pedidos",             label: "PEDIDOS COMPLETADOS",        placeholder: "145",  desc: "Total de pedidos completados durante el turno" },
-    { key: "horas",               label: "HORAS DE TURNO",             placeholder: "8",    desc: "Duración real del turno en horas" },
-    { key: "operarios",           label: "OPERARIOS EN TURNO",         placeholder: "6",    desc: "Número de operarios activos durante el turno" },
-    { key: "lineas_expedidas",    label: "LÍNEAS EXPEDIDAS",           placeholder: "420",  desc: "Total de líneas de pedido procesadas y expedidas" },
-    { key: "errores",             label: "ERRORES DE PICKING",         placeholder: "3",    desc: "Número de líneas con error detectado en verificación" },
-    { key: "tiempo_ciclo",        label: "TIEMPO CICLO MEDIO (min)",   placeholder: "4.2",  desc: "Tiempo medio en minutos desde entrada de pedido hasta expedición" },
-    { key: "ubicaciones_ocupadas",label: "UBICACIONES OCUPADAS",       placeholder: "8750", desc: "Número de ubicaciones físicas actualmente ocupadas" },
-    { key: "ubicaciones_total",   label: "UBICACIONES TOTALES",        placeholder: "12000",desc: "Capacidad total de ubicaciones del almacén" },
-    { key: "devoluciones",        label: "DEVOLUCIONES",               placeholder: "7",    desc: "Número de líneas devueltas o rechazadas por el cliente" },
+    { key: "pedidos",              label: "PEDIDOS COMPLETADOS",       placeholder: "145",   desc: "Total de pedidos completados durante el turno" },
+    { key: "horas",                label: "HORAS DE TURNO",            placeholder: "8",     desc: "Duración real del turno en horas" },
+    { key: "operarios",            label: "OPERARIOS EN TURNO",        placeholder: "6",     desc: "Número de operarios activos durante el turno" },
+    { key: "lineas_expedidas",     label: "LÍNEAS EXPEDIDAS",          placeholder: "420",   desc: "Total de líneas de pedido procesadas" },
+    { key: "errores",              label: "ERRORES DE PICKING",        placeholder: "3",     desc: "Líneas con error detectado en verificación" },
+    { key: "tiempo_ciclo",         label: "TIEMPO CICLO MEDIO (min)",  placeholder: "4.2",   desc: "Minutos desde entrada de pedido hasta expedición" },
+    { key: "ubicaciones_ocupadas", label: "UBICACIONES OCUPADAS",      placeholder: "8750",  desc: "Número de ubicaciones físicas ocupadas" },
+    { key: "ubicaciones_total",    label: "UBICACIONES TOTALES",       placeholder: "12000", desc: "Capacidad total de ubicaciones del almacén" },
+    { key: "devoluciones",         label: "DEVOLUCIONES",              placeholder: "7",     desc: "Líneas devueltas o rechazadas por el cliente" },
   ];
 
-  const S = {
-    btn: (color = "#1a1a2e", full = false) => ({
-      padding: "9px 20px", fontSize: "10px", letterSpacing: "1.5px",
-      fontFamily: "'Courier New', monospace", fontWeight: "700",
-      background: color, color: "#fff", border: "none", cursor: "pointer",
-      width: full ? "100%" : "auto",
-    }),
-    btnOutline: (color = "#1a1a2e") => ({
-      padding: "7px 16px", fontSize: "10px", letterSpacing: "1.5px",
-      fontFamily: "'Courier New', monospace", fontWeight: "700",
-      background: "transparent", color, border: `1px solid ${color}`, cursor: "pointer",
-    }),
-  };
+  const btnP = (dis = false) => ({
+    padding: "10px 18px", fontSize: "13px", fontWeight: "600",
+    fontFamily: "system-ui, Segoe UI, sans-serif",
+    background: dis ? C.textoTer : C.azulOscuro, color: C.blanco,
+    border: "none", borderRadius: "6px", cursor: dis ? "default" : "pointer",
+  });
+  const btnS = { padding: "8px 14px", fontSize: "12px", fontWeight: "500", fontFamily: "system-ui, Segoe UI, sans-serif", background: C.blanco, color: C.azulOscuro, border: `1.5px solid ${C.azulOscuro}`, borderRadius: "6px", cursor: "pointer" };
+  const inp  = { width: "100%", padding: "9px 12px", fontSize: "13px", fontFamily: "system-ui, Segoe UI, sans-serif", color: C.texto, border: `1.5px solid ${C.borde}`, borderRadius: "6px", background: C.blanco, outline: "none" };
+  const lbl  = { fontSize: "10px", fontWeight: "600", letterSpacing: "0.8px", color: C.textoTer, fontFamily: "system-ui, Segoe UI, sans-serif", marginBottom: "5px", display: "block" };
 
   return (
     <>
       <style>{`
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        @media print {
-          .no-print { display: none !important; }
-          body { background: white; }
-          .print-area { padding: 20px; }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.25s ease forwards; }
+        @media print { .no-print { display: none !important; } body { background: white; } .print-area { padding: 20px; } }
       `}</style>
 
-      <div style={{ minHeight: "100vh", background: "#f4f1ec", fontFamily: "'Georgia', serif", color: "#1a1a2e" }}>
+      <div style={{ minHeight: "100vh", background: C.fondo, fontFamily: "system-ui, Segoe UI, sans-serif", color: C.texto }}>
 
         {/* Header */}
-        <div className="no-print" style={{ background: "#1a1a2e", padding: "0 32px", display: "flex", alignItems: "stretch", borderBottom: "3px solid #1565c0" }}>
-          <div style={{ background: "#1565c0", padding: "16px 22px", display: "flex", alignItems: "center", marginRight: "20px" }}>
-            <span style={{ fontWeight: "900", fontSize: "12px", letterSpacing: "3px", color: "#fff", fontFamily: "'Courier New', monospace" }}>SONEPAR</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "16px", flex: 1 }}>
-            <span style={{ color: "#1565c0", fontFamily: "'Courier New', monospace", fontSize: "11px", letterSpacing: "4px" }}>KPI LOGÍSTICO</span>
-            <span style={{ color: "#444", fontSize: "10px", fontFamily: "'Courier New', monospace", letterSpacing: "2px" }}>CALCULADORA · v2</span>
-          </div>
-          <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-            {["calculo", "historial", "comparativa"].map(t => (
-              <button key={t} onClick={() => setTab(t)} style={{ ...S.btn(tab === t ? "#1565c0" : "#2a2a3e") }}>
-                {t === "calculo" ? "CÁLCULO" : t === "historial" ? "HISTORIAL" : "COMPARATIVA"}
-              </button>
+        <div className="no-print" style={{ background: C.azulOscuro, padding: "0 28px", display: "flex", alignItems: "center", gap: "20px", height: "56px" }}>
+          <LogoSonepar size={24} color={C.blanco} />
+          <div style={{ width: "1px", height: "28px", background: "rgba(255,255,255,0.2)" }} />
+          <span style={{ color: C.blanco, fontSize: "13px", fontWeight: "500" }}>KPI Logístico</span>
+          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>v3.0</span>
+          <div style={{ flex: 1 }} />
+          <div style={{ display: "flex", gap: "4px" }}>
+            {[["calculo","Cálculo"],["historial","Historial"],["comparativa","Comparativa"]].map(([id, lbl]) => (
+              <button key={id} onClick={() => setTab(id)} style={{ padding: "6px 16px", fontSize: "12px", fontWeight: tab === id ? "600" : "400", background: tab === id ? "rgba(255,255,255,0.15)" : "transparent", color: tab === id ? C.blanco : "rgba(255,255,255,0.6)", border: "none", borderRadius: "6px", cursor: "pointer", fontFamily: "system-ui, Segoe UI, sans-serif" }}>{lbl}</button>
             ))}
           </div>
         </div>
+        <div style={{ height: "3px", background: `linear-gradient(90deg, ${C.azulOscuro}, ${C.azulClaro})` }} />
 
         {/* TAB CÁLCULO */}
         {tab === "calculo" && (
-          <div style={{ display: "grid", gridTemplateColumns: "380px 1fr", minHeight: "calc(100vh - 67px)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "360px 1fr", minHeight: "calc(100vh - 59px)" }}>
 
-            {/* Formulario */}
-            <div className="no-print" style={{ background: "#fff", borderRight: "1px solid #e0dbd4", padding: "24px", overflowY: "auto" }}>
+            {/* Sidebar formulario */}
+            <div className="no-print" style={{ background: C.blanco, borderRight: `1px solid ${C.borde}`, padding: "24px", overflowY: "auto" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-                <div style={{ fontSize: "9px", letterSpacing: "3px", color: "#999", fontFamily: "'Courier New', monospace" }}>DATOS DEL TURNO</div>
-                <button onClick={cargarEjemplo} style={{ ...S.btnOutline("#1565c0"), fontSize: "9px", padding: "5px 12px" }}>
-                  CARGAR EJEMPLO
-                </button>
+                <span style={{ fontSize: "11px", fontWeight: "600", letterSpacing: "0.5px", color: C.textoTer }}>DATOS DEL TURNO</span>
+                <button onClick={() => setDatos({ ...EJEMPLO, turno: "Mañana" })} style={btnS}>Cargar ejemplo</button>
               </div>
 
               <div style={{ marginBottom: "14px" }}>
-                <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>DELEGACIÓN</div>
-                <input value={datos.delegacion} onChange={e => setDatos(p => ({ ...p, delegacion: e.target.value }))}
-                  placeholder="Ej: Sonepar A Coruña"
-                  style={{ width: "100%", padding: "9px 12px", border: "1px solid #ddd", fontSize: "13px", fontFamily: "'Georgia', serif", outline: "none" }} />
+                <label style={lbl}>DELEGACIÓN</label>
+                <input value={datos.delegacion} onChange={e => setDatos(p => ({ ...p, delegacion: e.target.value }))} placeholder="Ej: Sonepar A Coruña" style={inp} />
               </div>
 
-              <div style={{ marginBottom: "16px" }}>
-                <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "6px" }}>TURNO</div>
+              <div style={{ marginBottom: "18px" }}>
+                <label style={lbl}>TURNO</label>
                 <div style={{ display: "flex", gap: "6px" }}>
                   {["Mañana", "Tarde", "Noche"].map(t => (
-                    <button key={t} onClick={() => setDatos(p => ({ ...p, turno: t }))}
-                      style={{ flex: 1, padding: "8px", fontSize: "11px", fontFamily: "'Courier New', monospace", fontWeight: "700", cursor: "pointer", background: datos.turno === t ? "#1565c0" : "#f4f1ec", color: datos.turno === t ? "#fff" : "#888", border: `1px solid ${datos.turno === t ? "#1565c0" : "#ddd"}` }}>
-                      {t.toUpperCase()}
-                    </button>
+                    <button key={t} onClick={() => setDatos(p => ({ ...p, turno: t }))} style={{ flex: 1, padding: "8px", fontSize: "12px", fontWeight: "500", fontFamily: "system-ui, Segoe UI, sans-serif", cursor: "pointer", borderRadius: "6px", background: datos.turno === t ? C.azulOscuro : C.fondo, color: datos.turno === t ? C.blanco : C.textoSec, border: `1.5px solid ${datos.turno === t ? C.azulOscuro : C.borde}` }}>{t}</button>
                   ))}
                 </div>
               </div>
 
               {CAMPOS.map(({ key, label, placeholder, desc }) => (
                 <div key={key} style={{ marginBottom: "12px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "5px" }}>
-                    <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#aaa", fontFamily: "'Courier New', monospace" }}>{label}</div>
-                    <span
-                      onMouseEnter={() => setTooltip(key)}
-                      onMouseLeave={() => setTooltip("")}
-                      style={{ fontSize: "10px", color: "#aaa", cursor: "help", position: "relative" }}
-                      title={desc}
-                    >ⓘ</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <label style={{ ...lbl, marginBottom: "4px" }}>{label}</label>
+                    <span onMouseEnter={() => setTooltip(key)} onMouseLeave={() => setTooltip("")} style={{ fontSize: "13px", color: C.azulClaro, cursor: "help" }}>ⓘ</span>
                   </div>
                   {tooltip === key && (
-                    <div style={{ fontSize: "11px", color: "#555", background: "#fff8e1", border: "1px solid #ffe082", padding: "6px 10px", marginBottom: "5px", lineHeight: "1.4" }}>{desc}</div>
+                    <div style={{ fontSize: "11px", color: C.textoSec, background: C.azulSuave, border: `1px solid ${C.borde}`, borderRadius: "4px", padding: "6px 10px", marginBottom: "4px", lineHeight: "1.4" }}>{desc}</div>
                   )}
-                  <input value={datos[key]} onChange={e => setDatos(p => ({ ...p, [key]: e.target.value }))}
-                    placeholder={placeholder} type="number"
-                    style={{ width: "100%", padding: "9px 12px", border: "1px solid #ddd", fontSize: "13px", fontFamily: "'Georgia', serif", outline: "none" }} />
+                  <input value={datos[key]} onChange={e => setDatos(p => ({ ...p, [key]: e.target.value }))} placeholder={placeholder} type="number" style={inp} />
                 </div>
               ))}
 
-              <button onClick={calcular} disabled={cargando}
-                style={{ ...S.btn(cargando ? "#aaa" : "#1565c0", true), padding: "12px", marginTop: "8px" }}>
-                {cargando ? "CALCULANDO..." : "CALCULAR KPIs + INFORME IA ›"}
+              <button onClick={calcular} disabled={cargando} style={{ ...btnP(cargando), width: "100%", padding: "12px", marginTop: "10px", fontSize: "13px" }}>
+                {cargando ? "Calculando…" : "Calcular KPIs + Informe IA →"}
               </button>
             </div>
 
-            {/* Resultados */}
-            <div className="print-area" style={{ padding: "24px 32px", overflowY: "auto" }}>
+            {/* Panel resultados */}
+            <div className="print-area" style={{ padding: "28px 36px", overflowY: "auto" }}>
               {!kpis && (
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", flexDirection: "column", gap: "12px" }}>
-                  <div style={{ fontSize: "40px", opacity: 0.15 }}>◈</div>
-                  <div style={{ fontSize: "10px", letterSpacing: "3px", color: "#ccc", fontFamily: "'Courier New', monospace" }}>INTRODUCE LOS DATOS DEL TURNO Y PULSA CALCULAR</div>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", flexDirection: "column", gap: "14px" }}>
+                  <div style={{ width: "56px", height: "56px", borderRadius: "50%", background: C.azulSuave, display: "flex", alignItems: "center", justifyContent: "center", fontSize: "24px" }}>📊</div>
+                  <div style={{ fontSize: "14px", color: C.textoTer }}>Introduce los datos del turno y pulsa calcular</div>
                 </div>
               )}
 
               {kpis && (
-                <>
-                  {/* Cabecera imprimible */}
+                <div className="fade-in">
                   <div style={{ marginBottom: "24px" }}>
-                    <div style={{ fontSize: "10px", letterSpacing: "3px", color: "#999", fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>
-                      {datos.delegacion || "DELEGACIÓN"} · TURNO {datos.turno.toUpperCase()}
-                    </div>
-                    <div style={{ fontSize: "22px", fontWeight: "700", color: "#1a1a2e" }}>Informe de KPIs</div>
-                    <div style={{ fontSize: "11px", color: "#aaa", fontFamily: "'Courier New', monospace" }}>
-                      {new Date().toLocaleDateString("es-ES", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
-                    </div>
+                    <div style={{ fontSize: "11px", color: C.textoTer, fontWeight: "500", marginBottom: "4px" }}>{datos.delegacion || "DELEGACIÓN"} · Turno {datos.turno}</div>
+                    <div style={{ fontSize: "22px", fontWeight: "700", color: C.texto }}>Informe de KPIs</div>
+                    <div style={{ fontSize: "12px", color: C.textoTer, marginTop: "2px" }}>{new Date().toLocaleDateString("es-ES", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}</div>
                   </div>
 
                   {/* Grid KPIs */}
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px", marginBottom: "24px" }}>
                     {Object.entries(kpis).map(([key, valor]) => {
-                      const b = BENCHMARKS[key];
-                      const sem = semaforo(key, valor);
+                      const b = BENCHMARKS[key]; const sem = semaforo(key, valor);
                       return (
-                        <div key={key} style={{ background: bgSem[sem], border: `1px solid ${colorSem[sem]}30`, padding: "16px 18px" }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                            <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#888", fontFamily: "'Courier New', monospace", marginBottom: "8px" }}>{b.label.toUpperCase()}</div>
-                            <div style={{ width: "10px", height: "10px", borderRadius: "50%", background: colorSem[sem], marginTop: "2px" }} />
+                        <div key={key} style={{ background: bgSem[sem], border: `1.5px solid ${bordeSem[sem]}`, borderRadius: "10px", padding: "16px 18px" }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "8px" }}>
+                            <span style={{ fontSize: "10px", fontWeight: "600", letterSpacing: "0.5px", color: C.textoSec }}>{b.label.toUpperCase()}</span>
+                            <span style={{ width: "10px", height: "10px", borderRadius: "50%", background: colorSem[sem], display: "block", marginTop: "2px" }} />
                           </div>
-                          <div style={{ fontSize: "28px", fontWeight: "700", color: colorSem[sem] }}>
+                          <div style={{ fontSize: "30px", fontWeight: "700", color: colorSem[sem], lineHeight: 1 }}>
                             {valor.toFixed(key === "error_picking" || key === "devolucion" ? 2 : 1)}
-                            <span style={{ fontSize: "13px", color: "#888", marginLeft: "4px" }}>{b.unidad}</span>
+                            <span style={{ fontSize: "13px", color: C.textoTer, marginLeft: "4px", fontWeight: "400" }}>{b.unidad}</span>
                           </div>
-                          <div style={{ fontSize: "10px", color: "#aaa", fontFamily: "'Courier New', monospace", marginTop: "4px" }}>
-                            REF: {b.invertido ? `<${b.bueno}` : `>${b.bueno}`} {b.unidad}
-                          </div>
+                          <div style={{ fontSize: "10px", color: C.textoTer, marginTop: "6px" }}>Ref: {b.invertido ? `<${b.bueno}` : `>${b.bueno}`} {b.unidad}</div>
                         </div>
                       );
                     })}
                   </div>
 
-                  {/* Gráficos dinámicos */}
+                  {/* Gráficos */}
                   {datosGrafico.length >= 2 && (
                     <div className="no-print" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", marginBottom: "24px" }}>
                       {[
-                        { titulo: "PEDIDOS/HORA — ÚLTIMOS TURNOS", dataKey: "pedidos_hora", color: "#1565c0", ref: 18 },
-                        { titulo: "ERROR PICKING % — ÚLTIMOS TURNOS", dataKey: "error_picking", color: "#c62828", ref: 1 },
-                      ].map(({ titulo, dataKey, color, ref }) => (
-                        <div key={dataKey} style={{ background: "#fff", border: "1px solid #e0dbd4", padding: "16px" }}>
-                          <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "12px" }}>{titulo}</div>
+                        { titulo: "Pedidos/hora — últimos turnos",    dataKey: "pedidos_hora",  color: C.azulClaro, ref: 18, tipo: "bar"  },
+                        { titulo: "Error picking % — últimos turnos", dataKey: "error_picking", color: C.rojo,      ref: 1,  tipo: "line" },
+                      ].map(({ titulo, dataKey, color, ref, tipo }) => (
+                        <div key={dataKey} style={{ background: C.blanco, border: `1px solid ${C.borde}`, borderRadius: "10px", padding: "16px" }}>
+                          <div style={{ fontSize: "11px", fontWeight: "600", color: C.textoSec, marginBottom: "14px" }}>{titulo}</div>
                           <ResponsiveContainer width="100%" height={120}>
-                            {dataKey === "pedidos_hora" ? (
+                            {tipo === "bar" ? (
                               <BarChart data={datosGrafico}>
-                                <XAxis dataKey="name" tick={{ fontSize: 10, fontFamily: "'Courier New', monospace" }} />
-                                <YAxis tick={{ fontSize: 10 }} />
-                                <Tooltip formatter={(v) => [v, "ped/h"]} />
-                                <ReferenceLine y={ref} stroke="#2e7d32" strokeDasharray="4 4" />
-                                <Bar dataKey={dataKey} fill={color} />
+                                <XAxis dataKey="name" tick={{ fontSize: 10, fill: C.textoTer }} />
+                                <YAxis tick={{ fontSize: 10, fill: C.textoTer }} />
+                                <Tooltip formatter={v => [v, "ped/h"]} />
+                                <ReferenceLine y={ref} stroke={C.verde} strokeDasharray="4 4" />
+                                <Bar dataKey={dataKey} fill={color} radius={[3, 3, 0, 0]} />
                               </BarChart>
                             ) : (
                               <LineChart data={datosGrafico}>
-                                <XAxis dataKey="name" tick={{ fontSize: 10, fontFamily: "'Courier New', monospace" }} />
-                                <YAxis tick={{ fontSize: 10 }} />
-                                <Tooltip formatter={(v) => [v + "%", "error"]} />
-                                <ReferenceLine y={ref} stroke="#2e7d32" strokeDasharray="4 4" />
-                                <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} dot={{ fill: color }} />
+                                <XAxis dataKey="name" tick={{ fontSize: 10, fill: C.textoTer }} />
+                                <YAxis tick={{ fontSize: 10, fill: C.textoTer }} />
+                                <Tooltip formatter={v => [v + "%", "error"]} />
+                                <ReferenceLine y={ref} stroke={C.verde} strokeDasharray="4 4" />
+                                <Line type="monotone" dataKey={dataKey} stroke={color} strokeWidth={2} dot={{ fill: color, r: 3 }} />
                               </LineChart>
                             )}
                           </ResponsiveContainer>
@@ -335,27 +269,27 @@ export default function KpiLogistico() {
                       ))}
                     </div>
                   )}
-
                   {datosGrafico.length < 2 && (
-                    <div className="no-print" style={{ background: "#fff", border: "1px solid #e0dbd4", padding: "20px", marginBottom: "24px", textAlign: "center" }}>
-                      <div style={{ fontSize: "10px", letterSpacing: "2px", color: "#ccc", fontFamily: "'Courier New', monospace" }}>
-                        CALCULA 2 O MÁS TURNOS PARA VER LA EVOLUCIÓN EN GRÁFICOS
-                      </div>
+                    <div className="no-print" style={{ background: C.azulSuave, border: `1px solid ${C.borde}`, borderRadius: "10px", padding: "18px", marginBottom: "24px", textAlign: "center" }}>
+                      <span style={{ fontSize: "12px", color: C.textoTer }}>Calcula 2 o más turnos para ver la evolución en gráficos</span>
                     </div>
                   )}
 
                   {/* Informe IA */}
                   {informe && (
-                    <div style={{ background: "#fff", border: "1px solid #e0dbd4", padding: "20px", marginBottom: "16px" }}>
-                      <div style={{ fontSize: "9px", letterSpacing: "3px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "12px" }}>◈ INFORME EJECUTIVO IA</div>
-                      <div style={{ fontSize: "13px", color: "#333", lineHeight: "1.8", whiteSpace: "pre-wrap" }}>{informe}</div>
+                    <div style={{ background: C.blanco, border: `1px solid ${C.borde}`, borderRadius: "10px", padding: "22px", marginBottom: "18px" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "14px" }}>
+                        <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: C.azulClaro }} />
+                        <span style={{ fontSize: "11px", fontWeight: "600", letterSpacing: "0.5px", color: C.textoSec }}>INFORME EJECUTIVO IA</span>
+                      </div>
+                      <div style={{ fontSize: "13px", color: C.texto, lineHeight: "1.8", whiteSpace: "pre-wrap" }}>{informe}</div>
                     </div>
                   )}
 
-                  <div className="no-print" style={{ display: "flex", gap: "8px" }}>
-                    <button onClick={imprimirPDF} style={{ ...S.btn("#1565c0") }}>EXPORTAR PDF ›</button>
+                  <div className="no-print">
+                    <button onClick={() => window.print()} style={btnP()}>Exportar PDF →</button>
                   </div>
-                </>
+                </div>
               )}
             </div>
           </div>
@@ -363,43 +297,35 @@ export default function KpiLogistico() {
 
         {/* TAB HISTORIAL */}
         {tab === "historial" && (
-          <div style={{ padding: "24px 32px" }}>
-            <div style={{ fontSize: "9px", letterSpacing: "3px", color: "#999", fontFamily: "'Courier New', monospace", marginBottom: "20px" }}>HISTORIAL DE TURNOS ({historial.length}/30)</div>
-
+          <div style={{ padding: "28px 36px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
+              <span style={{ fontSize: "16px", fontWeight: "700" }}>Historial de turnos</span>
+              <span style={{ fontSize: "12px", color: C.textoTer }}>{historial.length} / 30 registros</span>
+            </div>
             {historial.length === 0 && (
-              <div style={{ background: "#fff", border: "1px solid #e0dbd4", padding: "40px", textAlign: "center" }}>
-                <div style={{ fontSize: "10px", letterSpacing: "2px", color: "#ccc", fontFamily: "'Courier New', monospace" }}>AÚN NO HAY TURNOS CALCULADOS</div>
-                <div style={{ fontSize: "12px", color: "#aaa", marginTop: "8px" }}>Calcula tu primer turno para empezar el historial</div>
+              <div style={{ background: C.blanco, border: `1px solid ${C.borde}`, borderRadius: "10px", padding: "48px", textAlign: "center" }}>
+                <div style={{ fontSize: "14px", color: C.textoTer }}>Aún no hay turnos calculados</div>
               </div>
             )}
-
-            <div style={{ display: "grid", gap: "8px" }}>
+            <div style={{ display: "grid", gap: "10px" }}>
               {historial.map((h, i) => (
-                <div key={i} style={{ background: "#fff", border: "1px solid #e0dbd4", padding: "16px 20px", display: "grid", gridTemplateColumns: "160px 1fr auto", alignItems: "center", gap: "16px" }}>
+                <div key={i} style={{ background: C.blanco, border: `1px solid ${C.borde}`, borderRadius: "10px", padding: "16px 22px", display: "grid", gridTemplateColumns: "180px 1fr auto", alignItems: "center", gap: "16px" }}>
                   <div>
-                    <div style={{ fontSize: "12px", fontWeight: "600", color: "#1a1a2e" }}>{h.delegacion}</div>
-                    <div style={{ fontSize: "10px", color: "#aaa", fontFamily: "'Courier New', monospace" }}>
-                      {new Date(h.fecha).toLocaleDateString("es-ES")} · {h.turno.toUpperCase()}
-                    </div>
+                    <div style={{ fontSize: "13px", fontWeight: "600" }}>{h.delegacion}</div>
+                    <div style={{ fontSize: "11px", color: C.textoTer, marginTop: "2px" }}>{new Date(h.fecha).toLocaleDateString("es-ES")} · {h.turno}</div>
                   </div>
-                  <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
+                  <div style={{ display: "flex", gap: "14px", flexWrap: "wrap" }}>
                     {Object.entries(h.kpis).map(([key, valor]) => {
-                      const b = BENCHMARKS[key];
-                      const sem = semaforo(key, valor);
+                      const b = BENCHMARKS[key]; const sem = semaforo(key, valor);
                       return (
                         <div key={key} style={{ textAlign: "center" }}>
-                          <div style={{ fontSize: "9px", color: "#aaa", fontFamily: "'Courier New', monospace" }}>{b.label.toUpperCase()}</div>
-                          <div style={{ fontSize: "14px", fontWeight: "700", color: colorSem[sem] }}>{valor.toFixed(1)}<span style={{ fontSize: "9px" }}>{b.unidad}</span></div>
+                          <div style={{ fontSize: "9px", fontWeight: "600", color: C.textoTer, letterSpacing: "0.5px" }}>{b.label.toUpperCase()}</div>
+                          <div style={{ fontSize: "15px", fontWeight: "700", color: colorSem[sem] }}>{valor.toFixed(1)}<span style={{ fontSize: "9px", color: C.textoTer }}>{b.unidad}</span></div>
                         </div>
                       );
                     })}
                   </div>
-                  <div style={{ display: "flex", gap: "6px" }}>
-                    <button onClick={() => { setComparativa(p => p.a ? { ...p, b: h } : { ...p, a: h }); setTab("comparativa"); }}
-                      style={{ ...S.btnOutline("#1565c0"), fontSize: "9px", padding: "5px 10px" }}>
-                      + COMPARAR
-                    </button>
-                  </div>
+                  <button onClick={() => { setComparativa(p => p.a ? { ...p, b: h } : { ...p, a: h }); setTab("comparativa"); }} style={btnS}>+ Comparar</button>
                 </div>
               ))}
             </div>
@@ -408,72 +334,55 @@ export default function KpiLogistico() {
 
         {/* TAB COMPARATIVA */}
         {tab === "comparativa" && (
-          <div style={{ padding: "24px 32px" }}>
-            <div style={{ fontSize: "9px", letterSpacing: "3px", color: "#999", fontFamily: "'Courier New', monospace", marginBottom: "20px" }}>COMPARATIVA DE TURNOS</div>
-
+          <div style={{ padding: "28px 36px" }}>
+            <div style={{ fontSize: "16px", fontWeight: "700", marginBottom: "20px" }}>Comparativa de turnos</div>
             {(!comparativa.a || !comparativa.b) && (
-              <div style={{ background: "#fff", border: "1px solid #e0dbd4", padding: "30px", textAlign: "center" }}>
-                <div style={{ fontSize: "10px", letterSpacing: "2px", color: "#ccc", fontFamily: "'Courier New', monospace" }}>
-                  {!comparativa.a && !comparativa.b
-                    ? "VE AL HISTORIAL Y PULSA + COMPARAR EN DOS TURNOS"
-                    : "SELECCIONA UN SEGUNDO TURNO DESDE EL HISTORIAL"}
+              <div style={{ background: C.blanco, border: `1px solid ${C.borde}`, borderRadius: "10px", padding: "36px", textAlign: "center" }}>
+                <div style={{ fontSize: "14px", color: C.textoTer }}>
+                  {!comparativa.a ? "Ve al historial y pulsa + Comparar en dos turnos" : "Selecciona un segundo turno desde el historial"}
                 </div>
-                {comparativa.a && (
-                  <div style={{ marginTop: "12px", fontSize: "13px", color: "#1a1a2e" }}>
-                    Turno A seleccionado: <strong>{comparativa.a.delegacion} · {comparativa.a.turno}</strong>
-                  </div>
-                )}
+                {comparativa.a && <div style={{ marginTop: "12px", fontSize: "13px" }}>Turno A: <strong>{comparativa.a.delegacion} · {comparativa.a.turno}</strong></div>}
               </div>
             )}
-
             {comparativa.a && comparativa.b && (
               <>
-                <div style={{ background: "#fff", border: "1px solid #e0dbd4" }}>
-                  {/* Cabecera */}
-                  <div style={{ display: "grid", gridTemplateColumns: "200px 1fr 1fr 80px", background: "#1a1a2e", padding: "12px 20px" }}>
-                    <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#888", fontFamily: "'Courier New', monospace" }}>KPI</div>
+                <div style={{ background: C.blanco, border: `1px solid ${C.borde}`, borderRadius: "10px", overflow: "hidden" }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "200px 1fr 1fr 80px", background: C.azulOscuro, padding: "12px 22px", gap: "12px" }}>
+                    <div style={{ fontSize: "10px", fontWeight: "600", color: "rgba(255,255,255,0.5)", letterSpacing: "0.5px" }}>KPI</div>
                     {[comparativa.a, comparativa.b].map((c, i) => (
-                      <div key={i} style={{ fontSize: "11px", fontWeight: "700", color: i === 0 ? "#64b5f6" : "#ffb74d", fontFamily: "'Courier New', monospace" }}>
-                        {i === 0 ? "A" : "B"} · {c.delegacion} · {c.turno.toUpperCase()}
-                        <div style={{ fontSize: "9px", color: "#666", fontWeight: "400" }}>{new Date(c.fecha).toLocaleDateString("es-ES")}</div>
+                      <div key={i} style={{ fontSize: "12px", fontWeight: "600", color: i === 0 ? "#6BB5FF" : "#FFB74D" }}>
+                        {i === 0 ? "A" : "B"} · {c.delegacion} · {c.turno}
+                        <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.4)", fontWeight: "400" }}>{new Date(c.fecha).toLocaleDateString("es-ES")}</div>
                       </div>
                     ))}
-                    <div style={{ fontSize: "9px", letterSpacing: "2px", color: "#888", fontFamily: "'Courier New', monospace" }}>MEJOR</div>
+                    <div style={{ fontSize: "10px", fontWeight: "600", color: "rgba(255,255,255,0.5)", letterSpacing: "0.5px" }}>MEJOR</div>
                   </div>
-
                   {Object.keys(BENCHMARKS).map((key, i) => {
-                    const b = BENCHMARKS[key];
-                    const va = comparativa.a.kpis[key];
-                    const vb = comparativa.b.kpis[key];
+                    const b = BENCHMARKS[key]; const va = comparativa.a.kpis[key]; const vb = comparativa.b.kpis[key];
                     let mejor = "empate";
                     if (b.invertido) { if (va < vb) mejor = "A"; else if (vb < va) mejor = "B"; }
                     else { if (va > vb) mejor = "A"; else if (vb > va) mejor = "B"; }
                     return (
-                      <div key={key} style={{ display: "grid", gridTemplateColumns: "200px 1fr 1fr 80px", padding: "12px 20px", background: i % 2 === 0 ? "#fff" : "#fdfcfa", borderTop: "1px solid #f5f0e8", alignItems: "center" }}>
+                      <div key={key} style={{ display: "grid", gridTemplateColumns: "200px 1fr 1fr 80px", padding: "12px 22px", gap: "12px", background: i % 2 === 0 ? C.blanco : C.fondo, borderTop: `1px solid ${C.borde}`, alignItems: "center" }}>
                         <div>
-                          <div style={{ fontSize: "12px", fontWeight: "600", color: "#1a1a2e" }}>{b.label}</div>
-                          <div style={{ fontSize: "10px", color: "#aaa", fontFamily: "'Courier New', monospace" }}>{b.unidad}</div>
+                          <div style={{ fontSize: "13px", fontWeight: "600" }}>{b.label}</div>
+                          <div style={{ fontSize: "10px", color: C.textoTer }}>{b.unidad}</div>
                         </div>
                         {[va, vb].map((v, idx) => {
-                          const sem = semaforo(key, v);
-                          const esMejor = (idx === 0 && mejor === "A") || (idx === 1 && mejor === "B");
+                          const sem = semaforo(key, v); const esMejor = (idx === 0 && mejor === "A") || (idx === 1 && mejor === "B");
                           return (
-                            <div key={idx} style={{ fontSize: "20px", fontWeight: "700", color: colorSem[sem], background: esMejor ? bgSem[sem] : "transparent", padding: "6px 12px", display: "inline-block" }}>
+                            <div key={idx} style={{ fontSize: "22px", fontWeight: "700", color: colorSem[sem], background: esMejor ? bgSem[sem] : "transparent", padding: "6px 10px", borderRadius: "6px", display: "inline-block" }}>
                               {v.toFixed(key === "error_picking" || key === "devolucion" ? 2 : 1)}
-                              <span style={{ fontSize: "11px", color: "#aaa", marginLeft: "3px" }}>{b.unidad}</span>
+                              <span style={{ fontSize: "11px", color: C.textoTer, marginLeft: "3px", fontWeight: "400" }}>{b.unidad}</span>
                             </div>
                           );
                         })}
-                        <div style={{ fontSize: "14px", fontWeight: "700", color: mejor === "A" ? "#64b5f6" : mejor === "B" ? "#ffb74d" : "#aaa", fontFamily: "'Courier New', monospace" }}>
-                          {mejor === "empate" ? "=" : `▶ ${mejor}`}
-                        </div>
+                        <div style={{ fontSize: "13px", fontWeight: "700", color: mejor === "A" ? C.azulClaro : mejor === "B" ? "#FFB74D" : C.textoTer }}>{mejor === "empate" ? "=" : `▶ ${mejor}`}</div>
                       </div>
                     );
                   })}
                 </div>
-                <button onClick={() => setComparativa({ a: null, b: null })} style={{ ...S.btnOutline("#aaa"), marginTop: "12px", fontSize: "9px" }}>
-                  LIMPIAR COMPARATIVA
-                </button>
+                <button onClick={() => setComparativa({ a: null, b: null })} style={{ ...btnS, marginTop: "14px" }}>Limpiar comparativa</button>
               </>
             )}
           </div>

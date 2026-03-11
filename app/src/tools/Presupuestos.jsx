@@ -1,412 +1,466 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useReducer } from "react";
 
+// ── Paleta de marca Sonepar ──────────────────────────────────────────────────
+const C = {
+  azulOscuro: "#003087", azulMedio: "#1A4A8A", azulClaro: "#4A90D9",
+  azulSuave:  "#EBF1FA", blanco: "#FFFFFF",    fondo: "#F5F6F8",
+  texto:      "#1A1A2E", textoSec: "#4A5568",  textoTer: "#8A94A6",
+  borde:      "#D1D9E6", verde: "#1B6B3A",     verdeSuave: "#EDF7F2",
+  amarillo:   "#C07010", amarilloS: "#FFF8EE", rojo: "#C62828",
+  rojoSuave:  "#FDECEA",
+};
+
+const LogoSonepar = ({ size = 26, color = "#003087" }) => (
+  <svg width={size * 3.2} height={size} viewBox="0 0 120 38" fill="none">
+    <ellipse cx="16" cy="19" rx="14" ry="7.5" stroke={C.azulClaro} strokeWidth="2.2" fill="none" transform="rotate(-20 16 19)" />
+    <ellipse cx="16" cy="19" rx="14" ry="7.5" stroke={color} strokeWidth="2.2" fill="none" transform="rotate(20 16 19)" />
+    <text x="34" y="25" fontFamily="Helvetica Neue, Arial, sans-serif" fontWeight="700" fontSize="17" fill={color} letterSpacing="0.5">sonepar</text>
+  </svg>
+);
+
+// ── Catálogo de referencia SONEX v6 (selección por categoría) ────────────────
+const CATALOGO_REF = {
+  automatizacion: [
+    { ref: "ATV320U22M2",    desc: "Variador Schneider ATV320 2.2kW mono",      precio: 310 },
+    { ref: "ATV320U40N4B",   desc: "Variador Schneider ATV320 4kW tri",          precio: 415 },
+    { ref: "ATV320U75N4B",   desc: "Variador Schneider ATV320 7.5kW tri",        precio: 570 },
+    { ref: "ATV320D15N4B",   desc: "Variador Schneider ATV320 15kW tri",         precio: 935 },
+    { ref: "LC1D09M7",       desc: "Contactor Schneider TeSys D 9A",             precio: 18 },
+    { ref: "LC1D40AM7",      desc: "Contactor Schneider TeSys D 40A",            precio: 47 },
+    { ref: "GV2ME16",        desc: "Guardamotor Schneider TeSys 10-16A",         precio: 42 },
+    { ref: "TM221CE24R",     desc: "PLC Schneider M221 24E/S",                   precio: 185 },
+    { ref: "AF16-30-10-13",  desc: "Contactor ABB 16A 230VAC",                   precio: 25 },
+    { ref: "MS116-16",       desc: "Guardamotor ABB 10-16A",                     precio: 38 },
+  ],
+  iluminacion: [
+    { ref: "CoreLine_WT",    desc: "Philips CoreLine WT 36W 4000lm LED",         precio: 42 },
+    { ref: "WT120C_LED",     desc: "Philips WT120C LED 58W highbay industrial",  precio: 95 },
+    { ref: "LDV-SUB58",      desc: "Ledvance Sublinea 58W LED almacén",          precio: 55 },
+    { ref: "DN140B_LED",     desc: "Philips CoreLine Downlight 16W",             precio: 28 },
+    { ref: "EV1C8_N8",       desc: "Zemper EVA emergencia 8W 1h",                precio: 38 },
+    { ref: "DALI_Driver",    desc: "Driver DALI regulable 0-10V",                precio: 22 },
+  ],
+  vehiculo_electrico: [
+    { ref: "EVL2S7P2RS",     desc: "Schneider EVlink Smart 7.4kW mono",          precio: 420 },
+    { ref: "EVL2S22P3RS",    desc: "Schneider EVlink Smart 22kW tri",            precio: 680 },
+    { ref: "EVB2S7P2RS",     desc: "Schneider EVlink Business 7.4kW",            precio: 750 },
+    { ref: "WBX-CMR2-M-T2A", desc: "Wallbox Commander 2 22kW pantalla",         precio: 890 },
+    { ref: "WBX-PSR3-M-T2A", desc: "Wallbox Pulsar Plus 22kW",                  precio: 580 },
+    { ref: "ABB-ACC22T",     desc: "ABB Terra 22kW carga rápida",                precio: 1450 },
+    { ref: "A9F74332",       desc: "iC60N 3P 32A curva C protección línea VE",  precio: 30 },
+  ],
+  cuadro_electrico: [
+    { ref: "A9F74216",       desc: "iC60N Schneider 2P 16A curva C 6kA",        precio: 14 },
+    { ref: "A9F74316",       desc: "iC60N Schneider 3P 16A curva C 6kA",        precio: 25 },
+    { ref: "A9F74332",       desc: "iC60N Schneider 3P 32A curva C 6kA",        precio: 31 },
+    { ref: "A9F74363",       desc: "iC60N Schneider 3P 63A curva C 6kA",        precio: 47 },
+    { ref: "A9R14240",       desc: "iID Schneider 2P 40A 30mA Tipo AC",         precio: 34 },
+    { ref: "A9R14440",       desc: "iID Schneider 4P 40A 30mA Tipo AC",         precio: 62 },
+    { ref: "MBN116",         desc: "Magnetotérmico Hager 1P+N 16A",             precio: 16 },
+    { ref: "CDN440D",        desc: "Diferencial Hager 4P 40A 30mA Tipo A",      precio: 72 },
+    { ref: "S201M-C16",      desc: "Magnetotérmico ABB S200 1P 16A 10kA",       precio: 14 },
+  ],
+  energia_solar: [
+    { ref: "FRO-SYMO-15",    desc: "Fronius Symo 15kW inversor tri",            precio: 2200 },
+    { ref: "FRO-SYMO-8",     desc: "Fronius Symo 8.2kW inversor tri",           precio: 1450 },
+    { ref: "SMA-SB5-3",      desc: "SMA Sunny Boy 5kW inversor mono",           precio: 980 },
+    { ref: "PYL-US3000C",    desc: "Pylontech US3000C batería 3.5kWh",          precio: 1100 },
+    { ref: "VIC-MPPT-100",   desc: "Victron SmartSolar MPPT 100/30",            precio: 185 },
+    { ref: "A9F74332",       desc: "iC60N 3P 32A protección generador",         precio: 31 },
+  ],
+  clima: [
+    { ref: "ACS355-03E-07",  desc: "ABB ACS355 3kW variador bomba/ventilador",  precio: 355 },
+    { ref: "ACS355-03E-17",  desc: "ABB ACS355 7.5kW variador HVAC",            precio: 640 },
+    { ref: "LC1D25M7",       desc: "Contactor Schneider 25A para compresor",    precio: 31 },
+    { ref: "A9F74316",       desc: "iC60N 3P 16A protección circuito clima",    precio: 25 },
+    { ref: "GV2ME22",        desc: "Guardamotor Schneider 16-22A",              precio: 49 },
+  ],
+};
+
+// ── Definición de categorías y preguntas ─────────────────────────────────────
 const CATEGORIAS = [
-  { id: "automatizacion", label: "Automatización Industrial", icon: "⚙" },
-  { id: "iluminacion", label: "Iluminación", icon: "💡" },
-  { id: "vehiculo_electrico", label: "Vehículo Eléctrico", icon: "⚡" },
-  { id: "cuadro_electrico", label: "Cuadro Eléctrico", icon: "🔌" },
-  { id: "energia_solar", label: "Energía Solar / FV", icon: "☀" },
-  { id: "clima", label: "Climatización / HVAC", icon: "❄" },
+  { id: "automatizacion",    label: "Automatización Industrial", icon: "⚙" },
+  { id: "iluminacion",       label: "Iluminación",               icon: "💡" },
+  { id: "vehiculo_electrico",label: "Vehículo Eléctrico",        icon: "⚡" },
+  { id: "cuadro_electrico",  label: "Cuadro Eléctrico",          icon: "🔌" },
+  { id: "energia_solar",     label: "Energía Solar / FV",        icon: "☀" },
+  { id: "clima",             label: "Climatización / HVAC",      icon: "❄" },
 ];
 
 const PREGUNTAS = {
   automatizacion: [
-    { key: "potencia", label: "Potencia total motores (kW)", ph: "Ej: 37", tipo: "number" },
-    { key: "num_motores", label: "Nº de motores a controlar", ph: "Ej: 3", tipo: "number" },
-    { key: "plc", label: "¿Incluye PLC/automatismo?", tipo: "select", ops: ["No", "PLC básico", "PLC avanzado + HMI"] },
-    { key: "zona_atex", label: "¿Zona ATEX?", tipo: "select", ops: ["No", "Zona 2", "Zona 1"] },
+    { key: "potencia",     label: "Potencia total motores (kW)", ph: "Ej: 37",  tipo: "number" },
+    { key: "num_motores",  label: "Nº de motores a controlar",   ph: "Ej: 3",   tipo: "number" },
+    { key: "plc",          label: "¿Incluye PLC/automatismo?",   tipo: "select", ops: ["No", "PLC básico", "PLC avanzado + HMI"] },
+    { key: "zona_atex",    label: "¿Zona ATEX?",                 tipo: "select", ops: ["No", "Zona 2", "Zona 1"] },
   ],
   iluminacion: [
-    { key: "superficie", label: "Superficie a iluminar (m²)", ph: "Ej: 500", tipo: "number" },
-    { key: "tipo_espacio", label: "Tipo de espacio", tipo: "select", ops: ["Oficinas", "Almacén industrial", "Exterior", "Parking"] },
-    { key: "telegestion", label: "¿Con telegestión/DALI?", tipo: "select", ops: ["No", "Sí básico", "Sí avanzado"] },
-    { key: "emergencias", label: "¿Incluye emergencias?", tipo: "select", ops: ["No", "Sí"] },
+    { key: "superficie",    label: "Superficie a iluminar (m²)", ph: "Ej: 500", tipo: "number" },
+    { key: "tipo_espacio",  label: "Tipo de espacio",             tipo: "select", ops: ["Oficinas", "Almacén industrial", "Exterior", "Parking"] },
+    { key: "telegestion",   label: "¿Con telegestión/DALI?",      tipo: "select", ops: ["No", "Sí básico", "Sí avanzado"] },
+    { key: "emergencias",   label: "¿Incluye emergencias?",       tipo: "select", ops: ["No", "Sí"] },
   ],
   vehiculo_electrico: [
-    { key: "num_puntos", label: "Nº de puntos de recarga", ph: "Ej: 4", tipo: "number" },
-    { key: "potencia_punto", label: "Potencia por punto (kW)", tipo: "select", ops: ["7,4 kW (modo 2)", "11 kW (modo 3)", "22 kW (modo 3)", "50 kW (DC rápido)"] },
-    { key: "gestion", label: "¿Gestión de carga?", tipo: "select", ops: ["No", "Básica", "Smart + App"] },
-    { key: "instalacion", label: "Tipo de instalación", tipo: "select", ops: ["Garaje residencial", "Parking empresa", "Vía pública"] },
+    { key: "num_puntos",     label: "Nº de puntos de recarga",   ph: "Ej: 4",  tipo: "number" },
+    { key: "potencia_punto", label: "Potencia por punto (kW)",   tipo: "select", ops: ["7,4 kW (modo 2)", "11 kW (modo 3)", "22 kW (modo 3)", "50 kW (DC rápido)"] },
+    { key: "gestion",        label: "¿Gestión de carga?",        tipo: "select", ops: ["No", "Básica", "Smart + App"] },
+    { key: "instalacion",    label: "Tipo de instalación",        tipo: "select", ops: ["Garaje residencial", "Parking empresa", "Vía pública"] },
   ],
   cuadro_electrico: [
     { key: "potencia_contratada", label: "Potencia contratada (kW)", ph: "Ej: 100", tipo: "number" },
-    { key: "num_circuitos", label: "Nº de circuitos", ph: "Ej: 24", tipo: "number" },
-    { key: "protecciones", label: "Nivel de protecciones", tipo: "select", ops: ["Básico (IGA + diferencial)", "Estándar + selectividad", "Completo + monitorización"] },
-    { key: "tension", label: "Tensión", tipo: "select", ops: ["230V monofásico", "400V trifásico", "BT industrial"] },
+    { key: "num_circuitos",       label: "Nº de circuitos",           ph: "Ej: 24",  tipo: "number" },
+    { key: "protecciones",        label: "Nivel de protecciones",     tipo: "select", ops: ["Básico (IGA + diferencial)", "Estándar + selectividad", "Completo + monitorización"] },
+    { key: "tension",             label: "Tensión",                    tipo: "select", ops: ["230V monofásico", "400V trifásico", "BT industrial"] },
   ],
   energia_solar: [
-    { key: "potencia_pico", label: "Potencia pico instalación (kWp)", ph: "Ej: 20", tipo: "number" },
-    { key: "tipo", label: "Tipo de instalación", tipo: "select", ops: ["Autoconsumo sin batería", "Autoconsumo con batería", "Aislada"] },
-    { key: "fases", label: "Conexión red", tipo: "select", ops: ["Monofásico", "Trifásico"] },
-    { key: "monitorizacion", label: "¿Monitorización remota?", tipo: "select", ops: ["No", "Sí"] },
+    { key: "potencia_pico",  label: "Potencia pico (kWp)",        ph: "Ej: 20", tipo: "number" },
+    { key: "tipo",           label: "Tipo de instalación",         tipo: "select", ops: ["Autoconsumo sin batería", "Autoconsumo con batería", "Aislada"] },
+    { key: "fases",          label: "Conexión red",                tipo: "select", ops: ["Monofásico", "Trifásico"] },
+    { key: "monitorizacion", label: "¿Monitorización remota?",     tipo: "select", ops: ["No", "Sí"] },
   ],
   clima: [
-    { key: "superficie", label: "Superficie a climatizar (m²)", ph: "Ej: 200", tipo: "number" },
-    { key: "tipo_sistema", label: "Sistema", tipo: "select", ops: ["Split 1x1", "Multi-split", "VRF/VRV", "Fancoil + enfriadora"] },
-    { key: "uso", label: "Uso principal", tipo: "select", ops: ["Residencial", "Comercial", "Industrial"] },
-    { key: "aero", label: "¿Aerotermia ACS?", tipo: "select", ops: ["No", "Sí"] },
+    { key: "superficie",   label: "Superficie a climatizar (m²)", ph: "Ej: 200", tipo: "number" },
+    { key: "tipo_sistema", label: "Sistema",                       tipo: "select", ops: ["Split 1x1", "Multi-split", "VRF/VRV", "Fancoil + enfriadora"] },
+    { key: "uso",          label: "Uso principal",                 tipo: "select", ops: ["Residencial", "Comercial", "Industrial"] },
+    { key: "aero",         label: "¿Aerotermia ACS?",             tipo: "select", ops: ["No", "Sí"] },
   ],
 };
 
-const DATOS_DEMO = {
-  automatizacion: { potencia: "22", num_motores: "3", plc: "PLC básico", zona_atex: "No" },
-  iluminacion: { superficie: "800", tipo_espacio: "Almacén industrial", telegestion: "Sí básico", emergencias: "Sí" },
-  vehiculo_electrico: { num_puntos: "6", potencia_punto: "22 kW (modo 3)", gestion: "Smart + App", instalacion: "Parking empresa" },
-  cuadro_electrico: { potencia_contratada: "63", num_circuitos: "18", protecciones: "Estándar + selectividad", tension: "400V trifásico" },
-  energia_solar: { potencia_pico: "30", tipo: "Autoconsumo con batería", fases: "Trifásico", monitorizacion: "Sí" },
-  clima: { superficie: "300", tipo_sistema: "VRF/VRV", uso: "Comercial", aero: "No" },
+const DEMOS = {
+  automatizacion:    { potencia: "22", num_motores: "3",  plc: "PLC básico",              zona_atex: "No" },
+  iluminacion:       { superficie: "800", tipo_espacio: "Almacén industrial", telegestion: "Sí básico", emergencias: "Sí" },
+  vehiculo_electrico:{ num_puntos: "6", potencia_punto: "22 kW (modo 3)", gestion: "Smart + App", instalacion: "Parking empresa" },
+  cuadro_electrico:  { potencia_contratada: "63", num_circuitos: "18", protecciones: "Estándar + selectividad", tension: "400V trifásico" },
+  energia_solar:     { potencia_pico: "30", tipo: "Autoconsumo con batería", fases: "Trifásico", monitorizacion: "Sí" },
+  clima:             { superficie: "300", tipo_sistema: "VRF/VRV", uso: "Comercial", aero: "No" },
 };
 
-const generarNumPresupuesto = () => {
-  const fecha = new Date();
-  const año = fecha.getFullYear();
-  const mes = String(fecha.getMonth() + 1).padStart(2, "0");
-  const rand = String(Math.floor(Math.random() * 900) + 100);
-  return `SNP-${año}${mes}-${rand}`;
+const genNum = () => {
+  const d = new Date();
+  return `SNP-${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}-${String(Math.floor(Math.random()*900)+100)}`;
 };
+const hoy = () => new Date().toLocaleDateString("es-ES", { day:"2-digit", month:"2-digit", year:"numeric" });
 
-const hoy = () => new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric" });
+// ── Reducer para gestión del editor de partidas ───────────────────────────────
+function partidasReducer(state, action) {
+  switch (action.type) {
+    case "SET":
+      return action.payload.map((p, i) => ({ ...p, _id: i }));
+    case "UPDATE":
+      return state.map(p => p._id === action.id ? { ...p, [action.field]: action.value, precio_total: action.field === "precio_unitario" ? action.value * p.cantidad : action.field === "cantidad" ? p.precio_unitario * action.value : p.precio_total } : p);
+    case "REMOVE":
+      return state.filter(p => p._id !== action.id);
+    case "ADD":
+      return [...state, { _id: Date.now(), descripcion: "Nueva partida", detalle: "", referencia: "—", cantidad: 1, precio_unitario: 0, precio_total: 0 }];
+    default:
+      return state;
+  }
+}
 
-export default function Presupuestos() {
-  const [paso, setPaso] = useState(1);
-  const [categoria, setCategoria] = useState(null);
-  const [instalador, setInstalador] = useState({ nombre: "", empresa: "", telefono: "", email: "", cif: "" });
-  const [cliente, setCliente] = useState({ nombre: "", empresa: "", telefono: "", email: "" });
-  const [params, setParams] = useState({});
-  const [presupuesto, setPresupuesto] = useState(null);
-  const [generando, setGenerando] = useState(false);
-  const [numPresupuesto] = useState(generarNumPresupuesto);
-  const [historial, setHistorial] = useState([]);
-  const [vistaHistorial, setVistaHistorial] = useState(false);
-  const [toast, setToast] = useState("");
-  const printRef = useRef(null);
+// ── Prompt para la IA ─────────────────────────────────────────────────────────
+const buildPrompt = (cat, params, instalador, cliente, catalogoRef) => {
+  const pregs = PREGUNTAS[cat.id] || [];
+  const detalles = pregs.map(p => `${p.label}: ${params[p.key]}`).join("\n");
+  const refs = catalogoRef.map(r => `  - ${r.ref} | ${r.desc} | ~${r.precio}€`).join("\n");
 
-  // Persistencia
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem("sonepar_instalador");
-      if (saved) setInstalador(JSON.parse(saved));
-      const hist = localStorage.getItem("sonepar_historial");
-      if (hist) setHistorial(JSON.parse(hist));
-    } catch {}
-  }, []);
+  return `Eres un experto técnico-comercial de Sonepar España. Genera un presupuesto para una instalación de "${cat.label}".
 
-  useEffect(() => {
-    try { localStorage.setItem("sonepar_instalador", JSON.stringify(instalador)); } catch {}
-  }, [instalador]);
-
-  useEffect(() => {
-    try { localStorage.setItem("sonepar_historial", JSON.stringify(historial.slice(0, 20))); } catch {}
-  }, [historial]);
-
-  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(""), 2500); };
-
-  const setP = (k, v) => setParams(p => ({ ...p, [k]: v }));
-  const setI = (k, v) => setInstalador(p => ({ ...p, [k]: v }));
-  const setC = (k, v) => setCliente(p => ({ ...p, [k]: v }));
-
-  const seleccionarCategoria = (cat) => { setCategoria(cat); setParams({}); setPaso(2); };
-
-  const cargarDemo = () => {
-    if (categoria && DATOS_DEMO[categoria]) {
-      setParams(DATOS_DEMO[categoria]);
-      showToast("Datos de ejemplo cargados");
-    }
-  };
-
-  const generarPresupuesto = async () => {
-    const pregs = PREGUNTAS[categoria] || [];
-    const vacios = pregs.filter(p => !params[p.key]);
-    if (vacios.length > 0) { showToast(`Faltan campos: ${vacios.map(p => p.label).join(", ")}`); return; }
-
-    setGenerando(true);
-    const cat = CATEGORIAS.find(c => c.id === categoria);
-    const detallesParams = pregs.map(p => `${p.label}: ${params[p.key]}`).join("\n");
-
-    const prompt = `Eres un experto comercial técnico de Sonepar España, especializado en presupuestación de material eléctrico e industrial.
-
-Genera un presupuesto estimado detallado para una instalación de "${cat.label}" con estos parámetros:
-${detallesParams}
+PARÁMETROS:
+${detalles}
 
 Cliente: ${cliente.nombre || "Sin especificar"} ${cliente.empresa ? `(${cliente.empresa})` : ""}
 Instalador: ${instalador.empresa || instalador.nombre || "Sin especificar"}
 
-Responde ÚNICAMENTE con JSON válido, sin texto adicional ni backticks:
+CATÁLOGO DE REFERENCIA SONEPAR (usa estas referencias cuando apliquen):
+${refs}
+
+Responde ÚNICAMENTE con JSON válido, sin backticks ni texto adicional:
 {
+  "confianza": "Alta|Media|Revisar",
   "resumen": "descripción breve de la instalación en 1-2 frases",
   "partidas": [
     {
       "descripcion": "nombre de la partida",
       "detalle": "descripción técnica breve",
-      "cantidad": "número o descripción",
-      "precio_unitario": numero_en_euros,
-      "precio_total": numero_en_euros,
-      "referencia_tipo": "tipo de producto y fabricante"
+      "referencia": "referencia del catálogo si aplica, o descripción del tipo de producto",
+      "cantidad": número,
+      "precio_unitario": número_en_euros,
+      "precio_total": número_en_euros,
+      "nota_tecnica": "justificación breve de por qué se incluye esta partida"
     }
   ],
-  "subtotal_material": numero,
-  "mano_obra_estimada": numero,
-  "total_estimado": numero,
-  "plazo_entrega_material": "plazo en días hábiles",
-  "validez_presupuesto": "30 días",
-  "notas_tecnicas": ["nota técnica relevante 1", "nota 2"],
-  "productos_destacados": ["producto/marca recomendado 1", "producto 2", "producto 3"],
-  "normativas": ["normativa aplicable 1", "normativa 2"]
+  "subtotal_material": número,
+  "mano_obra": número,
+  "total": número,
+  "plazo_entrega": "plazo en días hábiles",
+  "normativas": ["normativa 1", "normativa 2"],
+  "notas": ["nota técnica 1", "nota técnica 2"],
+  "alternativa_eco": "descripción breve de una alternativa de menor coste y qué concesiones implica"
 }
 
-Los precios deben ser realistas y coherentes para el mercado español 2025 (precio distribuidor sin IVA). Incluye entre 4 y 7 partidas detalladas.`;
+Usa referencias del catálogo cuando encajen. Si no hay referencia exacta, usa el tipo de producto. Entre 4 y 7 partidas. Precios realistas mercado español 2025 sin IVA.`;
+};
+
+// ── Componente principal ──────────────────────────────────────────────────────
+export default function GeneradorPresupuesto() {
+  const [paso, setPaso]           = useState(1);
+  const [categoria, setCategoria] = useState(null);
+  const [instalador, setInstalador] = useState({ nombre:"", empresa:"", telefono:"", email:"", cif:"" });
+  const [cliente, setCliente]     = useState({ nombre:"", empresa:"", telefono:"", email:"" });
+  const [params, setParams]       = useState({});
+  const [presupuesto, setPresupuesto] = useState(null);
+  const [generando, setGenerando] = useState(false);
+  const [partidas, dispatch]      = useReducer(partidasReducer, []);
+  const [editando, setEditando]   = useState(null); // {id, field}
+  const [numPresupuesto]          = useState(genNum);
+  const [historial, setHistorial] = useState([]);
+  const [vistaHistorial, setVistaHistorial] = useState(false);
+  const [toast, setToast]         = useState("");
+  const [mostrarAlternativa, setMostrarAlternativa] = useState(false);
+
+  // Persistencia instalador + historial
+  useEffect(() => {
+    try {
+      const s = localStorage.getItem("sonepar_instalador_v3");
+      if (s) setInstalador(JSON.parse(s));
+      const h = localStorage.getItem("sonepar_historial_v3");
+      if (h) setHistorial(JSON.parse(h));
+    } catch {}
+  }, []);
+
+  useEffect(() => {
+    try { localStorage.setItem("sonepar_instalador_v3", JSON.stringify(instalador)); } catch {}
+  }, [instalador]);
+
+  const showToast = (msg, ok=true) => {
+    setToast({ msg, ok });
+    setTimeout(() => setToast(""), 2800);
+  };
+
+  const cat = CATEGORIAS.find(c => c.id === categoria);
+
+  const totales = {
+    material:   partidas.reduce((s, p) => s + (Number(p.precio_total)||0), 0),
+    manoObra:   presupuesto?.mano_obra || 0,
+    get total() { return this.material + this.manoObra; },
+  };
+
+  // ── Generar presupuesto ───────────────────────────────────────────────────
+  const generar = async () => {
+    const pregs = PREGUNTAS[categoria] || [];
+    const vacios = pregs.filter(p => !params[p.key]);
+    if (vacios.length) { showToast(`Faltan: ${vacios.map(p=>p.label).join(", ")}`, false); return; }
+
+    setGenerando(true);
+    const catalogoRef = CATALOGO_REF[categoria] || [];
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res  = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,
-          messages: [{ role: "user", content: prompt }],
+          messages: [{ role: "user", content: buildPrompt(cat, params, instalador, cliente, catalogoRef) }],
         }),
       });
       const data = await res.json();
-      const text = data.content?.map(i => i.text || "").join("") || "";
-      const clean = text.replace(/```json|```/g, "").trim();
-      const parsed = JSON.parse(clean);
+      const text = data.content?.map(i => i.text||"").join("") || "";
+      const parsed = JSON.parse(text.replace(/```json|```/g,"").trim());
+
       setPresupuesto(parsed);
+      dispatch({ type: "SET", payload: parsed.partidas || [] });
 
       const entrada = {
-        id: numPresupuesto,
-        fecha: hoy(),
+        id: numPresupuesto, fecha: hoy(),
         categoria: cat.label,
         cliente: cliente.nombre || cliente.empresa || "Sin nombre",
-        total: parsed.total_estimado,
+        total: parsed.total,
+        confianza: parsed.confianza,
       };
-      setHistorial(p => [entrada, ...p].slice(0, 20));
-      setPaso(3);
-    } catch (e) {
-      showToast("Error al generar. Inténtalo de nuevo.");
-    }
-    setGenerando(false);
-  };
+      const nuevo = [entrada, ...historial].slice(0, 20);
+      setHistorial(nuevo);
+      try { localStorage.setItem("sonepar_historial_v3", JSON.stringify(nuevo)); } catch {}
 
-  const exportarPDF = () => {
-    window.print();
+      setPaso(3);
+    } catch { showToast("Error al generar. Inténtalo de nuevo.", false); }
+    setGenerando(false);
   };
 
   const copiarResumen = () => {
     if (!presupuesto) return;
-    const texto = `PRESUPUESTO ${numPresupuesto} — ${hoy()}
-${CATEGORIAS.find(c => c.id === categoria)?.label}
-Cliente: ${cliente.nombre || "—"} ${cliente.empresa ? `/ ${cliente.empresa}` : ""}
-${presupuesto.resumen}
-
-TOTAL ESTIMADO (sin IVA): ${presupuesto.total_estimado?.toLocaleString("es-ES")} €
-IVA 21%: ${Math.round((presupuesto.total_estimado || 0) * 0.21).toLocaleString("es-ES")} €
-TOTAL CON IVA: ${Math.round((presupuesto.total_estimado || 0) * 1.21).toLocaleString("es-ES")} €
-
-Válido: ${presupuesto.validez_presupuesto}
-Entrega material: ${presupuesto.plazo_entrega_material}
-
-Emitido por: ${instalador.empresa || instalador.nombre || "—"} ${instalador.telefono ? `· Tel: ${instalador.telefono}` : ""}`;
-    navigator.clipboard.writeText(texto).then(() => showToast("Resumen copiado al portapapeles"));
+    const txt = `PRESUPUESTO ${numPresupuesto} — ${hoy()}\n${cat?.label}\nCliente: ${cliente.nombre||"—"} ${cliente.empresa?`/ ${cliente.empresa}`:""}\n${presupuesto.resumen}\n\nMaterial: ${totales.material.toLocaleString("es-ES")} €\nMano de obra: ${totales.manoObra.toLocaleString("es-ES")} €\nTOTAL SIN IVA: ${totales.total.toLocaleString("es-ES")} €\nTOTAL CON IVA: ${Math.round(totales.total*1.21).toLocaleString("es-ES")} €\n\nVálido: ${presupuesto.validez_presupuesto||"30 días"}\nEmitido por: ${instalador.empresa||instalador.nombre||"—"}`;
+    navigator.clipboard.writeText(txt).then(() => showToast("Resumen copiado"));
   };
 
-  const reiniciar = () => { setPaso(1); setCategoria(null); setParams({}); setPresupuesto(null); setCliente({ nombre: "", empresa: "", telefono: "", email: "" }); };
-
-  const preguntas = categoria ? PREGUNTAS[categoria] : [];
-  const cat = CATEGORIAS.find(c => c.id === categoria);
-
-  const S = {
-    input: { width: "100%", padding: "10px 14px", border: "1px solid #e8e0d0", fontSize: "14px", outline: "none", fontFamily: "Georgia, serif", boxSizing: "border-box", background: "#fff" },
-    label: { fontSize: "10px", color: "#aaa", letterSpacing: "2px", fontFamily: "'Courier New', monospace", marginBottom: "6px", display: "block" },
-    section: { background: "#fff", border: "1px solid #e8e0d0", padding: "24px 28px", boxShadow: "0 1px 8px rgba(0,0,0,0.04)" },
+  const reiniciar = () => {
+    setPaso(1); setCategoria(null); setParams({});
+    setPresupuesto(null); dispatch({ type:"SET", payload:[] });
+    setCliente({ nombre:"", empresa:"", telefono:"", email:"" });
+    setMostrarAlternativa(false);
   };
+
+  // ── Estilos reutilizables ─────────────────────────────────────────────────
+  const inp = { width:"100%", padding:"9px 12px", fontSize:"13px", fontFamily:"system-ui,Segoe UI,sans-serif", color:C.texto, border:`1.5px solid ${C.borde}`, borderRadius:"6px", background:C.blanco, outline:"none" };
+  const lbl = { fontSize:"10px", fontWeight:"600", letterSpacing:"0.8px", color:C.textoTer, fontFamily:"system-ui,Segoe UI,sans-serif", marginBottom:"5px", display:"block" };
+  const btnP = (dis=false) => ({ padding:"10px 22px", fontSize:"13px", fontWeight:"600", fontFamily:"system-ui,Segoe UI,sans-serif", background: dis ? C.textoTer : C.azulOscuro, color:C.blanco, border:"none", borderRadius:"6px", cursor: dis?"default":"pointer" });
+  const btnS = { padding:"9px 18px", fontSize:"12px", fontWeight:"500", fontFamily:"system-ui,Segoe UI,sans-serif", background:C.blanco, color:C.azulOscuro, border:`1.5px solid ${C.azulOscuro}`, borderRadius:"6px", cursor:"pointer" };
+  const confianzaColor = { "Alta": C.verde, "Media": C.amarillo, "Revisar": C.rojo };
+  const confianzaBg    = { "Alta": C.verdeSuave, "Media": C.amarilloS, "Revisar": C.rojoSuave };
 
   return (
     <>
-      {/* Print styles */}
       <style>{`
+        * { box-sizing:border-box; margin:0; padding:0; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+        .fade-in { animation: fadeIn 0.25s ease forwards; }
+        .partida-row:hover { background: ${C.azulSuave} !important; }
+        .cat-card:hover { border-color: ${C.azulOscuro} !important; transform: translateY(-2px); }
         @media print {
-          .no-print { display: none !important; }
-          .print-only { display: block !important; }
-          body { background: white !important; }
-          * { box-shadow: none !important; }
-        }
-        .print-only { display: none; }
-        @media screen {
-          * { box-sizing: border-box; }
-          select option { background: #fff; }
+          .no-print { display:none !important; }
+          body { background:white; }
         }
       `}</style>
 
       {/* Toast */}
       {toast && (
-        <div className="no-print" style={{
-          position: "fixed", top: "20px", right: "20px", background: "#2d5016", color: "#f0c040",
-          padding: "12px 20px", fontSize: "12px", fontFamily: "'Courier New', monospace",
-          letterSpacing: "1px", zIndex: 9999, boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
-        }}>{toast}</div>
+        <div style={{ position:"fixed", top:"20px", right:"20px", background: toast.ok!==false ? C.verde : C.rojo, color:C.blanco, padding:"12px 20px", fontSize:"13px", fontFamily:"system-ui,Segoe UI,sans-serif", borderRadius:"8px", zIndex:9999, boxShadow:"0 4px 20px rgba(0,0,0,0.2)" }}>
+          {toast.msg}
+        </div>
       )}
 
-      <div style={{ minHeight: "100vh", background: "#fafaf8", fontFamily: "Georgia, serif", color: "#1a1a1a" }}>
+      <div style={{ minHeight:"100vh", background:C.fondo, fontFamily:"system-ui,Segoe UI,sans-serif", color:C.texto }}>
 
-        {/* Header */}
-        <div className="no-print" style={{ background: "#fff", borderBottom: "1px solid #e8e0d0", padding: "0 40px", display: "flex", alignItems: "stretch" }}>
-          <div style={{ background: "#2d5016", padding: "18px 22px", display: "flex", alignItems: "center", marginRight: "24px" }}>
-            <span style={{ fontWeight: "900", fontSize: "13px", letterSpacing: "3px", color: "#f0c040", fontFamily: "'Courier New', monospace" }}>SONEPAR</span>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-            <span style={{ color: "#2d5016", fontFamily: "'Courier New', monospace", fontSize: "11px", letterSpacing: "4px" }}>GENERADOR DE PRESUPUESTOS</span>
-            <span style={{ color: "#bbb", fontSize: "10px", fontFamily: "'Courier New', monospace" }}>INSTALADORES · IA · v2</span>
-          </div>
-          <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: "12px" }}>
-            <button onClick={() => setVistaHistorial(!vistaHistorial)} style={{
-              background: vistaHistorial ? "#2d5016" : "transparent", color: vistaHistorial ? "#f0c040" : "#888",
-              border: "1px solid " + (vistaHistorial ? "#2d5016" : "#e0e0e0"),
-              padding: "8px 16px", fontSize: "10px", letterSpacing: "2px",
-              fontFamily: "'Courier New', monospace", cursor: "pointer",
-            }}>▤ HISTORIAL ({historial.length})</button>
-            {/* Pasos */}
-            <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
-              {[1, 2, 3].map(n => (
-                <div key={n} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                  <div style={{
-                    width: "28px", height: "28px", borderRadius: "50%",
-                    background: paso >= n ? "#2d5016" : "#e8e0d0",
-                    color: paso >= n ? "#f0c040" : "#aaa",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    fontSize: "11px", fontFamily: "'Courier New', monospace", fontWeight: "700",
-                  }}>{n}</div>
-                  {n < 3 && <div style={{ width: "16px", height: "1px", background: paso > n ? "#2d5016" : "#e8e0d0" }} />}
+        {/* ── Header ──────────────────────────────────────────────────────── */}
+        <div className="no-print" style={{ background:C.azulOscuro, padding:"0 32px", display:"flex", alignItems:"center", gap:"20px", height:"56px" }}>
+          <LogoSonepar size={24} color={C.blanco} />
+          <div style={{ width:"1px", height:"28px", background:"rgba(255,255,255,0.2)" }} />
+          <span style={{ color:C.blanco, fontSize:"13px", fontWeight:"500" }}>Generador de Presupuestos</span>
+          <span style={{ color:"rgba(255,255,255,0.4)", fontSize:"11px" }}>v3.0</span>
+          <div style={{ flex:1 }} />
+
+          {/* Indicador de pasos */}
+          <div style={{ display:"flex", alignItems:"center", gap:"8px", marginRight:"16px" }}>
+            {[["1","Instalador"],["2","Parámetros"],["3","Presupuesto"]].map(([n, lbl], i) => (
+              <div key={n} style={{ display:"flex", alignItems:"center", gap:"8px" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:"6px" }}>
+                  <div style={{ width:"24px", height:"24px", borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"11px", fontWeight:"700", background: paso >= parseInt(n) ? C.blanco : "rgba(255,255,255,0.2)", color: paso >= parseInt(n) ? C.azulOscuro : "rgba(255,255,255,0.5)" }}>{n}</div>
+                  <span style={{ fontSize:"11px", color: paso >= parseInt(n) ? C.blanco : "rgba(255,255,255,0.4)", display: paso===parseInt(n) ? "inline" : "none" }}>{lbl}</span>
                 </div>
-              ))}
-            </div>
+                {i < 2 && <div style={{ width:"20px", height:"1px", background: paso > parseInt(n) ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.2)" }} />}
+              </div>
+            ))}
           </div>
-        </div>
 
-        {/* Historial lateral */}
+          <button onClick={() => setVistaHistorial(!vistaHistorial)} style={{ padding:"6px 14px", fontSize:"12px", fontWeight:"500", background: vistaHistorial ? "rgba(255,255,255,0.15)" : "transparent", color: vistaHistorial ? C.blanco : "rgba(255,255,255,0.6)", border:"none", borderRadius:"6px", cursor:"pointer", fontFamily:"system-ui,Segoe UI,sans-serif" }}>
+            Historial ({historial.length})
+          </button>
+        </div>
+        <div style={{ height:"3px", background:`linear-gradient(90deg,${C.azulOscuro},${C.azulClaro})` }} />
+
+        {/* ── Historial lateral ──────────────────────────────────────────── */}
         {vistaHistorial && (
-          <div className="no-print" style={{
-            position: "fixed", right: 0, top: "61px", bottom: 0, width: "320px",
-            background: "#fff", borderLeft: "1px solid #e8e0d0", zIndex: 100,
-            padding: "20px", overflowY: "auto", boxShadow: "-4px 0 20px rgba(0,0,0,0.08)",
-          }}>
-            <div style={{ fontSize: "10px", letterSpacing: "3px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "16px" }}>
-              HISTORIAL DE PRESUPUESTOS
+          <div className="no-print fade-in" style={{ position:"fixed", right:0, top:"59px", bottom:0, width:"300px", background:C.blanco, borderLeft:`1px solid ${C.borde}`, zIndex:100, padding:"20px", overflowY:"auto", boxShadow:"-4px 0 20px rgba(0,0,0,0.08)" }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"16px" }}>
+              <span style={{ fontSize:"11px", fontWeight:"600", letterSpacing:"0.5px", color:C.textoTer }}>HISTORIAL</span>
+              <button onClick={() => setVistaHistorial(false)} style={{ background:"none", border:"none", fontSize:"16px", cursor:"pointer", color:C.textoTer }}>×</button>
             </div>
             {historial.length === 0 ? (
-              <div style={{ fontSize: "12px", color: "#ccc" }}>Sin presupuestos generados aún</div>
+              <div style={{ fontSize:"13px", color:C.textoTer }}>Sin presupuestos aún</div>
             ) : historial.map((h, i) => (
-              <div key={i} style={{ borderBottom: "1px solid #f0ebe0", padding: "12px 0" }}>
-                <div style={{ fontFamily: "'Courier New', monospace", fontSize: "10px", color: "#2d5016", marginBottom: "3px" }}>{h.id}</div>
-                <div style={{ fontSize: "12px", fontWeight: "600", marginBottom: "2px" }}>{h.cliente}</div>
-                <div style={{ fontSize: "11px", color: "#888", marginBottom: "4px" }}>{h.categoria} · {h.fecha}</div>
-                <div style={{ fontSize: "14px", fontWeight: "700", color: "#2d5016" }}>{h.total?.toLocaleString("es-ES")} €</div>
+              <div key={i} style={{ borderBottom:`1px solid ${C.borde}`, padding:"12px 0" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"3px" }}>
+                  <span style={{ fontSize:"10px", fontWeight:"600", color:C.azulClaro }}>{h.id}</span>
+                  {h.confianza && <span style={{ fontSize:"10px", fontWeight:"600", color: confianzaColor[h.confianza]||C.textoTer, background: confianzaBg[h.confianza]||"#eee", padding:"1px 6px", borderRadius:"4px" }}>{h.confianza}</span>}
+                </div>
+                <div style={{ fontSize:"13px", fontWeight:"600", color:C.texto, marginBottom:"2px" }}>{h.cliente}</div>
+                <div style={{ fontSize:"11px", color:C.textoTer, marginBottom:"4px" }}>{h.categoria} · {h.fecha}</div>
+                <div style={{ fontSize:"15px", fontWeight:"700", color:C.azulOscuro }}>{h.total?.toLocaleString("es-ES")} €</div>
               </div>
             ))}
             {historial.length > 0 && (
-              <button onClick={() => { setHistorial([]); showToast("Historial borrado"); }}
-                style={{ marginTop: "16px", width: "100%", background: "transparent", border: "1px solid #e8e0d0", color: "#ccc", padding: "8px", fontSize: "10px", fontFamily: "'Courier New', monospace", cursor: "pointer" }}>
-                BORRAR HISTORIAL
+              <button onClick={() => { setHistorial([]); try { localStorage.removeItem("sonepar_historial_v3"); } catch {} showToast("Historial borrado"); }} style={{ ...btnS, width:"100%", marginTop:"16px", color:C.rojo, borderColor:C.rojo, fontSize:"11px" }}>
+                Borrar historial
               </button>
             )}
           </div>
         )}
 
-        <div style={{ maxWidth: "900px", margin: "0 auto", padding: "40px 32px" }}>
+        <div style={{ maxWidth:"900px", margin:"0 auto", padding:"36px 28px" }}>
 
-          {/* PASO 1 */}
+          {/* ── PASO 1 — Instalador + Categoría ─────────────────────────── */}
           {paso === 1 && (
-            <div>
-              <div style={{ marginBottom: "28px" }}>
-                <div style={{ fontSize: "10px", letterSpacing: "4px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "8px" }}>PASO 1 — DATOS DEL INSTALADOR Y TIPO DE INSTALACIÓN</div>
-                <div style={{ fontSize: "22px", fontWeight: "700" }}>¿Quién emite el presupuesto?</div>
-                <div style={{ fontSize: "13px", color: "#999", marginTop: "4px" }}>Se guardará automáticamente para futuros presupuestos</div>
+            <div className="fade-in">
+              <div style={{ marginBottom:"28px" }}>
+                <div style={{ fontSize:"11px", fontWeight:"600", letterSpacing:"0.5px", color:C.textoTer, marginBottom:"6px" }}>PASO 1 DE 3</div>
+                <div style={{ fontSize:"22px", fontWeight:"700", color:C.texto }}>Datos del instalador</div>
+                <div style={{ fontSize:"13px", color:C.textoTer, marginTop:"4px" }}>Se guardan automáticamente para futuros presupuestos</div>
               </div>
 
-              <div style={{ ...S.section, marginBottom: "24px" }}>
-                <div style={S.label}>DATOS DEL INSTALADOR / EMPRESA</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginTop: "12px" }}>
-                  {[
-                    { k: "nombre", l: "Nombre", ph: "Tu nombre" },
-                    { k: "empresa", l: "Empresa", ph: "Empresa Instalaciones S.L." },
-                    { k: "cif", l: "CIF / NIF", ph: "B12345678" },
-                    { k: "telefono", l: "Teléfono", ph: "981 000 000" },
-                    { k: "email", l: "Email", ph: "contacto@empresa.com" },
-                  ].map(({ k, l, ph }) => (
+              <div style={{ background:C.blanco, border:`1px solid ${C.borde}`, borderRadius:"10px", padding:"24px", marginBottom:"28px" }}>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px" }}>
+                  {[["nombre","Nombre","Tu nombre"],["empresa","Empresa","Empresa Instalaciones S.L."],["cif","CIF / NIF","B12345678"],["telefono","Teléfono","981 000 000"],["email","Email","contacto@empresa.com"]].map(([k,l,ph]) => (
                     <div key={k}>
-                      <div style={S.label}>{l.toUpperCase()}</div>
-                      <input value={instalador[k]} onChange={e => setI(k, e.target.value)} placeholder={ph} style={S.input} />
+                      <label style={lbl}>{l.toUpperCase()}</label>
+                      <input value={instalador[k]} onChange={e => setInstalador(p=>({...p,[k]:e.target.value}))} placeholder={ph} style={inp} />
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div style={{ marginBottom: "28px" }}>
-                <div style={{ fontSize: "15px", fontWeight: "700", marginBottom: "16px", color: "#1a1a1a" }}>¿Qué tipo de instalación?</div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "12px" }}>
-                  {CATEGORIAS.map(c => (
-                    <div key={c.id} onClick={() => seleccionarCategoria(c.id)} style={{
-                      background: "#fff", border: "2px solid #e8e0d0", padding: "24px 20px",
-                      cursor: "pointer", textAlign: "center", boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-                      transition: "all 0.2s",
-                    }}
-                      onMouseEnter={e => { e.currentTarget.style.borderColor = "#2d5016"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.borderColor = "#e8e0d0"; e.currentTarget.style.transform = "none"; }}
-                    >
-                      <div style={{ fontSize: "32px", marginBottom: "10px" }}>{c.icon}</div>
-                      <div style={{ fontSize: "13px", fontWeight: "600" }}>{c.label}</div>
-                    </div>
-                  ))}
-                </div>
+              <div style={{ fontSize:"15px", fontWeight:"700", color:C.texto, marginBottom:"16px" }}>¿Qué tipo de instalación?</div>
+              <div style={{ display:"grid", gridTemplateColumns:"repeat(3, 1fr)", gap:"12px" }}>
+                {CATEGORIAS.map(c => (
+                  <div key={c.id} className="cat-card" onClick={() => { setCategoria(c.id); setParams({}); setPaso(2); }} style={{ background:C.blanco, border:`1.5px solid ${C.borde}`, borderRadius:"10px", padding:"24px 18px", cursor:"pointer", textAlign:"center", transition:"all 0.15s" }}>
+                    <div style={{ fontSize:"30px", marginBottom:"10px" }}>{c.icon}</div>
+                    <div style={{ fontSize:"13px", fontWeight:"600", color:C.texto }}>{c.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
 
-          {/* PASO 2 */}
+          {/* ── PASO 2 — Cliente + Parámetros ───────────────────────────── */}
           {paso === 2 && cat && (
-            <div>
-              <button onClick={() => setPaso(1)} style={{ background: "none", border: "none", color: "#aaa", cursor: "pointer", fontSize: "11px", fontFamily: "'Courier New', monospace", letterSpacing: "2px", padding: "0", marginBottom: "20px" }}>
-                ‹ VOLVER
+            <div className="fade-in">
+              <button onClick={() => setPaso(1)} style={{ background:"none", border:"none", color:C.textoTer, cursor:"pointer", fontSize:"12px", marginBottom:"20px", fontFamily:"system-ui,Segoe UI,sans-serif" }}>
+                ← Volver
               </button>
-              <div style={{ fontSize: "10px", letterSpacing: "4px", color: "#aaa", fontFamily: "'Courier New', monospace", marginBottom: "8px" }}>PASO 2 — {cat.icon} {cat.label.toUpperCase()}</div>
-              <div style={{ fontSize: "22px", fontWeight: "700", marginBottom: "24px" }}>Datos del cliente y especificaciones</div>
+              <div style={{ marginBottom:"24px" }}>
+                <div style={{ fontSize:"11px", fontWeight:"600", letterSpacing:"0.5px", color:C.textoTer, marginBottom:"6px" }}>PASO 2 DE 3 — {cat.icon} {cat.label.toUpperCase()}</div>
+                <div style={{ fontSize:"22px", fontWeight:"700", color:C.texto }}>Datos del cliente y especificaciones</div>
+              </div>
 
-              {/* Cliente */}
-              <div style={{ ...S.section, marginBottom: "16px" }}>
-                <div style={S.label}>DATOS DEL CLIENTE</div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", marginTop: "12px" }}>
-                  {[
-                    { k: "nombre", l: "Nombre", ph: "Nombre del cliente" },
-                    { k: "empresa", l: "Empresa", ph: "Empresa del cliente" },
-                    { k: "telefono", l: "Teléfono", ph: "600 000 000" },
-                    { k: "email", l: "Email", ph: "cliente@email.com" },
-                  ].map(({ k, l, ph }) => (
+              {/* Datos cliente */}
+              <div style={{ background:C.blanco, border:`1px solid ${C.borde}`, borderRadius:"10px", padding:"22px", marginBottom:"16px" }}>
+                <div style={{ fontSize:"11px", fontWeight:"600", letterSpacing:"0.5px", color:C.textoTer, marginBottom:"14px" }}>DATOS DEL CLIENTE</div>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"14px" }}>
+                  {[["nombre","Nombre","Nombre del cliente"],["empresa","Empresa","Empresa del cliente"],["telefono","Teléfono","600 000 000"],["email","Email","cliente@email.com"]].map(([k,l,ph]) => (
                     <div key={k}>
-                      <div style={S.label}>{l.toUpperCase()}</div>
-                      <input value={cliente[k]} onChange={e => setC(k, e.target.value)} placeholder={ph} style={S.input} />
+                      <label style={lbl}>{l.toUpperCase()}</label>
+                      <input value={cliente[k]} onChange={e => setCliente(p=>({...p,[k]:e.target.value}))} placeholder={ph} style={inp} />
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Parámetros técnicos */}
-              <div style={{ ...S.section, marginBottom: "20px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-                  <div style={S.label}>ESPECIFICACIONES TÉCNICAS</div>
-                  <button onClick={cargarDemo} style={{
-                    background: "#f5f0e8", border: "1px solid #e8e0d0", color: "#888",
-                    padding: "5px 14px", fontSize: "10px", letterSpacing: "1px",
-                    fontFamily: "'Courier New', monospace", cursor: "pointer",
-                  }}>⟳ CARGAR EJEMPLO</button>
+              <div style={{ background:C.blanco, border:`1px solid ${C.borde}`, borderRadius:"10px", padding:"22px", marginBottom:"22px" }}>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"16px" }}>
+                  <span style={{ fontSize:"11px", fontWeight:"600", letterSpacing:"0.5px", color:C.textoTer }}>ESPECIFICACIONES TÉCNICAS</span>
+                  <button onClick={() => { setParams(DEMOS[categoria]||{}); showToast("Datos de ejemplo cargados"); }} style={btnS}>
+                    Cargar ejemplo
+                  </button>
                 </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" }}>
-                  {preguntas.map(preg => (
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"16px" }}>
+                  {(PREGUNTAS[categoria]||[]).map(preg => (
                     <div key={preg.key}>
-                      <div style={S.label}>{preg.label.toUpperCase()}</div>
+                      <label style={lbl}>{preg.label.toUpperCase()}</label>
                       {preg.tipo === "number" ? (
-                        <input type="number" value={params[preg.key] || ""} onChange={e => setP(preg.key, e.target.value)} placeholder={preg.ph} style={{ ...S.input, fontWeight: "600", fontFamily: "'Courier New', monospace" }} />
+                        <input type="number" value={params[preg.key]||""} onChange={e => setParams(p=>({...p,[preg.key]:e.target.value}))} placeholder={preg.ph} style={inp} />
                       ) : (
-                        <select value={params[preg.key] || ""} onChange={e => setP(preg.key, e.target.value)} style={{ ...S.input, cursor: "pointer" }}>
-                          <option value="">Seleccionar...</option>
+                        <select value={params[preg.key]||""} onChange={e => setParams(p=>({...p,[preg.key]:e.target.value}))} style={{ ...inp, cursor:"pointer" }}>
+                          <option value="">Seleccionar…</option>
                           {preg.ops.map(o => <option key={o} value={o}>{o}</option>)}
                         </select>
                       )}
@@ -415,143 +469,166 @@ Emitido por: ${instalador.empresa || instalador.nombre || "—"} ${instalador.te
                 </div>
               </div>
 
-              <button onClick={generarPresupuesto} disabled={generando} style={{
-                background: generando ? "#ccc" : "#2d5016", color: generando ? "#fff" : "#f0c040",
-                border: "none", padding: "16px 40px", fontSize: "12px", letterSpacing: "3px",
-                fontFamily: "'Courier New', monospace", cursor: generando ? "not-allowed" : "pointer",
-                fontWeight: "700", boxShadow: generando ? "none" : "0 4px 16px rgba(45,80,22,0.3)",
-              }}>
-                {generando ? "GENERANDO CON IA..." : "GENERAR PRESUPUESTO ›"}
+              <button onClick={generar} disabled={generando} style={{ ...btnP(generando), padding:"13px 36px", fontSize:"14px" }}>
+                {generando ? "Generando con IA…" : "Generar presupuesto →"}
               </button>
             </div>
           )}
 
-          {/* PASO 3 — RESULTADO */}
+          {/* ── PASO 3 — Presupuesto editable ───────────────────────────── */}
           {paso === 3 && presupuesto && (
-            <div ref={printRef}>
+            <div className="fade-in">
 
-              {/* Cabecera documento */}
-              <div style={{ background: "#2d5016", padding: "28px 32px", color: "#fff", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+              {/* Cabecera del documento */}
+              <div style={{ background:C.azulOscuro, borderRadius:"10px 10px 0 0", padding:"28px 32px", display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:"0" }}>
                 <div>
-                  <div style={{ fontWeight: "900", fontSize: "16px", letterSpacing: "3px", color: "#f0c040", fontFamily: "'Courier New', monospace", marginBottom: "4px" }}>SONEPAR</div>
-                  <div style={{ fontSize: "10px", color: "rgba(255,255,255,0.5)", fontFamily: "'Courier New', monospace", letterSpacing: "2px" }}>PRESUPUESTO DE MATERIAL ELÉCTRICO</div>
-                  {instalador.empresa && <div style={{ marginTop: "12px", fontSize: "13px", color: "rgba(255,255,255,0.8)" }}>Emitido por: {instalador.empresa}</div>}
-                  {instalador.nombre && <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)" }}>{instalador.nombre}{instalador.cif ? ` · CIF: ${instalador.cif}` : ""}</div>}
-                  {instalador.telefono && <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.6)" }}>Tel: {instalador.telefono}{instalador.email ? ` · ${instalador.email}` : ""}</div>}
+                  <LogoSonepar size={26} color={C.blanco} />
+                  <div style={{ fontSize:"10px", letterSpacing:"1px", color:"rgba(255,255,255,0.5)", marginTop:"8px", fontWeight:"600" }}>PRESUPUESTO DE MATERIAL ELÉCTRICO</div>
+                  {instalador.empresa && <div style={{ fontSize:"13px", color:"rgba(255,255,255,0.85)", marginTop:"10px" }}>Emitido por: {instalador.empresa}</div>}
+                  {instalador.nombre  && <div style={{ fontSize:"12px", color:"rgba(255,255,255,0.6)" }}>{instalador.nombre}{instalador.cif ? ` · CIF: ${instalador.cif}` : ""}</div>}
+                  {instalador.telefono && <div style={{ fontSize:"12px", color:"rgba(255,255,255,0.6)" }}>Tel: {instalador.telefono}{instalador.email ? ` · ${instalador.email}` : ""}</div>}
                 </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontFamily: "'Courier New', monospace", fontSize: "18px", color: "#f0c040", fontWeight: "700", marginBottom: "4px" }}>{numPresupuesto}</div>
-                  <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)", fontFamily: "'Courier New', monospace" }}>Fecha: {hoy()}</div>
-                  <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)", fontFamily: "'Courier New', monospace" }}>Válido: {presupuesto.validez_presupuesto}</div>
-                  <div style={{ marginTop: "12px", fontSize: "11px", color: "rgba(255,255,255,0.6)" }}>
+                <div style={{ textAlign:"right" }}>
+                  <div style={{ fontSize:"18px", fontWeight:"700", color:C.azulClaro, marginBottom:"4px" }}>{numPresupuesto}</div>
+                  <div style={{ fontSize:"12px", color:"rgba(255,255,255,0.5)" }}>Fecha: {hoy()}</div>
+                  <div style={{ fontSize:"12px", color:"rgba(255,255,255,0.5)" }}>Válido: 30 días</div>
+                  {/* Badge de confianza */}
+                  {presupuesto.confianza && (
+                    <div style={{ marginTop:"10px", display:"inline-block", background: confianzaBg[presupuesto.confianza], color: confianzaColor[presupuesto.confianza], padding:"4px 12px", borderRadius:"20px", fontSize:"11px", fontWeight:"600" }}>
+                      ● Confianza: {presupuesto.confianza}
+                    </div>
+                  )}
+                  <div style={{ marginTop:"10px", fontSize:"12px", color:"rgba(255,255,255,0.7)" }}>
                     Cliente: {cliente.nombre || cliente.empresa || "Sin especificar"}
+                    {cliente.empresa && cliente.nombre && <div style={{ color:"rgba(255,255,255,0.5)" }}>{cliente.empresa}</div>}
                   </div>
-                  {cliente.empresa && cliente.nombre && <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)" }}>{cliente.empresa}</div>}
-                  {cliente.telefono && <div style={{ fontSize: "11px", color: "rgba(255,255,255,0.5)" }}>Tel: {cliente.telefono}</div>}
                 </div>
               </div>
 
-              {/* Resumen */}
-              <div style={{ background: "#f5f0e8", padding: "14px 32px", borderBottom: "1px solid #e8e0d0", fontSize: "13px", color: "#666", fontStyle: "italic" }}>
+              {/* Resumen instalación */}
+              <div style={{ background:C.azulSuave, border:`1px solid ${C.borde}`, borderTop:"none", padding:"12px 32px", fontSize:"13px", color:C.textoSec, fontStyle:"italic" }}>
                 {cat?.icon} {cat?.label} — {presupuesto.resumen}
               </div>
 
-              {/* Tabla partidas */}
-              <div style={{ background: "#fff", border: "1px solid #e8e0d0", borderTop: "none", marginBottom: "16px" }}>
-                <div style={{ display: "grid", gridTemplateColumns: "2fr 0.8fr 1fr 1fr", padding: "10px 24px", background: "#2d5016", fontSize: "9px", letterSpacing: "2px", color: "#f0c040", fontFamily: "'Courier New', monospace" }}>
-                  {["DESCRIPCIÓN / PARTIDA", "CANTIDAD", "P. UNITARIO", "TOTAL"].map(h => <div key={h}>{h}</div>)}
+              {/* ── Tabla de partidas editable ───────────────────────────── */}
+              <div style={{ background:C.blanco, border:`1px solid ${C.borde}`, borderTop:"none", marginBottom:"16px", borderRadius:"0 0 10px 10px", overflow:"hidden" }}>
+                {/* Cabecera tabla */}
+                <div style={{ display:"grid", gridTemplateColumns:"2.2fr 1fr 1fr 1fr 36px", padding:"10px 20px", background:C.azulMedio, fontSize:"10px", fontWeight:"600", letterSpacing:"0.8px", color:C.blanco }}>
+                  {["DESCRIPCIÓN / REF.", "QTY", "P. UNIT.", "TOTAL", ""].map((h,i) => <div key={i}>{h}</div>)}
                 </div>
-                {presupuesto.partidas?.map((p, i) => (
-                  <div key={i} style={{
-                    display: "grid", gridTemplateColumns: "2fr 0.8fr 1fr 1fr",
-                    padding: "14px 24px", borderBottom: "1px solid #f5f0e8",
-                    background: i % 2 === 0 ? "#fff" : "#fdfcfa", alignItems: "center",
-                  }}>
+
+                {/* Filas editables */}
+                {partidas.map((p, idx) => (
+                  <div key={p._id} className="partida-row" style={{ display:"grid", gridTemplateColumns:"2.2fr 1fr 1fr 1fr 36px", padding:"12px 20px", borderBottom:`1px solid ${C.borde}`, background: idx%2===0 ? C.blanco : C.fondo, alignItems:"center", transition:"background 0.12s" }}>
                     <div>
-                      <div style={{ fontSize: "13px", fontWeight: "600", marginBottom: "2px" }}>{p.descripcion}</div>
-                      <div style={{ fontSize: "11px", color: "#888", fontStyle: "italic" }}>{p.detalle}</div>
-                      <div style={{ fontSize: "10px", color: "#bbb", fontFamily: "'Courier New', monospace", marginTop: "2px" }}>{p.referencia_tipo}</div>
+                      {editando?.id===p._id && editando?.field==="descripcion" ? (
+                        <input autoFocus value={p.descripcion} onChange={e => dispatch({type:"UPDATE",id:p._id,field:"descripcion",value:e.target.value})} onBlur={() => setEditando(null)} style={{ ...inp, fontSize:"13px", padding:"4px 8px" }} />
+                      ) : (
+                        <div style={{ fontSize:"13px", fontWeight:"600", color:C.texto, cursor:"pointer" }} onClick={() => setEditando({id:p._id,field:"descripcion"})} title="Clic para editar">{p.descripcion}</div>
+                      )}
+                      <div style={{ fontSize:"11px", color:C.textoTer, marginTop:"2px" }}>{p.detalle}</div>
+                      <div style={{ fontSize:"10px", color:C.azulClaro, fontWeight:"600", marginTop:"2px" }}>{p.referencia}</div>
+                      {p.nota_tecnica && <div style={{ fontSize:"10px", color:C.textoTer, fontStyle:"italic", marginTop:"2px" }}>ⓘ {p.nota_tecnica}</div>}
                     </div>
-                    <div style={{ fontFamily: "'Courier New', monospace", fontSize: "12px", color: "#555" }}>{p.cantidad}</div>
-                    <div style={{ fontFamily: "'Courier New', monospace", fontSize: "12px", color: "#555" }}>{p.precio_unitario?.toLocaleString("es-ES")} €</div>
-                    <div style={{ fontFamily: "'Courier New', monospace", fontSize: "14px", fontWeight: "700", color: "#2d5016" }}>{p.precio_total?.toLocaleString("es-ES")} €</div>
+
+                    {/* Cantidad editable */}
+                    <div>
+                      {editando?.id===p._id && editando?.field==="cantidad" ? (
+                        <input autoFocus type="number" value={p.cantidad} onChange={e => dispatch({type:"UPDATE",id:p._id,field:"cantidad",value:Number(e.target.value)})} onBlur={() => setEditando(null)} style={{ ...inp, width:"80px", fontSize:"13px", padding:"4px 8px" }} />
+                      ) : (
+                        <span style={{ fontSize:"13px", color:C.textoSec, cursor:"pointer", borderBottom:`1px dashed ${C.borde}` }} onClick={() => setEditando({id:p._id,field:"cantidad"})} title="Clic para editar">{p.cantidad}</span>
+                      )}
+                    </div>
+
+                    {/* Precio unitario editable */}
+                    <div>
+                      {editando?.id===p._id && editando?.field==="precio_unitario" ? (
+                        <input autoFocus type="number" value={p.precio_unitario} onChange={e => dispatch({type:"UPDATE",id:p._id,field:"precio_unitario",value:Number(e.target.value)})} onBlur={() => setEditando(null)} style={{ ...inp, width:"100px", fontSize:"13px", padding:"4px 8px" }} />
+                      ) : (
+                        <span style={{ fontSize:"13px", color:C.textoSec, cursor:"pointer", borderBottom:`1px dashed ${C.borde}` }} onClick={() => setEditando({id:p._id,field:"precio_unitario"})} title="Clic para editar">{Number(p.precio_unitario).toLocaleString("es-ES")} €</span>
+                      )}
+                    </div>
+
+                    <div style={{ fontSize:"14px", fontWeight:"700", color:C.azulOscuro }}>
+                      {Number(p.precio_total).toLocaleString("es-ES")} €
+                    </div>
+
+                    <button onClick={() => dispatch({type:"REMOVE",id:p._id})} title="Eliminar partida" style={{ background:"none", border:"none", color:C.rojoSuave, cursor:"pointer", fontSize:"16px", lineHeight:1 }}>×</button>
                   </div>
                 ))}
 
+                {/* Añadir partida */}
+                <div className="no-print" style={{ padding:"10px 20px", borderTop:`1px dashed ${C.borde}` }}>
+                  <button onClick={() => dispatch({type:"ADD"})} style={{ ...btnS, fontSize:"11px", padding:"6px 14px", color:C.azulClaro, borderColor:C.azulClaro }}>
+                    + Añadir partida
+                  </button>
+                </div>
+
                 {/* Totales */}
-                <div style={{ padding: "16px 24px", background: "#f5f0e8", borderTop: "2px solid #e8e0d0" }}>
-                  {[["Subtotal material", presupuesto.subtotal_material], ["Mano de obra estimada", presupuesto.mano_obra_estimada]].map(([l, v]) => (
-                    <div key={l} style={{ display: "flex", justifyContent: "flex-end", gap: "40px", marginBottom: "6px", fontSize: "13px", color: "#666" }}>
+                <div style={{ padding:"18px 24px", background:C.fondo, borderTop:`2px solid ${C.borde}` }}>
+                  {[["Material (sin IVA)", totales.material], ["Mano de obra estimada", totales.manoObra]].map(([l,v]) => (
+                    <div key={l} style={{ display:"flex", justifyContent:"flex-end", gap:"48px", marginBottom:"6px", fontSize:"13px", color:C.textoSec }}>
                       <span>{l}</span>
-                      <span style={{ fontFamily: "'Courier New', monospace", minWidth: "110px", textAlign: "right" }}>{v?.toLocaleString("es-ES")} €</span>
+                      <span style={{ fontWeight:"600", minWidth:"110px", textAlign:"right" }}>{v.toLocaleString("es-ES")} €</span>
                     </div>
                   ))}
-                  <div style={{ display: "flex", justifyContent: "flex-end", gap: "40px", marginTop: "10px", paddingTop: "10px", borderTop: "1px solid #d0c8b0", fontSize: "16px", fontWeight: "700", color: "#2d5016" }}>
+                  <div style={{ display:"flex", justifyContent:"flex-end", gap:"48px", marginTop:"10px", paddingTop:"10px", borderTop:`2px solid ${C.borde}`, fontSize:"16px", fontWeight:"700", color:C.azulOscuro }}>
                     <span>TOTAL SIN IVA</span>
-                    <span style={{ fontFamily: "'Courier New', monospace", minWidth: "110px", textAlign: "right" }}>{presupuesto.total_estimado?.toLocaleString("es-ES")} €</span>
+                    <span style={{ minWidth:"110px", textAlign:"right" }}>{totales.total.toLocaleString("es-ES")} €</span>
                   </div>
-                  <div style={{ display: "flex", justifyContent: "flex-end", gap: "40px", fontSize: "13px", color: "#888", marginTop: "4px" }}>
+                  <div style={{ display:"flex", justifyContent:"flex-end", gap:"48px", fontSize:"13px", color:C.textoTer, marginTop:"4px" }}>
                     <span>IVA 21%</span>
-                    <span style={{ fontFamily: "'Courier New', monospace", minWidth: "110px", textAlign: "right" }}>{Math.round((presupuesto.total_estimado || 0) * 0.21).toLocaleString("es-ES")} €</span>
+                    <span style={{ minWidth:"110px", textAlign:"right" }}>{Math.round(totales.total*0.21).toLocaleString("es-ES")} €</span>
                   </div>
-                  <div style={{ display: "flex", justifyContent: "flex-end", gap: "40px", fontSize: "18px", fontWeight: "900", color: "#1a1a1a", marginTop: "8px", paddingTop: "8px", borderTop: "2px solid #2d5016" }}>
+                  <div style={{ display:"flex", justifyContent:"flex-end", gap:"48px", fontSize:"20px", fontWeight:"900", color:C.texto, marginTop:"8px", paddingTop:"8px", borderTop:`2px solid ${C.azulOscuro}` }}>
                     <span>TOTAL CON IVA</span>
-                    <span style={{ fontFamily: "'Courier New', monospace", minWidth: "110px", textAlign: "right" }}>{Math.round((presupuesto.total_estimado || 0) * 1.21).toLocaleString("es-ES")} €</span>
+                    <span style={{ minWidth:"110px", textAlign:"right" }}>{Math.round(totales.total*1.21).toLocaleString("es-ES")} €</span>
                   </div>
                 </div>
               </div>
 
-              {/* Info adicional */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px", marginBottom: "16px" }}>
+              {/* Info adicional en 3 columnas */}
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"12px", marginBottom:"16px" }}>
                 {[
-                  { titulo: "PRODUCTOS RECOMENDADOS", items: presupuesto.productos_destacados, color: "#2d5016" },
-                  { titulo: "NORMATIVAS APLICABLES", items: presupuesto.normativas, color: "#1a3060" },
-                  { titulo: "NOTAS TÉCNICAS", items: presupuesto.notas_tecnicas, color: "#7a4000" },
-                ].map(({ titulo, items, color }) => (
-                  <div key={titulo} style={{ background: "#fff", border: "1px solid #e8e0d0", padding: "16px", borderTop: `3px solid ${color}` }}>
-                    <div style={{ fontSize: "9px", letterSpacing: "2px", color, fontFamily: "'Courier New', monospace", marginBottom: "10px", fontWeight: "700" }}>{titulo}</div>
-                    {items?.map((item, i) => (
-                      <div key={i} style={{ display: "flex", gap: "6px", marginBottom: "6px" }}>
-                        <span style={{ color, fontSize: "10px", marginTop: "3px", flexShrink: 0 }}>▸</span>
-                        <span style={{ fontSize: "12px", color: "#555", lineHeight: "1.5" }}>{item}</span>
+                  { titulo:"NORMATIVAS APLICABLES", items: presupuesto.normativas,  accent: C.azulOscuro },
+                  { titulo:"NOTAS TÉCNICAS",         items: presupuesto.notas,       accent: C.azulMedio  },
+                  { titulo:"PLAZO Y CONDICIONES",    items: [`Entrega material: ${presupuesto.plazo_entrega||"5-10 días hábiles"}`, "Validez: 30 días", "Precios sin IVA"], accent: C.textoSec },
+                ].map(({ titulo, items, accent }) => (
+                  <div key={titulo} style={{ background:C.blanco, border:`1px solid ${C.borde}`, borderTop:`3px solid ${accent}`, borderRadius:"0 0 8px 8px", padding:"16px" }}>
+                    <div style={{ fontSize:"10px", fontWeight:"600", letterSpacing:"0.8px", color:accent, marginBottom:"10px" }}>{titulo}</div>
+                    {(items||[]).map((item, i) => (
+                      <div key={i} style={{ display:"flex", gap:"6px", marginBottom:"6px" }}>
+                        <span style={{ color:accent, fontSize:"10px", marginTop:"3px", flexShrink:0 }}>▸</span>
+                        <span style={{ fontSize:"12px", color:C.textoSec, lineHeight:"1.5" }}>{item}</span>
                       </div>
                     ))}
                   </div>
                 ))}
               </div>
 
-              {/* Entrega + disclaimer */}
-              <div style={{ background: "#f5f0e8", border: "1px solid #e8e0d0", padding: "14px 20px", marginBottom: "20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div style={{ fontSize: "12px", color: "#666" }}>
-                  <strong>Plazo de entrega de material:</strong> {presupuesto.plazo_entrega_material}
+              {/* Alternativa económica */}
+              {presupuesto.alternativa_eco && (
+                <div style={{ background:C.amarilloS, border:`1px solid #F5D58B`, borderRadius:"8px", padding:"14px 18px", marginBottom:"16px" }}>
+                  <button onClick={() => setMostrarAlternativa(!mostrarAlternativa)} style={{ background:"none", border:"none", cursor:"pointer", display:"flex", alignItems:"center", gap:"8px", color:C.amarillo, fontSize:"12px", fontWeight:"600", fontFamily:"system-ui,Segoe UI,sans-serif" }}>
+                    {mostrarAlternativa ? "▼" : "▶"} Alternativa de menor coste
+                  </button>
+                  {mostrarAlternativa && (
+                    <div style={{ marginTop:"8px", fontSize:"13px", color:C.textoSec, lineHeight:"1.6" }}>{presupuesto.alternativa_eco}</div>
+                  )}
                 </div>
-                <div style={{ fontSize: "10px", color: "#aaa", fontStyle: "italic", maxWidth: "400px", textAlign: "right" }}>
-                  ⚠ Presupuesto orientativo generado con IA. Precios y disponibilidad sujetos a confirmación. Verificar con Sonepar antes de formalizar pedido.
-                </div>
+              )}
+
+              {/* Disclaimer */}
+              <div style={{ background:C.fondo, border:`1px solid ${C.borde}`, borderRadius:"8px", padding:"12px 18px", marginBottom:"20px", fontSize:"11px", color:C.textoTer, fontStyle:"italic" }}>
+                ⚠ Presupuesto orientativo generado con IA. Precios y disponibilidad sujetos a confirmación. Verificar con Sonepar antes de formalizar pedido.
               </div>
 
-              {/* Botones acción */}
-              <div className="no-print" style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                <button onClick={exportarPDF} style={{
-                  background: "#2d5016", color: "#f0c040", border: "none",
-                  padding: "14px 28px", fontSize: "11px", letterSpacing: "3px",
-                  fontFamily: "'Courier New', monospace", cursor: "pointer", fontWeight: "700",
-                }}>⬇ EXPORTAR PDF</button>
-                <button onClick={copiarResumen} style={{
-                  background: "#fff", color: "#2d5016", border: "2px solid #2d5016",
-                  padding: "14px 28px", fontSize: "11px", letterSpacing: "2px",
-                  fontFamily: "'Courier New', monospace", cursor: "pointer", fontWeight: "700",
-                }}>⎘ COPIAR RESUMEN</button>
-                <button onClick={() => setPaso(2)} style={{
-                  background: "transparent", color: "#888", border: "1px solid #e8e0d0",
-                  padding: "14px 20px", fontSize: "11px", letterSpacing: "2px",
-                  fontFamily: "'Courier New', monospace", cursor: "pointer",
-                }}>‹ MODIFICAR</button>
-                <button onClick={reiniciar} style={{
-                  background: "transparent", color: "#888", border: "1px solid #e8e0d0",
-                  padding: "14px 20px", fontSize: "11px", letterSpacing: "2px",
-                  fontFamily: "'Courier New', monospace", cursor: "pointer",
-                }}>+ NUEVO</button>
+              {/* Botones de acción */}
+              <div className="no-print" style={{ display:"flex", gap:"12px", flexWrap:"wrap" }}>
+                <button onClick={() => window.print()} style={btnP()}>Exportar PDF →</button>
+                <button onClick={copiarResumen} style={btnS}>Copiar resumen</button>
+                <button onClick={() => setPaso(2)} style={{ ...btnS, color:C.textoSec, borderColor:C.borde }}>‹ Modificar</button>
+                <button onClick={reiniciar}       style={{ ...btnS, color:C.textoSec, borderColor:C.borde }}>+ Nuevo</button>
               </div>
             </div>
           )}
