@@ -1,18 +1,82 @@
 # SONEPAR TOOLS
 
-> Suite de herramientas internas con IA para operaciones de distribución eléctrica
+<div align="center">
 
-**Autor:** Iago Robo  
-**Contexto:** Prácticas del Ciclo Formativo de Automatización y Robótica Industrial — Sonepar España, A Coruña, 2026  
-**Estado:** Fase 2 completada — 7/7 herramientas en v2.0
+**Suite de herramientas internas con IA para operaciones de distribución eléctrica**
+
+[![Vercel](https://img.shields.io/badge/demo-proyectos--sonepar.vercel.app-003087?style=flat-square&logo=vercel&logoColor=white)](https://proyectos-sonepar.vercel.app)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
+[![Claude](https://img.shields.io/badge/Claude_Sonnet-Anthropic-CC785C?style=flat-square)](https://anthropic.com)
+[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
+
+*Proyecto de prácticas FP · Automatización y Robótica Industrial · Sonepar España · A Coruña · 2026*
+
+</div>
 
 ---
 
-## Sobre el proyecto
+## ¿Qué es esto?
 
-Sonepar Tools es una suite de 7 herramientas web desarrolladas como proyecto de prácticas en Sonepar España. Cada herramienta está construida como un artefacto React independiente con inteligencia artificial integrada (Claude Sonnet de Anthropic), pensada para resolver necesidades reales de las delegaciones: desde el mostrador técnico hasta la gestión logística interna.
+**Sonepar Tools** es una suite de **7 herramientas web con IA integrada**, desarrolladas durante las prácticas de FP en Sonepar España (delegación A Coruña). Cada herramienta resuelve un problema real del día a día en las delegaciones: desde el técnico de mostrador que necesita una ficha técnica al instante hasta el responsable de turno que quiere analizar los KPIs logísticos en segundos.
 
-El proyecto nace de un análisis directo del contexto operativo de Sonepar: empresa en plena transformación digital, con más de 135 delegaciones, integrando múltiples sistemas de gestión y expandiendo su oferta hacia automatización, vehículo eléctrico y energías renovables.
+El motor de todas ellas es **Claude Sonnet** (Anthropic), llamado directamente desde el frontend. No hay backend propio — las herramientas funcionan en cualquier navegador.
+
+**Demo en vivo →** [proyectos-sonepar.vercel.app](https://proyectos-sonepar.vercel.app)
+
+---
+
+## Contexto: por qué tiene sentido en Sonepar
+
+Sonepar España opera con **más de 135 delegaciones**, **2.200+ empleados** y **885M€ de ventas en 2024**. La empresa está en plena transformación logística: integrando 7 sistemas de gestión de almacén, expandiendo hacia automatización industrial, vehículo eléctrico y energías renovables, y con un nuevo centro de distribución en Sagunto equipado con AutoStore (35.000 cubetas, 30 robots).
+
+En ese contexto, los técnicos de mostrador resuelven consultas de instaladores sin tiempo que perder, los operarios de almacén gestionan flujos de pedido bajo presión de tiempo, y los responsables necesitan tomar decisiones rápidas con datos del turno. Estas herramientas están pensadas exactamente para esos momentos.
+
+---
+
+## Las 7 herramientas
+
+| # | Herramienta | Qué hace | Versión |
+|---|-------------|----------|---------|
+| 01 | **Simulador de Almacén** | Reproduce el ciclo recepción→picking→expedición con cronómetro, 15 incidencias reales y modo entrenamiento/evaluación. Análisis IA al terminar. | `v3.0` |
+| 02 | **Fichas Técnicas** | El técnico introduce una referencia y obtiene ficha completa: specs, aplicaciones, compatibilidades, normativa y consejo práctico. | `v2.0` |
+| 03 | **Dashboard de Incidencias** | Registro y seguimiento de fallos en equipos. La IA diagnostica el síntoma: causa probable, verificaciones, solución, prevención. | `v2.0` |
+| 04 | **KPIs Logísticos** | Transforma los datos de un turno en 6 indicadores con semáforo visual y benchmarks del sector. Informe ejecutivo con IA. | `v3.0` |
+| 05 | **Generador de Presupuestos** | El instalador define la instalación y obtiene un presupuesto con partidas editables, referencias reales del catálogo Sonepar y exportación a PDF. | `v3.0` |
+| 06 | **Formación Interna** | Tracker de progreso formativo por empleado. Módulos por área, fechas de vencimiento y plan de desarrollo personalizado con IA. | `v2.0` |
+| 07 | **SONEX** | Chatbot técnico especializado en material eléctrico e industrial. Detección automática de modo, catálogo de ~80 productos, streaming de respuestas, exportación a PDF. | `v7.0` ★ |
+
+> ★ SONEX es la herramienta principal del proyecto y la más desarrollada.
+
+---
+
+## Cómo funciona (en 3 pasos)
+
+```
+1. El técnico introduce sus datos
+   → referencia, síntoma, parámetros del motor, consulta libre...
+
+2. La IA procesa con contexto de Sonepar
+   → system prompt especializado + catálogo real + normativa eléctrica
+
+3. Resultado accionable en segundos
+   → ficha técnica, diagnóstico, presupuesto, informe de turno, respuesta técnica
+```
+
+Todas las herramientas funcionan en el navegador. No hay servidor intermedio: el frontend llama directamente a la API de Anthropic. En producción (Vercel + claude.ai), la API key se inyecta automáticamente.
+
+---
+
+## Stack técnico
+
+| Tecnología | Versión | Rol en el proyecto |
+|---|---|---|
+| **React** | 18 | Framework UI — cada herramienta es un componente independiente |
+| **Vite** | 5 | Bundler y servidor de desarrollo |
+| **Claude Sonnet** (Anthropic) | claude-sonnet-4 | Motor de IA — system prompts especializados por herramienta |
+| **Recharts** | 2 | Gráficos en KPI Logístico y Dashboard de Incidencias |
+| **localStorage** | — | Persistencia de historial, perfil de usuario y datos del turno |
+| **window.print()** | — | Exportación a PDF en Presupuestos y SONEX |
+| **GitHub + Vercel** | — | Control de versiones y despliegue continuo (push → deploy en ~90s) |
 
 ---
 
@@ -21,143 +85,86 @@ El proyecto nace de un análisis directo del contexto operativo de Sonepar: empr
 ```
 proyectos-sonepar/
 ├── README.md
-├── docs/
-│   ├── SONEPAR-TOOLS-README.docx
-│   └── SONEPAR-TOOLS-ROADMAP.docx
+├── app/                                  ← App Vite (lo que se despliega en Vercel)
+│   ├── src/
+│   │   ├── App.jsx                       # Menú principal con las 7 herramientas
+│   │   └── tools/
+│   │       ├── SimuladorAlmacen.jsx
+│   │       ├── FichasTecnicas.jsx
+│   │       ├── DashboardIncidencias.jsx
+│   │       ├── KpiLogistico.jsx
+│   │       ├── Presupuestos.jsx
+│   │       ├── FormacionInterna.jsx
+│   │       └── Sonex.jsx                 ★ Herramienta principal
+│   ├── docs/
+│   │   └── CHANGELOG-v*.docx
+│   └── package.json
+├── chatbot-tecnico/                      ← Historial de versiones de SONEX
+│   ├── sonepar-chatbot-tecnico-v*.jsx
+│   └── docs/
+│       ├── PLAN-sonex-v*.docx
+│       └── CHANGELOG-sonex-v*.docx
 ├── simulador-almacen/
-│   ├── sonepar-almacen-simulador-v2.jsx
-│   └── docs/
-│       ├── CHANGELOG-v1.docx
-│       ├── PLAN-v2.docx
-│       └── CHANGELOG-v2.docx
 ├── fichas-tecnicas/
-│   ├── sonepar-fichas-tecnicas-v2.jsx
-│   └── docs/
-│       ├── CHANGELOG-v1.docx
-│       ├── PLAN-v2.docx
-│       └── CHANGELOG-v2.docx
 ├── dashboard-incidencias/
-│   ├── sonepar-dashboard-incidencias-v2.jsx
-│   └── docs/
-│       ├── CHANGELOG-v1.docx
-│       ├── PLAN-v2.docx
-│       └── CHANGELOG-v2.docx
 ├── kpi-logistico/
-│   ├── sonepar-kpi-logistico-v2.jsx
-│   └── docs/
-│       ├── CHANGELOG-v1.docx
-│       ├── PLAN-v2.docx
-│       └── CHANGELOG-v2.docx
 ├── presupuestos/
-│   ├── sonepar-generador-presupuestos-v2.jsx
-│   └── docs/
-│       ├── CHANGELOG-v1.docx
-│       ├── PLAN-v2.docx
-│       └── CHANGELOG-v2.docx
 ├── formacion-interna/
-│   ├── sonepar-formacion-interna-v2.jsx
-│   └── docs/
-│       ├── CHANGELOG-v1.docx
-│       ├── PLAN-v2.docx
-│       └── CHANGELOG-v2.docx
-└── chatbot-tecnico/
-    ├── sonepar-chatbot-tecnico-v2.jsx
-    └── docs/
-        ├── CHANGELOG-v1.docx
-        ├── PLAN-v2.docx
-        └── CHANGELOG-v2.docx
+└── docs/
+    ├── SONEPAR-TOOLS-README.docx
+    └── SONEPAR-TOOLS-ROADMAP.docx
 ```
 
 ---
 
-## Herramientas
+## Empezar en local
 
-### 01 — Simulador de Flujo de Almacén
-Reproduce el ciclo completo de un pedido desde recepción hasta expedición. Cronómetro por etapa con semáforo de estándar en tiempo real. Útil para formación de operarios y análisis de cuellos de botella. La IA analiza los tiempos reales de la simulación y genera recomendaciones específicas por etapa.
+```bash
+# 1. Clonar el repositorio
+git clone https://github.com/iagorobo24-hub/proyectos-sonepar.git
+cd proyectos-sonepar/app
 
-`v2.0` · Completado ✓
+# 2. Instalar dependencias
+npm install
 
----
+# 3. Crear el archivo de variables de entorno
+echo "VITE_ANTHROPIC_KEY=sk-ant-..." > .env
 
-### 02 — Asistente de Fichas Técnicas
-El técnico de mostrador introduce una referencia o descripción y obtiene la ficha técnica completa: características, aplicaciones, compatibilidades, normativas, precio orientativo y consejo práctico. Valida consultas vagas con sugerencias clicables. Modo comparativa para elegir entre dos productos. Historial persistente de 10 fichas. Exportación a PDF y copia al portapapeles.
+# 4. Arrancar el servidor de desarrollo
+npm run dev
+# → http://localhost:5173
+```
 
-`v2.0` · Completado ✓
-
----
-
-### 03 — Dashboard de Incidencias Técnicas
-Sistema de registro y seguimiento de fallos en equipos del almacén. La IA diagnostica la incidencia a partir del síntoma: causa probable, pasos de verificación, solución y prevención. Alerta automática para incidencias críticas abiertas más de 2 horas. Persistencia completa en localStorage. Campo de observaciones y estadísticas de resolución por equipo.
-
-`v2.0` · Completado ✓
-
----
-
-### 04 — Calculadora de KPIs Logísticos
-Transforma los datos de un turno en 6 indicadores clave con semáforo visual comparado con benchmarks del sector. Historial de los últimos 30 turnos con gráficos dinámicos sobre datos reales. Comparativa lado a lado entre dos turnos. Botón de ejemplo con datos de referencia. Exportación a PDF del informe ejecutivo generado con IA.
-
-`v2.0` · Completado ✓
+> ⚠️ La API key solo es necesaria en local. En [proyectos-sonepar.vercel.app](https://proyectos-sonepar.vercel.app) funciona directamente sin configuración.
 
 ---
 
-### 05 — Generador de Presupuestos
-El instalador selecciona el tipo de instalación, introduce los parámetros y obtiene un presupuesto detallado con partidas, precios, IVA desglosado y normativas aplicables. Numeración automática SNP-AAAAMM-XXX. Historial de 20 presupuestos. Datos del instalador persistentes. Exportación a PDF y copia de resumen.
+## Estado del proyecto
 
-`v2.0` · Completado ✓
+- [x] **Fase 1** — Desarrollo de los 7 prototipos funcionales (v1–v2)
+- [x] **Fase 2** — Revisión y pulido: SONEX v7, KPI v3, Presupuestos v3, Simulador v3
+- [ ] **Fase 3** — Completar revisión de Formación, Dashboard e Incidencias (v3)
+- [ ] **Fase 4** — Presentación interna en Sonepar A Coruña
+- [ ] **Fase 5** — Evaluación de implantación real en delegaciones
 
----
-
-### 06 — Sistema de Formación Interna
-Tracker de progreso formativo por empleado. Vista Matriz con semáforo de estado para visibilidad global del equipo. Alerta automática de módulos obligatorios pendientes tras 30 días de alta. Módulos personalizables y alta de empleados desde la interfaz. Fechas de completado registradas. Genera planes de desarrollo personalizados con IA usando el progreso real de cada empleado.
-
-`v2.0` · Completado ✓
-
----
-
-### 07 — SONEX — Chatbot Técnico
-Asistente conversacional especializado en material eléctrico e industrial. Historial de 10 conversaciones persistidas con naming automático. Indicador de confianza por respuesta (alta / media / verificar). Modo consulta rápida para preguntas puntuales. 4 modos de contexto: General, Avería, Selección, Normativa. Límite de 20 turnos por conversación con aviso.
-
-`v2.0` · Completado ✓
-
----
-
-## Stack técnico
-
-| Tecnología | Uso |
-|---|---|
-| React 18 | Framework UI — hooks, estado, efectos |
-| Anthropic API (Claude Sonnet 4) | Motor de IA en todos los artefactos |
-| Recharts | Gráficos y visualizaciones (KPI Logístico) |
-| localStorage | Persistencia de datos entre sesiones |
-| window.print() | Exportación a PDF con @media print |
-| docx (npm) | Generación de documentación Word |
-| GitHub + Vercel | Control de versiones y despliegue |
+**Versiones actuales:** Simulador `v3` · Fichas `v2` · Dashboard `v2` · KPI `v3` · Presupuestos `v3` · Formación `v2` · SONEX `v7`
 
 ---
 
 ## Documentación
 
-Cada herramienta tiene su propia carpeta `/docs` con:
+Cada herramienta tiene su propio historial en la carpeta correspondiente:
 
-- **CHANGELOG-v1.docx** — Registro de la versión inicial
-- **PLAN-v2.docx** — Planificación previa al desarrollo de v2
-- **CHANGELOG-v2.docx** — Registro detallado de todos los cambios de v2
-
-La documentación global del proyecto está en `/docs`:
-
-- **SONEPAR-TOOLS-README.docx** — Descripción completa del proyecto, stack y contexto
-- **SONEPAR-TOOLS-ROADMAP.docx** — Hojas de ruta globales por herramienta
+- `PLAN-*.docx` — objetivos, alcance y decisiones de diseño de cada versión
+- `CHANGELOG-*.docx` — cambios implementados con detalle técnico
+- `docs/SONEPAR-TOOLS-README.docx` — descripción completa del proyecto
+- `docs/SONEPAR-TOOLS-ROADMAP.docx` — hoja de ruta global
 
 ---
 
-## Fases del proyecto
+<div align="center">
 
-- [x] Fase 1 — Desarrollo de los 7 prototipos funcionales (v1.0)
-- [x] Fase 2 — Revisión y pulido de todos los artefactos (v2.0)
-- [ ] Fase 3 — Publicación en Vercel con URLs independientes
-- [ ] Fase 4 — Presentación interna en Sonepar A Coruña
-- [ ] Fase 5 — Evaluación de implantación real
+*Este proyecto se desarrolla como iniciativa personal durante las prácticas.*  
+*No está afiliado oficialmente a Sonepar España ni a Anthropic.*
 
----
-
-> Este proyecto se desarrolla como iniciativa personal durante las prácticas. No está afiliado oficialmente a Sonepar España.
+</div>
