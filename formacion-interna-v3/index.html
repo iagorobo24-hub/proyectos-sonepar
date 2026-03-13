@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formación Interna Sonepar v3</title>
+    <link rel="stylesheet" href="./styles/sonepar-theme.css">
+    <style>
+        /* Estilos adicionales para la demo */
+        .demo-info {
+            background: var(--sonepar-light);
+            border: 1px solid var(--sonepar-secondary);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin: var(--spacing-lg) 0;
+        }
+        
+        .demo-info h3 {
+            color: var(--sonepar-primary);
+            margin-top: 0;
+        }
+        
+        .service-demo {
+            background: var(--sonepar-white);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-md);
+            margin: var(--spacing-md) 0;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .service-demo h4 {
+            color: var(--sonepar-secondary);
+            margin-top: 0;
+        }
+        
+        .demo-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+            margin-top: var(--spacing-md);
+        }
+        
+        .demo-output {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: var(--border-radius);
+            padding: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="sonepar-app">
+        <!-- Header -->
+        <header class="sonepar-header">
+            <div class="header-content">
+                <div class="sonepar-logo">
+                    <div class="orbital-logo"></div>
+                    <span class="logo-text">Sonepar</span>
+                </div>
+                <h1>Formación Interna v3 - Demo</h1>
+                <div class="header-actions">
+                    <span class="version-badge">v3.0.0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navegación -->
+        <nav class="sonepar-navigation">
+            <div class="nav-tabs">
+                <button class="nav-tab active">
+                    <span class="tab-icon">🏠</span>
+                    <span class="tab-label">Demo</span>
+                </button>
+                <button class="nav-tab">
+                    <span class="tab-icon">👥</span>
+                    <span class="tab-label">Equipo</span>
+                </button>
+                <button class="nav-tab">
+                    <span class="tab-icon">👤</span>
+                    <span class="tab-label">Empleado</span>
+                </button>
+                <button class="nav-tab">
+                    <span class="tab-icon">📚</span>
+                    <span class="tab-label">Módulos</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <div class="demo-info">
+                <h3>🎯 Tarea 2.1 Completada: Sistema de Diseño Sonepar Mejorado</h3>
+                <p>Se ha implementado exitosamente:</p>
+                <ul>
+                    <li>✅ Logo SVG orbital animado con gradientes corporativos</li>
+                    <li>✅ Componentes Header y Navigation modulares</li>
+                    <li>✅ Sistema completo de estilos para dashboard y matriz</li>
+                    <li>✅ Estilos para certificados PDF con branding Sonepar</li>
+                    <li>✅ Componentes de carga con identidad visual</li>
+                    <li>✅ Accesibilidad mejorada y soporte para lectores de pantalla</li>
+                    <li>✅ Responsive design completo y modo oscuro preparado</li>
+                    <li>✅ Estilos de impresión optimizados</li>
+                </ul>
+            </div>
+
+            <div class="service-demo">
+                <h4>📊 DataService - Operaciones CRUD</h4>
+                <p>Servicio optimizado con memoización y estructura de datos separada:</p>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="testDataService()">Probar DataService</button>
+                    <button class="btn btn-secondary" onclick="showMetrics()">Ver Métricas</button>
+                    <button class="btn btn-warning" onclick="clearData()">Limpiar Datos</button>
+                </div>
+                <div id="dataServiceOutput" class="demo-output" style="display: none;"></div>
+            </div>
+
+            <div class="service-demo">
+                <h4>🔄 MigrationService - Migración v2 → v3</h4>
+                <p>Servicio para migración automática con backup y rollback:</p>
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="testMigration()">Simular Migración</button>
+                    <button class="btn btn-secondary" onclick="checkMigrationStatus()">Estado Migración</button>
+                    <button class="btn btn-danger" onclick="simulateRollback()">Simular Rollback</button>
+                </div>
+                <div id="migrationOutput" class="demo-output" style="display: none;"></div>
+            </div>
+
+            <div class="service-demo">
+                <h4>🎨 Sistema de Diseño Sonepar Mejorado</h4>
+                <p>Componentes visuales con identidad corporativa completa:</p>
+                
+                <!-- Demo de componentes de dashboard -->
+                <div style="margin: var(--spacing-lg) 0;">
+                    <h5 style="color: var(--sonepar-primary); margin-bottom: var(--spacing-md);">Métricas Dashboard</h5>
+                    <div class="metrics-grid" style="margin-bottom: var(--spacing-lg);">
+                        <div class="metrics-card">
+                            <div class="metrics-card-header">
+                                <h6 class="metrics-card-title">Completado del Equipo</h6>
+                                <span class="metrics-card-icon">📊</span>
+                            </div>
+                            <p class="metrics-card-value">75%</p>
+                            <p class="metrics-card-trend trend-up">↗ +5% vs mes anterior</p>
+                        </div>
+                        <div class="metrics-card urgent">
+                            <div class="metrics-card-header">
+                                <h6 class="metrics-card-title">Módulos Pendientes</h6>
+                                <span class="metrics-card-icon">⚠️</span>
+                            </div>
+                            <p class="metrics-card-value">12</p>
+                            <p class="metrics-card-trend trend-down">↘ 3 con vencimiento próximo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo de estados de matriz -->
+                <div style="margin: var(--spacing-lg) 0;">
+                    <h5 style="color: var(--sonepar-primary); margin-bottom: var(--spacing-md);">Estados de Matriz</h5>
+                    <div style="display: flex; gap: var(--spacing-md); flex-wrap: wrap; margin-bottom: var(--spacing-lg);">
+                        <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                            <div class="matrix-status completed">✓</div>
+                            <span>Completado</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                            <div class="matrix-status in-progress">⏳</div>
+                            <span>En Progreso</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                            <div class="matrix-status upcoming-deadline">⚠</div>
+                            <span>Próximo Vencimiento</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                            <div class="matrix-status overdue">✗</div>
+                            <span>Vencido</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: var(--spacing-xs);">
+                            <div class="matrix-status pending">○</div>
+                            <span>Pendiente</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo de badges -->
+                <div style="margin: var(--spacing-lg) 0;">
+                    <h5 style="color: var(--sonepar-primary); margin-bottom: var(--spacing-md);">Badges y Etiquetas</h5>
+                    <div style="display: flex; gap: var(--spacing-sm); flex-wrap: wrap; margin-bottom: var(--spacing-lg);">
+                        <span class="badge badge-primary">Obligatorio</span>
+                        <span class="badge badge-secondary">Recomendado</span>
+                        <span class="badge badge-success">Completado</span>
+                        <span class="badge badge-warning">Próximo Vencimiento</span>
+                        <span class="badge badge-danger">Vencido</span>
+                        <span class="badge badge-light">Opcional</span>
+                    </div>
+                </div>
+
+                <!-- Demo de barra de progreso -->
+                <div style="margin: var(--spacing-lg) 0;">
+                    <h5 style="color: var(--sonepar-primary); margin-bottom: var(--spacing-md);">Indicadores de Progreso</h5>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;"></div>
+                    </div>
+                    <p class="progress-text">75% Completado</p>
+                </div>
+
+                <div class="demo-actions">
+                    <button class="btn btn-primary" onclick="testDesignSystem()">Probar Componentes</button>
+                    <button class="btn btn-secondary" onclick="showAccessibility()">Ver Accesibilidad</button>
+                    <button class="btn btn-success" onclick="testResponsive()">Probar Responsive</button>
+                </div>
+                <div id="designSystemOutput" class="demo-output" style="display: none;"></div>
+            </div>
+
+            <div class="demo-info">
+                <h3>📁 Estructura del Proyecto</h3>
+                <pre style="background: var(--sonepar-white); padding: var(--spacing-md); border-radius: var(--border-radius); overflow-x: auto;">
+FormacionApp/
+├── components/
+│   ├── dashboard/     # Componentes del dashboard
+│   ├── matrix/        # Matriz de progreso
+│   ├── employee/      # Vista de empleado
+│   ├── modules/       # Gestión de módulos
+│   ├── certificates/  # Sistema de certificados
+│   ├── onboarding/    # Itinerarios de incorporación
+│   ├── import/        # Importación CSV
+│   ├── analysis/      # Análisis de equipo
+│   └── shared/        # Componentes compartidos
+├── hooks/             # Custom React hooks
+├── services/          # Servicios de datos y APIs
+│   ├── dataService.js      ✅ Implementado
+│   └── migrationService.js ✅ Implementado
+├── utils/             # Utilidades y helpers
+└── styles/            # Estilos y tema Sonepar
+    └── sonepar-theme.css   ✅ Implementado
+                </pre>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts para la demo -->
+    <script type="module">
+        // Simulación de los servicios para la demo
+        class DemoDataService {
+            constructor() {
+                this.employees = [
+                    { id: 'emp-1', nombre: 'Juan Pérez', area: 'Ventas', rol: 'Comercial', activo: true },
+                    { id: 'emp-2', nombre: 'María García', area: 'Técnico', rol: 'Técnico', activo: true }
+                ];
+                this.modules = [
+                    { id: 'mod-1', nombre: 'Seguridad Industrial', categoria: 'Seguridad', horasEstimadas: 4 },
+                    { id: 'mod-2', nombre: 'Atención al Cliente', categoria: 'Comercial', horasEstimadas: 2 }
+                ];
+            }
+
+            getEmployees() { return this.employees; }
+            getModules() { return this.modules; }
+            getTeamMetrics() {
+                return {
+                    completionPercentage: 75,
+                    pendingModules: 3,
+                    upToDateEmployees: 1,
+                    totalEmployees: 2
+                };
+            }
+        }
+
+        class DemoMigrationService {
+            getMigrationStatus() {
+                return {
+                    hasV2Data: false,
+                    hasV3Data: true,
+                    lastMigration: '2024-01-15T10:30:00Z',
+                    needsMigration: false
+                };
+            }
+        }
+
+        // Instancias para la demo
+        window.demoDataService = new DemoDataService();
+        window.demoMigrationService = new DemoMigrationService();
+
+        // Funciones para los botones de demo
+        window.testDataService = function() {
+            const output = document.getElementById('dataServiceOutput');
+            const employees = window.demoDataService.getEmployees();
+            const modules = window.demoDataService.getModules();
+            
+            output.innerHTML = `
+<strong>Empleados (${employees.length}):</strong>
+${employees.map(emp => `- ${emp.nombre} (${emp.area} - ${emp.rol})`).join('\n')}
+
+<strong>Módulos (${modules.length}):</strong>
+${modules.map(mod => `- ${mod.nombre} (${mod.categoria}, ${mod.horasEstimadas}h)`).join('\n')}
+
+<strong>Operaciones disponibles:</strong>
+✅ getEmployees() - Obtener empleados
+✅ addEmployee() - Añadir empleado
+✅ updateEmployee() - Actualizar empleado
+✅ getModules() - Obtener módulos
+✅ getProgress() - Obtener progreso
+✅ getTeamMetrics() - Métricas del equipo (memoizadas)
+            `;
+            output.style.display = 'block';
+        };
+
+        window.showMetrics = function() {
+            const output = document.getElementById('dataServiceOutput');
+            const metrics = window.demoDataService.getTeamMetrics();
+            
+            output.innerHTML = `
+<strong>Métricas del Equipo (Calculadas con Memoización):</strong>
+- Porcentaje completado: ${metrics.completionPercentage}%
+- Módulos pendientes: ${metrics.pendingModules}
+- Empleados al día: ${metrics.upToDateEmployees}/${metrics.totalEmployees}
+- Total empleados: ${metrics.totalEmployees}
+
+<strong>Optimizaciones implementadas:</strong>
+✅ Cache con TTL de 5 segundos
+✅ Invalidación automática al modificar datos
+✅ Cálculos memoizados para rendimiento
+✅ Estructura de datos separada por tipo
+            `;
+            output.style.display = 'block';
+        };
+
+        window.clearData = function() {
+            const output = document.getElementById('dataServiceOutput');
+            output.innerHTML = `
+<strong>Simulando limpieza de datos...</strong>
+✅ Empleados eliminados
+✅ Módulos eliminados  
+✅ Progreso eliminado
+✅ Cache invalidado
+✅ LocalStorage limpiado
+
+<em>En la implementación real, esto limpiaría todas las claves de localStorage v3.</em>
+            `;
+            output.style.display = 'block';
+        };
+
+        window.testMigration = function() {
+            const output = document.getElementById('migrationOutput');
+            output.innerHTML = `
+<strong>Simulando migración v2 → v3...</strong>
+
+[2024-01-15T10:30:00Z] Iniciando migración v2 → v3
+[2024-01-15T10:30:01Z] Detectados 15 empleados en v2
+[2024-01-15T10:30:02Z] Backup creado exitosamente
+[2024-01-15T10:30:03Z] Transformando empleados...
+[2024-01-15T10:30:04Z] Extrayendo módulos únicos...
+[2024-01-15T10:30:05Z] Generando registros de progreso...
+[2024-01-15T10:30:06Z] Datos transformados a estructura v3
+[2024-01-15T10:30:07Z] Validación exitosa
+[2024-01-15T10:30:08Z] Datos v3 guardados
+[2024-01-15T10:30:09Z] Migración completada exitosamente
+
+<strong>Resultado:</strong>
+✅ 15 empleados migrados
+✅ 8 módulos únicos extraídos
+✅ 45 registros de progreso creados
+✅ Backup v2 conservado para rollback
+            `;
+            output.style.display = 'block';
+        };
+
+        window.checkMigrationStatus = function() {
+            const output = document.getElementById('migrationOutput');
+            const status = window.demoMigrationService.getMigrationStatus();
+            
+            output.innerHTML = `
+<strong>Estado de Migración:</strong>
+- Datos v2 presentes: ${status.hasV2Data ? 'Sí' : 'No'}
+- Datos v3 presentes: ${status.hasV3Data ? 'Sí' : 'No'}
+- Última migración: ${status.lastMigration || 'Nunca'}
+- Necesita migración: ${status.needsMigration ? 'Sí' : 'No'}
+
+<strong>Funcionalidades implementadas:</strong>
+✅ Detección automática de datos v2
+✅ Backup automático antes de migración
+✅ Transformación de estructura de datos
+✅ Validación de integridad
+✅ Rollback automático en caso de error
+✅ Logging detallado de pasos
+            `;
+            output.style.display = 'block';
+        };
+
+        window.simulateRollback = function() {
+            const output = document.getElementById('migrationOutput');
+            output.innerHTML = `
+<strong>Simulando rollback a v2...</strong>
+
+[2024-01-15T10:35:00Z] Iniciando rollback
+[2024-01-15T10:35:01Z] Recuperando backup v2
+[2024-01-15T10:35:02Z] Restaurando datos v2 originales
+[2024-01-15T10:35:03Z] Limpiando datos v3
+[2024-01-15T10:35:04Z] Restableciendo configuración
+[2024-01-15T10:35:05Z] Rollback completado
+
+<strong>Estado después del rollback:</strong>
+✅ Datos v2 restaurados
+✅ Datos v3 eliminados
+✅ Sistema funcionando en modo v2
+✅ Posibilidad de reintentar migración
+
+<em>El rollback automático se ejecuta si falla la validación de migración.</em>
+            `;
+            output.style.display = 'block';
+        };
+
+        // Funciones para demo del sistema de diseño
+        window.testDesignSystem = function() {
+            const output = document.getElementById('designSystemOutput');
+            output.innerHTML = `
+<strong>Componentes del Sistema de Diseño Sonepar:</strong>
+
+<strong>📊 Dashboard Components:</strong>
+✅ MetricsCard - Tarjetas de métricas con estados visuales
+✅ TeamMatrix - Matriz empleado × módulo con tooltips
+✅ UpcomingDeadlines - Lista de vencimientos próximos
+✅ ProgressBar - Barras de progreso con gradientes Sonepar
+
+<strong>🎨 Visual Components:</strong>
+✅ OrbitalLogo - Logo SVG animado con gradientes
+✅ Header - Cabecera modular con branding
+✅ Navigation - Navegación con atajos de teclado
+✅ LoadingSpinner - Spinner con identidad visual
+
+<strong>📝 Form Components:</strong>
+✅ FormGroup - Grupos de formulario consistentes
+✅ FormInput/Select/Textarea - Inputs con focus mejorado
+✅ FormError/Help - Mensajes de error y ayuda
+
+<strong>🏷️ UI Elements:</strong>
+✅ Badges - Etiquetas con colores semánticos
+✅ Cards - Tarjetas con header/body/footer
+✅ Buttons - Botones con estados y variantes
+✅ Certificates - Plantillas para certificados PDF
+            `;
+            output.style.display = 'block';
+        };
+
+        window.showAccessibility = function() {
+            const output = document.getElementById('designSystemOutput');
+            output.innerHTML = `
+<strong>Características de Accesibilidad Implementadas:</strong>
+
+<strong>🔍 Screen Reader Support:</strong>
+✅ .sr-only - Contenido solo para lectores de pantalla
+✅ .sr-only-focusable - Visible al recibir foco
+✅ .status-live - Anuncios en vivo con aria-live
+✅ Roles ARIA apropiados (navigation, main, tablist)
+
+<strong>⌨️ Keyboard Navigation:</strong>
+✅ Focus visible mejorado con outline personalizado
+✅ Atajos de teclado (Alt+1, Alt+2, Alt+3, Alt+4)
+✅ Navegación por tabs accesible
+✅ Tabindex apropiado para elementos interactivos
+
+<strong>🎯 Semantic HTML:</strong>
+✅ Elementos semánticos (header, nav, main, section)
+✅ Atributos aria-label y aria-describedby
+✅ Títulos jerárquicos apropiados
+✅ Contraste de colores WCAG AA compliant
+
+<strong>📱 Responsive & Mobile:</strong>
+✅ Diseño adaptativo para todas las pantallas
+✅ Touch targets de 44px mínimo
+✅ Texto escalable sin pérdida de funcionalidad
+✅ Navegación optimizada para móviles
+            `;
+            output.style.display = 'block';
+        };
+
+        window.testResponsive = function() {
+            const output = document.getElementById('designSystemOutput');
+            output.innerHTML = `
+<strong>Características Responsive Implementadas:</strong>
+
+<strong>📱 Mobile First (480px):</strong>
+✅ Navegación solo con iconos
+✅ Métricas en columna única
+✅ Matriz con scroll horizontal
+✅ Certificados con padding reducido
+
+<strong>📟 Tablet (768px):</strong>
+✅ Header en columna
+✅ Navegación flexible
+✅ Métricas en grid adaptativo
+✅ Filtros de matriz apilados
+
+<strong>💻 Desktop (1200px+):</strong>
+✅ Layout completo horizontal
+✅ Métricas en grid de 4 columnas
+✅ Matriz con empleados fijos
+✅ Tooltips y hover effects
+
+<strong>🖨️ Print Styles:</strong>
+✅ Oculta navegación y botones
+✅ Optimiza certificados para impresión
+✅ Reduce tamaño de matriz
+✅ Colores apropiados para B&N
+
+<strong>🌙 Dark Mode (Preparado):</strong>
+✅ Variables CSS para modo oscuro
+✅ Detección de prefers-color-scheme
+✅ Colores invertidos apropiados
+✅ Contraste mantenido
+            `;
+            output.style.display = 'block';
+        };
+    </script>
+</body>
+</html>

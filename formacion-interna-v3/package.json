@@ -1,0 +1,49 @@
+{
+  "name": "formacion-interna-sonepar-v3",
+  "version": "3.0.0",
+  "description": "Aplicación de gestión de formación interna que evoluciona de un tracker individual a una herramienta completa de gestión de equipo",
+  "main": "FormacionApp.jsx",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage"
+  },
+  "keywords": [
+    "formacion",
+    "sonepar",
+    "training",
+    "team-management",
+    "react",
+    "javascript"
+  ],
+  "author": "Sonepar",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8",
+    "vitest": "^1.2.0",
+    "@vitest/ui": "^1.2.0",
+    "@vitest/coverage-v8": "^1.2.0",
+    "fast-check": "^3.15.0",
+    "jsdom": "^24.0.0"
+  },
+  "optionalDependencies": {
+    "jspdf": "^2.5.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
