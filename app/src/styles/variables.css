@@ -1,0 +1,14 @@
+:root {
+  --font-sans: 'IBM Plex Sans', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --color-brand: #1a6040;
+  --color-brand-vivid: #4caf82;
+  --color-shell: #111827;
+  --color-bg: #f5f4f0;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+  --color-text-2: #4b5563;
+  --color-border: #e5e0d8;
+  --topbar-h: 56px;
+  --sidebar-w: 240px;
+}
