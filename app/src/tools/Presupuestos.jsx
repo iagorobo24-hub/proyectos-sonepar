@@ -255,9 +255,9 @@ export default function GeneradorPresupuesto() {
     const catalogoRef = CATALOGO_REF[categoria] || [];
 
     try {
-      const res  = await fetch("https://api.anthropic.com/v1/messages", {
+      const res  = await fetch("/api/anthropic", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,

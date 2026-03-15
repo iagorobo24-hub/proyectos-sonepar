@@ -21,14 +21,6 @@ const C = {
   rojoSuave:   "#FDECEA",
 };
 
-const LogoSonepar = ({ size = 28, color = "#003087" }) => (
-  <svg width={size * 3.2} height={size} viewBox="0 0 120 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="16" cy="19" rx="14" ry="7.5" stroke={C.azulClaro} strokeWidth="2.2" fill="none" transform="rotate(-20 16 19)" />
-    <ellipse cx="16" cy="19" rx="14" ry="7.5" stroke={color} strokeWidth="2.2" fill="none" transform="rotate(20 16 19)" />
-    <text x="34" y="25" fontFamily="Helvetica Neue, Arial, sans-serif" fontWeight="700" fontSize="17" fill={color} letterSpacing="0.5">sonepar</text>
-  </svg>
-);
-
 const BENCHMARKS = {
   pedidos_hora:   { bueno: 18, malo: 12, label: "Pedidos/hora",  unidad: "ped/h", desc: "Pedidos completados por hora de turno",                         icono: "📦" },
   error_picking:  { bueno: 1,  malo: 3,  label: "Error picking", unidad: "%",     desc: "Porcentaje de líneas con error sobre total procesadas",         icono: "⚠",  invertido: true },
@@ -96,7 +88,7 @@ export default function KPILogistico() {
     setInforme("");
     try {
       const prompt = `Eres el responsable de logística de Sonepar España. Analiza estos KPIs y genera un informe ejecutivo breve.\n\nDelegación: ${datos.delegacion || "Delegación"} | Turno: ${datos.turno}\n\nKPIs:\n- Pedidos/hora: ${k.pedidos_hora.toFixed(1)} (benchmark: >18)\n- Error picking: ${k.error_picking.toFixed(2)}% (benchmark: <1%)\n- Tiempo ciclo: ${k.tiempo_ciclo.toFixed(1)} min (benchmark: <5 min)\n- Ocupación: ${k.ocupacion.toFixed(1)}% (benchmark: 75-85%)\n- Devoluciones: ${k.devolucion.toFixed(2)}% (benchmark: <2%)\n- Productividad: ${k.productividad.toFixed(1)}% (benchmark: >90%)\n\nDatos: ${datos.pedidos} pedidos, ${datos.horas}h, ${datos.operarios} operarios, ${datos.errores} errores.\n\n3 párrafos cortos: (1) resumen del turno, (2) puntos críticos, (3) acción para el próximo turno. Tono directo.`;
-      const res  = await fetch("https://api.anthropic.com/v1/messages", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] }) });
+      const res  = await fetch("/api/anthropic", { method: "POST", headers: { "Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] }) });
       const data = await res.json();
       const txt  = data.content?.map(b => b.text || "").join("") || "";
       setInforme(txt);
@@ -141,20 +133,6 @@ export default function KPILogistico() {
       `}</style>
 
       <div style={{ minHeight: "100vh", background: C.fondo, fontFamily: "system-ui, Segoe UI, sans-serif", color: C.texto }}>
-
-        {/* Header */}
-        <div className="no-print" style={{ background: C.azulOscuro, padding: "0 28px", display: "flex", alignItems: "center", gap: "20px", height: "56px" }}>
-          <LogoSonepar size={24} color={C.blanco} />
-          <div style={{ width: "1px", height: "28px", background: "rgba(255,255,255,0.2)" }} />
-          <span style={{ color: C.blanco, fontSize: "13px", fontWeight: "500" }}>KPI Logístico</span>
-          <span style={{ color: "rgba(255,255,255,0.4)", fontSize: "11px" }}>v3.0</span>
-          <div style={{ flex: 1 }} />
-          <div style={{ display: "flex", gap: "4px" }}>
-            {[["calculo","Cálculo"],["historial","Historial"],["comparativa","Comparativa"]].map(([id, lbl]) => (
-              <button key={id} onClick={() => setTab(id)} style={{ padding: "6px 16px", fontSize: "12px", fontWeight: tab === id ? "600" : "400", background: tab === id ? "rgba(255,255,255,0.15)" : "transparent", color: tab === id ? C.blanco : "rgba(255,255,255,0.6)", border: "none", borderRadius: "6px", cursor: "pointer", fontFamily: "system-ui, Segoe UI, sans-serif" }}>{lbl}</button>
-            ))}
-          </div>
-        </div>
         <div style={{ height: "3px", background: `linear-gradient(90deg, ${C.azulOscuro}, ${C.azulClaro})` }} />
 
         {/* TAB CÁLCULO */}

@@ -417,9 +417,9 @@ export default function SimuladorAlmacen() {
     try { localStorage.setItem("sonepar_simulaciones_v3", JSON.stringify(nuevoHistorial)); } catch {}
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/anthropic", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1000,

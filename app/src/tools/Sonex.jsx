@@ -417,9 +417,9 @@ export default function Sonex() {
     const fam = detectarFamilia(texto);
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/anthropic", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514",
           max_tokens: 1200,
@@ -472,8 +472,8 @@ export default function Sonex() {
     if (!texto || cargRap) return;
     setCargRap(true); setRespRapida("");
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST", headers: { "Content-Type": "application/json" },
+      const res = await fetch("/api/anthropic", {
+        method: "POST", headers: { "Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY },
         body: JSON.stringify({
           model: "claude-sonnet-4-20250514", max_tokens: 400,
           system: SYSTEM_PROMPT + "\n\nResponde en máximo 3 frases. Ve directo al dato. Sin estructura ni encabezados.",
