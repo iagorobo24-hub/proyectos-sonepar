@@ -1,33 +1,8 @@
 import { useState, useEffect } from "react";
-
-// ── Design system corporativo Sonepar ──────────────────────────────────────
-const C = {
-  navy:       "#003087",
-  navyDark:   "#002060",
-  blue:       "#4A90D9",
-  blueMid:    "#1565C0",
-  bg:         "#F5F6F8",
-  white:      "#FFFFFF",
-  border:     "#D8DCE6",
-  textPri:    "#1A1F36",
-  textSec:    "#5C6080",
-  textMuted:  "#9399B2",
-  optimal:    "#1B6B3A",
-  optimalBg:  "#E8F5EE",
-  accept:     "#C07010",
-  acceptBg:   "#FFF3E0",
-  critical:   "#C62828",
-  criticalBg: "#FDEDED",
-  blueBg:     "#EBF3FC",
-};
-
-const SvgLogo = () => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-    <ellipse cx="16" cy="16" rx="14" ry="8" stroke="white" strokeWidth="1.8" fill="none"/>
-    <ellipse cx="16" cy="16" rx="8" ry="14" stroke="white" strokeWidth="1.8" fill="none"/>
-    <circle cx="16" cy="16" r="2.5" fill="white"/>
-  </svg>
-);
+import Button from '../components/ui/Button'
+import Input from '../components/ui/Input'
+import { useToast } from '../contexts/ToastContext'
+import styles from './FormacionInterna.module.css'
 
 const AREAS = ["Almacén", "Comercial", "Técnico", "Seguridad", "Sistemas"];
 const ROLES = ["Operario", "Técnico", "Comercial", "Responsable"];
@@ -63,38 +38,39 @@ const PROMPT_PLAN = (emp, modulos, progreso) => {
 
 // ── Badge de estado ────────────────────────────────────────────────────────
 const Badge = ({ estado }) => {
-  const cfg = {
-    completado: { bg: C.optimalBg,  color: C.optimal,   label: "COMPLETADO" },
-    en_curso:   { bg: C.blueBg,     color: C.blueMid,   label: "EN CURSO"   },
-    pendiente:  { bg: "#F0F1F5",    color: C.textMuted, label: "PENDIENTE"  },
+  const estadoClass = {
+    completado: styles.badgeCompletado,
+    en_curso:   styles.badgeEnCurso,
+    pendiente:  styles.badgePendiente,
   };
-  const { bg, color, label } = cfg[estado] || cfg.pendiente;
   return (
-    <span style={{ padding: "3px 9px", borderRadius: 4, fontSize: 10, fontWeight: 700,
-      background: bg, color, letterSpacing: "0.8px", fontFamily: "system-ui,sans-serif" }}>
-      {label}
+    <span className={`${styles.badge} ${estadoClass[estado] || styles.badgePendiente}`}>
+      {estado === "en_curso" ? "EN CURSO" : estado === "completado" ? "COMPLETADO" : "PENDIENTE"}
     </span>
   );
 };
 
 // ── Barra de progreso ──────────────────────────────────────────────────────
 const ProgressBar = ({ pct }) => {
-  const color = pct >= 70 ? C.optimal : pct >= 40 ? C.accept : C.critical;
+  const color = pct >= 70 ? "var(--color-brand)" : pct >= 40 ? "var(--color-text)" : "var(--color-text-2)";
   return (
-    <div>
-      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 4 }}>
-        <span style={{ fontSize: 10, color: C.textMuted }}>Progreso</span>
-        <span style={{ fontSize: 11, fontWeight: 700, color }}>{pct}%</span>
+    <div className={styles.progressBar}>
+      <div className={styles.progressBarHeader}>
+        <span className={styles.progressBarLabel}>Progreso</span>
+        <span className={styles.progressBarValue}>{pct}%</span>
       </div>
-      <div style={{ height: 5, borderRadius: 3, background: C.border }}>
-        <div style={{ height: "100%", width: `${pct}%`, borderRadius: 3,
-          background: `linear-gradient(90deg, ${color}, ${color}CC)`, transition: "width 0.4s ease" }} />
+      <div className={styles.progressBarTrack}>
+        <div 
+          className={styles.progressBarFill}
+          style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${color}, ${color}CC)` }}
+        />
       </div>
     </div>
   );
 };
 
 export default function FormacionInterna() {
+  const { toast } = useToast();
   const [empleados, setEmpleados] = useState([]);
   const [modulos, setModulos] = useState([]);
   const [progresos, setProgresos] = useState({});
@@ -103,7 +79,6 @@ export default function FormacionInterna() {
   const [vista, setVista] = useState("dashboard");
   const [planIA, setPlanIA] = useState("");
   const [cargandoIA, setCargandoIA] = useState(false);
-  const [toast, setToast] = useState("");
   const [formModulo, setFormModulo] = useState({ nombre: "", area: AREAS[0], horas: "4", obligatorio: false });
   const [formEmpleado, setFormEmpleado] = useState({ nombre: "", rol: ROLES[0], departamento: "" });
 
@@ -141,8 +116,6 @@ export default function FormacionInterna() {
     } catch {}
   };
 
-  const showToast = (msg) => { setToast(msg); setTimeout(() => setToast(""), 2500); };
-
   const cambiarProgreso = (empId, modId, nuevoEstado) => {
     const nuevosProgresos = { ...progresos, [empId]: { ...progresos[empId], [modId]: nuevoEstado } };
     const nuevasFechas = { ...fechasCompletado };
@@ -154,7 +127,7 @@ export default function FormacionInterna() {
     }
     setProgresos(nuevosProgresos); setFechasCompletado(nuevasFechas);
     guardar(empleados, modulos, nuevosProgresos, nuevasFechas);
-    showToast("Progreso actualizado");
+    toast.show("Progreso actualizado");
   };
 
   const añadirModulo = () => {
@@ -166,7 +139,7 @@ export default function FormacionInterna() {
     setModulos(nuevos); setProgresos(nuevosProgresos);
     guardar(empleados, nuevos, nuevosProgresos, fechasCompletado);
     setFormModulo({ nombre: "", area: AREAS[0], horas: "4", obligatorio: false });
-    showToast(`Módulo "${nuevo.nombre}" añadido`);
+    toast.show(`Módulo "${nuevo.nombre}" añadido`);
   };
 
   const añadirEmpleado = () => {
@@ -177,7 +150,7 @@ export default function FormacionInterna() {
     setEmpleados(nuevos); setProgresos(nuevosProgresos);
     guardar(nuevos, modulos, nuevosProgresos, fechasCompletado);
     setFormEmpleado({ nombre: "", rol: ROLES[0], departamento: "" });
-    showToast(`Empleado "${nuevo.nombre}" añadido`);
+    toast.show(`Empleado "${nuevo.nombre}" añadido`);
   };
 
   const generarPlan = async (emp) => {
@@ -214,454 +187,381 @@ export default function FormacionInterna() {
   const hrasArea = (area) => empleados.reduce((acc, e) =>
     acc + modulos.filter(m => m.area === area && progresos[e.id]?.[m.id] === "completado").reduce((s, m) => s + m.horas, 0), 0);
 
-  const kpiColor = (v, thresholds) => v >= thresholds[0] ? C.optimal : v >= thresholds[1] ? C.accept : C.critical;
-
-  const inputStyle = {
-    width: "100%", padding: "9px 12px", border: `1px solid ${C.border}`,
-    borderRadius: 6, fontSize: 13, color: C.textPri, outline: "none",
-    background: C.white, fontFamily: "system-ui,sans-serif",
-  };
-  const selectStyle = { ...inputStyle };
-
   return (
-    <>
-      <style>{`
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: system-ui, -apple-system, sans-serif; }
-        button { font-family: inherit; cursor: pointer; }
-        input, select, textarea { font-family: inherit; }
-        textarea { resize: vertical; }
-      `}</style>
-
-      {/* Toast */}
-      {toast && (
-        <div style={{ position: "fixed", bottom: 24, right: 24, zIndex: 9999,
-          background: C.navy, color: C.white, padding: "12px 20px", borderRadius: 8,
-          fontSize: 12, fontWeight: 600, boxShadow: "0 4px 16px rgba(0,48,135,0.3)" }}>
-          {toast}
-        </div>
-      )}
-
-      <div style={{ minHeight: "100vh", background: C.bg, color: C.textPri }}>
-
-        {/* ── Header ───────────────────────────────────────── */}
-        <div style={{ background: C.navy, boxShadow: "0 2px 8px rgba(0,0,0,0.2)" }}>
-          {/* Accent bar */}
-          <div style={{ height: 3, background: `linear-gradient(90deg, ${C.blue}, #7BB8F0, ${C.blue})` }} />
-          <div style={{ padding: "0 28px", display: "flex", alignItems: "center", height: 56, gap: 16 }}>
-            <SvgLogo />
-            <div style={{ width: 1, height: 28, background: "rgba(255,255,255,0.2)" }} />
-            <div>
-              <div style={{ color: C.white, fontSize: 14, fontWeight: 700, letterSpacing: "0.3px" }}>
-                Formación Interna
-              </div>
-              <div style={{ color: C.blue, fontSize: 10, letterSpacing: "1px", marginTop: 1 }}>
-                SONEPAR ESPAÑA · TRACKER v3
-              </div>
-            </div>
-            <div style={{ flex: 1 }} />
-            {[
-              { id: "dashboard", label: "EQUIPO" },
-              { id: "matriz",    label: "MATRIZ" },
-              { id: "ajustes",   label: "AJUSTES" },
-            ].map(({ id, label }) => (
-              <button key={id} onClick={() => { setVista(id); setSeleccionado(null); setPlanIA(""); }}
-                style={{
-                  padding: "6px 16px", borderRadius: 5, fontSize: 11, fontWeight: 700,
-                  letterSpacing: "0.8px", border: "none", cursor: "pointer", transition: "all 0.15s",
-                  background: vista === id ? C.blue : "rgba(255,255,255,0.1)",
-                  color: C.white,
-                }}>
-                {label}
-              </button>
-            ))}
-          </div>
+    <div className={styles.layout}>
+      {/* ── Panel izquierdo — lista y filtros ── */}
+      <div className={styles.panelBusqueda}>
+        {/* Tabs DASHBOARD / MATRIZ / AJUSTES */}
+        <div className={styles.toolbar}>
+          <button
+            className={`${styles.tab} ${vista === 'dashboard' ? styles.tabActivo : ''}`}
+            onClick={() => setVista('dashboard')}
+          >
+            Equipo
+          </button>
+          <button
+            className={`${styles.tab} ${vista === 'matriz' ? styles.tabActivo : ''}`}
+            onClick={() => setVista('matriz')}
+          >
+            Matriz
+          </button>
+          <button
+            className={`${styles.tab} ${vista === 'ajustes' ? styles.tabActivo : ''}`}
+            onClick={() => setVista('ajustes')}
+          >
+            Ajustes
+          </button>
         </div>
 
         {/* Alerta obligatorios */}
         {empleadosAlerta.length > 0 && (
-          <div style={{ background: C.criticalBg, borderBottom: `1px solid ${C.critical}30`,
-            padding: "10px 28px", display: "flex", alignItems: "center", gap: 12 }}>
-            <span style={{ background: C.critical, color: C.white, borderRadius: 4,
-              padding: "2px 8px", fontSize: 10, fontWeight: 700 }}>⚠ ALERTA</span>
-            <span style={{ fontSize: 12, color: C.critical, fontWeight: 600 }}>
-              {empleadosAlerta.length} empleado{empleadosAlerta.length > 1 ? "s" : ""} con módulos obligatorios pendientes (+30 días):
-            </span>
-            <span style={{ fontSize: 12, color: C.critical }}>
+          <div className={styles.seccion} style={{ background: 'var(--color-surface)', borderLeft: '3px solid var(--color-brand)', margin: '12px 16px' }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: 'var(--color-brand)', marginBottom: 4 }}>⚠ ALERTA</div>
+            <div style={{ fontSize: 11, color: 'var(--color-text)', marginBottom: 2 }}>
+              {empleadosAlerta.length} empleado{empleadosAlerta.length > 1 ? "s" : ""} con módulos obligatorios pendientes
+            </div>
+            <div style={{ fontSize: 10, color: 'var(--color-text-2)' }}>
               {empleadosAlerta.map(e => e.nombre.split(" ")[0]).join(" · ")}
-            </span>
+            </div>
           </div>
         )}
 
-        {/* ── KPI row ──────────────────────────────────────── */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 1,
-          background: C.border, borderBottom: `1px solid ${C.border}` }}>
-          {[
-            { label: "PROGRESO GLOBAL", valor: `${pctGlobal}%`, color: kpiColor(pctGlobal, [70, 40]) },
-            { label: "EMPLEADOS",       valor: empleados.length, color: C.navy },
-            { label: "MÓDULOS",         valor: modulos.length,   color: C.navy },
-            { label: "CON ALERTA",      valor: empleadosAlerta.length,
-              color: empleadosAlerta.length > 0 ? C.critical : C.optimal },
-          ].map(({ label, valor, color }) => (
-            <div key={label} style={{ background: C.white, padding: "16px 24px" }}>
-              <div style={{ fontSize: 10, color: C.textMuted, letterSpacing: "1px", marginBottom: 6 }}>{label}</div>
-              <div style={{ fontSize: 28, fontWeight: 800, color }}>{valor}</div>
-            </div>
-          ))}
+        {/* KPIs */}
+        <div className={styles.seccion}>
+          <div className={styles.seccionLabel}>Resumen</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            {[
+              { label: "Progreso global", valor: `${pctGlobal}%` },
+              { label: "Empleados", valor: empleados.length },
+              { label: "Módulos", valor: modulos.length },
+              { label: "Con alerta", valor: empleadosAlerta.length },
+            ].map(({ label, valor }) => (
+              <div key={label} className={styles.card} style={{ padding: "12px" }}>
+                <div style={{ fontSize: 9, color: "var(--color-text-2)", marginBottom: 4 }}>{label}</div>
+                <div style={{ fontSize: 20, fontWeight: 800, color: "var(--color-text)" }}>{valor}</div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        <div style={{ padding: "24px 28px" }}>
-
-          {/* ════════════ DASHBOARD ════════════ */}
-          {vista === "dashboard" && !seleccionado && (
-            <>
-              <div style={{ fontSize: 11, color: C.textMuted, letterSpacing: "1px", marginBottom: 16 }}>
-                EQUIPO — {empleados.length} EMPLEADOS
+        {/* Horas por área */}
+        {vista === 'dashboard' && (
+          <div className={styles.seccion}>
+            <div className={styles.seccionLabel}>Horas por área</div>
+            {AREAS.map(area => (
+              <div key={area} className={styles.card} style={{ padding: "10px", marginBottom: 6 }}>
+                <div style={{ fontSize: 9, color: "var(--color-text-2)", marginBottom: 2 }}>
+                  {area.toUpperCase()}
+                </div>
+                <div style={{ fontSize: 16, fontWeight: 800, color: "var(--color-text)" }}>{hrasArea(area)}h</div>
               </div>
+            ))}
+          </div>
+        )}
 
-              {/* Horas por área */}
-              <div style={{ display: "flex", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
-                {AREAS.map(area => (
-                  <div key={area} style={{ background: C.white, border: `1px solid ${C.border}`,
-                    borderRadius: 8, padding: "10px 16px", minWidth: 110 }}>
-                    <div style={{ fontSize: 10, color: C.textMuted, letterSpacing: "1px", marginBottom: 4 }}>
-                      {area.toUpperCase()}
+        {/* Lista empleados */}
+        {vista === 'dashboard' && (
+          <div className={styles.seccion} style={{ flexGrow: 1, overflow: 'auto' }}>
+            {empleados.map(emp => {
+              const pct = pctEmpleado(emp.id);
+              const dias = Math.floor((Date.now() - emp.fechaAlta) / 86400000);
+              const obligPend = modulos.filter(m => m.obligatorio && progresos[emp.id]?.[m.id] !== "completado").length;
+              const alerta = dias > 30 && obligPend > 0;
+              return (
+                <div
+                  key={emp.id}
+                  className={styles.card}
+                  onClick={() => { setSeleccionado(emp); setVista('detalle'); setPlanIA(""); }}
+                  style={{ 
+                    borderLeft: `4px solid ${alerta ? 'var(--color-brand)' : 'var(--color-brand)'}`,
+                    background: seleccionado?.id === emp.id ? 'var(--color-surface)' : 'var(--color-bg)'
+                  }}
+                >
+                  <div className={styles.cardHeader}>
+                    <div>
+                      <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 3 }}>
+                        <span className={styles.cardTitle}>{emp.nombre}</span>
+                        {alerta && (
+                          <span style={{ padding: "2px 7px", background: 'var(--color-surface)', color: 'var(--color-brand)',
+                            borderRadius: 4, fontSize: 9, fontWeight: 700 }}>ALERTA</span>
+                        )}
+                      </div>
+                      <div className={styles.cardMeta}>
+                        {emp.rol} · {emp.departamento} · {dias}d
+                      </div>
                     </div>
-                    <div style={{ fontSize: 20, fontWeight: 800, color: C.navy }}>{hrasArea(area)}h</div>
+                    <div style={{ fontSize: 12, color: "var(--color-brand)", fontWeight: 700 }}>Ver ficha ›</div>
                   </div>
-                ))}
-              </div>
-
-              {/* Lista empleados */}
-              <div style={{ display: "grid", gap: 8 }}>
-                {empleados.map(emp => {
-                  const pct = pctEmpleado(emp.id);
-                  const dias = Math.floor((Date.now() - emp.fechaAlta) / 86400000);
-                  const obligPend = modulos.filter(m => m.obligatorio && progresos[emp.id]?.[m.id] !== "completado").length;
-                  const alerta = dias > 30 && obligPend > 0;
-                  return (
-                    <div key={emp.id} onClick={() => { setSeleccionado(emp); setVista("detalle"); setPlanIA(""); }}
-                      style={{ background: C.white, borderRadius: 8,
-                        border: `1px solid ${alerta ? C.critical + "50" : C.border}`,
-                        borderLeft: `4px solid ${alerta ? C.critical : C.navy}`,
-                        padding: "14px 20px", cursor: "pointer",
-                        display: "grid", gridTemplateColumns: "1fr 220px 150px 100px", alignItems: "center", gap: 16,
-                        transition: "box-shadow 0.15s",
-                      }}
-                      onMouseEnter={e => e.currentTarget.style.boxShadow = "0 2px 12px rgba(0,48,135,0.1)"}
-                      onMouseLeave={e => e.currentTarget.style.boxShadow = "none"}
-                    >
-                      <div>
-                        <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 3 }}>
-                          <span style={{ fontSize: 14, fontWeight: 700 }}>{emp.nombre}</span>
-                          {alerta && (
-                            <span style={{ padding: "2px 7px", background: C.criticalBg, color: C.critical,
-                              borderRadius: 4, fontSize: 9, fontWeight: 700 }}>ALERTA</span>
-                          )}
-                        </div>
-                        <div style={{ fontSize: 11, color: C.textMuted }}>
-                          {emp.rol} · {emp.departamento} · {dias}d en el sistema
-                        </div>
-                      </div>
-                      <ProgressBar pct={pct} />
-                      <div style={{ fontSize: 11, color: C.textMuted }}>
-                        {modulos.filter(m => m.obligatorio && progresos[emp.id]?.[m.id] === "completado").length}/
-                        {modulos.filter(m => m.obligatorio).length} oblig.
-                      </div>
-                      <div style={{ fontSize: 12, color: C.blue, fontWeight: 700 }}>Ver ficha ›</div>
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          )}
-
-          {/* ════════════ DETALLE EMPLEADO ════════════ */}
-          {vista === "detalle" && seleccionado && (
-            <div style={{ maxWidth: 900 }}>
-              <button onClick={() => { setVista("dashboard"); setSeleccionado(null); setPlanIA(""); }}
-                style={{ background: "none", border: `1px solid ${C.border}`, borderRadius: 5, padding: "6px 14px",
-                  fontSize: 12, color: C.textMuted, marginBottom: 16, cursor: "pointer" }}>
-                ← Volver al equipo
-              </button>
-
-              {/* Header empleado */}
-              <div style={{ background: C.white, borderRadius: 8, border: `1px solid ${C.border}`,
-                borderLeft: `4px solid ${C.navy}`, padding: "18px 24px", marginBottom: 16,
-                display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <div>
-                  <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 4 }}>{seleccionado.nombre}</div>
-                  <div style={{ fontSize: 12, color: C.textMuted }}>
-                    {seleccionado.rol} · {seleccionado.departamento} · Alta hace {Math.floor((Date.now() - seleccionado.fechaAlta) / 86400000)} días
+                  <ProgressBar pct={pct} />
+                  <div className={styles.cardMeta} style={{ marginTop: 8 }}>
+                    {modulos.filter(m => m.obligatorio && progresos[emp.id]?.[m.id] === "completado").length}/
+                    {modulos.filter(m => m.obligatorio).length} oblig.
                   </div>
                 </div>
-                <div style={{ textAlign: "right" }}>
-                  <div style={{ fontSize: 36, fontWeight: 800, color: C.navy }}>{pctEmpleado(seleccionado.id)}%</div>
-                  <div style={{ fontSize: 10, color: C.textMuted, letterSpacing: "1px" }}>COMPLETADO</div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Formulario módulo */}
+        {vista === 'ajustes' && (
+          <div className={styles.seccion}>
+            <div className={styles.seccionLabel}>Añadir módulo</div>
+            <div style={{ marginBottom: 12 }}>
+              <Input
+                value={formModulo.nombre}
+                onChange={e => setFormModulo(p => ({ ...p, nombre: e.target.value }))}
+                placeholder="Nombre del módulo"
+              />
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
+              <select 
+                value={formModulo.area} 
+                className={styles.select}
+                onChange={e => setFormModulo(p => ({ ...p, area: e.target.value }))}
+              >
+                {AREAS.map(a => <option key={a}>{a}</option>)}
+              </select>
+              <input 
+                value={formModulo.horas} 
+                type="number" 
+                min="1"
+                className={styles.input}
+                onChange={e => setFormModulo(p => ({ ...p, horas: e.target.value }))} 
+              />
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+              <input 
+                type="checkbox" 
+                id="oblig" 
+                checked={formModulo.obligatorio}
+                onChange={e => setFormModulo(p => ({ ...p, obligatorio: e.target.checked }))} 
+              />
+              <label htmlFor="oblig" style={{ fontSize: 13, color: "var(--color-text)", cursor: "pointer" }}>
+                Módulo obligatorio
+              </label>
+            </div>
+            <Button variant="primary" size="md" onClick={añadirModulo} style={{ width: "100%" }}>
+              Añadir módulo
+            </Button>
+          </div>
+        )}
+
+        {/* Formulario empleado */}
+        {vista === 'ajustes' && (
+          <div className={styles.seccion}>
+            <div className={styles.seccionLabel}>Añadir empleado</div>
+            <div style={{ marginBottom: 12 }}>
+              <Input
+                value={formEmpleado.nombre}
+                onChange={e => setFormEmpleado(p => ({ ...p, nombre: e.target.value }))}
+                placeholder="Nombre completo"
+              />
+            </div>
+            <div style={{ marginBottom: 12 }}>
+              <Input
+                value={formEmpleado.departamento}
+                onChange={e => setFormEmpleado(p => ({ ...p, departamento: e.target.value }))}
+                placeholder="Departamento"
+              />
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <select 
+                value={formEmpleado.rol} 
+                className={styles.select}
+                onChange={e => setFormEmpleado(p => ({ ...p, rol: e.target.value }))}
+              >
+                {ROLES.map(r => <option key={r}>{r}</option>)}
+              </select>
+            </div>
+            <Button variant="primary" size="md" onClick={añadirEmpleado} style={{ width: "100%" }}>
+              Añadir empleado
+            </Button>
+          </div>
+        )}
+      </div>
+
+      {/* ── Panel derecho — detalle ── */}
+      <div className={styles.panelResultado}>
+        {/* Vista detalle empleado */}
+        {vista === 'detalle' && seleccionado ? (
+          <div>
+            {/* Header */}
+            <div className={styles.cardHeader} style={{ marginBottom: 16 }}>
+              <div>
+                <div style={{ fontSize: 10, color: "var(--color-text-2)", letterSpacing: "1px", marginBottom: 4 }}>
+                  EMPLEADO #{seleccionado.id.toString().slice(-2)}
+                </div>
+                <div style={{ fontSize: 20, fontWeight: 800, lineHeight: 1.3 }}>{seleccionado.nombre}</div>
+                <div className={styles.cardMeta}>
+                  {seleccionado.rol} · {seleccionado.departamento} · Alta hace {Math.floor((Date.now() - seleccionado.fechaAlta) / 86400000)} días
                 </div>
               </div>
+              <div style={{ textAlign: "right" }}>
+                <div style={{ fontSize: 36, fontWeight: 800, color: "var(--color-brand)" }}>{pctEmpleado(seleccionado.id)}%</div>
+                <div style={{ fontSize: 10, color: "var(--color-text-2)", letterSpacing: "1px" }}>COMPLETADO</div>
+              </div>
+            </div>
 
-              {/* Módulos por área */}
-              {AREAS.map(area => {
-                const modsArea = modulos.filter(m => m.area === area);
-                if (!modsArea.length) return null;
-                return (
-                  <div key={area} style={{ marginBottom: 16 }}>
-                    <div style={{ fontSize: 10, color: C.textMuted, letterSpacing: "1.5px", marginBottom: 8 }}>
-                      {area.toUpperCase()} — {modsArea.length} MÓDULOS
-                    </div>
-                    <div style={{ display: "grid", gap: 6 }}>
-                      {modsArea.map(mod => {
-                        const estado = progresos[seleccionado.id]?.[mod.id] || "pendiente";
-                        const fechaComp = fechasCompletado[seleccionado.id]?.[mod.id];
-                        return (
-                          <div key={mod.id} style={{ background: C.white, borderRadius: 7,
-                            border: `1px solid ${C.border}`, padding: "12px 16px",
-                            display: "grid", gridTemplateColumns: "1fr auto auto auto", alignItems: "center", gap: 10 }}>
-                            <div>
-                              <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                                <span style={{ fontSize: 13, fontWeight: 600 }}>{mod.nombre}</span>
-                                {mod.obligatorio && (
-                                  <span style={{ padding: "1px 6px", background: C.acceptBg, color: C.accept,
-                                    borderRadius: 4, fontSize: 9, fontWeight: 700 }}>OBL</span>
-                                )}
-                                {mod.custom && (
-                                  <span style={{ padding: "1px 6px", background: C.blueBg, color: C.blueMid,
-                                    borderRadius: 4, fontSize: 9, fontWeight: 700 }}>CUSTOM</span>
-                                )}
-                              </div>
-                              <div style={{ fontSize: 10, color: C.textMuted, marginTop: 2 }}>
-                                {mod.horas}h {fechaComp ? `· Completado: ${new Date(fechaComp).toLocaleDateString("es-ES")}` : ""}
-                              </div>
+            {/* Módulos por área */}
+            {AREAS.map(area => {
+              const modsArea = modulos.filter(m => m.area === area);
+              if (!modsArea.length) return null;
+              return (
+                <div key={area} style={{ marginBottom: 16 }}>
+                  <div className={styles.seccionLabel}>
+                    {area.toUpperCase()} — {modsArea.length} MÓDULOS
+                  </div>
+                  {modsArea.map(mod => {
+                    const estado = progresos[seleccionado.id]?.[mod.id] || "pendiente";
+                    const fechaComp = fechasCompletado[seleccionado.id]?.[mod.id];
+                    return (
+                      <div key={mod.id} className={styles.card} style={{ padding: "12px", marginBottom: 6 }}>
+                        <div className={styles.moduloItem}>
+                          <div className={styles.moduloInfo}>
+                            <div style={{ display: "flex", gap: 6, alignItems: "center", marginBottom: 2 }}>
+                              <span className={styles.moduloNombre}>{mod.nombre}</span>
+                              {mod.obligatorio && (
+                                <span style={{ padding: "1px 6px", background: 'var(--color-surface)', color: 'var(--color-brand)',
+                                  borderRadius: 4, fontSize: 9, fontWeight: 700 }}>OBL</span>
+                              )}
+                              {mod.custom && (
+                                <span style={{ padding: "1px 6px", background: 'var(--color-surface)', color: 'var(--color-text)',
+                                  borderRadius: 4, fontSize: 9, fontWeight: 700 }}>CUSTOM</span>
+                              )}
                             </div>
-                            <Badge estado={estado} />
-                            {["pendiente", "en_curso", "completado"].filter(e => e !== estado).map(s => (
-                              <button key={s} onClick={() => cambiarProgreso(seleccionado.id, mod.id, s)}
-                                style={{ padding: "5px 10px", border: `1px solid ${C.border}`, borderRadius: 5,
-                                  fontSize: 10, background: C.white, color: C.textSec, cursor: "pointer",
-                                  transition: "all 0.15s" }}
-                                onMouseEnter={e => e.currentTarget.style.borderColor = C.navy}
-                                onMouseLeave={e => e.currentTarget.style.borderColor = C.border}>
-                                {s === "en_curso" ? "En curso" : s === "completado" ? "Completar" : "Pendiente"}
-                              </button>
-                            ))}
+                            <div className={styles.moduloMeta}>
+                              {mod.horas}h {fechaComp ? `· Completado: ${new Date(fechaComp).toLocaleDateString("es-ES")}` : ""}
+                            </div>
                           </div>
+                          <div className={styles.moduloActions}>
+                            <Badge estado={estado} />
+                            <div style={{ display: "flex", gap: 4 }}>
+                              {["pendiente", "en_curso", "completado"].filter(e => e !== estado).map(s => (
+                                <Button key={s} variant="secondary" size="sm" onClick={() => cambiarProgreso(seleccionado.id, mod.id, s)}>
+                                  {s === "en_curso" ? "En curso" : s === "completado" ? "Completar" : "Pendiente"}
+                                </Button>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            })}
+
+            {/* Plan IA */}
+            <div className={styles.planSection}>
+              <div className={styles.seccionLabel}>PLAN DE DESARROLLO IA</div>
+              {!planIA ? (
+                <Button 
+                  variant="primary" 
+                  onClick={() => generarPlan(seleccionado)} 
+                  loading={cargandoIA}
+                  style={{ width: "100%" }}
+                >
+                  {cargandoIA ? "Generando plan..." : "Generar plan de desarrollo"}
+                </Button>
+              ) : (
+                <div>
+                  <div className={styles.planSectionContent} style={{ whiteSpace: "pre-wrap", marginBottom: 12 }}>
+                    {planIA}
+                  </div>
+                  <Button 
+                    variant="secondary" 
+                    onClick={() => generarPlan(seleccionado)} 
+                    loading={cargandoIA}
+                  >
+                    Regenerar
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : vista === 'matriz' ? (
+          <div>
+            <div className={styles.seccionLabel}>
+              MATRIZ DE FORMACIÓN — {empleados.length} empleados × {modulos.length} módulos
+            </div>
+            <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
+              {[
+                { label: "Completado", style: { background: 'var(--color-surface)', border: '1px solid var(--color-border)' } },
+                { label: "En curso",   style: { background: 'var(--color-surface)', border: '1px solid var(--color-border)' } },
+                { label: "Pendiente",  style: { background: 'var(--color-bg)', border: '1px solid var(--color-border)' } },
+              ].map(({ label, style }) => (
+                <div key={label} style={{ display: "flex", gap: 6, alignItems: "center" }}>
+                  <div style={{ width: 14, height: 14, borderRadius: 3, ...style }} />
+                  <span style={{ fontSize: 11, color: "var(--color-text)" }}>{label}</span>
+                </div>
+              ))}
+            </div>
+            <div className={styles.card} style={{ padding: 0, overflow: "hidden" }}>
+              <table style={{ borderCollapse: "collapse", width: "100%" }}>
+                <thead>
+                  <tr>
+                    <th style={{ padding: "10px 16px", background: 'var(--color-surface)', color: "var(--color-text-2)",
+                      fontSize: 10, letterSpacing: "1.5px", textAlign: "left" }}>EMPLEADO</th>
+                    {modulos.map(m => (
+                      <th key={m.id} style={{ padding: "8px 4px", background: 'var(--color-surface)', color: "var(--color-text-2)",
+                        fontSize: 9, textAlign: "center" }}>
+                        <div style={{ fontSize: 8, lineHeight: 1.2 }}>
+                          {m.nombre.slice(0, 15)}
+                        </div>
+                      </th>
+                    ))}
+                    <th style={{ padding: "10px 12px", background: 'var(--color-surface)', color: "var(--color-text-2)",
+                      fontSize: 10, letterSpacing: "1px" }}>%</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {empleados.map((emp, i) => (
+                    <tr key={emp.id} style={{ background: i % 2 === 0 ? 'var(--color-bg)' : 'var(--color-surface)' }}>
+                      <td 
+                        onClick={() => { setSeleccionado(emp); setVista('detalle'); setPlanIA(""); }}
+                        style={{ padding: "10px 16px", fontSize: 12, fontWeight: 600,
+                          borderBottom: "1px solid var(--color-border)", cursor: "pointer",
+                          color: "var(--color-text)" }}
+                      >
+                        {emp.nombre.split(" ")[0]}
+                        <div style={{ fontSize: 9, color: "var(--color-text-2)", letterSpacing: "0.5px" }}>{emp.rol}</div>
+                      </td>
+                      {modulos.map(m => {
+                        const estado = progresos[emp.id]?.[m.id] || "pendiente";
+                        const bgColor = estado === "completado" ? 'var(--color-surface)' : estado === "en_curso" ? 'var(--color-surface)' : 'var(--color-bg)';
+                        return (
+                          <td key={m.id} style={{ padding: 4, textAlign: "center", borderBottom: "1px solid var(--color-border)" }}>
+                            <div 
+                              title={`${emp.nombre} — ${m.nombre}: ${estado}`}
+                              style={{ width: 28, height: 28, borderRadius: 5, background: bgColor,
+                                margin: "0 auto", display: "flex", alignItems: "center",
+                                justifyContent: "center", fontSize: 12, cursor: "pointer", border: "1px solid var(--color-border)" }}
+                              onClick={() => { setSeleccionado(emp); setVista('detalle'); setPlanIA(""); }}
+                            >
+                              {estado === "completado" ? "✓" : estado === "en_curso" ? "◉" : ""}
+                            </div>
+                          </td>
                         );
                       })}
-                    </div>
-                  </div>
-                );
-              })}
-
-              {/* Plan IA */}
-              <div style={{ background: C.white, borderRadius: 8, border: `1px solid ${C.border}`, padding: "20px 24px" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-                  <div style={{ width: 6, height: 6, borderRadius: "50%", background: C.blue }} />
-                  <span style={{ fontSize: 11, fontWeight: 700, color: C.navy, letterSpacing: "1px" }}>
-                    PLAN DE DESARROLLO IA
-                  </span>
-                </div>
-                {!planIA && (
-                  <button onClick={() => generarPlan(seleccionado)} disabled={cargandoIA}
-                    style={{ width: "100%", padding: "11px", borderRadius: 6, border: "none",
-                      background: cargandoIA ? C.border : C.navy, color: C.white,
-                      fontSize: 12, fontWeight: 700, letterSpacing: "0.8px", cursor: cargandoIA ? "default" : "pointer" }}>
-                    {cargandoIA ? "Generando plan..." : "Generar plan de desarrollo ›"}
-                  </button>
-                )}
-                {planIA && (
-                  <>
-                    <div style={{ fontSize: 13, color: C.textPri, lineHeight: 1.8, whiteSpace: "pre-wrap", marginBottom: 12,
-                      padding: "14px", background: C.bg, borderRadius: 6 }}>
-                      {planIA}
-                    </div>
-                    <button onClick={() => generarPlan(seleccionado)} disabled={cargandoIA}
-                      style={{ padding: "7px 16px", border: `1px solid ${C.border}`, borderRadius: 5,
-                        background: C.white, color: C.textSec, fontSize: 11, cursor: "pointer" }}>
-                      Regenerar
-                    </button>
-                  </>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* ════════════ MATRIZ ════════════ */}
-          {vista === "matriz" && (
-            <div>
-              <div style={{ fontSize: 11, color: C.textMuted, letterSpacing: "1px", marginBottom: 16 }}>
-                MATRIZ DE FORMACIÓN — {empleados.length} empleados × {modulos.length} módulos
-              </div>
-              <div style={{ display: "flex", gap: 16, marginBottom: 16 }}>
-                {[
-                  { label: "Completado", color: C.optimal,  bg: C.optimalBg },
-                  { label: "En curso",   color: C.blueMid,  bg: C.blueBg    },
-                  { label: "Pendiente",  color: C.textMuted, bg: "#F0F1F5"  },
-                ].map(({ label, color, bg }) => (
-                  <div key={label} style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                    <div style={{ width: 14, height: 14, borderRadius: 3, background: bg, border: `1px solid ${color}30` }} />
-                    <span style={{ fontSize: 11, color: C.textSec }}>{label}</span>
-                  </div>
-                ))}
-              </div>
-              <div style={{ overflowX: "auto", background: C.white, borderRadius: 8,
-                border: `1px solid ${C.border}`, boxShadow: "0 1px 4px rgba(0,0,0,0.05)" }}>
-                <table style={{ borderCollapse: "collapse", minWidth: "100%" }}>
-                  <thead>
-                    <tr>
-                      <th style={{ padding: "10px 16px", background: C.navy, color: C.textMuted,
-                        fontSize: 10, letterSpacing: "1.5px", textAlign: "left", minWidth: 160,
-                        position: "sticky", left: 0, zIndex: 1 }}>EMPLEADO</th>
-                      {modulos.map(m => (
-                        <th key={m.id} style={{ padding: "8px 4px", background: C.navy, color: "#8A9CC2",
-                          fontSize: 9, textAlign: "center", minWidth: 76 }}>
-                          <div style={{ writingMode: "vertical-rl", transform: "rotate(180deg)",
-                            height: 80, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            {m.nombre.slice(0, 20)}
-                          </div>
-                        </th>
-                      ))}
-                      <th style={{ padding: "10px 12px", background: C.navy, color: C.textMuted,
-                        fontSize: 10, letterSpacing: "1px" }}>%</th>
+                      <td style={{ padding: "10px 12px", fontSize: 12, fontWeight: 800, color: "var(--color-brand)",
+                        borderBottom: "1px solid var(--color-border)" }}>{pctEmpleado(emp.id)}%</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {empleados.map((emp, i) => (
-                      <tr key={emp.id} style={{ background: i % 2 === 0 ? C.white : C.bg }}>
-                        <td onClick={() => { setSeleccionado(emp); setVista("detalle"); setPlanIA(""); }}
-                          style={{ padding: "10px 16px", fontSize: 12, fontWeight: 600,
-                            borderBottom: `1px solid ${C.border}`, position: "sticky", left: 0,
-                            background: i % 2 === 0 ? C.white : C.bg, cursor: "pointer",
-                            color: C.textPri }}>
-                          {emp.nombre.split(" ")[0]}
-                          <div style={{ fontSize: 9, color: C.textMuted, letterSpacing: "0.5px" }}>{emp.rol}</div>
-                        </td>
-                        {modulos.map(m => {
-                          const estado = progresos[emp.id]?.[m.id] || "pendiente";
-                          const bgColor = estado === "completado" ? C.optimalBg : estado === "en_curso" ? C.blueBg : "#F0F1F5";
-                          return (
-                            <td key={m.id} style={{ padding: 4, textAlign: "center", borderBottom: `1px solid ${C.border}` }}>
-                              <div title={`${emp.nombre} — ${m.nombre}: ${estado}`}
-                                style={{ width: 28, height: 28, borderRadius: 5, background: bgColor,
-                                  margin: "0 auto", display: "flex", alignItems: "center",
-                                  justifyContent: "center", fontSize: 12, cursor: "pointer" }}
-                                onClick={() => { setSeleccionado(emp); setVista("detalle"); setPlanIA(""); }}>
-                                {estado === "completado" ? "✓" : estado === "en_curso" ? "◉" : ""}
-                              </div>
-                            </td>
-                          );
-                        })}
-                        <td style={{ padding: "10px 12px", fontSize: 12, fontWeight: 800, color: C.navy,
-                          borderBottom: `1px solid ${C.border}` }}>{pctEmpleado(emp.id)}%</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-
-          {/* ════════════ AJUSTES ════════════ */}
-          {vista === "ajustes" && (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, maxWidth: 900 }}>
-
-              {/* Añadir módulo */}
-              <div style={{ background: C.white, borderRadius: 8, border: `1px solid ${C.border}`, padding: "20px 24px" }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: C.navy, letterSpacing: "1px", marginBottom: 16 }}>
-                  AÑADIR MÓDULO PERSONALIZADO
-                </div>
-                <div style={{ marginBottom: 12 }}>
-                  <div style={{ fontSize: 11, color: C.textMuted, marginBottom: 5 }}>Nombre del módulo</div>
-                  <input value={formModulo.nombre} onChange={e => setFormModulo(p => ({ ...p, nombre: e.target.value }))}
-                    placeholder="Ej: Manejo de carretilla elevadora" style={inputStyle} />
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
-                  <div>
-                    <div style={{ fontSize: 11, color: C.textMuted, marginBottom: 5 }}>Área</div>
-                    <select value={formModulo.area} onChange={e => setFormModulo(p => ({ ...p, area: e.target.value }))}
-                      style={selectStyle}>
-                      {AREAS.map(a => <option key={a}>{a}</option>)}
-                    </select>
-                  </div>
-                  <div>
-                    <div style={{ fontSize: 11, color: C.textMuted, marginBottom: 5 }}>Horas</div>
-                    <input value={formModulo.horas} type="number" min="1"
-                      onChange={e => setFormModulo(p => ({ ...p, horas: e.target.value }))} style={inputStyle} />
-                  </div>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-                  <input type="checkbox" id="oblig" checked={formModulo.obligatorio}
-                    onChange={e => setFormModulo(p => ({ ...p, obligatorio: e.target.checked }))} />
-                  <label htmlFor="oblig" style={{ fontSize: 13, color: C.textSec, cursor: "pointer" }}>
-                    Módulo obligatorio
-                  </label>
-                </div>
-                <button onClick={añadirModulo}
-                  style={{ width: "100%", padding: 10, borderRadius: 6, border: "none",
-                    background: C.navy, color: C.white, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
-                  Añadir módulo ›
-                </button>
-                {modulos.filter(m => m.custom).length > 0 && (
-                  <div style={{ marginTop: 16 }}>
-                    <div style={{ fontSize: 10, color: C.textMuted, letterSpacing: "1px", marginBottom: 8 }}>
-                      MÓDULOS PERSONALIZADOS
-                    </div>
-                    {modulos.filter(m => m.custom).map(m => (
-                      <div key={m.id} style={{ display: "flex", justifyContent: "space-between",
-                        padding: "6px 0", borderBottom: `1px solid ${C.border}`, fontSize: 12 }}>
-                        <span>{m.nombre}</span>
-                        <span style={{ color: C.textMuted, fontSize: 10 }}>{m.area} · {m.horas}h</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Añadir empleado */}
-              <div style={{ background: C.white, borderRadius: 8, border: `1px solid ${C.border}`, padding: "20px 24px" }}>
-                <div style={{ fontSize: 11, fontWeight: 700, color: C.navy, letterSpacing: "1px", marginBottom: 16 }}>
-                  AÑADIR EMPLEADO
-                </div>
-                {[
-                  { key: "nombre",       label: "Nombre completo",  placeholder: "Nombre Apellidos" },
-                  { key: "departamento", label: "Departamento",     placeholder: "Ej: Almacén, Ventas..." },
-                ].map(({ key, label, placeholder }) => (
-                  <div key={key} style={{ marginBottom: 12 }}>
-                    <div style={{ fontSize: 11, color: C.textMuted, marginBottom: 5 }}>{label}</div>
-                    <input value={formEmpleado[key]}
-                      onChange={e => setFormEmpleado(p => ({ ...p, [key]: e.target.value }))}
-                      placeholder={placeholder} style={inputStyle} />
-                  </div>
-                ))}
-                <div style={{ marginBottom: 16 }}>
-                  <div style={{ fontSize: 11, color: C.textMuted, marginBottom: 5 }}>Rol</div>
-                  <select value={formEmpleado.rol} onChange={e => setFormEmpleado(p => ({ ...p, rol: e.target.value }))}
-                    style={selectStyle}>
-                    {ROLES.map(r => <option key={r}>{r}</option>)}
-                  </select>
-                </div>
-                <button onClick={añadirEmpleado}
-                  style={{ width: "100%", padding: 10, borderRadius: 6, border: "none",
-                    background: C.navy, color: C.white, fontSize: 12, fontWeight: 700, cursor: "pointer" }}>
-                  Añadir empleado ›
-                </button>
-                <div style={{ marginTop: 16 }}>
-                  <div style={{ fontSize: 10, color: C.textMuted, letterSpacing: "1px", marginBottom: 8 }}>
-                    EMPLEADOS REGISTRADOS ({empleados.length})
-                  </div>
-                  {empleados.map(e => (
-                    <div key={e.id} style={{ display: "flex", justifyContent: "space-between",
-                      padding: "6px 0", borderBottom: `1px solid ${C.border}`, fontSize: 12 }}>
-                      <span>{e.nombre}</span>
-                      <span style={{ color: C.textMuted, fontSize: 10 }}>{e.rol}</span>
-                    </div>
                   ))}
-                </div>
-              </div>
+                </tbody>
+              </table>
             </div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className={styles.vacio}>
+            <div className={styles.vacioDiamond}>◈</div>
+            <div className={styles.vacioTexto}>
+              {vista === 'dashboard' ? 'Selecciona un empleado para ver detalles' : 
+               vista === 'matriz' ? 'Matriz de formación' : 'Configuración del sistema'}
+            </div>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
