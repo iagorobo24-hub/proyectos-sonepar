@@ -1,4 +1,5 @@
-import styles from './Topbar.module.css';
+import { NavLink } from 'react-router-dom'
+import styles from './Topbar.module.css'
 
 /* Herramientas de la suite con su ruta y nombre */
 const TOOLS = [
@@ -9,10 +10,9 @@ const TOOLS = [
   { path: '/presupuestos', label: 'Presupuestos' },
   { path: '/formacion',    label: 'Formación' },
   { path: '/sonex',        label: 'Sonex' },
-];
+]
 
-/* Topbar — barra superior con logo y navegación entre herramientas */
-/* Los NavLink reales se añaden en F1.3 cuando el router esté configurado */
+/* Topbar — barra superior con logo y navegación real entre herramientas */
 export default function Topbar() {
   return (
     <header className={styles.topbar}>
@@ -22,11 +22,19 @@ export default function Topbar() {
       </div>
       <nav className={styles.nav}>
         {TOOLS.map(tool => (
-          <span key={tool.path} className={styles.navItem}>
+          <NavLink
+            key={tool.path}
+            to={tool.path}
+            className={({ isActive }) =>
+              isActive
+                ? `${styles.navItem} ${styles.navItemActive}` 
+                : styles.navItem
+            }
+          >
             {tool.label}
-          </span>
+          </NavLink>
         ))}
       </nav>
     </header>
-  );
+  )
 }
