@@ -1,0 +1,28 @@
+.shell {
+  display: grid;
+  grid-template-rows: var(--topbar-h) 1fr;
+  grid-template-columns: var(--sidebar-w) 1fr;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+}
+
+.topbar {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.sidebar {
+  grid-column: 1;
+  grid-row: 2;
+  overflow-y: auto;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+}
+
+.main {
+  grid-column: 2;
+  grid-row: 2;
+  overflow-y: auto;
+}

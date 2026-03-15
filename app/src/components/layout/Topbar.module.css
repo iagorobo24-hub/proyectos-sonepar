@@ -1,0 +1,60 @@
+.topbar {
+  background: var(--color-shell);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 32px;
+  height: var(--topbar-h);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.logo {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.logoMarca {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.logoSuite {
+  color: var(--color-brand-vivid);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+}
+
+.navItem {
+  color: rgba(255,255,255,0.65);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0 12px;
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: color 150ms, border-color 150ms;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.navItem:hover {
+  color: #ffffff;
+}
+
+.navItemActive {
+  color: #ffffff;
+  border-bottom: 3px solid var(--color-brand-vivid);
+}
