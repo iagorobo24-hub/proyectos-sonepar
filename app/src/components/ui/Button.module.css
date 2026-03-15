@@ -1,0 +1,76 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms, opacity 150ms, border-color 150ms;
+  white-space: nowrap;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-brand-vivid);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Tamaños */
+.sm { font-size: 12px; padding: 4px 10px; height: 28px; }
+.md { font-size: 14px; padding: 6px 16px; height: 36px; }
+.lg { font-size: 15px; padding: 8px 20px; height: 44px; }
+
+/* Variantes */
+.primary {
+  background: var(--color-brand);
+  color: #ffffff;
+}
+.primary:hover:not(:disabled) {
+  background: #155233;
+}
+
+.secondary {
+  background: var(--color-shell);
+  color: #ffffff;
+}
+.secondary:hover:not(:disabled) {
+  background: #1f2937;
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-brand);
+  border: 1px solid var(--color-brand);
+}
+.ghost:hover:not(:disabled) {
+  background: rgba(26, 96, 64, 0.06);
+}
+
+.danger {
+  background: #dc2626;
+  color: #ffffff;
+}
+.danger:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+/* Spinner de carga */
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
