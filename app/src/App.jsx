@@ -7,6 +7,7 @@ import KpiLogistico from './tools/KpiLogistico'
 import Presupuestos from './tools/Presupuestos'
 import FormacionInterna from './tools/FormacionInterna'
 import Sonex from './tools/Sonex'
+import UITest from './pages/UITest'
 
 /* App — define las 7 rutas de la suite dentro del AppShell compartido */
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="presupuestos" element={<Presupuestos />} />
         <Route path="formacion"    element={<FormacionInterna />} />
         <Route path="sonex"        element={<Sonex />} />
+        <Route path="uitest"       element={<UITest />} />
       </Route>
     </Routes>
   )
