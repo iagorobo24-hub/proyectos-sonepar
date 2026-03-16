@@ -6,6 +6,7 @@
   overflow: hidden;
   font-family: var(--font-sans);
   background: var(--color-bg);
+  transition: grid-template-columns 200ms ease;
 }
 
 .topbar {
@@ -17,12 +18,43 @@
   grid-column: 1;
   grid-row: 2;
   overflow-y: auto;
+  overflow-x: hidden;
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: all 200ms ease;
 }
 
 .main {
   grid-column: 2;
   grid-row: 2;
   overflow-y: auto;
+}
+
+.collapseBtn {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: var(--color-surface);
+  border: none;
+  border-top: 1px solid var(--color-border);
+  cursor: pointer;
+  color: var(--color-text-2);
+  transition: background 150ms, color 150ms;
+  flex-shrink: 0;
+}
+
+.collapseBtn:hover {
+  background: #f3f4f6;
+  color: var(--color-text);
+}
+
+.sidebarCollapsed {
+  overflow: hidden;
 }

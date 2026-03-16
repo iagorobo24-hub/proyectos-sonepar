@@ -2,12 +2,49 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 16px 0;
 }
 
-.section {
+/* Sección del icono principal */
+.iconSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 16px;
+  border-bottom: 1px solid var(--color-border);
+  gap: 10px;
+}
+
+.iconSectionCollapsed {
+  padding: 16px 8px;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  color: var(--color-brand);
+  flex-shrink: 0;
+}
+
+.toolNombre {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Accesos rápidos */
+.accesosSection {
   padding: 12px 16px;
   border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
 }
 
 .sectionLabel {
@@ -19,18 +56,39 @@
   margin: 0 0 8px;
 }
 
-.toolNombre {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-text);
-  margin: 0 0 6px;
+.accesoItem {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  border-left: 2px solid transparent;
+  transition: background 120ms, border-color 120ms;
+  margin-bottom: 2px;
 }
 
-.toolDescripcion {
+.accesoItem:hover {
+  background: #f3f4f6;
+  border-left-color: var(--color-brand-vivid);
+}
+
+.accesoLabel {
   font-size: 12px;
   color: var(--color-text-2);
-  line-height: 1.5;
-  margin: 0;
+  line-height: 1.4;
+}
+
+/* Footer */
+.footer {
+  margin-top: auto;
+  padding: 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+.footerText {
+  font-size: 11px;
+  color: var(--color-text-2);
+  margin: 0 0 2px;
 }
 
 .datosList {
@@ -60,13 +118,6 @@
   border-radius: 50%;
   background: var(--color-brand-vivid);
 }
-
-.footer {
-  margin-top: auto;
-  padding: 16px;
-  border-top: 1px solid var(--color-border);
-}
-
 .footerText {
   font-size: 11px;
   color: var(--color-text-2);

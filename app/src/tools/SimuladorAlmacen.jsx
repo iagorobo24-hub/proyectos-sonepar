@@ -5,7 +5,7 @@ const C = {
   azulOscuro: "#003087", azulMedio: "#1A4A8A", azulClaro: "#4A90D9",
   azulSuave:  "#EBF1FA", blanco: "#FFFFFF",    fondo: "#F5F6F8",
   texto:      "#1A1A2E", textoSec: "#4A5568",  textoTer: "#8A94A6",
-  borde:      "#D1D9E6", azul: "#003087",     azulSuave:  "#EBF1FA",
+  borde:      "#D1D9E6", verde: "#1B6B3A",     verdeSuave: "#EDF7F2",
   amarillo:   "#C07010", amarilloS: "#FFF8EE", rojo: "#C62828",
   rojoSuave:  "#FDECEA",
 };
