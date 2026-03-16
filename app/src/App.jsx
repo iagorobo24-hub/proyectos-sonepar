@@ -8,6 +8,16 @@ import Presupuestos from './tools/Presupuestos'
 import FormacionInterna from './tools/FormacionInterna'
 import Sonex from './tools/Sonex'
 import UITest from './pages/UITest'
+import useDocumentTitle from './hooks/useDocumentTitle'
+
+/* Componentes wrapper con títulos dinámicos */
+const FichasTecnicasPage    = () => { useDocumentTitle('Fichas Técnicas');    return <FichasTecnicas /> }
+const SimuladorAlmacenPage  = () => { useDocumentTitle('Simulador Almacén');  return <SimuladorAlmacen /> }
+const DashboardIncidenciasPage = () => { useDocumentTitle('Incidencias');     return <DashboardIncidencias /> }
+const KpiLogisticoPage      = () => { useDocumentTitle('KPI Logístico');      return <KpiLogistico /> }
+const PresupuestosPage      = () => { useDocumentTitle('Presupuestos');       return <Presupuestos /> }
+const FormacionInternaPage  = () => { useDocumentTitle('Formación Interna');  return <FormacionInterna /> }
+const SonexPage             = () => { useDocumentTitle('Sonex');              return <Sonex /> }
 
 /* App — define las 7 rutas de la suite dentro del AppShell compartido */
 export default function App() {
@@ -16,13 +26,13 @@ export default function App() {
       <Route path="/" element={<AppShell />}>
         {/* Redirige la raíz a /fichas por defecto */}
         <Route index element={<Navigate to="/fichas" replace />} />
-        <Route path="fichas"       element={<FichasTecnicas />} />
-        <Route path="almacen"      element={<SimuladorAlmacen />} />
-        <Route path="incidencias"  element={<DashboardIncidencias />} />
-        <Route path="kpi"          element={<KpiLogistico />} />
-        <Route path="presupuestos" element={<Presupuestos />} />
-        <Route path="formacion"    element={<FormacionInterna />} />
-        <Route path="sonex"        element={<Sonex />} />
+        <Route path="fichas"       element={<FichasTecnicasPage />} />
+        <Route path="almacen"      element={<SimuladorAlmacenPage />} />
+        <Route path="incidencias"  element={<DashboardIncidenciasPage />} />
+        <Route path="kpi"          element={<KpiLogisticoPage />} />
+        <Route path="presupuestos" element={<PresupuestosPage />} />
+        <Route path="formacion"    element={<FormacionInternaPage />} />
+        <Route path="sonex"        element={<SonexPage />} />
         <Route path="uitest"       element={<UITest />} />
       </Route>
     </Routes>

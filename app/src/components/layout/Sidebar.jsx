@@ -1,74 +1,117 @@
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import {
+  FileText, Warehouse, ShieldAlert, TrendingUp,
+  Euro, GraduationCap, Bot
+} from 'lucide-react'
 import styles from './Sidebar.module.css'
 
-/* Información estática de cada herramienta — se muestra según la ruta activa */
-const TOOL_INFO = {
+/* Configuración de cada herramienta — icono, accesos rápidos contextuales */
+const TOOLS = {
   '/fichas': {
+    icon: FileText,
     nombre: 'Fichas Técnicas',
-    descripcion: 'Genera fichas técnicas detalladas de productos Sonepar con comparativa y análisis IA.',
-    datos: ['Catálogo Schneider Electric', 'Comparativa de productos', 'Export PDF'],
+    accesos: [
+      { label: 'Variador ATV320 2.2kW', query: 'Variador ATV320 2.2kW monofásico' },
+      { label: 'Contactor LC1D40 220V', query: 'Contactor LC1D40 bobina 220V' },
+      { label: 'Sensor inductivo IF5932', query: 'Sensor inductivo IF5932 M12' },
+      { label: 'PLC Modicon M241', query: 'PLC Modicon M241 24E/S' },
+      { label: 'Guardamotor GV2ME10', query: 'Guardamotor GV2ME10 4-6.3A' },
+    ],
   },
   '/almacen': {
+    icon: Warehouse,
     nombre: 'Simulador Almacén',
-    descripcion: 'Simula el ciclo completo de almacén: recepción, picking y expedición con cronómetro.',
-    datos: ['Ciclo completo', 'Registro de incidencias', 'Cronómetro en tiempo real'],
+    accesos: [
+      { label: 'Variador — Intermedio', query: null },
+      { label: 'Contactor — Básico', query: null },
+      { label: 'PLC — Avanzado', query: null },
+    ],
   },
   '/incidencias': {
-    nombre: 'Dashboard Incidencias',
-    descripcion: 'Registro y diagnóstico IA de fallos en equipos industriales.',
-    datos: ['Diagnóstico automático', 'Historial de fallos', 'Prioridad por severidad'],
+    icon: ShieldAlert,
+    nombre: 'Incidencias',
+    accesos: [
+      { label: 'Nueva incidencia', query: null },
+      { label: 'Ver críticas activas', query: null },
+      { label: 'Ver historial', query: null },
+    ],
   },
   '/kpi': {
+    icon: TrendingUp,
     nombre: 'KPI Logístico',
-    descripcion: 'Calcula 6 KPIs logísticos clave con semáforo de estado e informe ejecutivo IA.',
-    datos: ['6 KPIs logísticos', 'Semáforo de estado', 'Informe ejecutivo IA'],
+    accesos: [
+      { label: 'Cargar datos de ejemplo', query: null },
+      { label: '6 KPIs logísticos', query: null },
+      { label: 'Informe ejecutivo IA', query: null },
+    ],
   },
   '/presupuestos': {
+    icon: Euro,
     nombre: 'Presupuestos',
-    descripcion: 'Genera presupuestos editables con catálogo Sonepar y exportación a PDF.',
-    datos: ['Catálogo integrado', 'Edición en línea', 'Export PDF'],
+    accesos: [
+      { label: 'Instalación eléctrica', query: null },
+      { label: 'Automatización industrial', query: null },
+      { label: 'Protección de motores', query: null },
+    ],
   },
   '/formacion': {
+    icon: GraduationCap,
     nombre: 'Formación Interna',
-    descripcion: 'Tracker de formación por empleado con matriz de competencias y plan IA.',
-    datos: ['Matriz de competencias', 'Plan personalizado IA', 'Seguimiento por empleado'],
+    accesos: [
+      { label: 'Ver matriz completa', query: null },
+      { label: 'Plan IA por empleado', query: null },
+      { label: 'Añadir empleado', query: null },
+    ],
   },
   '/sonex': {
+    icon: Bot,
     nombre: 'Sonex',
-    descripcion: 'Chatbot técnico especializado con streaming visual, múltiples modos y exportación.',
-    datos: ['Streaming en tiempo real', 'Modos especializados', 'Historial exportable'],
+    accesos: [
+      { label: 'Modo técnico', query: null },
+      { label: 'Modo presupuesto', query: null },
+      { label: 'Nueva conversación', query: null },
+    ],
   },
 }
 
-/* Sidebar — muestra información de la herramienta activa según la ruta actual */
-export default function Sidebar() {
+/* Sidebar — icono grande de herramienta activa + accesos contextuales */
+export default function Sidebar({ collapsed = false }) {
   const { pathname } = useLocation()
-  const info = TOOL_INFO[pathname] || TOOL_INFO['/fichas']
+  const tool = TOOLS[pathname] || TOOLS['/fichas']
+  const Icon = tool.icon
 
   return (
     <aside className={styles.sidebar}>
-      {/* Nombre de la herramienta activa */}
-      <div className={styles.section}>
-        <p className={styles.sectionLabel}>Herramienta activa</p>
-        <p className={styles.toolNombre}>{info.nombre}</p>
-        <p className={styles.toolDescripcion}>{info.descripcion}</p>
+
+      {/* Icono grande de la herramienta activa */}
+      <div className={`${styles.iconSection} ${collapsed ? styles.iconSectionCollapsed : ''}`}>
+        <div className={styles.iconWrap} title={tool.nombre}>
+          <Icon size={collapsed ? 22 : 28} strokeWidth={1.5} />
+        </div>
+        {!collapsed && (
+          <p className={styles.toolNombre}>{tool.nombre}</p>
+        )}
       </div>
 
-      {/* Características clave */}
-      <div className={styles.section}>
-        <p className={styles.sectionLabel}>Características</p>
-        <ul className={styles.datosList}>
-          {info.datos.map(dato => (
-            <li key={dato} className={styles.datosItem}>{dato}</li>
+      {/* Accesos rápidos contextuales — ocultos cuando está colapsado */}
+      {!collapsed && (
+        <div className={styles.accesosSection}>
+          <p className={styles.sectionLabel}>Accesos rápidos</p>
+          {tool.accesos.map((acceso, i) => (
+            <div key={i} className={styles.accesoItem}>
+              <span className={styles.accesoLabel}>{acceso.label}</span>
+            </div>
           ))}
-        </ul>
-      </div>
+        </div>
+      )}
 
-      {/* Footer con info del proyecto */}
-      <div className={styles.footer}>
-        <p className={styles.footerText}>Sonepar España · A Coruña</p>
-        <p className={styles.footerText}>PFC CFGS · 2026</p>
-      </div>
+      {/* Footer — oculto cuando está colapsado */}
+      {!collapsed && (
+        <div className={styles.footer}>
+          <p className={styles.footerText}>Sonepar España · A Coruña</p>
+          <p className={styles.footerText}>PFC CFGS · 2026</p>
+        </div>
+      )}
     </aside>
   )
 }
