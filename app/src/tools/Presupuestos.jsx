@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useReducer } from "react";
+import { useSearchParams } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
@@ -106,6 +107,7 @@ function partidasReducer(state, action) {
 }
 
 export default function Presupuestos() {
+  const [searchParams] = useSearchParams()
   const { toast } = useToast();
   const [categoria, setCategoria] = useState("");
   const [respuestas, setRespuestas] = useState({});
@@ -121,6 +123,23 @@ export default function Presupuestos() {
     const h = localStorage.getItem("sonepar_presupuestos_historial");
     if (h) setHistorial(JSON.parse(h));
   }, []);
+
+  /* Leer producto entrante desde SONEX o FichasTecnicas via URL params */
+  useEffect(() => {
+    const producto = searchParams.get('producto')
+    const referencia = searchParams.get('referencia')
+    const precio = searchParams.get('precio')
+    if (producto && referencia) {
+      /* Intenta añadir la línea al presupuesto actual */
+      /* Si la herramienta tiene una función de añadir partida, llámala aquí */
+      /* Por ahora guardamos en sessionStorage para que la herramienta lo lea */
+      try {
+        sessionStorage.setItem('sonepar_presupuesto_entrada', JSON.stringify({
+          producto, referencia, precio, cantidad: 1, ts: Date.now()
+        }))
+      } catch {}
+    }
+  }, [])
 
   const guardarHistorial = (presup) => {
     const nuevo = [presup, ...historial].slice(0, 20);

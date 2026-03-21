@@ -1,80 +1,57 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import {
   FileText, Warehouse, ShieldAlert, TrendingUp,
   Euro, GraduationCap, Bot
 } from 'lucide-react'
 import styles from './Sidebar.module.css'
 
-/* Configuración de cada herramienta — icono, accesos rápidos contextuales */
+/* Configuración de cada herramienta — icono, descripción y consejo de uso */
 const TOOLS = {
   '/fichas': {
     icon: FileText,
     nombre: 'Fichas Técnicas',
-    accesos: [
-      { label: 'Variador ATV320 2.2kW', query: 'Variador ATV320 2.2kW monofásico' },
-      { label: 'Contactor LC1D40 220V', query: 'Contactor LC1D40 bobina 220V' },
-      { label: 'Sensor inductivo IF5932', query: 'Sensor inductivo IF5932 M12' },
-      { label: 'PLC Modicon M241', query: 'PLC Modicon M241 24E/S' },
-      { label: 'Guardamotor GV2ME10', query: 'Guardamotor GV2ME10 4-6.3A' },
-    ],
+    descripcion: 'Escribe el nombre, referencia o descripción de cualquier producto del catálogo Sonepar. La IA genera una ficha técnica completa con características, aplicaciones, compatibilidades y consejo de instalación.',
+    consejo: 'Útil para dar respuesta rápida al técnico de mostrador.',
   },
   '/almacen': {
     icon: Warehouse,
     nombre: 'Simulador Almacén',
-    accesos: [
-      { label: 'Variador — Intermedio', query: null },
-      { label: 'Contactor — Básico', query: null },
-      { label: 'PLC — Avanzado', query: null },
-    ],
+    descripcion: 'Reproduce el ciclo completo de un pedido — recepción, ubicación, picking, verificación y expedición — con cronómetro real. Se presentan incidencias reales durante el proceso.',
+    consejo: 'Al terminar, la IA analiza el rendimiento por etapa.',
   },
   '/incidencias': {
     icon: ShieldAlert,
-    nombre: 'Incidencias',
-    accesos: [
-      { label: 'Nueva incidencia', query: null },
-      { label: 'Ver críticas activas', query: null },
-      { label: 'Ver historial', query: null },
-    ],
+    nombre: 'Dashboard Incidencias',
+    descripcion: 'Registra fallos en equipos industriales con zona, severidad y síntoma. La IA genera un diagnóstico automático con causa probable, solución y pasos de verificación.',
+    consejo: 'El dashboard muestra KPIs en tiempo real y tabla filtrable.',
   },
   '/kpi': {
     icon: TrendingUp,
     nombre: 'KPI Logístico',
-    accesos: [
-      { label: 'Cargar datos de ejemplo', query: null },
-      { label: '6 KPIs logísticos', query: null },
-      { label: 'Informe ejecutivo IA', query: null },
-    ],
+    descripcion: 'Introduce los datos del turno y la herramienta calcula 6 KPIs logísticos clave: pedidos/hora, error de picking, tiempo de ciclo, ocupación, devoluciones y productividad.',
+    consejo: 'Semáforo de estado e informe ejecutivo generado por IA.',
   },
   '/presupuestos': {
     icon: Euro,
     nombre: 'Presupuestos',
-    accesos: [
-      { label: 'Instalación eléctrica', query: null },
-      { label: 'Automatización industrial', query: null },
-      { label: 'Protección de motores', query: null },
-    ],
+    descripcion: 'Selecciona la categoría de instalación, introduce los parámetros técnicos y la IA genera un presupuesto detallado con referencias del catálogo Sonepar.',
+    consejo: 'Editable línea a línea y exportable a PDF.',
   },
   '/formacion': {
     icon: GraduationCap,
     nombre: 'Formación Interna',
-    accesos: [
-      { label: 'Ver matriz completa', query: null },
-      { label: 'Plan IA por empleado', query: null },
-      { label: 'Añadir empleado', query: null },
-    ],
+    descripcion: 'Gestiona la formación del equipo por empleado. Matriz de competencias visual, registro de módulos completados y plan de formación personalizado generado por IA.',
+    consejo: 'Plan adaptado al perfil y nivel de cada trabajador.',
   },
   '/sonex': {
     icon: Bot,
     nombre: 'Sonex',
-    accesos: [
-      { label: 'Modo técnico', query: null },
-      { label: 'Modo presupuesto', query: null },
-      { label: 'Nueva conversación', query: null },
-    ],
+    descripcion: 'Chatbot técnico especializado en material eléctrico e industrial. Responde consultas técnicas, ayuda a seleccionar productos y genera documentación de apoyo.',
+    consejo: 'Historial exportable y múltiples modos de consulta.',
   },
 }
 
-/* Sidebar — icono grande de herramienta activa + accesos contextuales */
+/* Sidebar — icono grande + descripción y consejo de la herramienta activa */
 export default function Sidebar({ collapsed = false }) {
   const { pathname } = useLocation()
   const tool = TOOLS[pathname] || TOOLS['/fichas']
@@ -86,22 +63,21 @@ export default function Sidebar({ collapsed = false }) {
       {/* Icono grande de la herramienta activa */}
       <div className={`${styles.iconSection} ${collapsed ? styles.iconSectionCollapsed : ''}`}>
         <div className={styles.iconWrap} title={tool.nombre}>
-          <Icon size={collapsed ? 22 : 28} strokeWidth={1.5} />
+          <Icon size={collapsed ? 22 : 32} strokeWidth={1.5} />
         </div>
         {!collapsed && (
           <p className={styles.toolNombre}>{tool.nombre}</p>
         )}
       </div>
 
-      {/* Accesos rápidos contextuales — ocultos cuando está colapsado */}
+      {/* Descripción y consejo — ocultos cuando está colapsado */}
       {!collapsed && (
-        <div className={styles.accesosSection}>
-          <p className={styles.sectionLabel}>Accesos rápidos</p>
-          {tool.accesos.map((acceso, i) => (
-            <div key={i} className={styles.accesoItem}>
-              <span className={styles.accesoLabel}>{acceso.label}</span>
-            </div>
-          ))}
+        <div className={styles.infoSection}>
+          <p className={styles.descripcion}>{tool.descripcion}</p>
+          <div className={styles.consejo}>
+            <span className={styles.consejoLabel}>Consejo</span>
+            <p className={styles.consejoTexto}>{tool.consejo}</p>
+          </div>
         </div>
       )}
 

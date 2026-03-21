@@ -3,7 +3,7 @@ import Button from '../ui/Button'
 import styles from './TarjetaFicha.module.css'
 
 /* TarjetaFicha — muestra la ficha técnica completa de un producto */
-export default function TarjetaFicha({ resultado, onCopiar, onComparar }) {
+export default function TarjetaFicha({ resultado, onCopiar, onComparar, onPresupuesto }) {
   if (!resultado) return null
 
   return (
@@ -31,6 +31,9 @@ export default function TarjetaFicha({ resultado, onCopiar, onComparar }) {
         </Button>
         <Button variant="primary" size="sm" onClick={() => onComparar(resultado)}>
           + Comparar
+        </Button>
+        <Button variant="secondary" size="sm" onClick={() => onPresupuesto && onPresupuesto(resultado)}>
+          → Presupuesto
         </Button>
       </div>
 
