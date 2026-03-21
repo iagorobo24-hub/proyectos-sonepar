@@ -1,4 +1,6 @@
+import React from 'react'
 import { Search } from 'lucide-react'
+import { useSearchParams, useNavigate } from 'react-router-dom'
 import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import TarjetaFicha from '../components/fichas/TarjetaFicha'
 import Button from '../components/ui/Button'
@@ -21,7 +23,18 @@ const ACCESOS_RAPIDOS = [
 
 /* FichasTecnicas — herramienta principal de búsqueda y comparativa de productos */
 export default function FichasTecnicas() {
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
   const { toast } = useToast()
+
+  /* Leer el param ?ref= que viene de SONEX y lanzar búsqueda automática */
+  React.useEffect(() => {
+    const ref = searchParams.get('ref')
+    if (ref) {
+      setConsulta(ref)
+      buscar(ref)
+    }
+  }, [])
 
   const {
     consulta, setConsulta,
@@ -258,6 +271,15 @@ export default function FichasTecnicas() {
             resultado={resultado}
             onCopiar={handleCopiar}
             onComparar={handleComparar}
+            onPresupuesto={(res) => {
+              const params = new URLSearchParams({
+                producto: res.nombre,
+                referencia: res.referencia,
+                precio: res.precio_orientativo || ''
+              })
+              navigate(`/presupuestos?${params.toString()}`)
+              toast.show(`${res.referencia} añadido al presupuesto`, 'success')
+            }}
           />
         )}
 

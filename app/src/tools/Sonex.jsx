@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useNavigate } from 'react-router-dom'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
@@ -36,6 +37,7 @@ const MODO_OBJETOS = [
 ];
 
 export default function Sonex() {
+  const navigate = useNavigate()
   const { toast } = useToast();
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
@@ -45,6 +47,31 @@ export default function Sonex() {
   const [contextoActivo, setContextoActivo] = useState("");
   const [refsTurno, setRefsTurno] = useState([]);
   const messagesEndRef = useRef(null);
+
+  /* Extrae referencias del catálogo que aparecen en el texto de la respuesta */
+  const extraerReferencias = (texto) => {
+    if (!texto) return []
+    return CATALOGO_REF.filter(item =>
+      texto.includes(item.ref) || texto.toLowerCase().includes(item.desc.toLowerCase().slice(0, 20))
+    ).slice(0, 3)
+  }
+
+  /* Navega a FichasTecnicas con la referencia precargada */
+  const irAFicha = (referencia) => {
+    navigate(`/fichas?ref=${encodeURIComponent(referencia)}`)
+    toast.show(`Abriendo ficha de ${referencia}`, 'success')
+  }
+
+  /* Navega a Presupuestos con el producto precargado */
+  const irAPresupuesto = (item) => {
+    const params = new URLSearchParams({
+      producto: item.desc,
+      referencia: item.ref,
+      precio: item.precio || ''
+    })
+    navigate(`/presupuestos?${params.toString()}`)
+    toast.show(`Añadiendo ${item.ref} al presupuesto`, 'success')
+  }
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -129,16 +156,6 @@ Mantén un tono profesional y técnico.`;
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const extraerReferencias = (text) => {
-    const referencias = [];
-    CATALOGO_REF.forEach(producto => {
-      if (text.includes(producto.ref)) {
-        referencias.push(producto);
-      }
-    });
-    return referencias;
   };
 
   const handleCategoriaClick = (categoriaId) => {
@@ -325,6 +342,57 @@ Mantén un tono profesional y técnico.`;
                     <div className={styles.messageTime}>
                       {message.timestamp.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
                     </div>
+                    {message.role === 'assistant' && (() => {
+                      const refs = extraerReferencias(message.content)
+                      if (refs.length === 0) return null
+                      return (
+                        <div style={{
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: '6px',
+                          marginTop: '8px',
+                          paddingTop: '8px',
+                          borderTop: '1px solid var(--color-border)'
+                        }}>
+                          {refs.map(item => (
+                            <div key={item.ref} style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                              <button
+                                onClick={() => irAFicha(item.ref)}
+                                style={{
+                                  padding: '4px 10px',
+                                  fontSize: '11px',
+                                  fontWeight: '600',
+                                  background: 'var(--color-brand)',
+                                  color: '#ffffff',
+                                  border: 'none',
+                                  borderRadius: '5px',
+                                  cursor: 'pointer',
+                                  fontFamily: 'var(--font-sans)'
+                                }}
+                              >
+                                📄 Ficha: {item.ref}
+                              </button>
+                              <button
+                                onClick={() => irAPresupuesto(item)}
+                                style={{
+                                  padding: '4px 10px',
+                                  fontSize: '11px',
+                                  fontWeight: '600',
+                                  background: 'transparent',
+                                  color: 'var(--color-brand)',
+                                  border: '1px solid var(--color-brand)',
+                                  borderRadius: '5px',
+                                  cursor: 'pointer',
+                                  fontFamily: 'var(--font-sans)'
+                                }}
+                              >
+                                💶 Presupuesto
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      )
+                    })()}
                   </div>
                 </div>
               ))
