@@ -1,68 +1,12 @@
 import { useState, useEffect, useRef, useReducer } from "react";
 import { useSearchParams } from 'react-router-dom'
+import { CATALOGO_POR_CATEGORIA as CATALOGO_REF_IMPORTADO } from '../data/catalogoSonepar'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
 import styles from './Presupuestos.module.css'
 
-// ── Catálogo de referencia SONEX v6 (selección por categoría) ────────────────
-const CATALOGO_REF = {
-  automatizacion: [
-    { ref: "ATV320U22M2",    desc: "Variador Schneider ATV320 2.2kW mono",      precio: 310 },
-    { ref: "ATV320U40N4B",   desc: "Variador Schneider ATV320 4kW tri",          precio: 415 },
-    { ref: "ATV320U75N4B",   desc: "Variador Schneider ATV320 7.5kW tri",        precio: 570 },
-    { ref: "ATV320D15N4B",   desc: "Variador Schneider ATV320 15kW tri",         precio: 935 },
-    { ref: "LC1D09M7",       desc: "Contactor Schneider TeSys D 9A",             precio: 18 },
-    { ref: "LC1D40AM7",      desc: "Contactor Schneider TeSys D 40A",            precio: 47 },
-    { ref: "GV2ME16",        desc: "Guardamotor Schneider TeSys 10-16A",         precio: 42 },
-    { ref: "TM221CE24R",     desc: "PLC Schneider M221 24E/S",                   precio: 185 },
-    { ref: "AF16-30-10-13",  desc: "Contactor ABB 16A 230VAC",                   precio: 25 },
-    { ref: "MS116-16",       desc: "Guardamotor ABB 10-16A",                     precio: 38 },
-  ],
-  iluminacion: [
-    { ref: "CoreLine_WT",    desc: "Philips CoreLine WT 36W 4000lm LED",         precio: 42 },
-    { ref: "WT120C_LED",     desc: "Philips WT120C LED 58W highbay industrial",  precio: 95 },
-    { ref: "LDV-SUB58",      desc: "Ledvance Sublinea 58W LED almacén",          precio: 55 },
-    { ref: "DN140B_LED",     desc: "Philips CoreLine Downlight 16W",             precio: 28 },
-    { ref: "EV1C8_N8",       desc: "Zemper EVA emergencia 8W 1h",                precio: 38 },
-    { ref: "DALI_Driver",    desc: "Driver DALI regulable 0-10V",                precio: 22 },
-  ],
-  vehiculo_electrico: [
-    { ref: "EVL2S7P2RS",     desc: "Schneider EVlink Smart 7.4kW mono",          precio: 420 },
-    { ref: "EVL2S22P3RS",    desc: "Schneider EVlink Smart 22kW tri",            precio: 680 },
-    { ref: "EVB2S7P2RS",     desc: "Schneider EVlink Business 7.4kW",            precio: 750 },
-    { ref: "WBX-CMR2-M-T2A", desc: "Wallbox Commander 2 22kW pantalla",         precio: 890 },
-    { ref: "WBX-PSR3-M-T2A", desc: "Wallbox Pulsar Plus 22kW",                  precio: 580 },
-    { ref: "ABB-ACC22T",     desc: "ABB Terra 22kW carga rápida",                precio: 1450 },
-    { ref: "A9F74332",       desc: "iC60N 3P 32A curva C protección línea VE",  precio: 30 },
-  ],
-  cuadro_electrico: [
-    { ref: "A9F74216",       desc: "iC60N Schneider 2P 16A curva C 6kA",        precio: 14 },
-    { ref: "A9F74316",       desc: "iC60N Schneider 3P 16A curva C 6kA",        precio: 25 },
-    { ref: "A9F74332",       desc: "iC60N Schneider 3P 32A curva C 6kA",        precio: 31 },
-    { ref: "A9F74363",       desc: "iC60N Schneider 3P 63A curva C 6kA",        precio: 47 },
-    { ref: "A9R14240",       desc: "iID Schneider 2P 40A 30mA Tipo AC",         precio: 34 },
-    { ref: "A9R14440",       desc: "iID Schneider 4P 40A 30mA Tipo AC",         precio: 62 },
-    { ref: "MBN116",         desc: "Magnetotérmico Hager 1P+N 16A",             precio: 16 },
-    { ref: "CDN440D",        desc: "Diferencial Hager 4P 40A 30mA Tipo A",      precio: 72 },
-    { ref: "S201M-C16",      desc: "Magnetotérmico ABB S200 1P 16A 10kA",       precio: 14 },
-  ],
-  energia_solar: [
-    { ref: "FRO-SYMO-15",    desc: "Fronius Symo 15kW inversor tri",            precio: 2200 },
-    { ref: "FRO-SYMO-8",     desc: "Fronius Symo 8.2kW inversor tri",           precio: 1450 },
-    { ref: "SMA-SB5-3",      desc: "SMA Sunny Boy 5kW inversor mono",           precio: 980 },
-    { ref: "PYL-US3000C",    desc: "Pylontech US3000C batería 3.5kWh",          precio: 1100 },
-    { ref: "VIC-MPPT-100",   desc: "Victron SmartSolar MPPT 100/30",            precio: 185 },
-    { ref: "A9F74332",       desc: "iC60N 3P 32A protección generador",         precio: 31 },
-  ],
-  clima: [
-    { ref: "ACS355-03E-07",  desc: "ABB ACS355 3kW variador bomba/ventilador",  precio: 355 },
-    { ref: "ACS355-03E-17",  desc: "ABB ACS355 7.5kW variador HVAC",            precio: 640 },
-    { ref: "LC1D25M7",       desc: "Contactor Schneider 25A para compresor",    precio: 31 },
-    { ref: "A9F74316",       desc: "iC60N 3P 16A protección circuito clima",    precio: 25 },
-    { ref: "GV2ME22",        desc: "Guardamotor Schneider 16-22A",              precio: 49 },
-  ],
-};
+const CATALOGO_REF = CATALOGO_REF_IMPORTADO;
 
 // ── Definición de categorías y preguntas ─────────────────────────────────────
 const CATEGORIAS = [
