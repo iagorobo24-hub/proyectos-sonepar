@@ -39,6 +39,8 @@ function partidasReducer(state, action) {
       return action.payload.map((p, i) => ({ ...p, _id: i }));
     case "UPDATE":
       return state.map(p => p._id === action.id ? { ...p, [action.field]: action.value, precio_total: action.field === "precio_unitario" ? action.value * p.cantidad : action.field === "cantidad" ? p.precio_unitario * action.value : p.precio_total } : p);
+    case "ADD_ITEM":
+      return [...state, { _id: state.length, ...action.payload }];
     case "ADD":
       return [...state, { _id: state.length, ref: "", desc: "", cantidad: 1, precio_unitario: 0, precio_total: 0, descuento: 0 }];
     case "DELETE":
@@ -74,14 +76,23 @@ export default function Presupuestos() {
     const referencia = searchParams.get('referencia')
     const precio = searchParams.get('precio')
     if (producto && referencia) {
-      /* Intenta añadir la línea al presupuesto actual */
-      /* Si la herramienta tiene una función de añadir partida, llámala aquí */
-      /* Por ahora guardamos en sessionStorage para que la herramienta lo lea */
-      try {
-        sessionStorage.setItem('sonepar_presupuesto_entrada', JSON.stringify({
-          producto, referencia, precio, cantidad: 1, ts: Date.now()
-        }))
-      } catch {}
+      /* Extraer precio numérico eliminando el símbolo € y espacios */
+      const precioNum = parseFloat((precio || '0').replace(/[€\s]/g, '')) || 0
+      /* Añadir directamente al presupuesto usando el reducer */
+      dispatchPartidas({
+        type: 'ADD_ITEM',
+        payload: {
+          ref: referencia,
+          desc: producto,
+          cantidad: 1,
+          precio_unitario: precioNum,
+          precio_total: precioNum,
+          descuento: 0,
+        }
+      })
+      /* Cambiar a la vista editor para que el usuario vea la partida */
+      setVista('editor')
+      toast.show(`${referencia} añadido al presupuesto`, 'success')
     }
   }, [])
 
