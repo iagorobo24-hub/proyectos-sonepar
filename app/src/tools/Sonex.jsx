@@ -36,30 +36,29 @@ export default function Sonex() {
   /* Extrae referencias técnicas del texto de la respuesta IA */
   /* Primero busca en el catálogo, luego detecta patrones de referencia técnica */
   const extraerReferencias = (texto) => {
-    if (!texto) return []
+  if (!texto) return []
 
-    /* Buscar coincidencias exactas en el catálogo */
-    const delCatalogo = CATALOGO_PLANO.filter(item =>
-      texto.includes(item.ref)
-    )
+  /* Fase 1: buscar coincidencias exactas en el catálogo */
+  const delCatalogo = CATALOGO_PLANO.filter(item =>
+    texto.includes(item.ref)
+  )
+  if (delCatalogo.length > 0) return delCatalogo.slice(0, 3)
 
-    if (delCatalogo.length > 0) return delCatalogo.slice(0, 3)
+  /* Fase 2: detectar cualquier referencia técnica con patrón industrial */
+  /* Busca combinaciones como ATV320U22M2, LC1D09M7, TM221CE24R, ACS355-03E */
+  const patronReferencia = /\b([A-Z]{2,}[\d]{1,}[A-Z0-9]{1,}[A-Z0-9\-]*)\b/g
+  const matches = [...new Set(texto.match(patronReferencia) || [])]
+    .filter(ref => ref.length >= 5 && ref.length <= 30)
+    .filter(ref => /\d/.test(ref))
+    .slice(0, 3)
 
-    /* Si no hay coincidencias exactas, detectar patrones de referencia técnica */
-    /* Patrón: combinaciones alfanuméricas de 5+ caracteres típicas de referencias industriales */
-    const patronReferencia = /\b([A-Z]{2,}[\d]{2,}[A-Z0-9\-]*|[A-Z]+\d+[A-Z0-9\-]{3,})\b/g
-    const matches = [...new Set(texto.match(patronReferencia) || [])]
-      .filter(ref => ref.length >= 5 && ref.length <= 25)
-      .slice(0, 3)
-
-    /* Convertir las referencias detectadas al formato esperado por los botones */
-    return matches.map(ref => ({
-      ref,
-      desc: `Referencia detectada: ${ref}`,
-      marca: 'Consultar catálogo',
-      precio: 'Consultar precio'
-    }))
-  }
+  return matches.map(ref => ({
+    ref,
+    desc: ref,
+    marca: 'Ver catálogo',
+    precio: 'Consultar precio'
+  }))
+}
 
   /* Navega a FichasTecnicas con la referencia precargada */
   const irAFicha = (referencia) => {
@@ -348,7 +347,7 @@ Mantén un tono profesional y técnico.`;
                       {message.timestamp.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
                     </div>
                     {message.role === 'assistant' && (() => {
-                      const refs = extraerReferencias(message.content)
+                      const refs = message.referencias || extraerReferencias(message.content)
                       if (refs.length === 0) return null
                       return (
                         <div style={{
