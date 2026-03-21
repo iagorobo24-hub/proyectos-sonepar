@@ -1,25 +1,10 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from 'react-router-dom'
+import { CATALOGO_PLANO } from '../data/catalogoSonepar'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
 import styles from './Sonex.module.css'
-
-// ── Catálogo de referencia SONEX v6 (selección) ────────────────────────────────
-const CATALOGO_REF = [
-  { ref: "ATV320U22M2",    desc: "Variador Schneider ATV320 2.2kW mono",      marca: "Schneider Electric", familia: "Automatización", precio: "310€" },
-  { ref: "ATV320U40N4B",   desc: "Variador Schneider ATV320 4kW tri",          marca: "Schneider Electric", familia: "Automatización", precio: "415€" },
-  { ref: "LC1D09M7",       desc: "Contactor Schneider TeSys D 9A",             marca: "Schneider Electric", familia: "Automatización", precio: "18€" },
-  { ref: "TM221CE24R",     desc: "PLC Schneider M221 24E/S",                   marca: "Schneider Electric", familia: "Automatización", precio: "185€" },
-  { ref: "CoreLine_WT",    desc: "Philips CoreLine WT 36W 4000lm LED",         marca: "Philips",           familia: "Iluminación",    precio: "42€" },
-  { ref: "WT120C_LED",     desc: "Philips WT120C LED 58W highbay industrial",  marca: "Philips",           familia: "Iluminación",    precio: "95€" },
-  { ref: "EVL2S7P2RS",     desc: "Schneider EVlink Smart 7.4kW mono",          marca: "Schneider Electric", familia: "Vehículo Eléctrico", precio: "420€" },
-  { ref: "WBX-CMR2-M-T2A", desc: "Wallbox Commander 2 22kW pantalla",         marca: "Wallbox",           familia: "Vehículo Eléctrico", precio: "890€" },
-  { ref: "A9F74216",       desc: "iC60N Schneider 2P 16A curva C 6kA",        marca: "Schneider Electric", familia: "Cuadro Eléctrico", precio: "14€" },
-  { ref: "A9F74332",       desc: "iC60N Schneider 3P 32A curva C 6kA",        marca: "Schneider Electric", familia: "Cuadro Eléctrico", precio: "31€" },
-  { ref: "FRO-SYMO-8",     desc: "Fronius Symo 8.2kW inversor tri",           marca: "Fronius",           familia: "Energía Solar",   precio: "1450€" },
-  { ref: "PYL-US3000C",    desc: "Pylontech US3000C batería 3.5kWh",          marca: "Pylontech",         familia: "Energía Solar",   precio: "1100€" },
-];
 
 const CATEGORIAS = [
   { id: "automatizacion", label: "Automatización", icon: "⚙" },
@@ -48,12 +33,32 @@ export default function Sonex() {
   const [refsTurno, setRefsTurno] = useState([]);
   const messagesEndRef = useRef(null);
 
-  /* Extrae referencias del catálogo que aparecen en el texto de la respuesta */
+  /* Extrae referencias técnicas del texto de la respuesta IA */
+  /* Primero busca en el catálogo, luego detecta patrones de referencia técnica */
   const extraerReferencias = (texto) => {
     if (!texto) return []
-    return CATALOGO_REF.filter(item =>
-      texto.includes(item.ref) || texto.toLowerCase().includes(item.desc.toLowerCase().slice(0, 20))
-    ).slice(0, 3)
+
+    /* Buscar coincidencias exactas en el catálogo */
+    const delCatalogo = CATALOGO_PLANO.filter(item =>
+      texto.includes(item.ref)
+    )
+
+    if (delCatalogo.length > 0) return delCatalogo.slice(0, 3)
+
+    /* Si no hay coincidencias exactas, detectar patrones de referencia técnica */
+    /* Patrón: combinaciones alfanuméricas de 5+ caracteres típicas de referencias industriales */
+    const patronReferencia = /\b([A-Z]{2,}[\d]{2,}[A-Z0-9\-]*|[A-Z]+\d+[A-Z0-9\-]{3,})\b/g
+    const matches = [...new Set(texto.match(patronReferencia) || [])]
+      .filter(ref => ref.length >= 5 && ref.length <= 25)
+      .slice(0, 3)
+
+    /* Convertir las referencias detectadas al formato esperado por los botones */
+    return matches.map(ref => ({
+      ref,
+      desc: `Referencia detectada: ${ref}`,
+      marca: 'Consultar catálogo',
+      precio: 'Consultar precio'
+    }))
   }
 
   /* Navega a FichasTecnicas con la referencia precargada */
