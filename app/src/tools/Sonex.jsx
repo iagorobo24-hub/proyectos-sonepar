@@ -68,14 +68,19 @@ export default function Sonex() {
 
   /* Navega a Presupuestos con el producto precargado */
   const irAPresupuesto = (item) => {
-    const params = new URLSearchParams({
-      producto: item.desc,
-      referencia: item.ref,
-      precio: item.precio || ''
-    })
-    navigate(`/presupuestos?${params.toString()}`)
-    toast.show(`Añadiendo ${item.ref} al presupuesto`, 'success')
-  }
+  /* Extraer precio numérico del catálogo — eliminar € y texto */
+  const precioLimpio = typeof item.precio === 'string'
+    ? parseFloat(item.precio.replace(/[€\s]/g, '')) || 0
+    : (item.precio || 0)
+
+  const params = new URLSearchParams({
+    producto: item.desc,
+    referencia: item.ref,
+    precio: precioLimpio.toString()
+  })
+  navigate(`/presupuestos?${params.toString()}`)
+  toast.show(`${item.ref} añadido al presupuesto`, 'success')
+}
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
