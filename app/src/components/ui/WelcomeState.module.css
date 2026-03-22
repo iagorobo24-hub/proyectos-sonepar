@@ -1,0 +1,124 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.circle1 {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.circle2 {
+  position: absolute;
+  width: 460px;
+  height: 460px;
+  border-radius: 50%;
+  border: 0.5px solid var(--color-border);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.circle3 {
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  border-radius: 50%;
+  border: 0.5px solid var(--color-border);
+  opacity: 0.5;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  position: relative;
+  z-index: 1;
+  padding: 32px;
+  text-align: center;
+}
+
+.iconBox {
+  width: 56px;
+  height: 56px;
+  background: var(--color-brand-light, #eff6ff);
+  border: 1px solid #bfdbfe;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: var(--color-brand);
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 8px;
+  font-family: var(--font-sans);
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--color-text-2);
+  max-width: 340px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+  font-family: var(--font-sans);
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 480px;
+}
+
+.chip {
+  padding: 7px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--color-text-2);
+  cursor: pointer;
+  font-family: var(--font-sans);
+  transition: all 80ms ease;
+}
+
+.chip:hover {
+  background: var(--color-surface);
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+}
+
+.chipPrimary {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: #ffffff;
+}
+
+.chipPrimary:hover {
+  background: #002070;
+  border-color: #002070;
+}

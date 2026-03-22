@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { useTheme } from '../../contexts/ThemeContext'
 import styles from './Topbar.module.css'
 
 /* Herramientas de la suite con su ruta y nombre */
@@ -14,6 +15,7 @@ const TOOLS = [
 
 /* Topbar — barra superior con logo y navegación real entre herramientas */
 export default function Topbar() {
+  const { dark, toggle } = useTheme()
   return (
     <header className={styles.topbar}>
       <div className={styles.logo}>
@@ -35,6 +37,28 @@ export default function Topbar() {
           </NavLink>
         ))}
       </nav>
+      <button
+        onClick={toggle}
+        title={dark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
+        style={{
+          marginLeft: 'auto',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '6px',
+          padding: '5px 10px',
+          background: dark ? 'rgba(245,158,11,0.1)' : 'rgba(255,255,255,0.06)',
+          border: dark ? '1px solid rgba(245,158,11,0.2)' : '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '20px',
+          cursor: 'pointer',
+          fontFamily: 'var(--font-sans)',
+          fontSize: '11px',
+          color: dark ? '#f59e0b' : '#9ca3af',
+          flexShrink: 0,
+        }}
+      >
+        <span style={{ fontSize: '12px' }}>{dark ? '☀' : '◐'}</span>
+        <span>{dark ? 'Claro' : 'Oscuro'}</span>
+      </button>
     </header>
   )
 }
