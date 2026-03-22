@@ -7,7 +7,6 @@ import KpiLogistico from './tools/KpiLogistico'
 import Presupuestos from './tools/Presupuestos'
 import FormacionInterna from './tools/FormacionInterna'
 import Sonex from './tools/Sonex'
-import UITest from './pages/UITest'
 import useDocumentTitle from './hooks/useDocumentTitle'
 
 /* Componentes wrapper con títulos dinámicos */
@@ -33,7 +32,6 @@ export default function App() {
         <Route path="presupuestos" element={<PresupuestosPage />} />
         <Route path="formacion"    element={<FormacionInternaPage />} />
         <Route path="sonex"        element={<SonexPage />} />
-        <Route path="uitest"       element={<UITest />} />
       </Route>
     </Routes>
   )
