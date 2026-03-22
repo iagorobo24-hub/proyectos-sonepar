@@ -435,9 +435,51 @@ const sonexStyles = `
           {/* Mensajes */}
           <div className={styles.chatMessages}>
             {messages.length === 0 ? (
-              <div className={styles.vacio}>
-                <div className={styles.vacioDiamond}>💬</div>
-                <div className={styles.vacioTexto}>Inicia una conversación</div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                gap: '24px',
+                padding: '32px',
+              }}>
+                <div style={{
+                  width: '56px',
+                  height: '56px',
+                  background: 'var(--color-brand-light, #eff6ff)',
+                  border: '1px solid #bfdbfe',
+                  borderRadius: '14px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: 'var(--color-brand)',
+                }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="1.5">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+                  </svg>
+                </div>
+                <div style={{ textAlign: 'center' }}>
+                  <h2 style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: 'var(--color-text)',
+                    margin: '0 0 8px',
+                    fontFamily: 'var(--font-sans)',
+                  }}>SONEX</h2>
+                  <p style={{
+                    fontSize: '13px',
+                    color: 'var(--color-text-2)',
+                    maxWidth: '300px',
+                    lineHeight: '1.6',
+                    margin: '0 auto',
+                    fontFamily: 'var(--font-sans)',
+                  }}>
+                    Asistente técnico especializado en material eléctrico e industrial.
+                    Escribe tu consulta o elige una sugerencia.
+                  </p>
+                </div>
               </div>
             ) : (
               messages.map((message) => (

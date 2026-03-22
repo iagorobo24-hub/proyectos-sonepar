@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef } from "react";
+import { WelcomeState } from '../components/ui/index.js';
+import { Warehouse } from 'lucide-react';
 
 // ── Paleta corporativa Sonepar ───────────────────────────────────────────────
 const C = {
@@ -480,6 +482,23 @@ export default function SimuladorAlmacen() {
         {/* ── PERFIL ──────────────────────────────────────────────────────── */}
         {pantalla === "perfil" && (
           <div className="fade-in" style={{ maxWidth: "480px", margin: "60px auto 0" }}>
+            {!operario.nombre && (
+              <WelcomeState
+                icon={Warehouse}
+                title="Simulador de Almacén"
+                subtitle="Reproduce el ciclo completo de un pedido con cronómetro real. Recepción, picking, verificación y expedición."
+                chips={[
+                  'Recepción — 60s',
+                  'Picking — 45-180s',
+                  'Expedición — 45s',
+                  'Modo entrenamiento',
+                  'Iniciar simulación →'
+                ]}
+                onChipClick={(chip) => {
+                  if (chip === 'Iniciar simulación →') return
+                }}
+              />
+            )}
             <div style={{ background: C.blanco, border: `1px solid ${C.borde}`, borderRadius: "12px", padding: "36px" }}>
               <div style={{ fontSize: "11px", fontWeight: "600", color: C.textoTer, letterSpacing: "0.5px", marginBottom: "8px" }}>IDENTIFICACIÓN</div>
               <div style={{ fontSize: "22px", fontWeight: "700", marginBottom: "6px" }}>¿Quién eres?</div>
