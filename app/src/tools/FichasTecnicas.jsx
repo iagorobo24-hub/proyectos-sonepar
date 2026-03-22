@@ -1,10 +1,11 @@
 import React from 'react'
-import { Search } from 'lucide-react'
+import { Search, FileText, GitCompare } from 'lucide-react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import TarjetaFicha from '../components/fichas/TarjetaFicha'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
+import WelcomeState from '../components/ui/WelcomeState'
 import { useToast } from '../contexts/ToastContext'
 import styles from './FichasTecnicas.module.css'
 
@@ -285,10 +286,23 @@ export default function FichasTecnicas() {
 
         {/* Modo búsqueda — estado vacío */}
         {modo === 'busqueda' && !resultado && !error && !cargando && (
-          <div className={styles.vacio}>
-            <div className={styles.vacioDiamond}>◈</div>
-            <div className={styles.vacioTexto}>Introduce una referencia o descripción</div>
-          </div>
+          <WelcomeState
+            icon={FileText}
+            title="Fichas Técnicas"
+            subtitle="Escribe una referencia o descripción del producto y la IA genera la ficha técnica completa en segundos."
+            chips={[
+              'Variador ATV320 2.2kW',
+              'Contactor LC1D40 220V',
+              'PLC M221 24E/S',
+              'Guardamotor GV2ME16',
+              'Buscar producto →'
+            ]}
+            onChipClick={(chip) => {
+              if (chip === 'Buscar producto →') return
+              setConsulta(chip)
+              buscar(chip)
+            }}
+          />
         )}
 
         {/* Modo comparativa — resultado */}
@@ -366,10 +380,26 @@ export default function FichasTecnicas() {
 
         {/* Modo comparativa — estado vacío */}
         {modo === 'comparativa' && !resultadoComp && (
-          <div className={styles.vacio}>
-            <div className={styles.vacioDiamond}>◈</div>
-            <div className={styles.vacioTexto}>Selecciona dos productos para comparar</div>
-          </div>
+          <WelcomeState
+            icon={GitCompare}
+            title="Comparativa de Productos"
+            subtitle="Selecciona dos productos desde el historial o busca nuevos productos para comparar sus características técnicas."
+            chips={[
+              'Comparar variadores',
+              'Comparar contactores',
+              'Comparar PLCs',
+              'Buscar productos →'
+            ]}
+            onChipClick={(chip) => {
+              if (chip === 'Buscar productos →') {
+                setModo('busqueda')
+                return
+              }
+              setConsulta(chip)
+              setModo('busqueda')
+              buscar(chip)
+            }}
+          />
         )}
       </div>
     </div>

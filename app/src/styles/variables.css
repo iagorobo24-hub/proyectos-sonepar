@@ -12,3 +12,15 @@
   --topbar-h: 56px;
   --sidebar-w: 240px;
 }
+
+[data-theme="dark"] {
+  --color-brand: #f59e0b;
+  --color-brand-vivid: #fbbf24;
+  --color-shell: #0d0f10;
+  --color-bg: #1c1f26;
+  --color-surface: #252830;
+  --color-text: #f1ede6;
+  --color-text-2: #8b929e;
+  --color-border: #2a2f3a;
+  --color-border-2: #1e2226;
+}
