@@ -302,8 +302,16 @@ Mantén un tono profesional y técnico.`;
     "Especificaciones para cuadro industrial",
   ];
 
+const sonexStyles = `
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+`;
+
   return (
     <div className={styles.layout}>
+      <style>{sonexStyles}</style>
       {/* ── Panel izquierdo ── */}
       <div className={styles.panelBusqueda}>
         {/* Header SONEX */}
@@ -501,6 +509,65 @@ Mantén un tono profesional y técnico.`;
                   </div>
                 </div>
               ))
+            )}
+            {isLoading && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '12px 16px',
+              }}>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  background: 'var(--color-brand)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                  fontSize: '13px',
+                  fontWeight: '700',
+                  flexShrink: 0,
+                }}>
+                  S
+                </div>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  background: 'var(--color-bg)',
+                  border: '1px solid var(--color-border)',
+                  borderRadius: '12px',
+                  padding: '10px 14px',
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    gap: '4px',
+                    alignItems: 'center',
+                  }}>
+                    {[0, 1, 2].map(i => (
+                      <div
+                        key={i}
+                        style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          background: 'var(--color-brand)',
+                          animation: `pulse 1.2s ease-in-out ${i * 0.2}s infinite`,
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <span style={{
+                    fontSize: '12px',
+                    color: 'var(--color-text-2)',
+                    fontStyle: 'italic',
+                  }}>
+                    SONEX está pensando...
+                  </span>
+                </div>
+              </div>
             )}
             <div ref={messagesEndRef} />
           </div>
