@@ -77,7 +77,7 @@ export default function Presupuestos() {
     const precio = searchParams.get('precio')
     if (producto && referencia) {
       /* Extraer precio numérico eliminando el símbolo € y espacios */
-      const precioNum = parseFloat((precio || '0').replace(/[€\s]/g, '')) || 0
+      const precioNum = parseFloat((precio || '0').replace(/[^0-9.,]/g, '').replace(',', '.')) || 0
       /* Añadir directamente al presupuesto usando el reducer */
       dispatchPartidas({
         type: 'ADD_ITEM',
