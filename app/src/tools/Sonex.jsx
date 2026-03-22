@@ -33,6 +33,102 @@ export default function Sonex() {
   const [refsTurno, setRefsTurno] = useState([]);
   const messagesEndRef = useRef(null);
 
+  /* Convierte markdown básico a JSX limpio para mostrar en el chat */
+const procesarMarkdown = (texto) => {
+  if (!texto) return []
+
+  const lineas = texto.split('\n')
+  const elementos = []
+  let keyCounter = 0
+
+  lineas.forEach((linea) => {
+    const key = keyCounter++
+
+    /* Saltar líneas vacías — añadir espacio */
+    if (!linea.trim()) {
+      elementos.push(<div key={key} style={{ height: '6px' }} />)
+      return
+    }
+
+    /* Títulos H3 ### */
+    if (linea.startsWith('### ')) {
+      elementos.push(
+        <div key={key} style={{ fontSize: '13px', fontWeight: '700', color: 'var(--color-text)', marginTop: '10px', marginBottom: '4px' }}>
+          {linea.replace('### ', '')}
+        </div>
+      )
+      return
+    }
+
+    /* Títulos H2 ## */
+    if (linea.startsWith('## ')) {
+      elementos.push(
+        <div key={key} style={{ fontSize: '14px', fontWeight: '700', color: 'var(--color-text)', marginTop: '12px', marginBottom: '4px' }}>
+          {linea.replace('## ', '')}
+        </div>
+      )
+      return
+    }
+
+    /* Líneas de separación --- */
+    if (linea.trim() === '---' || linea.trim() === '***') {
+      elementos.push(
+        <hr key={key} style={{ border: 'none', borderTop: '1px solid var(--color-border)', margin: '8px 0' }} />
+      )
+      return
+    }
+
+    /* Listas con - o * */
+    if (linea.match(/^[-*] /)) {
+      const contenido = linea.replace(/^[-*] /, '')
+      elementos.push(
+        <div key={key} style={{ display: 'flex', gap: '6px', marginBottom: '2px', alignItems: 'flex-start' }}>
+          <span style={{ color: 'var(--color-brand-vivid)', flexShrink: 0, marginTop: '2px' }}>—</span>
+          <span style={{ fontSize: '13px', color: 'var(--color-text)', lineHeight: '1.5' }}>
+            {procesarNegritas(contenido)}
+          </span>
+        </div>
+      )
+      return
+    }
+
+    /* Listas numeradas 1. 2. */
+    if (linea.match(/^\d+\. /)) {
+      const contenido = linea.replace(/^\d+\. /, '')
+      const num = linea.match(/^(\d+)\./)[1]
+      elementos.push(
+        <div key={key} style={{ display: 'flex', gap: '6px', marginBottom: '2px', alignItems: 'flex-start' }}>
+          <span style={{ color: 'var(--color-brand)', flexShrink: 0, fontSize: '11px', fontWeight: '700', minWidth: '16px', marginTop: '2px' }}>{num}.</span>
+          <span style={{ fontSize: '13px', color: 'var(--color-text)', lineHeight: '1.5' }}>
+            {procesarNegritas(contenido)}
+          </span>
+        </div>
+      )
+      return
+    }
+
+    /* Texto normal */
+    elementos.push(
+      <div key={key} style={{ fontSize: '13px', color: 'var(--color-text)', lineHeight: '1.6', marginBottom: '2px' }}>
+        {procesarNegritas(linea)}
+      </div>
+    )
+  })
+
+  return elementos
+}
+
+/* Procesa negritas **texto** dentro de una línea */
+const procesarNegritas = (texto) => {
+  if (!texto.includes('**')) return texto
+  const partes = texto.split('**')
+  return partes.map((parte, i) =>
+    i % 2 === 1
+      ? <strong key={i} style={{ fontWeight: '600', color: 'var(--color-text)' }}>{parte}</strong>
+      : parte
+  )
+}
+
   /* Extrae referencias técnicas del texto de la respuesta IA */
   /* Primero busca en el catálogo, luego detecta patrones de referencia técnica */
   const extraerReferencias = (texto) => {
@@ -346,7 +442,7 @@ Mantén un tono profesional y técnico.`;
                   </div>
                   <div className={styles.messageContent}>
                     <div className={`${styles.messageBubble} ${message.role}`}>
-                      {message.content}
+                      {procesarMarkdown(message.content)}
                     </div>
                     <div className={styles.messageTime}>
                       {message.timestamp.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}
