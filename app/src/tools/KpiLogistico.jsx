@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { TrendingUp } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
+import WelcomeState from '../components/ui/WelcomeState'
 import { useToast } from '../contexts/ToastContext'
 import styles from './KpiLogistico.module.css'
 
@@ -449,10 +451,24 @@ export default function KPILogistico() {
 
         {/* Estado vacío */}
         {tab === 'calculo' && !kpis && (
-          <div className={styles.vacio}>
-            <div className={styles.vacioDiamond}>📊</div>
-            <div className={styles.vacioTexto}>Introduce los datos del turno y pulsa calcular</div>
-          </div>
+          <WelcomeState
+            icon={TrendingUp}
+            title="KPI Logístico"
+            subtitle="Introduce los datos del turno y calcula 6 KPIs clave con semáforo de estado e informe ejecutivo IA."
+            chips={[
+              'Pedidos por hora',
+              'Error de picking',
+              'Tiempo de ciclo',
+              'Ocupación almacén',
+              'Cargar ejemplo →'
+            ]}
+            onChipClick={(chip) => {
+              if (chip === 'Cargar ejemplo →') {
+                const btn = document.querySelector('[data-demo-btn]')
+                if (btn) btn.click()
+              }
+            }}
+          />
         )}
       </div>
     </div>

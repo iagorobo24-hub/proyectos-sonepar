@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { GraduationCap } from 'lucide-react'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
+import WelcomeState from '../components/ui/WelcomeState'
 import { useToast } from '../contexts/ToastContext'
 import styles from './FormacionInterna.module.css'
 
@@ -553,13 +555,18 @@ export default function FormacionInterna() {
             </div>
           </div>
         ) : (
-          <div className={styles.vacio}>
-            <div className={styles.vacioDiamond}>◈</div>
-            <div className={styles.vacioTexto}>
-              {vista === 'dashboard' ? 'Selecciona un empleado para ver detalles' : 
-               vista === 'matriz' ? 'Matriz de formación' : 'Configuración del sistema'}
-            </div>
-          </div>
+          <WelcomeState
+            icon={GraduationCap}
+            title="Formación Interna"
+            subtitle="Selecciona un empleado para ver su progreso, módulos completados y el plan de formación personalizado generado por IA."
+            chips={[
+              'Ver empleados con alerta',
+              'Módulos obligatorios',
+              'Generar plan IA',
+              'Matriz de competencias →'
+            ]}
+            onChipClick={() => {}}
+          />
         )}
       </div>
     </div>

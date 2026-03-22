@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef, useReducer } from "react";
 import { useSearchParams } from 'react-router-dom'
+import { Euro } from 'lucide-react'
 import { CATALOGO_POR_CATEGORIA as CATALOGO_REF_IMPORTADO } from '../data/catalogoSonepar'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
+import WelcomeState from '../components/ui/WelcomeState'
 import { useToast } from '../contexts/ToastContext'
 import styles from './Presupuestos.module.css'
 
@@ -382,10 +384,29 @@ export default function Presupuestos() {
         )}
 
         {vista === 'wizard' && !categoria && (
-          <div className={styles.vacio}>
-            <div className={styles.vacioDiamond}>◈</div>
-            <div className={styles.vacioTexto}>Selecciona una categoría para comenzar</div>
-          </div>
+          <WelcomeState
+            icon={Euro}
+            title="Generador de Presupuestos"
+            subtitle="Selecciona una categoría, responde las preguntas técnicas y la IA genera un presupuesto completo con referencias del catálogo Sonepar."
+            chips={[
+              'Automatización Industrial',
+              'Cuadro Eléctrico',
+              'Energía Solar / FV',
+              'Vehículo Eléctrico',
+              'Ver catálogo →'
+            ]}
+            onChipClick={(chip) => {
+              const mapaCategoria = {
+                'Automatización Industrial': 'automatizacion',
+                'Cuadro Eléctrico': 'cuadro_electrico',
+                'Energía Solar / FV': 'energia_solar',
+                'Vehículo Eléctrico': 'vehiculo_electrico',
+              }
+              if (mapaCategoria[chip]) {
+                setCategoria(mapaCategoria[chip])
+              }
+            }}
+          />
         )}
 
         {vista === 'historial' && (

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { ShieldAlert } from 'lucide-react';
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
+import WelcomeState from '../components/ui/WelcomeState'
 import { useToast } from '../contexts/ToastContext'
 import styles from './DashboardIncidencias.module.css'
 
@@ -512,12 +514,17 @@ export default function DashboardIncidencias() {
             </div>
           </div>
         ) : (
-          <div className={styles.vacio}>
-            <div className={styles.vacioDiamond}>◈</div>
-            <div className={styles.vacioTexto}>
-              {modo === 'nueva' ? 'Completa el formulario para registrar' : 'Selecciona una incidencia para ver detalles'}
-            </div>
-          </div>
+          <WelcomeState
+            icon={ShieldAlert}
+            title="Dashboard Incidencias"
+            subtitle="Selecciona una incidencia de la lista para ver el diagnóstico completo generado por IA."
+            chips={[
+              'Ver críticas primero',
+              'Filtrar por zona',
+              'Nueva incidencia',
+            ]}
+            onChipClick={() => {}}
+          />
         )}
       </div>
     </div>
