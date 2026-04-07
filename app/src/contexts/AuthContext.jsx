@@ -132,9 +132,17 @@ export function AuthProvider({ children }) {
   /* Login con Google */
   async function loginWithGoogle() {
     const provider = new GoogleAuthProvider()
-    provider.setCustomParameters({ prompt: 'select_account' })
-    const result = await signInWithPopup(auth, provider)
-    return result.user
+    // Eliminamos prompt: 'select_account' que causaba "invalid action"
+    provider.setCustomParameters({
+      login_hint: '',
+    })
+    try {
+      const result = await signInWithPopup(auth, provider)
+      return result.user
+    } catch (error) {
+      // Re-lanzar para que LoginPage lo maneje
+      throw error
+    }
   }
 
   /* Logout — limpia tanto Firebase como mock */

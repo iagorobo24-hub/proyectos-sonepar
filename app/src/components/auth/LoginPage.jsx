@@ -20,9 +20,18 @@ export default function LoginPage() {
     try {
       await loginWithGoogle()
     } catch (err) {
-      if (err.code !== 'auth/popup-closed-by-user') {
-        toast.show('Error al iniciar sesión. Inténtalo de nuevo.', 'error')
-      }
+      // Ignorar si el usuario cerró el popup manualmente
+      if (err.code === 'auth/popup-closed-by-user') return
+      
+      // Mostrar error detallado para debugging
+      const msg = err.code === 'auth/invalid-action'
+        ? 'Error de configuración de auth. Verifica Firebase Console → Authentication → Sign-in method → Google debe estar habilitado.'
+        : err.code === 'auth/unauthorized-domain'
+        ? 'Dominio no autorizado. Añade este dominio en Firebase Console → Authentication → Authorized domains.'
+        : `Error al iniciar sesión: ${err.message || err.code}`
+      
+      toast.show(msg, 'error')
+      console.error('Login error:', err)
     }
   }
 
