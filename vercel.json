@@ -4,6 +4,9 @@
   "functions": {
     "api/anthropic.js": {
       "runtime": "edge"
+    },
+    "api/extract-pdf.js": {
+      "runtime": "edge"
     }
   },
   "headers": [
@@ -17,7 +20,7 @@
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://api.anthropic.com https://*.googleapis.com https://*.firebaseio.com https://*.firebase.google.com; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://api.anthropic.com https://*.googleapis.com https://*.firebaseio.com https://*.firebase.google.com https://www.se.com https://search.abb.com https://mall.industry.siemens.com https://www.ifm.com https://www.pepperl-fuchs.com https://www.lighting.philips.es https://www.ledvance.es https://www.zemper.es https://wallbox.com https://hager.es https://www.fronius.com https://www.sma.es https://www.pylontech.com.cn https://www.victronenergy.es https://www.mitsubishielectric.com; font-src 'self' data:; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
         }
       ]
     }
@@ -26,6 +29,10 @@
     {
       "source": "/api/anthropic",
       "destination": "/api/anthropic"
+    },
+    {
+      "source": "/api/extract-pdf",
+      "destination": "/api/extract-pdf"
     },
     {
       "source": "/(.*)",
