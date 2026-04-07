@@ -15,15 +15,21 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  /* Bypass auth solo en desarrollo (Playwright) */
-  const mockUser = import.meta.env.DEV ? (typeof window !== 'undefined' ? window.__PW_MOCK_USER__ : null) : null
+  /* Bypass auth solo en desarrollo (Playwright) — NUNCA en producción */
+  const isDev = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV
+  const mockUser = isDev && typeof window !== 'undefined' ? (window.__PW_MOCK_USER__ || null) : null
 
   useEffect(() => {
-    /* Si hay usuario mock, usarlo directamente */
+    /* Si hay usuario mock (solo DEV), usarlo directamente */
     if (mockUser) {
-      setUser(mockUser)
-      setLoading(false)
-      return
+      // Doble verificación: rechazar en producción
+      if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.PROD) {
+        console.error('SECURITY: Mock user rejected in production')
+      } else {
+        setUser(mockUser)
+        setLoading(false)
+        return
+      }
     }
 
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {

@@ -2,22 +2,33 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
+
     // Función auxiliar para verificar autenticación y propiedad
     function isOwner(userId) {
       return request.auth != null && request.auth.uid == userId;
     }
-    
+
+    // Colección pública — lecturas globales (búsquedas populares)
+    match /global/{docId} {
+      allow read: if request.auth != null;
+      // Escritura restringida a popularSearches con validación de esquema
+      allow write: if request.auth != null
+        && docId == 'popularSearches'
+        && request.resource.data.keys().hasOnly(['searches', 'updatedAt'])
+        && request.resource.data.searches.size() < 200;
+    }
+
     // Colección principal de usuarios - cada usuario solo accede a su propio documento
     match /users/{userId} {
       allow read, write: if isOwner(userId);
-      
+
       // Subcolecciones dentro del documento de usuario
       match /{document=**} {
-        allow read, write: if isOwner(userId);
+        allow read, write: if isOwner(userId)
+          && request.resource.data.size() < 1048576;  // < 1MB por doc
       }
     }
-    
+
     // Denegar todo lo demás por defecto
     match /{document=**} {
       allow read, write: if false;

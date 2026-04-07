@@ -158,16 +158,20 @@ export default function FormacionInterna() {
   const generarPlan = async (emp) => {
     setCargandoIA(true); setPlanIA("");
     try {
-      const res = await fetch("/api/anthropic", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514", max_tokens: 1000,
-          messages: [{ role: "user", content: PROMPT_PLAN(emp, modulos, progresos[emp.id] || {}) }],
-        }),
-      });
-      const data = await res.json();
-      setPlanIA(data.content?.map(i => i.text || "").join("") || "");
+      const { callAnthropicAI } = await import('../services/anthropicService')
+      const completados = modulos.filter(m => progresos[emp.id]?.[m.id] === "completado").map(m => m.nombre);
+      const enCurso = modulos.filter(m => progresos[emp.id]?.[m.id] === "en_curso").map(m => m.nombre);
+      const pendientes = modulos.filter(m => progresos[emp.id]?.[m.id] === "pendiente").map(m => m.nombre);
+
+      const systemPrompt = `Eres el responsable de formación de una delegación de Sonepar España. Genera un plan de desarrollo personalizado.`
+
+      const { text } = await callAnthropicAI({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: "user", content: `Empleado: ${emp.nombre} — ${emp.rol} — ${emp.departamento}\nCompletados: ${completados.join(", ") || "ninguno"}\nEn curso: ${enCurso.join(", ") || "ninguno"}\nPendientes: ${pendientes.join(", ") || "ninguno"}\n\nGenera un plan en 3 párrafos: (1) valoración del progreso actual, (2) módulos prioritarios a completar y por qué, (3) recomendación de siguiente paso concreto esta semana. Tono directo y motivador.` }],
+      })
+      setPlanIA(text || "Error al generar el plan.");
     } catch { setPlanIA("Error al generar el plan."); }
     setCargandoIA(false);
   };

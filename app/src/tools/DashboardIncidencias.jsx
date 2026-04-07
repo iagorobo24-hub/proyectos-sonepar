@@ -172,17 +172,36 @@ export default function DashboardIncidencias() {
   const generarDiagnostico = async (inc) => {
     setCargandoIA(true);
     try {
-      const res = await fetch("/api/anthropic", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514", max_tokens: 1000,
-          messages: [{ role: "user", content: PROMPT_DIAGNOSTICO(inc) }],
-        }),
-      });
-      const data = await res.json();
-      const text = data.content?.map(i => i.text || "").join("") || "";
-      const diag = JSON.parse(text.replace(/```json|```/g, "").trim());
+      const { callAnthropicAI, parseAIJsonResponse } = await import('../services/anthropicService')
+
+      const systemPrompt = `Eres un técnico de mantenimiento industrial con 15 años de experiencia en automatización, PLCs, variadores, sensores y equipos de almacén logístico. Trabajas en una delegación de Sonepar España.
+
+Incidencia reportada:
+- Equipo: ${inc.equipo}
+- Zona: ${inc.zona}
+- Síntoma: ${inc.sintoma}
+- Severidad: ${inc.severidad}
+
+Responde ÚNICAMENTE con JSON válido sin backticks ni markdown:
+{
+  "causa_probable": "descripción técnica concisa de la causa más probable",
+  "pasos_verificacion": ["paso 1 concreto y accionable", "paso 2", "paso 3"],
+  "solucion": "solución recomendada con referencias a materiales o ajustes concretos",
+  "medidas_preventivas": ["medida preventiva 1", "medida preventiva 2"]
+}`
+
+      const { text } = await callAnthropicAI({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        system: systemPrompt,
+        messages: [{ role: "user", content: `Diagnostica la incidencia descrita.` }],
+      })
+
+      const diag = parseAIJsonResponse(text, (p) => p.causa_probable && p.pasos_verificacion)
+      if (!diag || diag.error) {
+        toast.show("La IA devolvió una respuesta inválida. Intenta de nuevo.")
+        return
+      }
       const updated = incidencias.map(i => i.id === inc.id
         ? { ...i, diagnostico: diag, estado: i.estado === "Abierta" ? "En diagnóstico" : i.estado } : i);
       guardar(updated);

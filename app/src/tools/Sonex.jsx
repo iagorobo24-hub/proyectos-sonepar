@@ -188,13 +188,13 @@ const procesarNegritas = (texto) => {
 
   const generarRespuestaIA = async (userMessage) => {
     try {
-      const prompt = `Eres SONEX, el asistente técnico experto de Sonepar España. Responde a esta consulta de forma profesional y técnica.
+      const { callAnthropicAI } = await import('../services/anthropicService')
+
+      const systemPrompt = `Eres SONEX, el asistente técnico experto de Sonepar España. Responde a esta consulta de forma profesional y técnica.
 
 Contexto: ${contextoActivo || "Sin contexto específico"}
 Modo: ${MODO_OBJETOS.find(m => m.id === modoActivo)?.desc}
 Categoría activa: ${categoriaActiva || "Todas"}
-
-Consulta: ${userMessage}
 
 Responde de forma concisa pero completa, enfocándote en:
 1. Soluciones técnicas de Sonepar
@@ -202,24 +202,19 @@ Responde de forma concisa pero completa, enfocándote en:
 3. Especificaciones técnicas relevantes
 4. Recomendaciones de aplicación
 
-Mantén un tono profesional y técnico.`;
+Mantén un tono profesional y técnico.`
 
-      const res = await fetch("/api/anthropic", { 
-        method: "POST", 
-        headers: { 
-          "Content-Type": "application/json"
-        }, 
-        body: JSON.stringify({ 
-          model: "claude-sonnet-4-20250514", 
-          max_tokens: 800, 
-          messages: [{ role: "user", content: prompt }] 
-        }) 
-      });
-      
-      const data = await res.json();
-      return data.content?.map(b => b.text || "").join("") || "Lo siento, no pude procesar tu consulta en este momento.";
+      const { text } = await callAnthropicAI({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 800,
+        system: systemPrompt,
+        messages: [{ role: "user", content: userMessage }]
+      })
+
+      return text || "Lo siento, no pude procesar tu consulta en este momento."
     } catch (error) {
-      console.error("Error calling AI:", error);
+      const devLog = typeof import.meta !== 'undefined' && import.meta.env?.DEV ? console.error : () => {}
+      devLog("Error calling AI:", error);
       return "Lo siento, ha ocurrido un error al procesar tu consulta. Por favor, inténtalo de nuevo.";
     }
   };

@@ -273,10 +273,10 @@ export default function FichasTecnicas() {
             onCopiar={handleCopiar}
             onComparar={handleComparar}
             onPresupuesto={(res) => {
+              // No incluir precio en URL — se pasa solo producto y referencia
               const params = new URLSearchParams({
                 producto: res.nombre,
                 referencia: res.referencia,
-                precio: res.precio_orientativo || ''
               })
               navigate(`/presupuestos?${params.toString()}`)
               toast.show(`${res.referencia} añadido al presupuesto`, 'success')
