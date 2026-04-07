@@ -58,3 +58,18 @@
 .sidebarCollapsed {
   overflow: hidden;
 }
+
+/* ============================================================
+   RESPONSIVE: Tablet y Mobile (≤1024px)
+   El sidebar se desmonta con JS (useMobile hook), solo
+   ajustamos aquí el layout del grid.
+   ============================================================ */
+@media (max-width: 1024px) {
+  .shell {
+    grid-template-columns: 0 1fr;
+  }
+
+  .main {
+    grid-column: 1 / -1;
+  }
+}
