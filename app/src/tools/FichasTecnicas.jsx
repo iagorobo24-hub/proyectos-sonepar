@@ -56,6 +56,27 @@ export default function FichasTecnicas() {
     logo: MARCAS[m.nombre]?.logo || '',
   }))
 
+  /* Componente para mostrar logo con fallback */
+  const BrandLogo = ({ src, fallback, color, name }) => {
+    const [error, setError] = React.useState(false)
+    return (
+      <div className={styles.brandLogoBox}>
+        {src && !error ? (
+          <img
+            src={src}
+            alt={name}
+            className={styles.brandLogo}
+            onError={() => setError(true)}
+          />
+        ) : (
+          <div className={styles.brandFallback} style={{ background: color }}>
+            {fallback}
+          </div>
+        )}
+      </div>
+    )
+  }
+
   /* ═══════════════════════════════════════════════════════
    * SIDEBAR IZQUIERDO — Siempre visible
    * ═══════════════════════════════════════════════════════ */
@@ -133,15 +154,12 @@ export default function FichasTecnicas() {
           <div className={styles.brandsGrid}>
             {marcasConLogo.map(m => (
               <button key={m.nombre} className={styles.brandCard} onClick={() => seleccionarMarca(m.nombre)}>
-                <div className={styles.brandLogoBox}>
-                  {m.logo ? (
-                    <img src={m.logo} alt={m.nombre} className={styles.brandLogo}
-                      onError={e => { e.target.style.display = 'none'; e.target.nextElementSibling.style.display = 'flex' }} />
-                  ) : null}
-                  <div className={styles.brandFallback} style={{ display: m.logo ? 'none' : 'flex', background: m.color }}>
-                    {m.nombre.substring(0, 2).toUpperCase()}
-                  </div>
-                </div>
+                <BrandLogo
+                  src={m.logo}
+                  fallback={m.nombre.substring(0, 2).toUpperCase()}
+                  color={m.color}
+                  name={m.nombre}
+                />
                 <div className={styles.brandName}>{m.nombre}</div>
                 <div className={styles.brandCount}>{getGamasPorMarcaYCategoria(categoria, m.nombre).length} gamas</div>
               </button>
