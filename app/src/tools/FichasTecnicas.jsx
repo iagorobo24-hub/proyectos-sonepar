@@ -104,7 +104,10 @@ export default function FichasTecnicas() {
       <div className={styles.toolbar}>
         <button
           className={`${styles.tab} ${modo === 'navegacion' ? styles.tabActivo : ''}`}
-          onClick={() => setModo('navegacion')}
+          onClick={() => {
+            setModo('navegacion')
+            reiniciar()
+          }}
         >
           Navegar
         </button>
