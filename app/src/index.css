@@ -1,6 +1,16 @@
-/* Reset y tipografía global — Sonepar Tools */
+/* ═══════════════════════════════════════════════════════
+ * GLOBAL STYLES — Proyectos Sonepar
+ * ═══════════════════════════════════════════════════════ */
+
+/* Importar animaciones y variables */
+@import './styles/variables.css';
+@import './styles/animations.css';
+
+/* ── Reset ── */
 *, *::before, *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 :root {
@@ -8,23 +18,83 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+html {
+  font-size: 16px;
 }
 
 body {
   font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
   background: var(--color-bg);
   color: var(--color-text);
-  margin: 0;
-  padding: 0;
   min-width: 320px;
   min-height: 100vh;
 }
 
+/* ── Links ── */
 a {
   color: var(--color-brand-vivid);
   text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-out);
 }
 
 a:hover {
-  text-decoration: underline;
+  color: var(--color-brand);
+  text-decoration: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* ── Focus visible (accesibilidad) ── */
+:focus-visible {
+  outline: 2px solid var(--color-brand-vivid);
+  outline-offset: 2px;
+}
+
+/* ── Selección de texto ── */
+::selection {
+  background: var(--color-brand-soft);
+  color: var(--color-brand);
+}
+
+/* ── Imágenes ── */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Botones ── */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ── Inputs ── */
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
 }

@@ -1,26 +1,306 @@
+/* ═══════════════════════════════════════════════════════
+ * SISTEMA DE DISEÑO — Proyectos Sonepar
+ * Profesional, accesible, con animaciones integradas
+ * ═══════════════════════════════════════════════════════ */
+
+/* ── Tipografía ── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ── Animate.css ── */
+@import 'animate.css';
+
 :root {
-  --font-sans: 'IBM Plex Sans', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  /* ── Tipografía ── */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.8125rem;   /* 13px */
+  --text-base: 0.875rem;  /* 14px */
+  --text-md: 1rem;        /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+  
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-extrabold: 800;
+  
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+  
+  /* ── Colores corporativos ── */
   --color-brand: #003087;
+  --color-brand-light: #0044b3;
   --color-brand-vivid: #4A90D9;
+  --color-brand-soft: rgba(0, 48, 135, 0.08);
+  --color-brand-border: rgba(0, 48, 135, 0.15);
+  
+  /* ── Colores semánticos ── */
+  --color-success: #059669;
+  --color-success-soft: rgba(5, 150, 105, 0.08);
+  --color-warning: #d97706;
+  --color-warning-soft: rgba(217, 119, 6, 0.08);
+  --color-error: #dc2626;
+  --color-error-soft: rgba(220, 38, 38, 0.08);
+  --color-info: #2563eb;
+  --color-info-soft: rgba(37, 99, 235, 0.08);
+  
+  /* ── Fondos y superficies ── */
   --color-shell: #111827;
-  --color-bg: #f5f4f0;
+  --color-shell-light: #1f2937;
+  --color-bg: #f8f9fc;
+  --color-bg-alt: #f1f3f9;
   --color-surface: #ffffff;
+  --color-surface-hover: #f9fafb;
+  
+  /* ── Texto ── */
   --color-text: #111827;
-  --color-text-2: #4b5563;
-  --color-border: #e5e0d8;
-  --topbar-h: 56px;
-  --sidebar-w: 240px;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #9ca3af;
+  --color-text-inverse: #ffffff;
+  
+  /* ── Bordes ── */
+  --color-border: #e5e7eb;
+  --color-border-light: #f3f4f6;
+  --color-border-focus: var(--color-brand-vivid);
+  
+  /* ── Sombras ── */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+  --shadow-brand: 0 4px 14px rgba(0, 48, 135, 0.2);
+  
+  /* ── Bordes redondeados ── */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 9999px;
+  
+  /* ── Espaciado ── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  
+  /* ── Layout ── */
+  --topbar-h: 60px;
+  --sidebar-w: 260px;
+  --sidebar-w-collapsed: 72px;
+  
+  /* ── Transiciones ── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  
+  /* ── Z-index ── */
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  
+  /* ── Animaciones ── */
+  --animate-duration: 400ms;
+  --animate-delay: 0s;
 }
 
+/* ── Tema Oscuro ── */
 [data-theme="dark"] {
   --color-brand: #f59e0b;
+  --color-brand-light: #d97706;
   --color-brand-vivid: #fbbf24;
+  --color-brand-soft: rgba(245, 158, 11, 0.1);
+  --color-brand-border: rgba(245, 158, 11, 0.2);
+  
+  --color-success: #10b981;
+  --color-success-soft: rgba(16, 185, 129, 0.1);
+  --color-warning: #f59e0b;
+  --color-warning-soft: rgba(245, 158, 11, 0.1);
+  --color-error: #ef4444;
+  --color-error-soft: rgba(239, 68, 68, 0.1);
+  --color-info: #3b82f6;
+  --color-info-soft: rgba(59, 130, 246, 0.1);
+  
   --color-shell: #0d0f10;
-  --color-bg: #1c1f26;
-  --color-surface: #252830;
-  --color-text: #f1ede6;
-  --color-text-2: #8b929e;
+  --color-shell-light: #1a1d21;
+  --color-bg: #0f1117;
+  --color-bg-alt: #161922;
+  --color-surface: #1a1d26;
+  --color-surface-hover: #222632;
+  
+  --color-text: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+  --color-text-tertiary: #64748b;
+  
   --color-border: #2a2f3a;
-  --color-border-2: #1e2226;
+  --color-border-light: #1e222b;
+  
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.3);
+  --shadow-brand: 0 4px 14px rgba(245, 158, 11, 0.25);
+}
+
+/* ═══════════════════════════════════════════════════════
+ * CLASES DE UTILIDAD — Animaciones de entrada
+ * ═══════════════════════════════════════════════════════ */
+
+/* Entrada fade-in + slide-up */
+.animate-enter {
+  animation: fadeSlideUp var(--animate-duration) var(--ease-out) both;
+}
+
+.animate-enter-delay-1 { animation-delay: calc(var(--animate-delay) + 50ms); }
+.animate-enter-delay-2 { animation-delay: calc(var(--animate-delay) + 100ms); }
+.animate-enter-delay-3 { animation-delay: calc(var(--animate-delay) + 150ms); }
+.animate-enter-delay-4 { animation-delay: calc(var(--animate-delay) + 200ms); }
+.animate-enter-delay-5 { animation-delay: calc(var(--animate-delay) + 250ms); }
+.animate-enter-delay-6 { animation-delay: calc(var(--animate-delay) + 300ms); }
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Entrada fade-in + scale */
+@keyframes fadeScale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-scale {
+  animation: fadeScale var(--animate-duration) var(--ease-out) both;
+}
+
+/* Entrada desde la izquierda */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-left {
+  animation: slideInLeft var(--animate-duration) var(--ease-out) both;
+}
+
+/* Pulse sutil para elementos interactivos */
+@keyframes subtlePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+.animate-pulse-subtle {
+  animation: subtlePulse 2s var(--ease-in-out) infinite;
+}
+
+/* Shimmer para loading states */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, 
+    var(--color-bg-alt) 25%, 
+    var(--color-border-light) 50%, 
+    var(--color-bg-alt) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════════════
+ * RESET MEJORADO
+ * ═══════════════════════════════════════════════════════ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-tertiary);
+}
+
+/* Focus visible para accesibilidad */
+:focus-visible {
+  outline: 2px solid var(--color-brand-vivid);
+  outline-offset: 2px;
+}
+
+/* Selección de texto */
+::selection {
+  background: var(--color-brand-soft);
+  color: var(--color-brand);
 }

@@ -6,7 +6,7 @@
   overflow: hidden;
   font-family: var(--font-sans);
   background: var(--color-bg);
-  transition: grid-template-columns 200ms ease;
+  transition: grid-template-columns var(--duration-normal) var(--ease-out);
 }
 
 .topbar {
@@ -24,13 +24,14 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  transition: all 200ms ease;
+  transition: all var(--duration-normal) var(--ease-out);
 }
 
 .main {
   grid-column: 2;
   grid-row: 2;
   overflow-y: auto;
+  animation: fadeIn 0.4s var(--ease-out) both;
 }
 
 .collapseBtn {
@@ -40,18 +41,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: var(--space-3);
   background: var(--color-surface);
   border: none;
   border-top: 1px solid var(--color-border);
   cursor: pointer;
-  color: var(--color-text-2);
-  transition: background 150ms, color 150ms;
+  color: var(--color-text-tertiary);
+  transition: all var(--duration-fast) var(--ease-out);
   flex-shrink: 0;
 }
 
 .collapseBtn:hover {
-  background: #f3f4f6;
+  background: var(--color-bg-alt);
   color: var(--color-text);
 }
 
@@ -61,8 +62,6 @@
 
 /* ============================================================
    RESPONSIVE: Tablet y Mobile (≤1024px)
-   El sidebar se desmonta con JS (useMobile hook), solo
-   ajustamos aquí el layout del grid.
    ============================================================ */
 @media (max-width: 1024px) {
   .shell {
