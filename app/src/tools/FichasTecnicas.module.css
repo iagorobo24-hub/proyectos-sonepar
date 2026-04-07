@@ -202,18 +202,10 @@
 }
 
 .brandLogo {
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.brandLogo svg {
-  width: 100%;
-  height: 100%;
   max-width: 64px;
   max-height: 64px;
+  object-fit: contain;
+  display: block;
 }
 
 .brandFallback {

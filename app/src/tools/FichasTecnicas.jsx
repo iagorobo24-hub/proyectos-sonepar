@@ -50,26 +50,27 @@ export default function FichasTecnicas() {
     if (url) window.open(url, '_blank', 'noopener,noreferrer')
   }
 
-  /* ── Marcas con SVG inline ── */
-  const marcasConSVG = marcasDisponibles.map(m => ({
+  /* ── Marcas con logo local ── */
+  const marcasConLogo = marcasDisponibles.map(m => ({
     ...m,
-    svg: MARCAS[m.nombre]?.svg || '',
+    logo: MARCAS[m.nombre]?.logo || '',
   }))
 
-  /* Componente para mostrar logo SVG inline con fallback */
-  const BrandLogo = ({ svg, fallback, color, name }) => {
-    return (
-      <div className={styles.brandLogoBox}>
-        {svg ? (
-          <div
-            className={styles.brandLogo}
-            dangerouslySetInnerHTML={{ __html: svg }}
-          />
-        ) : (
+  /* Componente para mostrar logo local con fallback */
+  const BrandLogo = ({ logo, fallback, color, name }) => {
+    const [error, setError] = React.useState(false)
+    if (!logo || error) {
+      return (
+        <div className={styles.brandLogoBox}>
           <div className={styles.brandFallback} style={{ background: color }}>
             {fallback}
           </div>
-        )}
+        </div>
+      )
+    }
+    return (
+      <div className={styles.brandLogoBox}>
+        <img src={logo} alt={name} className={styles.brandLogo} onError={() => setError(true)} />
       </div>
     )
   }
@@ -149,10 +150,10 @@ export default function FichasTecnicas() {
           <h2 className={styles.panelTitle}>Elige marca</h2>
           <p className={styles.panelSub}>{categorias.find(c => c.id === categoria)?.label}</p>
           <div className={styles.brandsGrid}>
-            {marcasConSVG.map(m => (
+            {marcasConLogo.map(m => (
               <button key={m.nombre} className={styles.brandCard} onClick={() => seleccionarMarca(m.nombre)}>
                 <BrandLogo
-                  svg={m.svg}
+                  logo={m.logo}
                   fallback={m.nombre.substring(0, 2).toUpperCase()}
                   color={m.color}
                   name={m.nombre}
