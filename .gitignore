@@ -1,120 +1,49 @@
-# ============================================
-# Environment variables - CRITICAL
-# ============================================
-.env
-.env.*
-.env.local
-.env.production
-*.env
-
-# ============================================
-# Credentials and secrets
-# ============================================
-credentials.json
-client_secrets.json
-token.json
-*.pem
-*.key
-service-account*.json
-
-# ============================================
-# Node.js
-# ============================================
+```
+# Dependencies
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
 
-# ============================================
-# Build outputs
-# ============================================
-dist/
-dist-ssr/
-*.local
+# Environment variables
+.env
+.env.local
+*.env.*
 
-# ============================================
-# IDE
-# ============================================
+# IDE files
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# ============================================
-# OS
-# ============================================
+# Logs
+*.log
+
+# Build artifacts
+dist/
+build/
+target/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 
-# ============================================
-# AI Agent configs (not project code)
-# ============================================
-.agents/
-.claude/
-skills-lock.json
-QWEN.md
-
-# ============================================
-# Test results & coverage
-# ============================================
-test-results/
+# Coverage reports
 coverage/
-.nyc_output/
-playwright-report/
-blob-report/
+htmlcov/
+*.coverage
 
-# ============================================
-# Python (legacy)
-# ============================================
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+# Package manager
+package-lock.json
+yarn.lock
 
-# Virtual environments
-venv/
-env/
-ENV/
-env.bak/
-venv.bak/
-.deps/
-.pytest_tmp/
-
-# ============================================
-# Database
-# ============================================
-*.db
-*.sqlite
-*.sqlite3
-*.db-journal
-
-# ============================================
-# Exports / outputs
-# ============================================
-exports/
-!exports/.gitkeep
-campaign_output/
+# Authentication and security
+firebase-debug.log
+```
