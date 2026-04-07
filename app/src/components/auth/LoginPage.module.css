@@ -1,0 +1,71 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  font-family: var(--font-sans, 'IBM Plex Sans', sans-serif);
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  max-width: 400px;
+  width: 100%;
+}
+
+.logoWrap {
+  margin-bottom: 16px;
+}
+
+.logoMarca {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.logoSuite {
+  font-size: 28px;
+  font-weight: 300;
+  color: #64748b;
+  margin-left: 6px;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 32px;
+  line-height: 1.5;
+}
+
+.googleBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 24px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  font-family: inherit;
+}
+
+.googleBtn:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #9ca3af;
+}
+
+.googleIcon {
+  flex-shrink: 0;
+}

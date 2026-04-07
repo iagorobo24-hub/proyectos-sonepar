@@ -1,5 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import AppShell from './components/layout/AppShell'
+import LoginPage from './components/auth/LoginPage'
+import ProtectedRoute from './components/auth/ProtectedRoute'
 import FichasTecnicas from './tools/FichasTecnicas'
 import SimuladorAlmacen from './tools/SimuladorAlmacen'
 import DashboardIncidencias from './tools/DashboardIncidencias'
@@ -18,12 +20,22 @@ const PresupuestosPage      = () => { useDocumentTitle('Presupuestos');       re
 const FormacionInternaPage  = () => { useDocumentTitle('Formación Interna');  return <FormacionInterna /> }
 const SonexPage             = () => { useDocumentTitle('Sonex');              return <Sonex /> }
 
-/* App — define las 7 rutas de la suite dentro del AppShell compartido */
+/* App — ruta pública /login + resto protegido con un solo ProtectedRoute */
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<AppShell />}>
-        {/* Redirige la raíz a /fichas por defecto */}
+      {/* Ruta pública de login */}
+      <Route path="/login" element={<LoginPage />} />
+
+      {/* Rutas protegidas: un solo ProtectedRoute envuelve todo el AppShell */}
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute>
+            <AppShell />
+          </ProtectedRoute>
+        }
+      >
         <Route index element={<Navigate to="/fichas" replace />} />
         <Route path="fichas"       element={<FichasTecnicasPage />} />
         <Route path="almacen"      element={<SimuladorAlmacenPage />} />
