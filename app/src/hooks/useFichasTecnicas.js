@@ -56,7 +56,6 @@ export default function useFichasTecnicas() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY,
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
@@ -125,7 +124,6 @@ export default function useFichasTecnicas() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': import.meta.env.VITE_ANTHROPIC_API_KEY,
         },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
