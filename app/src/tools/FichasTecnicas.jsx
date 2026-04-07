@@ -3,6 +3,7 @@ import { Search, FileText, GitCompare, ArrowLeft, ExternalLink, Copy, ShoppingCa
 import { useNavigate } from 'react-router-dom'
 import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import useNavegacionFichas from '../hooks/useNavegacionFichas'
+import { getGamasPorMarcaYCategoria } from '../data/catalogoSonepar'
 import TarjetaFicha from '../components/fichas/TarjetaFicha'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'

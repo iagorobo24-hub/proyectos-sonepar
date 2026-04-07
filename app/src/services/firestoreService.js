@@ -1,13 +1,17 @@
 /**
  * Servicio de Firestore para SoneparTools
  * Capa de abstracción para operaciones CRUD en Firestore
+ *
+ * IMPORTANTE: Firestore doc() requiere número PAR de segmentos.
+ * Usamos doc(db, 'col', 'doc', 'subcol', 'subdoc', ...) en lugar de
+ * doc(db, 'col/doc/subcol', 'subdoc') que produce paths impares.
  */
 
-import { 
-  doc, 
-  getDoc, 
-  setDoc, 
-  updateDoc, 
+import {
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
   onSnapshot,
   collection,
   query,
@@ -15,223 +19,209 @@ import {
   limit,
   getDocs,
   deleteDoc,
-  serverTimestamp 
+  serverTimestamp
 } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
-import { userDoc, userProfile } from '../config/firestorePaths';
+
+/**
+ * Construye segmentos de path para doc() garantizando número par
+ * Ej: buildPath('users', uid, 'fichas', 'history', 'default')
+ *     → ['users', uid, 'fichas', 'history', 'default']
+ *     Si es impar, añade 'default' al final
+ */
+function buildPath(...segments) {
+  const filtered = segments.filter(Boolean)
+  if (filtered.length % 2 !== 0) {
+    filtered.push('default')
+  }
+  return filtered
+}
 
 /**
  * Guarda o actualiza un documento en Firestore
- * @param {string} uid - ID del usuario autenticado
- * @param {string} collectionPath - Ruta de la colección (ej: 'fichas/history')
- * @param {any} data - Datos a guardar
- * @param {string} docId - ID del documento (opcional, si no se proporciona se usa 'default')
  */
 export async function saveUserDoc(uid, collectionPath, data, docId = 'default') {
   try {
-    const docRef = doc(db, `users/${uid}/${collectionPath}`, docId);
+    const segments = buildPath('users', uid, ...collectionPath.split('/'), docId)
+    const docRef = doc(db, ...segments)
     await setDoc(docRef, {
       ...data,
       updatedAt: serverTimestamp(),
-    }, { merge: true });
-    return true;
+    }, { merge: true })
+    return true
   } catch (error) {
-    console.error('Error saving to Firestore:', error);
-    throw error;
+    console.error('Error saving to Firestore:', error)
+    throw error
   }
 }
 
 /**
  * Obtiene un documento de Firestore
- * @param {string} uid - ID del usuario autenticado
- * @param {string} collectionPath - Ruta de la colección
- * @param {string} docId - ID del documento
- * @returns {Promise<any|null>} - Datos del documento o null si no existe
  */
 export async function getUserDoc(uid, collectionPath, docId = 'default') {
   try {
-    const docRef = doc(db, `users/${uid}/${collectionPath}`, docId);
-    const docSnap = await getDoc(docRef);
+    const segments = buildPath('users', uid, ...collectionPath.split('/'), docId)
+    const docRef = doc(db, ...segments)
+    const docSnap = await getDoc(docRef)
     if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() };
+      return { id: docSnap.id, ...docSnap.data() }
     }
-    return null;
+    return null
   } catch (error) {
-    console.error('Error getting from Firestore:', error);
-    throw error;
+    console.error('Error getting from Firestore:', error)
+    throw error
   }
 }
 
 /**
  * Suscribe a cambios en tiempo real en un documento
- * @param {string} uid - ID del usuario autenticado
- * @param {string} collectionPath - Ruta de la colección
- * @param {Function} callback - Función a llamar con los datos actualizados
- * @param {string} docId - ID del documento
- * @returns {Function} - Función para cancelar la suscripción
  */
 export function subscribeToUserDoc(uid, collectionPath, callback, docId = 'default') {
   try {
-    const docRef = doc(db, `users/${uid}/${collectionPath}`, docId);
+    const segments = buildPath('users', uid, ...collectionPath.split('/'), docId)
+    const docRef = doc(db, ...segments)
     const unsubscribe = onSnapshot(docRef, (docSnap) => {
       if (docSnap.exists()) {
-        callback({ id: docSnap.id, ...docSnap.data() });
+        callback({ id: docSnap.id, ...docSnap.data() })
       } else {
-        callback(null);
+        callback(null)
       }
     }, (error) => {
-      console.error('Error in Firestore subscription:', error);
-      callback(null);
-    });
-    return unsubscribe;
+      console.error('Error in Firestore subscription:', error)
+      callback(null)
+    })
+    return unsubscribe
   } catch (error) {
-    console.error('Error subscribing to Firestore:', error);
-    return () => {};
+    console.error('Error subscribing to Firestore:', error)
+    return () => {}
   }
 }
 
 /**
  * Obtiene una colección ordenada y limitada
- * @param {string} uid - ID del usuario autenticado
- * @param {string} collectionPath - Ruta de la colección
- * @param {string} orderByField - Campo por el que ordenar
- * @param {number} limitCount - Número máximo de documentos
- * @returns {Promise<Array>} - Array de documentos
  */
 export async function getUserCollection(uid, collectionPath, orderByField = 'updatedAt', limitCount = 50) {
   try {
-    const colRef = collection(db, `users/${uid}/${collectionPath}`);
-    const q = query(colRef, orderBy(orderByField, 'desc'), limit(limitCount));
-    const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    const colSegments = buildPath('users', uid, ...collectionPath.split('/'))
+    // collection() también necesita segmentos pares para subcolecciones
+    // Tomamos todo menos el último segmento (que es el docId que añadimos)
+    const pathForCollection = colSegments.slice(0, -1)
+    if (pathForCollection.length === 0) return []
+    const colRef = collection(db, ...pathForCollection)
+    const q = query(colRef, orderBy(orderByField, 'desc'), limit(limitCount))
+    const snapshot = await getDocs(q)
+    return snapshot.docs.map(d => ({ id: d.id, ...d.data() }))
   } catch (error) {
-    console.error('Error getting collection from Firestore:', error);
-    return [];
+    console.error('Error getting collection from Firestore:', error)
+    return []
   }
 }
 
 /**
  * Elimina un documento de Firestore
- * @param {string} uid - ID del usuario autenticado
- * @param {string} collectionPath - Ruta de la colección
- * @param {string} docId - ID del documento
  */
 export async function deleteUserDoc(uid, collectionPath, docId = 'default') {
   try {
-    const docRef = doc(db, `users/${uid}/${collectionPath}`, docId);
-    await deleteDoc(docRef);
-    return true;
+    const segments = buildPath('users', uid, ...collectionPath.split('/'), docId)
+    const docRef = doc(db, ...segments)
+    await deleteDoc(docRef)
+    return true
   } catch (error) {
-    console.error('Error deleting from Firestore:', error);
-    throw error;
+    console.error('Error deleting from Firestore:', error)
+    throw error
   }
 }
 
 /**
  * Actualiza el timestamp de migración en el perfil del usuario
- * @param {string} uid - ID del usuario autenticado
  */
 export async function markMigrationComplete(uid) {
   try {
-    const profileRef = doc(db, userProfile(uid));
+    const profileRef = doc(db, 'users', uid, 'profile', 'default')
     await setDoc(profileRef, {
       migratedAt: serverTimestamp(),
       migrationVersion: '1.0.0',
-    }, { merge: true });
-    return true;
+    }, { merge: true })
+    return true
   } catch (error) {
-    console.error('Error marking migration complete:', error);
-    return false;
+    console.error('Error marking migration complete:', error)
+    return false
   }
 }
 
 /**
  * Verifica si el usuario ya ha sido migrado
- * @param {string} uid - ID del usuario autenticado
- * @returns {Promise<boolean>}
  */
 export async function isUserMigrated(uid) {
   try {
-    const profileRef = doc(db, userProfile(uid));
-    const docSnap = await getDoc(profileRef);
+    const profileRef = doc(db, 'users', uid, 'profile', 'default')
+    const docSnap = await getDoc(profileRef)
     if (docSnap.exists()) {
-      return !!docSnap.data().migratedAt;
+      return !!docSnap.data().migratedAt
     }
-    return false;
+    return false
   } catch (error) {
-    console.error('Error checking migration status:', error);
-    return false;
+    console.error('Error checking migration status:', error)
+    return false
   }
 }
 
 /**
  * Migra datos desde localStorage a Firestore
- * @param {string} uid - ID del usuario autenticado
- * @param {Object} localStorageData - Objeto con las keys de localStorage y sus valores
- * @returns {Promise<Object>} - Resultado de la migración
  */
 export async function migrateLocalStorageToFirestore(uid, localStorageData) {
   const results = {
     success: [],
     failed: [],
     total: 0,
-  };
+  }
 
   for (const [key, value] of Object.entries(localStorageData)) {
-    results.total++;
+    results.total++
     try {
-      let parsedValue;
+      let parsedValue
       try {
-        parsedValue = typeof value === 'string' ? JSON.parse(value) : value;
+        parsedValue = typeof value === 'string' ? JSON.parse(value) : value
       } catch {
-        parsedValue = value;
+        parsedValue = value
       }
 
-      // Determinar la ruta según la key
-      let collectionPath, docId;
-      
+      let docRef
       if (key === 'sonepar_fichas_historial') {
-        collectionPath = 'fichas/history';
-        docId = 'default';
+        docRef = doc(db, 'users', uid, 'fichas', 'history', 'default')
       } else if (key === 'sonepar_presupuestos_historial') {
-        collectionPath = 'budgets';
-        docId = 'default';
+        docRef = doc(db, 'users', uid, 'budgets', 'default')
       } else if (key === 'sonepar_incidencias') {
-        collectionPath = 'incidents';
-        docId = 'default';
+        docRef = doc(db, 'users', uid, 'incidents', 'default')
       } else if (key === 'sonepar_kpi_historial') {
-        collectionPath = 'kpi/entries';
-        docId = 'default';
+        docRef = doc(db, 'users', uid, 'kpi', 'entries', 'default')
       } else if (key.startsWith('sonepar_sim_')) {
-        collectionPath = 'simulator';
-        docId = key.replace('sonepar_sim_', '');
+        const simId = key.replace('sonepar_sim_', '')
+        docRef = doc(db, 'users', uid, 'simulator', simId)
       } else if (key.startsWith('sonepar_formacion_')) {
-        collectionPath = 'training';
-        docId = key.replace('sonepar_formacion_', '');
+        const formId = key.replace('sonepar_formacion_', '')
+        docRef = doc(db, 'users', uid, 'training', formId)
       } else if (key === 'sonepar_theme') {
-        collectionPath = 'preferences';
-        docId = 'theme';
+        docRef = doc(db, 'users', uid, 'preferences', 'theme')
       } else if (key === 'sidebar_collapsed') {
-        collectionPath = 'preferences';
-        docId = 'sidebar';
+        docRef = doc(db, 'users', uid, 'preferences', 'sidebar')
       } else {
-        results.failed.push({ key, reason: 'Unknown key mapping' });
-        continue;
+        results.failed.push({ key, reason: 'Unknown key mapping' })
+        continue
       }
 
-      await saveUserDoc(uid, collectionPath, { data: parsedValue, sourceKey: key }, docId);
-      results.success.push(key);
+      await setDoc(docRef, { data: parsedValue, sourceKey: key }, { merge: true })
+      results.success.push(key)
     } catch (error) {
-      results.failed.push({ key, error: error.message });
+      results.failed.push({ key, error: error.message })
     }
   }
 
-  // Marcar migración como completada
   if (results.success.length > 0) {
-    await markMigrationComplete(uid);
+    await markMigrationComplete(uid)
   }
 
-  return results;
+  return results
 }
 
 export default {
@@ -243,4 +233,4 @@ export default {
   markMigrationComplete,
   isUserMigrated,
   migrateLocalStorageToFirestore,
-};
+}
