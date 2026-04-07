@@ -112,7 +112,7 @@ export default function Presupuestos() {
     setGenerando(true);
     try {
       const prompt = `Eres un comercial experto de Sonepar España. Basado en estos requisitos, recomienda 5-7 productos específicos del catálogo con precios orientativos.\n\nCategoría: ${CATEGORIAS.find(c => c.id === categoria)?.label}\nRequisitos: ${Object.entries(respuestas).map(([k, v]) => `- ${k}: ${v}`).join("\n")}\n\nResponde con JSON válido: {"productos": [{"ref": "ATV320U22M2", "desc": "Variador...", "precio": 310, "cantidad": 2, "motivo": "Adecuado para...""}]}`;
-      const res = await fetch("/api/anthropic", { method: "POST", headers: { "Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 800, messages: [{ role: "user", content: prompt }] }) });
+      const res = await fetch("/api/anthropic", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 800, messages: [{ role: "user", content: prompt }] }) });
       const data = await res.json();
       const txt = data.content?.map(b => b.text || "").join("") || "";
       const json = JSON.parse(txt.replace(/```json|```/g, "").trim());

@@ -71,7 +71,7 @@ export default function KPILogistico() {
     setInforme("");
     try {
       const prompt = `Eres el responsable de logística de Sonepar España. Analiza estos KPIs y genera un informe ejecutivo breve.\n\nDelegación: ${datos.delegacion || "Delegación"} | Turno: ${datos.turno}\n\nKPIs:\n- Pedidos/hora: ${k.pedidos_hora.toFixed(1)} (benchmark: >18)\n- Error picking: ${k.error_picking.toFixed(2)}% (benchmark: <1%)\n- Tiempo ciclo: ${k.tiempo_ciclo.toFixed(1)} min (benchmark: <5 min)\n- Ocupación: ${k.ocupacion.toFixed(1)}% (benchmark: 75-85%)\n- Devoluciones: ${k.devolucion.toFixed(2)}% (benchmark: <2%)\n- Productividad: ${k.productividad.toFixed(1)}% (benchmark: >90%)\n\nDatos: ${datos.pedidos} pedidos, ${datos.horas}h, ${datos.operarios} operarios, ${datos.errores} errores.\n\n3 párrafos cortos: (1) resumen del turno, (2) puntos críticos, (3) acción para el próximo turno. Tono directo.`;
-      const res  = await fetch("/api/anthropic", { method: "POST", headers: { "Content-Type": "application/json", "x-api-key": import.meta.env.VITE_ANTHROPIC_API_KEY }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] }) });
+      const res  = await fetch("/api/anthropic", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, messages: [{ role: "user", content: prompt }] }) });
       const data = await res.json();
       const txt  = data.content?.map(b => b.text || "").join("") || "";
       setInforme(txt);
