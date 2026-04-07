@@ -1,120 +1,38 @@
-# ============================================
-# Environment variables - CRITICAL
-# ============================================
-.env
-.env.*
-.env.local
-.env.production
-*.env
-
-# ============================================
-# Credentials and secrets
-# ============================================
-credentials.json
-client_secrets.json
-token.json
-*.pem
-*.key
-service-account*.json
-
-# ============================================
-# Node.js
-# ============================================
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# ============================================
-# Build outputs
-# ============================================
+```
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
 dist/
-dist-ssr/
-*.local
+build/
+target/
 
-# ============================================
-# IDE
-# ============================================
+# Dependencies
+node_modules/
+.venv/
+venv/
+.env
+.env.local
+.env.*
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Editors
 .vscode/
 .idea/
 *.swp
 *.swo
-*~
 
-# ============================================
-# OS
-# ============================================
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# ============================================
-# AI Agent configs (not project code)
-# ============================================
-.agents/
-.claude/
-skills-lock.json
-QWEN.md
-
-# ============================================
-# Test results & coverage
-# ============================================
-test-results/
+# Coverage
 coverage/
-.nyc_output/
-playwright-report/
-blob-report/
+htmlcov/
+.coverage
 
-# ============================================
-# Python (legacy)
-# ============================================
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Virtual environments
-venv/
-env/
-ENV/
-env.bak/
-venv.bak/
-.deps/
-.pytest_tmp/
-
-# ============================================
-# Database
-# ============================================
-*.db
-*.sqlite
-*.sqlite3
-*.db-journal
-
-# ============================================
-# Exports / outputs
-# ============================================
-exports/
-!exports/.gitkeep
-campaign_output/
+# OS
+.DS_Store
+Thumbs.db
+```
