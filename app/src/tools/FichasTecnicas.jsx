@@ -50,23 +50,20 @@ export default function FichasTecnicas() {
     if (url) window.open(url, '_blank', 'noopener,noreferrer')
   }
 
-  /* ── Marcas con logo ── */
-  const marcasConLogo = marcasDisponibles.map(m => ({
+  /* ── Marcas con SVG inline ── */
+  const marcasConSVG = marcasDisponibles.map(m => ({
     ...m,
-    logo: MARCAS[m.nombre]?.logo || '',
+    svg: MARCAS[m.nombre]?.svg || '',
   }))
 
-  /* Componente para mostrar logo con fallback */
-  const BrandLogo = ({ src, fallback, color, name }) => {
-    const [error, setError] = React.useState(false)
+  /* Componente para mostrar logo SVG inline con fallback */
+  const BrandLogo = ({ svg, fallback, color, name }) => {
     return (
       <div className={styles.brandLogoBox}>
-        {src && !error ? (
-          <img
-            src={src}
-            alt={name}
+        {svg ? (
+          <div
             className={styles.brandLogo}
-            onError={() => setError(true)}
+            dangerouslySetInnerHTML={{ __html: svg }}
           />
         ) : (
           <div className={styles.brandFallback} style={{ background: color }}>
@@ -152,10 +149,10 @@ export default function FichasTecnicas() {
           <h2 className={styles.panelTitle}>Elige marca</h2>
           <p className={styles.panelSub}>{categorias.find(c => c.id === categoria)?.label}</p>
           <div className={styles.brandsGrid}>
-            {marcasConLogo.map(m => (
+            {marcasConSVG.map(m => (
               <button key={m.nombre} className={styles.brandCard} onClick={() => seleccionarMarca(m.nombre)}>
                 <BrandLogo
-                  src={m.logo}
+                  svg={m.svg}
                   fallback={m.nombre.substring(0, 2).toUpperCase()}
                   color={m.color}
                   name={m.nombre}

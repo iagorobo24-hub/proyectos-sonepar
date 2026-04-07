@@ -1,82 +1,83 @@
 /* ══════════════════════════════════════════════════════════
- * MARCAS — Logos de Wikimedia Commons (SVG, alta calidad)
- * Las marcas sin logo usan iniciales estilizadas como fallback
+ * MARCAS — SVGs inline (sin dependencias externas)
+ * Cada marca tiene su SVG como string para renderizado directo
+ * Marcas sin SVG definido usan fallback de iniciales
  * ══════════════════════════════════════════════════════════ */
 
 export const MARCAS = {
   "Schneider Electric": {
     nombre: "Schneider Electric",
     color: "#3DCD58",
-    logo: "https://upload.wikimedia.org/wikipedia/fr/6/6b/Schneider_Electric.svg",
+    svg: `<svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="18" font-weight="bold" fill="#3DCD58">Schneider</text><text x="4" y="38" font-family="Arial,sans-serif" font-size="8" fill="#3DCD58" opacity="0.7">ELECTRIC</text></svg>`,
   },
   "ABB": {
     nombre: "ABB",
     color: "#FF000F",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/5/5a/ABB_logo.svg",
+    svg: `<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><text x="10" y="30" font-family="Arial,sans-serif" font-size="28" font-weight="900" fill="#FF000F">ABB</text></svg>`,
   },
   "Siemens": {
     nombre: "Siemens",
     color: "#009999",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/0/03/Siemens_AG_logo.svg",
+    svg: `<svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="20" font-weight="bold" fill="#009999">SIEMENS</text></svg>`,
   },
   "Mitsubishi Electric": {
     nombre: "Mitsubishi Electric",
     color: "#E60012",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/f/f0/Mitsubishi_Electric_logo.svg",
+    svg: `<svg viewBox="0 0 60 50" xmlns="http://www.w3.org/2000/svg"><polygon points="30,2 56,48 4,48" fill="none" stroke="#E60012" stroke-width="3"/><polygon points="30,12 46,40 14,40" fill="none" stroke="#E60012" stroke-width="2"/></svg>`,
   },
   "IFM": {
     nombre: "IFM Electronic",
     color: "#0050AA",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/8/8e/IFM_Electronic_logo.svg",
+    svg: `<svg viewBox="0 0 60 40" xmlns="http://www.w3.org/2000/svg"><text x="8" y="28" font-family="Arial,sans-serif" font-size="24" font-weight="bold" fill="#0050AA">ifm</text></svg>`,
   },
   "Pepperl+Fuchs": {
     nombre: "Pepperl+Fuchs",
     color: "#0066CC",
-    logo: "https://upload.wikimedia.org/wikipedia/de/c/c2/Pepperl%2BFuchs_Logo.svg",
+    svg: `<svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="26" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#0066CC">PEPPERL</text><text x="4" y="38" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="#0066CC">+FUCHS</text></svg>`,
   },
   "Philips": {
     nombre: "Philips Lighting",
     color: "#0B5394",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/b/b0/Philips_logo_2013.svg",
+    svg: `<svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="#0B5394">PHILIPS</text></svg>`,
   },
   "Ledvance": {
     nombre: "Ledvance",
     color: "#003366",
-    logo: "",
+    svg: `<svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="20" font-weight="bold" fill="#003366">LEDVANCE</text></svg>`,
   },
   "Zemper": {
     nombre: "Zemper",
     color: "#006633",
-    logo: "",
+    svg: `<svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="#006633">ZEMPER</text></svg>`,
   },
   "Wallbox": {
     nombre: "Wallbox",
     color: "#00BFFF",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Wallbox_logo.svg/200px-Wallbox_logo.svg.png",
+    svg: `<svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="20" font-weight="bold" fill="#00BFFF">WALLBOX</text></svg>`,
   },
   "Hager": {
     nombre: "Hager",
     color: "#0055A4",
-    logo: "https://upload.wikimedia.org/wikipedia/de/6/6e/Hager_Group_Logo.svg",
+    svg: `<svg viewBox="0 0 80 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="#0055A4">hager</text></svg>`,
   },
   "Fronius": {
     nombre: "Fronius",
     color: "#00A3E0",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Fronius_International_GmbH_logo.svg",
+    svg: `<svg viewBox="0 0 100 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="22" font-weight="bold" fill="#00A3E0">FRONIUS</text></svg>`,
   },
   "SMA": {
     nombre: "SMA Solar",
     color: "#009640",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/4/41/SMA_Solar_Technology_Logo.svg",
+    svg: `<svg viewBox="0 0 70 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="26" font-weight="900" fill="#009640">SMA</text></svg>`,
   },
   "Pylontech": {
     nombre: "Pylontech",
     color: "#336699",
-    logo: "",
+    svg: `<svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="28" font-family="Arial,sans-serif" font-size="18" font-weight="bold" fill="#336699">PYLONTECH</text></svg>`,
   },
   "Victron": {
     nombre: "Victron Energy",
     color: "#0051A5",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/3/3b/Victron_Energy_logo.svg",
+    svg: `<svg viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg"><text x="4" y="26" font-family="Arial,sans-serif" font-size="18" font-weight="bold" fill="#0051A5">VICTRON</text><text x="4" y="38" font-family="Arial,sans-serif" font-size="8" fill="#0051A5" opacity="0.7">ENERGY</text></svg>`,
   },
 };
