@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { WelcomeState } from '../components/ui/index.js';
 import { Warehouse } from 'lucide-react';
+import Button from '../components/ui/Button'
+import styles from './SimuladorAlmacen.module.css'
 
 // ── Paleta corporativa Sonepar ───────────────────────────────────────────────
 const C = {
