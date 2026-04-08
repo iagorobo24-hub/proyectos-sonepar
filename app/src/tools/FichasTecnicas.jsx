@@ -1,21 +1,31 @@
 import React from 'react'
-import { Search, FileText, ArrowLeft, ExternalLink, Copy, ShoppingCart } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import useNavegacionFichas from '../hooks/useNavegacionFichas'
 import { getGamasPorMarcaYCategoria } from '../data/catalogoSonepar'
 import { MARCAS } from '../data/marcasLogos'
-import TarjetaFicha from '../components/fichas/TarjetaFicha'
-import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
+import Button from '../components/ui/Button'
 import { useToast } from '../contexts/ToastContext'
+import {
+  CircleCenter, OrbitRing, OrbitRow, BrandCard, GamaCard, RefCard,
+  FichaCard, TipCard, Breadcrumb, Label, ViewToggle
+} from '../components/ui/CircleLayout'
 import styles from './FichasTecnicas.module.css'
 
-/* ═══════════════════════════════════════════════════════
- * FichasTecnicas
- * Sidebar izq: Búsqueda (arriba) + Categorías (abajo)
- * Panel der: Navegación jerárquica (marcas→gamas→tipos→refs→ficha)
- * ═══════════════════════════════════════════════════════ */
+/* Info de cada categoría */
+const CATEGORY_INFO = {
+  Variadores: { icon: '⚡', desc: 'Controla la velocidad de motores eléctricos de forma eficiente. Reduce consumo energético y desgaste mecánico.', tip: 'Selecciona según la potencia del motor y el tipo de alimentación disponible.' },
+  Contactores: { icon: '🔌', desc: 'Dispositivos electromagnéticos para controlar motores y cargas eléctricas.', tip: 'Elige según la corriente nominal del motor y la tensión de la bobina.' },
+  Guardamotores: { icon: '🛡️', desc: 'Protección térmica y magnética integrada para motores trifásicos.', tip: 'Ajusta el rango de corriente al valor nominal del motor.' },
+  PLCs: { icon: '📊', desc: 'Autómatas programables para control de procesos industriales.', tip: 'Considera el número de E/S necesarias y si necesitas comunicación Ethernet.' },
+  Sensores: { icon: '📡', desc: 'Detección de presencia, distancia y posición en entornos industriales.', tip: 'Elige el tipo según el material a detectar y la distancia necesaria.' },
+  Protección: { icon: '⚙️', desc: 'Magnetotérmicos, diferenciales y dispositivos de protección eléctrica.', tip: 'Verifica la capacidad de corte y la curva de disparo necesaria.' },
+  Iluminación: { icon: '💡', desc: 'Luminarias LED industriales, estancas y de emergencia.', tip: 'Selecciona según el nivel de iluminación (lux) requerido en la zona.' },
+  VE: { icon: '🚗', desc: 'Cargadores para vehículos eléctricos domésticos e industriales.', tip: 'Verifica la potencia disponible en la instalación eléctrica.' },
+  Solar: { icon: '☀️', desc: 'Inversores, baterías y reguladores para instalaciones fotovoltaicas.', tip: 'Dimensiona según el consumo diario y la superficie de paneles disponible.' },
+  Reles: { icon: '🔄', desc: 'Relés de control, fase y tensión para supervisión eléctrica.', tip: 'Selecciona según el tipo de fallo a detectar.' },
+}
 
 export default function FichasTecnicas() {
   const navigate = useNavigate()
@@ -33,7 +43,9 @@ export default function FichasTecnicas() {
 
   const { consulta, setConsulta, resultado, error, cargando, accesosRapidos, buscar } = useFichasTecnicas()
 
-  /* ── Acciones ── */
+  const [modo, setModo] = React.useState('navegacion')
+  const catInfo = CATEGORY_INFO[categoria] || {}
+
   const copiarReferencia = (ref) => {
     navigator.clipboard.writeText(ref)
     toast.show(`Referencia "${ref}" copiada`, 'success')
@@ -50,260 +62,247 @@ export default function FichasTecnicas() {
     if (url) window.open(url, '_blank', 'noopener,noreferrer')
   }
 
-  /* ── Marcas con logo local ── */
   const marcasConLogo = marcasDisponibles.map(m => ({
     ...m,
     logo: MARCAS[m.nombre]?.logo || '',
   }))
 
-  /* Componente para mostrar logo local con fallback */
-  const BrandLogo = ({ logo, fallback, color, name }) => {
-    const [error, setError] = React.useState(false)
-    if (!logo || error) {
-      return (
-        <div className={styles.brandLogoBox}>
-          <div className={styles.brandFallback} style={{ background: color }}>
-            {fallback}
-          </div>
-        </div>
-      )
-    }
-    return (
-      <div className={styles.brandLogoBox}>
-        <img src={logo} alt={name} className={styles.brandLogo} onError={() => setError(true)} />
-      </div>
-    )
-  }
-
-  /* ═══════════════════════════════════════════════════════
-   * SIDEBAR IZQUIERDO — Siempre visible
-   * ═══════════════════════════════════════════════════════ */
+  /* ── Sidebar ─ */
   const renderSidebar = () => (
-    <div className={styles.sidebar}>
-      {/* Buscador — siempre arriba */}
-      <div className={styles.sidebarSearch}>
-        <Input
-          value={consulta}
-          onChange={e => setConsulta(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              const found = buscarReferenciaDirecta(consulta)
-              if (!found) buscar()
-            }
-          }}
-          placeholder="Buscar referencia..."
-          iconLeft={<Search size={16} />}
-        />
-        <Button variant="primary" size="md" loading={cargando} onClick={() => {
-          const found = buscarReferenciaDirecta(consulta)
-          if (!found) buscar()
-        }}>
-          Buscar
-        </Button>
+    <aside className={styles.sidebar}>
+      <div className={styles.sidebar__label}>Categorías</div>
+      {categorias.map(cat => (
+        <button
+          key={cat.id}
+          className={`${styles.sidebar__catBtn} ${categoria === cat.id ? styles.sidebar__catBtnActive : ''}`}
+          onClick={() => { seleccionarCategoria(cat.id); setModo('navegacion') }}
+        >
+          <div className={styles.sidebar__catBtn__icon}>{cat.icon}</div>
+          <div className={styles.sidebar__catBtn__info}>
+            <div className={styles.sidebar__catBtn__name}>{cat.label}</div>
+            <div className={styles.sidebar__catBtn__count}>{conteoPorCategoria[cat.id] || 0} refs</div>
+          </div>
+        </button>
+      ))}
+      <div className={styles.sidebar__footer}>
+        <p className={styles.sidebar__footerText}>Sonepar España · A Coruña</p>
+        <p className={styles.sidebar__footerText}>PFC CFGS · 2026</p>
       </div>
-
-      {/* Categorías — siempre debajo */}
-      <div className={styles.sidebarCats}>
-        <div className={styles.sidebarLabel}>Categorías</div>
-        {categorias.map(cat => (
-          <button
-            key={cat.id}
-            className={`${styles.catBtn} ${categoria === cat.id ? styles.catBtnActive : ''}`}
-            onClick={() => seleccionarCategoria(cat.id)}
-          >
-            <span className={styles.catIcon}>{cat.icon}</span>
-            <span className={styles.catText}>{cat.label}</span>
-            <span className={styles.catCount}>{conteoPorCategoria[cat.id] || 0}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* Accesos rápidos */}
-      {accesosRapidos?.length > 0 && (
-        <div className={styles.sidebarQuick}>
-          <div className={styles.sidebarLabel}>Frecuentes</div>
-          {accesosRapidos.map(a => (
-            <button key={a} className={styles.quickBtn} onClick={() => { setConsulta(a); buscar(a) }}>
-              {a}
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
+    </aside>
   )
 
-  /* ═══════════════════════════════════════════════════════
-   * PANEL DERECHO — Navegación jerárquica
-   * ═══════════════════════════════════════════════════════ */
-  const renderPanel = () => {
+  /* ── Main content ─ */
+  const renderMain = () => {
+    /* Estado vacío inicial */
+    if (!categoria && modo === 'navegacion') {
+      return (
+        <div className={styles.circleLayout}>
+          <CircleCenter
+            icon="📋"
+            title="Fichas Técnicas"
+            desc="Busca por referencia o selecciona una categoría del panel izquierdo para navegar por el catálogo."
+          />
+          <OrbitRing size="outer" className={styles.animPulse} />
+        </div>
+      )
+    }
 
-    /* ── Marcas ── */
+    /* Marcas */
     if (paso === 'marcas') {
       return (
-        <div className={styles.panel}>
-          <div className={styles.panelNav}>
-            <button className={styles.backBtn} onClick={volver}>
-              <ArrowLeft size={16} /> Categorías
-            </button>
-            <span className={styles.breadcrumb}>{breadcrumb.join(' › ')}</span>
-          </div>
-          <h2 className={styles.panelTitle}>Elige marca</h2>
-          <p className={styles.panelSub}>{categorias.find(c => c.id === categoria)?.label}</p>
-          <div className={styles.brandsGrid}>
-            {marcasConLogo.map(m => (
-              <button key={m.nombre} className={styles.brandCard} onClick={() => seleccionarMarca(m.nombre)}>
-                <BrandLogo
+        <div className={styles.circleLayout}>
+          <OrbitRing size="inner" className={styles.animPulse} />
+          <OrbitRing size="outer" className={styles.animPulse} />
+
+          <CircleCenter
+            icon={catInfo.icon}
+            title={categorias.find(c => c.id === categoria)?.label}
+            desc={catInfo.desc}
+            tip={catInfo.tip}
+          />
+
+          <div className={styles.orbitRows}>
+            <OrbitRow>
+              {marcasConLogo.slice(0, 2).map(m => (
+                <BrandCard
+                  key={m.nombre}
                   logo={m.logo}
-                  fallback={m.nombre.substring(0, 2).toUpperCase()}
-                  color={m.color}
+                  logoFallback={m.nombre.substring(0, 2).toUpperCase()}
+                  logoColor={m.color}
                   name={m.nombre}
+                  count={`${getGamasPorMarcaYCategoria(categoria, m.nombre).length} gamas`}
+                  onClick={() => seleccionarMarca(m.nombre)}
                 />
-                <div className={styles.brandName}>{m.nombre}</div>
-                <div className={styles.brandCount}>{getGamasPorMarcaYCategoria(categoria, m.nombre).length} gamas</div>
-              </button>
-            ))}
+              ))}
+            </OrbitRow>
+            {marcasConLogo.length > 2 && (
+              <OrbitRow>
+                <BrandCard
+                  logo={marcasConLogo[2].logo}
+                  logoFallback={marcasConLogo[2].nombre.substring(0, 2).toUpperCase()}
+                  logoColor={marcasConLogo[2].color}
+                  name={marcasConLogo[2].nombre}
+                  count={`${getGamasPorMarcaYCategoria(categoria, marcasConLogo[2].nombre).length} gamas`}
+                  onClick={() => seleccionarMarca(marcasConLogo[2].nombre)}
+                />
+              </OrbitRow>
+            )}
           </div>
         </div>
       )
     }
 
-    /* ── Gamas ── */
+    /* Gamas */
     if (paso === 'gamas') {
       return (
-        <div className={styles.panel}>
-          <div className={styles.panelNav}>
-            <button className={styles.backBtn} onClick={volver}><ArrowLeft size={16} /> Marcas</button>
-            <span className={styles.breadcrumb}>{breadcrumb.join(' › ')}</span>
-          </div>
-          <h2 className={styles.panelTitle}>Elige gama</h2>
-          <p className={styles.panelSub}>{marca}</p>
-          <div className={styles.list}>
-            {gamasDisponibles.map(g => (
-              <button key={g.nombre} className={styles.listItem} onClick={() => seleccionarGama(g.nombre)}>
-                <span className={styles.listItemName}>{g.nombre}</span>
-                <span className={styles.listItemMeta}>{g.tipos.length} tipos · {g.count} refs</span>
-                <span className={styles.listItemArrow}>›</span>
-              </button>
+        <div className={styles.circleLayout}>
+          <CircleCenter
+            icon={catInfo.icon}
+            title="Elige gama"
+            desc={marca}
+          />
+
+          <div className={styles.orbitRows}>
+            {gamasDisponibles.map((g, i) => (
+              <OrbitRow key={g.nombre}>
+                <GamaCard
+                  name={g.nombre}
+                  meta={`${g.tipos.length} tipos · ${g.count} referencias`}
+                  onClick={() => seleccionarGama(g.nombre)}
+                />
+              </OrbitRow>
             ))}
           </div>
         </div>
       )
     }
 
-    /* ── Tipos ─ */
+    /* Tipos */
     if (paso === 'tipos') {
       return (
-        <div className={styles.panel}>
-          <div className={styles.panelNav}>
-            <button className={styles.backBtn} onClick={volver}><ArrowLeft size={16} /> Gamas</button>
-            <span className={styles.breadcrumb}>{breadcrumb.join(' › ')}</span>
-          </div>
-          <h2 className={styles.panelTitle}>Elige tipo</h2>
-          <p className={styles.panelSub}>{gama}</p>
-          <div className={styles.list}>
+        <div className={styles.circleLayout}>
+          <CircleCenter
+            icon={catInfo.icon}
+            title="Elige tipo"
+            desc={`${gama} — ${marca}`}
+          />
+
+          <div className={styles.orbitRows}>
             {tiposDisponibles.map(t => (
-              <button key={t} className={styles.listItem} onClick={() => seleccionarTipo(t)}>
-                <span className={styles.listItemName}>{t}</span>
-                <span className={styles.listItemArrow}>›</span>
-              </button>
+              <OrbitRow key={t}>
+                <button
+                  className={styles.tipoCard}
+                  onClick={() => seleccionarTipo(t)}
+                >
+                  <span className={styles.tipoCard__name}>{t}</span>
+                  <span className={styles.tipoCard__arrow}>›</span>
+                </button>
+              </OrbitRow>
             ))}
           </div>
         </div>
       )
     }
 
-    /* ── Referencias ── */
+    /* Referencias */
     if (paso === 'referencias') {
       return (
-        <div className={styles.panel}>
-          <div className={styles.panelNav}>
-            <button className={styles.backBtn} onClick={volver}><ArrowLeft size={16} /> Tipos</button>
-            <span className={styles.breadcrumb}>{breadcrumb.join(' › ')}</span>
+        <div className={styles.circleLayout}>
+          <div className={styles.sectionHeader}>
+            <span className={`${styles.label} ${styles['label--brand']}`}>{referenciasDisponibles.length} referencias</span>
+            <h2 className={styles.sectionTitle}>{gama} — {tipo}</h2>
           </div>
-          <h2 className={styles.panelTitle}>{referenciasDisponibles.length} referencias</h2>
-          <p className={styles.panelSub}>{gama} — {tipo}</p>
-          <div className={styles.refsList}>
-            {referenciasDisponibles.map(p => (
-              <button key={p.ref} className={styles.refItem} onClick={() => seleccionarReferencia(p.ref)}>
-                <div className={styles.refItemTop}>
-                  <span className={styles.refItemCode}>{p.ref}</span>
-                  <span className={styles.refItemPrice}>{p.precio}€</span>
-                </div>
-                <div className={styles.refItemDesc}>{p.desc}</div>
-                <div className={styles.refItemSpecs}><span>{p.potencia}</span><span>·</span><span>{p.tension}</span></div>
-              </button>
-            ))}
+
+          <div className={styles.orbitRows}>
+            {referenciasDisponibles.slice(0, 2).length > 0 && (
+              <OrbitRow>
+                {referenciasDisponibles.slice(0, 2).map(p => (
+                  <RefCard
+                    key={p.ref}
+                    code={p.ref}
+                    desc={`${p.potencia} · ${p.tension}`}
+                    price={p.precio}
+                    onClick={() => seleccionarReferencia(p.ref)}
+                  />
+                ))}
+              </OrbitRow>
+            )}
+            {referenciasDisponibles.length > 2 && (
+              <OrbitRow>
+                {referenciasDisponibles.slice(2).map(p => (
+                  <RefCard
+                    key={p.ref}
+                    code={p.ref}
+                    desc={`${p.potencia} · ${p.tension}`}
+                    price={p.precio}
+                    onClick={() => seleccionarReferencia(p.ref)}
+                  />
+                ))}
+              </OrbitRow>
+            )}
           </div>
         </div>
       )
     }
 
-    /* ── Ficha técnica ── */
+    /* Ficha */
     if (paso === 'ficha' && referencia) {
       return (
-        <div className={styles.panel}>
-          <div className={styles.panelNav}>
-            <button className={styles.backBtn} onClick={volver}><ArrowLeft size={16} /> Referencias</button>
-            <span className={styles.breadcrumb}>{breadcrumb.join(' › ')}</span>
-          </div>
-          <div className={styles.fichaCard}>
-            <div className={styles.fichaHead}>
-              <div>
-                <div className={styles.fichaLabel}>REFERENCIA</div>
-                <div className={styles.fichaRef}>{referencia.ref}</div>
-                <div className={styles.fichaDesc}>{referencia.desc}</div>
-              </div>
-              <div className={styles.fichaPrice}>
-                <div className={styles.fichaPriceVal}>{referencia.precio}€</div>
-                <div className={styles.fichaPriceLabel}>IVA incl.</div>
-              </div>
-            </div>
-            <div className={styles.fichaSpecs}>
-              {[['Marca', referencia.marca], ['Gama', referencia.gama], ['Tipo', referencia.tipo], ['Potencia', referencia.potencia], ['Tensión', referencia.tension]].map(([l, v]) => (
-                <div key={l} className={styles.fichaSpec}><div className={styles.fichaSpecLabel}>{l}</div><div className={styles.fichaSpecVal}>{v}</div></div>
-              ))}
-            </div>
-            <div className={styles.fichaActions}>
-              <Button variant="primary" size="sm" onClick={() => copiarReferencia(referencia.ref)}><Copy size={14} /> Copiar referencia</Button>
-              <Button variant="secondary" size="sm" onClick={() => abrirPDF(referencia.pdf_url)}><ExternalLink size={14} /> Ficha fabricante</Button>
-              <Button variant="secondary" size="sm" onClick={() => añadirPresupuesto(referencia)}><ShoppingCart size={14} /> Presupuesto</Button>
-            </div>
-          </div>
-          <div className={styles.fichaTip}>
-            <div className={styles.fichaTipLabel}>💡 CONSEJO TÉCNICO</div>
-            <div className={styles.fichaTipText}>
-              Para {referencia.gama} de {referencia.marca} en aplicación {referencia.tipo.toLowerCase()},
-              verificar compatibilidad con dispositivos auxiliares. Consultar disponibilidad en tienda.sonepar.es.
-            </div>
+        <div className={styles.circleLayout}>
+          <div className={styles.fichaSection}>
+            <FichaCard
+              ref={referencia.ref}
+              desc={referencia.desc}
+              price={referencia.precio}
+              specs={[
+                ['Marca', referencia.marca],
+                ['Gama', referencia.gama],
+                ['Tipo', referencia.tipo],
+                ['Potencia', referencia.potencia],
+                ['Tensión', referencia.tension],
+              ]}
+              actions={[
+                { label: 'Copiar referencia', variant: 'primary', onClick: () => copiarReferencia(referencia.ref) },
+                { label: 'Ficha fabricante', variant: 'secondary', onClick: () => abrirPDF(referencia.pdf_url) },
+                { label: 'Presupuesto', variant: 'secondary', onClick: () => añadirPresupuesto(referencia) },
+              ]}
+            />
+            <TipCard text={`Para ${referencia.gama} de ${referencia.marca} en aplicación ${referencia.tipo.toLowerCase()}, verificar compatibilidad con dispositivos auxiliares. Consultar disponibilidad en tienda.sonepar.es.`} />
           </div>
         </div>
       )
     }
 
-    /* ── Búsqueda IA ── */
+    /* Búsqueda IA */
     if (resultado && !error) {
       return (
-        <div className={styles.panel}>
-          <TarjetaFicha
-            resultado={resultado}
-            onCopiar={r => copiarReferencia(r.referencia || r.ref)}
-            onComparar={r => toast.show(`${r.referencia} enviado a comparativa`, 'success')}
-            onPresupuesto={r => {
-              navigate(`/presupuestos?${new URLSearchParams({ producto: r.nombre, referencia: r.referencia })}`)
-              toast.show(`${r.referencia} añadido al presupuesto`, 'success')
-            }}
-          />
+        <div className={styles.circleLayout}>
+          <div className={styles.aiResult}>
+            <h2 className={styles.sectionTitle}>Resultado IA</h2>
+            <div className={styles.aiCard}>
+              <div className={styles.aiCard__name}>{resultado.nombre}</div>
+              <div className={styles.aiCard__ref}>{resultado.referencia}</div>
+              <div className={styles.aiCard__desc}>{resultado.descripcion}</div>
+              {resultado.caracteristicas && (
+                <div className={styles.aiCard__specs}>
+                  {resultado.caracteristicas.map((c, i) => (
+                    <span key={i} className={styles.aiCard__spec}>{c}</span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )
     }
 
-    /* ── Error ── */
+    /* Error */
     if (error) {
       return (
-        <div className={styles.panel}>
+        <div className={styles.circleLayout}>
           <div className={styles.errorBox}>
-            <div className={styles.errorTitle}>⚠ Consulta demasiado vaga</div>
-            <div className={styles.errorMsg}>{error.mensaje}</div>
+            <div className={styles.errorBox__title}>⚠ Consulta demasiado vaga</div>
+            <div className={styles.errorBox__msg}>{error.mensaje}</div>
             {error.sugerencias?.length > 0 && (
               <div className={styles.suggWrap}>
                 {error.sugerencias.map((s, i) => (
@@ -316,22 +315,92 @@ export default function FichasTecnicas() {
       )
     }
 
-    /* ── Empty state ── */
-    return (
-      <div className={styles.panel}>
-        <div className={styles.empty}>
-          <div className={styles.emptyIcon}><FileText size={48} /></div>
-          <h2 className={styles.emptyTitle}>Fichas Técnicas Sonepar</h2>
-          <p className={styles.emptyText}>Selecciona una categoría del panel izquierdo o busca por referencia.</p>
-        </div>
-      </div>
-    )
+    return null
   }
 
   return (
     <div className={styles.layout}>
       {renderSidebar()}
-      <div className={styles.main}>{renderPanel()}</div>
+      <main className={styles.main}>
+        <div className={styles.main__content}>
+
+          {/* Breadcrumb */}
+          {breadcrumb.length > 0 && (
+            <Breadcrumb
+              items={[
+                ...breadcrumb.map((label, i) => ({
+                  label,
+                  onClick: i < breadcrumb.length - 1 ? volver : undefined,
+                  current: i === breadcrumb.length - 1,
+                })),
+              ]}
+            />
+          )}
+
+          {/* Header */}
+          <div className={styles.pageHeader}>
+            <h1 className={styles.pageTitle}>
+              {categoria ? (CATEGORY_INFO[categoria]?.icon || '') + ' ' : ''}
+              {categoria ? categorias.find(c => c.id === categoria)?.label : 'Fichas Técnicas'}
+            </h1>
+            {categoria && (
+              <ViewToggle
+                options={[{ label: 'Navegar', value: 'navegacion' }, { label: 'Buscar', value: 'busqueda' }]}
+                active={modo}
+                onChange={setModo}
+              />
+            )}
+          </div>
+
+          {/* Search bar */}
+          <div className={styles.searchBar}>
+            <Input
+              value={consulta}
+              onChange={e => setConsulta(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  const found = buscarReferenciaDirecta(consulta)
+                  if (!found) buscar()
+                }
+              }}
+              placeholder="Buscar referencia o descripción..."
+            />
+            <Button variant="primary" size="md" loading={cargando} onClick={() => {
+              const found = buscarReferenciaDirecta(consulta)
+              if (!found) buscar()
+            }}>
+              Buscar
+            </Button>
+          </div>
+
+          {/* Accesos rápidos */}
+          {accesosRapidos?.length > 0 && (
+            <div className={styles.quickAccess}>
+              <div className={styles.quickAccess__label}>Búsquedas frecuentes</div>
+              <div className={styles.quickAccess__wrap}>
+                {accesosRapidos.map(a => (
+                  <button key={a} className={styles.quickAccess__btn} onClick={() => { setConsulta(a); buscar(a) }}>
+                    {a}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Main content */}
+          {renderMain()}
+
+          {/* Back button */}
+          {(paso !== 'categorias' && paso !== 'busqueda' && categoria) && (
+            <div className={styles.backWrap}>
+              <Button variant="ghost" size="sm" onClick={volver}>
+                ← Volver
+              </Button>
+            </div>
+          )}
+
+        </div>
+      </main>
     </div>
   )
 }
