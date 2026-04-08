@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Topbar from './Topbar'
 import Sidebar from './Sidebar'
@@ -18,6 +18,7 @@ function useMobile() {
 
 /* AppShell — contenedor principal con sidebar colapsable */
 export default function AppShell() {
+  const location = useLocation()
   const isMobile = useMobile()
   const [collapsed, setCollapsed] = useState(() => {
     try { return localStorage.getItem('sonepar_sidebar_collapsed') === 'true' }
@@ -53,7 +54,8 @@ export default function AppShell() {
       )}
 
       <main className={styles.main}>
-        <Outlet />
+        {/* KEY basada en location fuerza a React a reiniciar el componente al cambiar de ruta */}
+        <Outlet key={location.pathname} />
       </main>
     </div>
   )
