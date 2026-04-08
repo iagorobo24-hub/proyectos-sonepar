@@ -10,8 +10,8 @@ const OUTPUT_DIR = path.join(process.cwd(), 'sonepar-catalog-scraper');
 const ROOT_DIR = path.join(process.cwd(), '..');
 const APP_DIR = path.join(ROOT_DIR, 'app');
 
-// Leer datos scrapeados
-const scrapedData = JSON.parse(fs.readFileSync(path.join(OUTPUT_DIR, 'catalogo-definitivo.json'), 'utf8'));
+// Leer datos scrapeados (Usar el archivo grande generado por V4)
+const scrapedData = JSON.parse(fs.readFileSync(path.join(OUTPUT_DIR, 'catalogo-final-sonepar.json'), 'utf8'));
 console.log(`📦 Datos scrapeados: ${scrapedData.length} referencias`);
 
 // Leer catálogo existente
