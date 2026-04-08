@@ -61,6 +61,32 @@ export function useSonex() {
     return texto;
   };
 
+  // Cargar sugerencias populares globales
+  const [sugerenciasPopulares, setSugerenciasPopulares] = useState([]);
+  const [loadingSugerencias, setLoadingSugerencias] = useState(true);
+
+  useEffect(() => {
+    async function fetchPopularSearches() {
+      try {
+        const docRef = doc(db, 'global', 'popularSearches');
+        const snap = await getDoc(docRef);
+        if (snap.exists()) {
+          const searches = snap.data().searches || {};
+          const topSearches = Object.entries(searches)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([query]) => query.charAt(0).toUpperCase() + query.slice(1));
+          setSugerenciasPopulares(topSearches);
+        }
+      } catch (e) {
+        console.warn('Error cargando búsquedas populares:', e);
+      } finally {
+        setLoadingSugerencias(false);
+      }
+    }
+    fetchPopularSearches();
+  }, []);
+
   return {
     // Estados
     messages, setMessages,
@@ -70,16 +96,18 @@ export function useSonex() {
     modoActivo, setModoActivo,
     contextoActivo, setContextoActivo,
     refsTurno, setRefsTurno,
-    
+    sugerenciasPopulares,
+    loadingSugerencias,
+
     // Refs
     messagesEndRef,
-    
+
     // Acciones
     guardarMensaje,
     limpiarChat,
     exportarChat,
     scrollToBottom,
-    
+
     // Sync status
     syncStatus: chatSync,
   };

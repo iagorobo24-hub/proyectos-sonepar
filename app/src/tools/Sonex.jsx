@@ -110,7 +110,7 @@ export default function Sonex() {
   const handleContextoSet = () => { if (contextoActivo.trim()) toast.show("Contexto guardado para esta sesión"); };
   const handleKeyPress = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); } };
 
-  const sugerenciasMostrar = sugerenciasPopulares.length > 0 ? sugerenciasPopulares : ["Buscar variadores 3kW", "Comparar contactores", "Recomendar iluminación LED", "Ayuda con instalación VE", "Especificaciones cuadro"];
+  const sugerenciasMostrar = (sugerenciasPopulares || []).length > 0 ? sugerenciasPopulares : ["Buscar variadores 3kW", "Comparar contactores", "Recomendar iluminación LED", "Ayuda con instalación VE", "Especificaciones cuadro"];
 
   return (
     <div className={styles.layout}>
