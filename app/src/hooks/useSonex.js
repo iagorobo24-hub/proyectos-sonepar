@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { useFirestoreSync } from './useFirestoreSync';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebaseConfig';
+import useFirestoreSync from './useFirestoreSync';
 import { useAuth } from '../contexts/AuthContext';
 
 /**
