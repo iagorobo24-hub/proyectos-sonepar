@@ -11,6 +11,7 @@ import {
   getGamasPorMarcaYCategoria,
   getReferenciasPorGama,
   getReferencia,
+  getProductosPorCategoria,
 } from '../data/catalogoSonepar'
 
 const CATEGORIAS = [
@@ -181,7 +182,7 @@ export default function useNavegacionFichas() {
   const conteoPorCategoria = useMemo(() => {
     const conteo = {}
     CATEGORIAS.forEach(cat => {
-      conteo[cat.id] = CATALOGO_PLANO.filter(p => p.familia === cat.id).length
+      conteo[cat.id] = getProductosPorCategoria(cat.id).length
     })
     return conteo
   }, [])

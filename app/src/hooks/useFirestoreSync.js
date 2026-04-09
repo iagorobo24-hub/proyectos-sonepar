@@ -59,50 +59,66 @@ export default function useFirestoreSync(collectionPath, docId = 'default', init
     }
   }, [localStorageKey]);
 
+  // Ref para initialData — evita re-ejecutar el efecto cuando initialData es un nuevo objeto/array
+  const initialDataRef = useRef(initialData);
+  // Solo actualizar la ref si aún no hay datos cargados
+  if (!data) {
+    initialDataRef.current = initialData;
+  }
+
   // Efecto para cargar datos al montar o cambiar usuario
   useEffect(() => {
     let isMounted = true;
-    
+
     async function loadData() {
       setLoading(true);
       setSyncStatus('loading');
       setError(null);
 
-      // Si no hay usuario, usar localStorage como fallback
-      if (!user) {
+      // Si no hay usuario O es un mock user (DEV only), usar localStorage como fallback
+      const isMockUser = !user || (typeof window !== 'undefined' && window.__PW_MOCK_USER__);
+      if (isMockUser) {
         const localData = loadFromLocalStorage();
         if (isMounted) {
-          setData(localData !== null ? localData : initialData);
+          setData(localData !== null ? localData : initialDataRef.current);
           setLoading(false);
           setSyncStatus('offline');
         }
         return;
       }
 
-      // Suscribirse a cambios en tiempo real en Firestore
-      unsubscribeRef.current = subscribeToUserDoc(
-        user.uid,
-        collectionPath,
-        (docData) => {
-          if (!isMounted) return;
-          
-          if (docData && docData.data !== undefined) {
-            setData(docData.data);
-            setSyncStatus('syncing');
-          } else if (docData !== null) {
-            // El documento existe pero no tiene estructura { data: ... }
-            setData(docData);
-            setSyncStatus('syncing');
-          } else {
-            // Documento no existe, usar dato inicial o localStorage
-            const localData = loadFromLocalStorage();
-            setData(localData !== null ? localData : initialData);
-            setSyncStatus('offline');
-          }
+      // Suscribirse a cambios en tiempo real en Firestore (SOLO users reales)
+      try {
+        unsubscribeRef.current = subscribeToUserDoc(
+          user.uid,
+          collectionPath,
+          (docData) => {
+            if (!isMounted) return;
+
+            if (docData && docData.data !== undefined) {
+              setData(docData.data);
+              setSyncStatus('syncing');
+            } else if (docData !== null) {
+              setData(docData);
+              setSyncStatus('syncing');
+            } else {
+              const localData = loadFromLocalStorage();
+              setData(localData !== null ? localData : initialDataRef.current);
+              setSyncStatus('offline');
+            }
+            setLoading(false);
+          },
+          docId
+        );
+      } catch (err) {
+        console.warn('Firestore subscription failed, falling back to localStorage:', err.message);
+        if (isMounted) {
+          const localData = loadFromLocalStorage();
+          setData(localData !== null ? localData : initialDataRef.current);
           setLoading(false);
-        },
-        docId
-      );
+          setSyncStatus('offline');
+        }
+      }
     }
 
     loadData();
@@ -111,13 +127,13 @@ export default function useFirestoreSync(collectionPath, docId = 'default', init
     return () => {
       isMounted = false;
       if (unsubscribeRef.current) {
-        unsubscribeRef.current();
+        try { unsubscribeRef.current(); } catch {}
       }
       if (saveTimeoutRef.current) {
         clearTimeout(saveTimeoutRef.current);
       }
     };
-  }, [user?.uid, collectionPath, docId, initialData, loadFromLocalStorage]);
+  }, [user?.uid, collectionPath, docId, loadFromLocalStorage]);
 
   // Función para guardar datos con debounce
   const saveData = useCallback((dataToSave) => {
@@ -128,8 +144,9 @@ export default function useFirestoreSync(collectionPath, docId = 'default', init
     // Guardar en localStorage como fallback inmediato
     saveToLocalStorage(dataToSave);
 
-    // Si no hay usuario, solo guardar en localStorage
-    if (!user) {
+    // Si no hay usuario O es mock user, solo guardar en localStorage
+    const isMockUser = !user || (typeof window !== 'undefined' && window.__PW_MOCK_USER__);
+    if (isMockUser) {
       setSyncStatus('offline');
       return;
     }
@@ -145,12 +162,6 @@ export default function useFirestoreSync(collectionPath, docId = 'default', init
       try {
         await saveUserDoc(user.uid, collectionPath, { data: pendingSaveRef.current }, docId);
         setSyncStatus('saved');
-        
-        // Limpiar localStorage después de guardar exitosamente en Firestore
-        // (opcional, mantener durante periodo de transición)
-        // if (localStorageKey) {
-        //   localStorage.removeItem(localStorageKey);
-        // }
       } catch (err) {
         console.error('Error saving to Firestore:', err);
         setError(err);

@@ -47,9 +47,9 @@ export function AuthProvider({ children }) {
   async function checkAndMigrateUserData(uid) {
     try {
       // Verificar si ya está migrado
-      const profileRef = doc(db, `users/${uid}/profile`)
+      const profileRef = doc(db, 'users', uid, 'profile', 'default')
       const profileSnap = await getDoc(profileRef)
-      
+
       if (profileSnap.exists() && profileSnap.data().migratedAt) {
         // Ya migrado, no hacer nada
         return
@@ -82,40 +82,33 @@ export function AuthProvider({ children }) {
           parsedValue = value
         }
 
-        // Determinar ruta según la key
-        let collectionPath, docId
+        // Determinar ruta según la key — usar doc() con segmentos separados
+        let docRef
         if (key === 'sonepar_fichas_historial') {
-          collectionPath = 'fichas/history'
-          docId = 'default'
+          docRef = doc(db, 'users', uid, 'fichas', 'history', 'default')
         } else if (key === 'sonepar_presupuestos_historial') {
-          collectionPath = 'budgets'
-          docId = 'default'
+          docRef = doc(db, 'users', uid, 'budgets', 'default')
         } else if (key === 'sonepar_incidencias') {
-          collectionPath = 'incidents'
-          docId = 'default'
+          docRef = doc(db, 'users', uid, 'incidents', 'default')
         } else if (key === 'sonepar_kpi_historial') {
-          collectionPath = 'kpi/entries'
-          docId = 'default'
+          docRef = doc(db, 'users', uid, 'kpi', 'entries', 'default')
         } else if (key.startsWith('sonepar_sim_')) {
-          collectionPath = 'simulator'
-          docId = key.replace('sonepar_sim_', '')
+          const simId = key.replace('sonepar_sim_', '')
+          docRef = doc(db, 'users', uid, 'simulator', simId)
         } else if (key.startsWith('sonepar_formacion_')) {
-          collectionPath = 'training'
-          docId = key.replace('sonepar_formacion_', '')
+          const formId = key.replace('sonepar_formacion_', '')
+          docRef = doc(db, 'users', uid, 'training', formId)
         } else if (key === 'sonepar_theme') {
-          collectionPath = 'preferences'
-          docId = 'theme'
+          docRef = doc(db, 'users', uid, 'preferences', 'theme')
         } else if (key === 'sidebar_collapsed') {
-          collectionPath = 'preferences'
-          docId = 'sidebar'
+          docRef = doc(db, 'users', uid, 'preferences', 'sidebar')
         } else {
           continue
         }
 
         // Guardar en Firestore
-        const docRef = doc(db, `users/${uid}/${collectionPath}`, docId)
-        await setDoc(docRef, { 
-          data: parsedValue, 
+        await setDoc(docRef, {
+          data: parsedValue,
           sourceKey: key,
           migratedAt: serverTimestamp()
         }, { merge: true })
@@ -123,7 +116,7 @@ export function AuthProvider({ children }) {
 
       // Marcar migración completada
       await setDoc(profileRef, { migratedAt: serverTimestamp() }, { merge: true })
-      
+
     } catch (error) {
       console.error('Error during migration:', error)
     }
