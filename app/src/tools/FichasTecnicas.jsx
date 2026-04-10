@@ -1,10 +1,26 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useToast } from '../contexts/ToastContext'
 import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import useNavegacionFichas from '../hooks/useNavegacionFichas'
-import { getGamasPorMarcaYCategoria } from '../data/catalogoSonepar'
+import { getGamasPorMarcaYCategoria, getProductosPorGama } from '../data/catalogoSonepar'
 import { CATEGORY_IDS, FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import { MARCAS } from '../data/marcasLogos'
+import Button from '../components/ui/Button'
+import Input from '../components/ui/Input'
+import {
+  CircleCenter,
+  OrbitRing,
+  OrbitRow,
+  BrandCard,
+  GamaCard,
+  RefCard,
+  FichaCard,
+  TipCard,
+  Breadcrumb,
+  ViewToggle
+} from '../components/ui/CircleLayout'
+import styles from './FichasTecnicas.module.css'
 
 export default function FichasTecnicas() {
   const navigate = useNavigate()
