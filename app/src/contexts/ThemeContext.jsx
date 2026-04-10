@@ -41,10 +41,12 @@ export function ThemeProvider({ children }) {
 
     const transition = document.startViewTransition(() => {
       // flushSync es vital aquí para que React actualice el DOM de forma síncrona
-      // y la View Transitions API pueda capturar el "después" inmediatamente
+      const nextDark = !dark
       flushSync(() => {
-        setDark(prev => !prev)
+        setDark(nextDark)
       })
+      // Forzamos el atributo manualmente para que View Transitions lo vea "ahora"
+      document.documentElement.setAttribute('data-theme', nextDark ? 'dark' : 'light')
     })
 
     transition.ready.then(() => {

@@ -113,39 +113,28 @@
 }
 
 /* -- Animated Theme Transition (Circular Reveal) -- */
-:root {
-  /* Evitar transiciones de layout automáticas si las hubiera */
-  view-transition-name: none; 
-}
-
-/* El contenedor de la transición debe estar por encima de todo */
-::view-transition-group(root) {
-  animation-duration: 0.4s;
-}
-
-/* Desactivar animaciones por defecto (cross-fade) para usar el clip-path manual */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
   display: block;
+  height: 100%;
 }
 
-/* Capas: el que llega siempre encima para el efecto de revelado circular */
 ::view-transition-new(root) {
-  z-index: 9999;
+  z-index: 1;
 }
 
 ::view-transition-old(root) {
-  z-index: 1;
-}
-
-/* Al ir de DARK a LIGHT, el OLD (el que se va) debe estar encima para encogerse y revelar el NEW */
-[data-theme='light']::view-transition-old(root) {
   z-index: 9999;
 }
 
-[data-theme='light']::view-transition-new(root) {
+[data-theme='dark']::view-transition-new(root) {
+  z-index: 9999;
+}
+
+[data-theme='dark']::view-transition-old(root) {
   z-index: 1;
 }
+
 
