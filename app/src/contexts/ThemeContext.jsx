@@ -1,26 +1,37 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { flushSync } from 'react-dom'
 
 const ThemeContext = createContext()
 
 export function ThemeProvider({ children }) {
   const [dark, setDark] = useState(() => {
-    try { return localStorage.getItem('sonepar_theme') === 'dark' } catch { return false }
+    try {
+      const saved = localStorage.getItem('sonepar_theme')
+      if (saved) return saved === 'dark'
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+    } catch {
+      return false
+    }
   })
 
+  // Sincronizar el atributo data-theme en el html
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light')
-    try { localStorage.setItem('sonepar_theme', dark ? 'dark' : 'light') } catch {}
+    try {
+      localStorage.setItem('sonepar_theme', dark ? 'dark' : 'light')
+    } catch (e) {
+      console.error('Error saving theme:', e)
+    }
   }, [dark])
 
   const toggle = (event) => {
-    const isAppearanceTransition = document.startViewTransition 
-      && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-
-    if (!isAppearanceTransition) {
-      setDark(d => !d)
+    // Si el navegador no soporta la API o prefiere reducción de movimiento, cambio simple
+    if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDark(prev => !prev)
       return
     }
 
+    // Calcular coordenadas del clic para que el círculo salga desde ahí
     const x = event?.clientX ?? window.innerWidth / 2
     const y = event?.clientY ?? window.innerHeight / 2
     const endRadius = Math.hypot(
@@ -28,8 +39,12 @@ export function ThemeProvider({ children }) {
       Math.max(y, window.innerHeight - y)
     )
 
-    const transition = document.startViewTransition(async () => {
-      setDark(d => !d)
+    const transition = document.startViewTransition(() => {
+      // flushSync es vital aquí para que React actualice el DOM de forma síncrona
+      // y la View Transitions API pueda capturar el "después" inmediatamente
+      flushSync(() => {
+        setDark(prev => !prev)
+      })
     })
 
     transition.ready.then(() => {
@@ -37,16 +52,18 @@ export function ThemeProvider({ children }) {
         `circle(0px at ${x}px ${y}px)`,
         `circle(${endRadius}px at ${x}px ${y}px)`,
       ]
+      
+      // Animamos el pseudo-elemento correspondiente según la dirección del cambio
+      // Si estamos en DARK (dark=true) y vamos a LIGHT, animamos el OLD (el que se va)
+      // Si estamos en LIGHT (dark=false) y vamos a DARK, animamos el NEW (el que llega)
       document.documentElement.animate(
         {
           clipPath: dark ? [...clipPath].reverse() : clipPath,
         },
         {
-          duration: 500,
+          duration: 400,
           easing: 'ease-in-out',
-          pseudoElement: dark
-            ? '::view-transition-old(root)'
-            : '::view-transition-new(root)',
+          pseudoElement: dark ? '::view-transition-old(root)' : '::view-transition-new(root)',
         }
       )
     })
