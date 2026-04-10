@@ -1,20 +1,18 @@
 import { useState, useEffect, useReducer } from "react";
 import { useSearchParams } from 'react-router-dom'
 import { Euro } from 'lucide-react'
-import { CATALOGO_POR_CATEGORIA as CATALOGO_REF } from '../data/catalogoSonepar'
+import { CATALOGO_PLANO, getProductoPorRef } from '../data/catalogoSonepar'
+import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
 import styles from './Presupuestos.module.css'
 
-const CATEGORIAS = [
-  { id: "automatizacion", label: "Automatización", icon: "⚙" },
-  { id: "iluminacion", label: "Iluminación", icon: "💡" },
-  { id: "vehiculo_electrico", label: "Vehículo Eléctrico", icon: "⚡" },
-  { id: "cuadro_electrico", label: "Cuadro Eléctrico", icon: "🔌" },
-  { id: "energia_solar", label: "Energía Solar", icon: "☀" },
-  { id: "clima", label: "Climatización", icon: "❄" },
-];
+const CATEGORIAS = Object.keys(FULL_CATEGORY_INFO).map(key => ({
+  id: key,
+  label: key,
+  icon: FULL_CATEGORY_INFO[key].icon
+}));
 
 const DEMOS = {
   automatizacion: { potencia: "22", num_motores: "3", plc: "PLC básico", zona_atex: "No" },

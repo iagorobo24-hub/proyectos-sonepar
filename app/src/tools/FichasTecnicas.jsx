@@ -3,29 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import useNavegacionFichas from '../hooks/useNavegacionFichas'
 import { getGamasPorMarcaYCategoria } from '../data/catalogoSonepar'
+import { CATEGORY_IDS, FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import { MARCAS } from '../data/marcasLogos'
-import Input from '../components/ui/Input'
-import Button from '../components/ui/Button'
-import { useToast } from '../contexts/ToastContext'
-import {
-  CircleCenter, OrbitRing, OrbitRow, BrandCard, GamaCard, RefCard,
-  FichaCard, TipCard, Breadcrumb, Label, ViewToggle
-} from '../components/ui/CircleLayout'
-import styles from './FichasTecnicas.module.css'
-
-/* Info de cada categoría */
-const CATEGORY_INFO = {
-  Variadores: { icon: '⚡', desc: 'Controla la velocidad de motores eléctricos de forma eficiente. Reduce consumo energético y desgaste mecánico.', tip: 'Selecciona según la potencia del motor y el tipo de alimentación disponible.' },
-  Contactores: { icon: '🔌', desc: 'Dispositivos electromagnéticos para controlar motores y cargas eléctricas.', tip: 'Elige según la corriente nominal del motor y la tensión de la bobina.' },
-  Guardamotores: { icon: '🛡️', desc: 'Protección térmica y magnética integrada para motores trifásicos.', tip: 'Ajusta el rango de corriente al valor nominal del motor.' },
-  PLCs: { icon: '📊', desc: 'Autómatas programables para control de procesos industriales.', tip: 'Considera el número de E/S necesarias y si necesitas comunicación Ethernet.' },
-  Sensores: { icon: '📡', desc: 'Detección de presencia, distancia y posición en entornos industriales.', tip: 'Elige el tipo según el material a detectar y la distancia necesaria.' },
-  Protección: { icon: '⚙️', desc: 'Magnetotérmicos, diferenciales y dispositivos de protección eléctrica.', tip: 'Verifica la capacidad de corte y la curva de disparo necesaria.' },
-  Iluminación: { icon: '💡', desc: 'Luminarias LED industriales, estancas y de emergencia.', tip: 'Selecciona según el nivel de iluminación (lux) requerido en la zona.' },
-  VE: { icon: '🚗', desc: 'Cargadores para vehículos eléctricos domésticos e industriales.', tip: 'Verifica la potencia disponible en la instalación eléctrica.' },
-  Solar: { icon: '☀️', desc: 'Inversores, baterías y reguladores para instalaciones fotovoltaicas.', tip: 'Dimensiona según el consumo diario y la superficie de paneles disponible.' },
-  Reles: { icon: '🔄', desc: 'Relés de control, fase y tensión para supervisión eléctrica.', tip: 'Selecciona según el tipo de fallo a detectar.' },
-}
 
 export default function FichasTecnicas() {
   const navigate = useNavigate()
@@ -44,7 +23,8 @@ export default function FichasTecnicas() {
   const { consulta, setConsulta, resultado, error, cargando, accesosRapidos, buscar } = useFichasTecnicas()
 
   const [modo, setModo] = React.useState('navegacion')
-  const catInfo = CATEGORY_INFO[categoria] || {}
+  
+  const catInfo = FULL_CATEGORY_INFO[categoria] || {}
 
   const copiarReferencia = (ref) => {
     navigator.clipboard.writeText(ref)
@@ -130,7 +110,7 @@ export default function FichasTecnicas() {
                   logoFallback={m.nombre.substring(0, 2).toUpperCase()}
                   logoColor={m.color}
                   name={m.nombre}
-                  count={`${getGamasPorMarcaYCategoria(categoria, m.nombre).length} gamas`}
+                  count={`${getGamasPorMarcaYCategoria(m.nombre, categoria).length} gamas`}
                   onClick={() => seleccionarMarca(m.nombre)}
                 />
               ))}
@@ -142,7 +122,7 @@ export default function FichasTecnicas() {
                   logoFallback={marcasConLogo[2].nombre.substring(0, 2).toUpperCase()}
                   logoColor={marcasConLogo[2].color}
                   name={marcasConLogo[2].nombre}
-                  count={`${getGamasPorMarcaYCategoria(categoria, marcasConLogo[2].nombre).length} gamas`}
+                  count={`${getGamasPorMarcaYCategoria(marcasConLogo[2].nombre, categoria).length} gamas`}
                   onClick={() => seleccionarMarca(marcasConLogo[2].nombre)}
                 />
               </OrbitRow>
@@ -163,15 +143,18 @@ export default function FichasTecnicas() {
           />
 
           <div className={styles.orbitRows}>
-            {gamasDisponibles.map((g, i) => (
-              <OrbitRow key={g.nombre}>
-                <GamaCard
-                  name={g.nombre}
-                  meta={`${g.tipos.length} tipos · ${g.count} referencias`}
-                  onClick={() => seleccionarGama(g.nombre)}
-                />
-              </OrbitRow>
-            ))}
+            {gamasDisponibles.map((gName, i) => {
+               const products = getProductosPorGama(categoria, gName).filter(p => p.marca === marca);
+               return (
+                <OrbitRow key={gName}>
+                  <GamaCard
+                    name={gName}
+                    meta={`${[...new Set(products.map(p => p.tipo))].length} tipos · ${products.length} referencias`}
+                    onClick={() => seleccionarGama(gName)}
+                  />
+                </OrbitRow>
+               );
+            })}
           </div>
         </div>
       )
@@ -220,7 +203,7 @@ export default function FichasTecnicas() {
                   <RefCard
                     key={p.ref}
                     code={p.ref}
-                    desc={`${p.potencia} · ${p.tension}`}
+                    desc={p.desc}
                     price={p.precio}
                     onClick={() => seleccionarReferencia(p.ref)}
                   />
@@ -229,11 +212,11 @@ export default function FichasTecnicas() {
             )}
             {referenciasDisponibles.length > 2 && (
               <OrbitRow>
-                {referenciasDisponibles.slice(2).map(p => (
+                {referenciasDisponibles.slice(2, 6).map(p => (
                   <RefCard
                     key={p.ref}
                     code={p.ref}
-                    desc={`${p.potencia} · ${p.tension}`}
+                    desc={p.desc}
                     price={p.precio}
                     onClick={() => seleccionarReferencia(p.ref)}
                   />
@@ -256,10 +239,9 @@ export default function FichasTecnicas() {
               price={referencia.precio}
               specs={[
                 ['Marca', referencia.marca],
-                ['Gama', referencia.gama],
+                ['Familia', referencia.familia],
+                ['Subfamilia', referencia.subfamilia],
                 ['Tipo', referencia.tipo],
-                ['Potencia', referencia.potencia],
-                ['Tensión', referencia.tension],
               ]}
               actions={[
                 { label: 'Copiar referencia', variant: 'primary', onClick: () => copiarReferencia(referencia.ref) },
@@ -267,7 +249,7 @@ export default function FichasTecnicas() {
                 { label: 'Presupuesto', variant: 'secondary', onClick: () => añadirPresupuesto(referencia) },
               ]}
             />
-            <TipCard text={`Para ${referencia.gama} de ${referencia.marca} en aplicación ${referencia.tipo.toLowerCase()}, verificar compatibilidad con dispositivos auxiliares. Consultar disponibilidad en tienda.sonepar.es.`} />
+            <TipCard text={`Para ${referencia.subfamilia} de ${referencia.marca} en aplicación ${referencia.tipo.toLowerCase()}, verificar compatibilidad con dispositivos auxiliares. Consultar disponibilidad en tienda.sonepar.es.`} />
           </div>
         </div>
       )
@@ -340,7 +322,7 @@ export default function FichasTecnicas() {
           {/* Header */}
           <div className={styles.pageHeader}>
             <h1 className={styles.pageTitle}>
-              {categoria ? (CATEGORY_INFO[categoria]?.icon || '') + ' ' : ''}
+              {categoria ? (catInfo.icon || '') + ' ' : ''}
               {categoria ? categorias.find(c => c.id === categoria)?.label : 'Fichas Técnicas'}
             </h1>
             {categoria && (

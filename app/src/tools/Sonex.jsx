@@ -1,19 +1,18 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from 'react-router-dom'
-import { CATALOGO_PLANO } from '../data/catalogoSonepar'
+import { CATALOGO_PLANO, getProductoPorRef } from '../data/catalogoSonepar'
+import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
 import { useSonex } from '../hooks/useSonex'
 import styles from './Sonex.module.css'
 
-const CATEGORIAS = [
-  { id: "automatizacion", label: "Automatización", icon: "⚙" },
-  { id: "iluminacion", label: "Iluminación", icon: "💡" },
-  { id: "vehiculo", label: "Vehículo Eléctrico", icon: "⚡" },
-  { id: "cuadro", label: "Cuadro Eléctrico", icon: "🔌" },
-  { id: "solar", label: "Energía Solar", icon: "☀" },
-];
+const CATEGORIAS = Object.keys(FULL_CATEGORY_INFO).map(key => ({
+  id: key,
+  label: key,
+  icon: FULL_CATEGORY_INFO[key].icon
+}));
 
 const MODO_OBJETOS = [
   { id: "busqueda", label: "🔍 Búsqueda", desc: "Buscar referencias y especificaciones" },

@@ -6,26 +6,20 @@
 import { useState, useCallback, useMemo } from 'react'
 import {
   CATALOGO_PLANO,
-  MARCAS,
-  getMarcasPorCategoria,
+  getMarcas,
   getGamasPorMarcaYCategoria,
-  getReferenciasPorGama,
-  getReferencia,
-  getProductosPorCategoria,
+  getProductosPorGama,
+  getProductoPorRef,
 } from '../data/catalogoSonepar'
+import { FULL_CATEGORY_INFO, CATEGORY_IDS } from '../data/categoryMapping'
 
-const CATEGORIAS = [
-  { id: 'Variadores', label: 'Variadores', icon: '⚡', color: '#f59e0b' },
-  { id: 'Contactores', label: 'Contactores', icon: '🔌', color: '#3b82f6' },
-  { id: 'Guardamotores', label: 'Guardamotores', icon: '🛡️', color: '#10b981' },
-  { id: 'PLCs', label: 'PLCs', icon: '📊', color: '#8b5cf6' },
-  { id: 'Sensores', label: 'Sensores', icon: '📡', color: '#06b6d4' },
-  { id: 'Protección', label: 'Protección', icon: '⚙️', color: '#ef4444' },
-  { id: 'Iluminación', label: 'Iluminación', icon: '💡', color: '#f97316' },
-  { id: 'VE', label: 'Vehículo Eléctrico', icon: '🚗', color: '#22c55e' },
-  { id: 'Solar', label: 'Energía Solar', icon: '☀️', color: '#eab308' },
-  { id: 'Reles', label: 'Relés', icon: '🔄', color: '#ec4899' },
-]
+// Generamos las categorías dinámicamente desde el mapping
+const CATEGORIAS = Object.keys(FULL_CATEGORY_INFO).map(key => ({
+  id: key,
+  label: key,
+  icon: FULL_CATEGORY_INFO[key].icon,
+  color: '#3b82f6' // Color por defecto o mapeado si fuera necesario
+}))
 
 export default function useNavegacionFichas() {
   /* Estado de navegación */
@@ -42,24 +36,28 @@ export default function useNavegacionFichas() {
   /* ── Datos para cada paso ── */
   const marcasDisponibles = useMemo(() => {
     if (!categoria) return []
-    return getMarcasPorCategoria(categoria)
+    // Adaptamos el array de nombres a objetos para el componente
+    return getMarcas(categoria).map(nombre => ({ nombre }))
   }, [categoria])
 
   const gamasDisponibles = useMemo(() => {
     if (!categoria || !marca) return []
-    return getGamasPorMarcaYCategoria(categoria, marca)
+    // getGamasPorMarcaYCategoria espera (marca, categoria)
+    return getGamasPorMarcaYCategoria(marca, categoria)
   }, [categoria, marca])
 
   const tiposDisponibles = useMemo(() => {
     if (!categoria || !marca || !gama) return []
     return [...new Set(
-      getReferenciasPorGama(categoria, marca, gama).map(p => p.tipo)
+      getProductosPorGama(categoria, gama)
+        .filter(p => p.marca === marca)
+        .map(p => p.tipo)
     )]
   }, [categoria, marca, gama])
 
   const referenciasDisponibles = useMemo(() => {
     if (!categoria || !marca || !gama) return []
-    const refs = getReferenciasPorGama(categoria, marca, gama)
+    const refs = getProductosPorGama(categoria, gama).filter(p => p.marca === marca)
     if (tipo) {
       return refs.filter(p => p.tipo === tipo)
     }
@@ -69,30 +67,40 @@ export default function useNavegacionFichas() {
   /* ── Navegación hacia adelante ── */
   const seleccionarCategoria = useCallback((catId) => {
     setCategoria(catId)
+    setMarca(null)
+    setGama(null)
+    setTipo(null)
+    setReferencia(null)
     setPaso('marcas')
     setHistorial(prev => [...prev, { paso: 'categorias' }])
   }, [])
 
   const seleccionarMarca = useCallback((marcaNombre) => {
     setMarca(marcaNombre)
+    setGama(null)
+    setTipo(null)
+    setReferencia(null)
     setPaso('gamas')
     setHistorial(prev => [...prev, { paso: 'marcas' }])
   }, [])
 
   const seleccionarGama = useCallback((gamaNombre) => {
     setGama(gamaNombre)
+    setTipo(null)
+    setReferencia(null)
     setPaso('tipos')
     setHistorial(prev => [...prev, { paso: 'gamas' }])
   }, [])
 
   const seleccionarTipo = useCallback((tipoNombre) => {
     setTipo(tipoNombre)
+    setReferencia(null)
     setPaso('referencias')
     setHistorial(prev => [...prev, { paso: 'tipos' }])
   }, [])
 
-  const seleccionarReferencia = useCallback((ref) => {
-    const ficha = getReferencia(ref)
+  const seleccionarReferencia = useCallback((refId) => {
+    const ficha = getProductoPorRef(refId)
     setReferencia(ficha)
     setPaso('ficha')
     setHistorial(prev => [...prev, { paso: 'referencias' }])
@@ -124,25 +132,25 @@ export default function useNavegacionFichas() {
         setReferencia(null)
         break
       case 'marcas':
-        setPaso('categorias')
+        setPaso('marcas')
         setMarca(null)
         setGama(null)
         setTipo(null)
         setReferencia(null)
         break
       case 'gamas':
-        setPaso('marcas')
+        setPaso('gamas')
         setGama(null)
         setTipo(null)
         setReferencia(null)
         break
       case 'tipos':
-        setPaso('gamas')
+        setPaso('tipos')
         setTipo(null)
         setReferencia(null)
         break
       case 'referencias':
-        setPaso('tipos')
+        setPaso('referencias')
         setReferencia(null)
         break
       default:
@@ -171,7 +179,7 @@ export default function useNavegacionFichas() {
   /* ── Breadcrumb visual ── */
   const breadcrumb = useMemo(() => {
     const parts = []
-    if (categoria) parts.push(CATEGORIAS.find(c => c.id === categoria)?.label || categoria)
+    if (categoria) parts.push(categoria)
     if (marca) parts.push(marca)
     if (gama) parts.push(gama)
     if (tipo) parts.push(tipo)
@@ -181,20 +189,24 @@ export default function useNavegacionFichas() {
   /* ── Total de referencias por categoría (para badge) ── */
   const conteoPorCategoria = useMemo(() => {
     const conteo = {}
-    CATEGORIAS.forEach(cat => {
-      conteo[cat.id] = getProductosPorCategoria(cat.id).length
+    Object.keys(FULL_CATEGORY_INFO).forEach(catId => {
+      // Calculamos el total de productos en esa familia
+      const familia = catId
+      const subfamilias = getGamasPorMarcaYCategoria('', familia)
+      let total = 0
+      subfamilias.forEach(g => {
+        total += getProductosPorGama(familia, g).length
+      })
+      conteo[catId] = total
     })
     return conteo
   }, [])
 
   /* ── Búsqueda directa por referencia ── */
   const buscarReferenciaDirecta = useCallback((texto) => {
-    const ref = CATALOGO_PLANO.find(p =>
-      p.ref.toLowerCase() === texto.toLowerCase() ||
-      p.keywords.some(k => k.includes(texto.toLowerCase()))
-    )
-    if (ref) {
-      setReferencia(ref)
+    const p = getProductoPorRef(texto.toUpperCase())
+    if (p) {
+      setReferencia(p)
       setPaso('ficha')
       setHistorial([{ paso: 'categorias' }])
       return true

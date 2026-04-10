@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonepar Tools — Rediseño Visual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════════════════════
+     * SONEPAR TOOLS — Swiss Clean Design System
+     * Inspirado en: Habit Tracker - Swiss Clean (Pencil)
+     * ═══════════════════════════════════════════════════════ */
+
+    :root {
+      /* Swiss Clean Palette */
+      --blue-900: #001a4d;
+      --blue-800: #003087;
+      --blue-700: #0044b3;
+      --blue-600: #0056d9;
+      --blue-500: #1a6fe8;
+      --blue-100: #e8f0fe;
+      --blue-50: #f5f8ff;
+
+      --gray-900: #0a0e1a;
+      --gray-800: #141828;
+      --gray-700: #1e2338;
+      --gray-600: #2a3050;
+      --gray-500: #3d4565;
+      --gray-400: #5c6488;
+      --gray-300: #8b92b0;
+      --gray-200: #c2c8e0;
+      --gray-100: #e8ebf4;
+      --gray-50: #f4f6fb;
+      --white: #ffffff;
+
+      /* Semantic */
+      --success: #00a86b;
+      --warning: #f0a030;
+      --error: #e04050;
+
+      /* Typography */
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Spacing */
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+
+      /* Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-card: 0 1px 3px rgba(10, 14, 26, 0.04), 0 4px 12px rgba(10, 14, 26, 0.06);
+      --shadow-card-hover: 0 4px 8px rgba(10, 14, 26, 0.06), 0 12px 28px rgba(10, 14, 26, 0.08);
+      --shadow-brand: 0 4px 16px rgba(0, 48, 135, 0.15);
+
+      /* Layout */
+      --topbar-h: 64px;
+      --sidebar-w: 300px;
+
+      /* Transitions */
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--gray-50);
+      color: var(--gray-800);
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+     * TOPBAR — Swiss Clean
+     * ═══════════════════════════════════════════════════════ */
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      height: var(--topbar-h);
+      padding: 0 var(--space-8);
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-100);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      gap: var(--space-6);
+    }
+
+    .topbar-logo {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .topbar-logo__brand {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--blue-800);
+      letter-spacing: -0.03em;
+    }
+
+    .topbar-logo__sub {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      letter-spacing: 0.02em;
+    }
+
+    .topbar-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--gray-100);
+    }
+
+    .topbar-nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+    }
+
+    .topbar-nav__item {
+      padding: var(--space-2) var(--space-4);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: all 0.2s var(--ease-out);
+      position: relative;
+    }
+
+    .topbar-nav__item:hover {
+      color: var(--gray-700);
+      background: var(--gray-50);
+    }
+
+    .topbar-nav__item--active {
+      color: var(--blue-800);
+      background: var(--blue-50);
+      font-weight: 600;
+    }
+
+    .topbar-nav__item--active::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 24px;
+      height: 2px;
+      background: var(--blue-800);
+      border-radius: var(--radius-full);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      margin-left: auto;
+    }
+
+    .topbar-theme {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-3);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      background: var(--gray-50);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .topbar-theme:hover {
+      background: var(--gray-100);
+      color: var(--gray-600);
+    }
+
+    .topbar-user {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+      background: var(--gray-50);
+      border-radius: var(--radius-full);
+    }
+
+    .topbar-user__avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-full);
+      background: var(--blue-100);
+      color: var(--blue-800);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .topbar-user__name {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-700);
+    }
+
+    .topbar-logout {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .topbar-logout:hover {
+      background: var(--error);
+      background-opacity: 0.08;
+      color: var(--error);
+    }
+
+    /* ═══════════════════════════════════════════════════════
+     * LAYOUT — Sidebar + Main
+     * ═══════════════════════════════════════════════════════ */
+
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar-w) 1fr;
+      height: calc(100vh - var(--topbar-h));
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+     * SIDEBAR — Swiss Clean
+     * ═══════════════════════════════════════════════════════ */
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      padding: var(--space-6);
+      gap: var(--space-6);
+      background: var(--white);
+      border-right: 1px solid var(--gray-100);
+      overflow-y: auto;
+    }
+
+    .sidebar__tool-icon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-6);
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      border-radius: var(--radius-lg);
+    }
+
+    .sidebar__icon-wrap {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-card);
+      color: var(--blue-800);
+    }
+
+    .sidebar__icon-wrap svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .sidebar__tool-name {
+      font-family: var(--font-display);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--blue-800);
+      text-align: center;
+    }
+
+    .sidebar__desc {
+      font-size: 0.8125rem;
+      line-height: 1.65;
+      color: var(--gray-400);
+    }
+
+    .sidebar__tip {
+      padding: var(--space-3) var(--space-4);
+      background: var(--gray-50);
+      border-left: 3px solid var(--blue-800);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .sidebar__tip-label {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--blue-800);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-1);
+    }
+
+    .sidebar__tip-text {
+      font-size: 0.8125rem;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    .sidebar__footer {
+      margin-top: auto;
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .sidebar__footer-text {
+      font-size: 0.6875rem;
+      color: var(--gray-300);
+      line-height: 1.6;
+    }
+
+    /* ═══════════════════════════════════════════════════════
+     * MAIN CONTENT — Swiss Clean
+     * ═══════════════════════════════════════════════════════ */
+
+    .main {
+      overflow-y: auto;
+      padding: var(--space-10) var(--space-12);
+      background: var(--gray-50);
+    }
+
+    .main__header {
+      margin-bottom: var(--space-8);
+    }
+
+    .main__title {
+      font-family: var(--font-display);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--gray-900);
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-2);
+    }
+
+    .main__subtitle {
+      font-size: 0.875rem;
+      color: var(--gray-400);
+      line-height: 1.6;
+    }
+
+    /* ── Search Bar ── */
+    .search-bar {
+      display: flex;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+    }
+
+    .search-bar__input {
+      flex: 1;
+      padding: var(--space-3) var(--space-4);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      color: var(--gray-800);
+      background: var(--white);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .search-bar__input::placeholder {
+      color: var(--gray-300);
+    }
+
+    .search-bar__input:focus {
+      border-color: var(--blue-500);
+      box-shadow: 0 0 0 3px var(--blue-50);
+    }
+
+    .search-bar__btn {
+      padding: var(--space-3) var(--space-6);
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--blue-800);
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .search-bar__btn:hover {
+      background: var(--blue-700);
+      box-shadow: var(--shadow-brand);
+    }
+
+    /* ── Categories Grid ── */
+    .categories-label {
+      font-family: var(--font-display);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-4);
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: var(--space-3);
+      margin-bottom: var(--space-10);
+    }
+
+    .category-card {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      background: var(--white);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.25s var(--ease-out);
+    }
+
+    .category-card:hover {
+      border-color: var(--blue-200);
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .category-card__icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--blue-50);
+      border-radius: var(--radius-sm);
+      font-size: 1.25rem;
+    }
+
+    .category-card__info {
+      flex: 1;
+    }
+
+    .category-card__name {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .category-card__count {
+      font-size: 0.6875rem;
+      color: var(--gray-300);
+    }
+
+    /* ── Brands Grid ── */
+    .brands-section {
+      margin-bottom: var(--space-10);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-4);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--gray-800);
+      letter-spacing: -0.02em;
+    }
+
+    .section-back {
+      display: flex;
+      align-items: center;
+      gap: var(--space-1);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: color 0.2s var(--ease-out);
+    }
+
+    .section-back:hover {
+      color: var(--gray-700);
+    }
+
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .brand-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-6) var(--space-4);
+      background: var(--white);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all 0.25s var(--ease-out);
+    }
+
+    .brand-card:hover {
+      border-color: var(--blue-200);
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-3px);
+    }
+
+    .brand-card__logo {
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--white);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gray-100);
+      overflow: hidden;
+    }
+
+    .brand-card__logo img {
+      max-width: 48px;
+      max-height: 48px;
+      object-fit: contain;
+    }
+
+    .brand-card__logo-fallback {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .brand-card__name {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .brand-card__count {
+      font-size: 0.6875rem;
+      color: var(--gray-300);
+    }
+
+    /* ── Reference Cards ── */
+    .refs-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .ref-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-5) var(--space-6);
+      background: var(--white);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .ref-card:hover {
+      border-color: var(--blue-200);
+      box-shadow: var(--shadow-card);
+    }
+
+    .ref-card__code {
+      font-family: var(--font-mono);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--gray-800);
+    }
+
+    .ref-card__desc {
+      font-size: 0.8125rem;
+      color: var(--gray-400);
+      margin-top: var(--space-1);
+    }
+
+    .ref-card__price {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--blue-800);
+    }
+
+    /* ── Ficha Card ── */
+    .ficha-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      margin-bottom: var(--space-6);
+    }
+
+    .ficha-card__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--space-6);
+    }
+
+    .ficha-card__ref {
+      font-family: var(--font-mono);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--gray-900);
+      letter-spacing: -0.02em;
+    }
+
+    .ficha-card__desc {
+      font-size: 0.875rem;
+      color: var(--gray-400);
+      margin-top: var(--space-2);
+    }
+
+    .ficha-card__price {
+      text-align: right;
+    }
+
+    .ficha-card__price-value {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--blue-800);
+    }
+
+    .ficha-card__price-label {
+      font-size: 0.6875rem;
+      color: var(--gray-300);
+    }
+
+    .ficha-card__specs {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--space-6);
+    }
+
+    .ficha-card__spec {
+      padding: var(--space-3) var(--space-4);
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+    }
+
+    .ficha-card__spec-label {
+      font-size: 0.625rem;
+      font-weight: 600;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .ficha-card__spec-value {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--gray-700);
+      margin-top: var(--space-1);
+    }
+
+    .ficha-card__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-3) var(--space-5);
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .btn--primary {
+      color: var(--white);
+      background: var(--blue-800);
+      border: none;
+    }
+
+    .btn--primary:hover {
+      background: var(--blue-700);
+      box-shadow: var(--shadow-brand);
+    }
+
+    .btn--secondary {
+      color: var(--gray-600);
+      background: var(--white);
+      border: 1.5px solid var(--gray-100);
+    }
+
+    .btn--secondary:hover {
+      border-color: var(--gray-200);
+      background: var(--gray-50);
+    }
+
+    /* ── Tip Card ── */
+    .tip-card {
+      padding: var(--space-6);
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      border-radius: var(--radius-lg);
+    }
+
+    .tip-card__label {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--blue-800);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: var(--space-2);
+    }
+
+    .tip-card__text {
+      font-size: 0.875rem;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .anim-fade-up {
+      animation: fadeInUp 0.5s var(--ease-out) both;
+    }
+
+    .anim-delay-1 { animation-delay: 50ms; }
+    .anim-delay-2 { animation-delay: 100ms; }
+    .anim-delay-3 { animation-delay: 150ms; }
+    .anim-delay-4 { animation-delay: 200ms; }
+    .anim-delay-5 { animation-delay: 250ms; }
+    .anim-delay-6 { animation-delay: 300ms; }
+    .anim-delay-7 { animation-delay: 350ms; }
+    .anim-delay-8 { animation-delay: 400ms; }
+    .anim-delay-9 { animation-delay: 450ms; }
+    .anim-delay-10 { animation-delay: 500ms; }
+
+    /* ── Label Badge ── */
+    .label {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      font-size: 0.625rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      background: var(--gray-50);
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .label--brand {
+      color: var(--blue-800);
+      background: var(--blue-50);
+    }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      margin-bottom: var(--space-6);
+      font-size: 0.75rem;
+      color: var(--gray-300);
+    }
+
+    .breadcrumb__current {
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    /* ── View Toggle ── */
+    .view-toggle {
+      display: inline-flex;
+      background: var(--gray-50);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+      margin-bottom: var(--space-6);
+    }
+
+    .view-toggle__btn {
+      padding: var(--space-2) var(--space-4);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--gray-400);
+      background: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s var(--ease-out);
+    }
+
+    .view-toggle__btn--active {
+      background: var(--white);
+      color: var(--gray-800);
+      font-weight: 600;
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--gray-200); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gray-300); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════
+       TOPBAR
+       ═══════════════════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar-logo">
+      <span class="topbar-logo__brand">Sonepar</span>
+      <span class="topbar-logo__sub">Tools</span>
+    </div>
+    <div class="topbar-divider"></div>
+    <nav class="topbar-nav">
+      <a href="#" class="topbar-nav__item topbar-nav__item--active">Fichas Técnicas</a>
+      <a href="#" class="topbar-nav__item">Almacén</a>
+      <a href="#" class="topbar-nav__item">Incidencias</a>
+      <a href="#" class="topbar-nav__item">KPI</a>
+      <a href="#" class="topbar-nav__item">Presupuestos</a>
+      <a href="#" class="topbar-nav__item">Formación</a>
+      <a href="#" class="topbar-nav__item">Sonex</a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="topbar-theme">
+        <span>◐</span>
+        <span>Oscuro</span>
+      </button>
+      <div class="topbar-user">
+        <div class="topbar-user__avatar">IA</div>
+        <span class="topbar-user__name">Iago Robo</span>
+      </div>
+      <button class="topbar-logout" title="Cerrar sesión">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════
+       LAYOUT
+       ═══════════════════════════════════════════════════════ -->
+  <div class="layout">
+
+    <!-- ── Sidebar ─ -->
+    <aside class="sidebar">
+      <div class="sidebar__tool-icon">
+        <div class="sidebar__icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+        </div>
+        <span class="sidebar__tool-name">Fichas Técnicas</span>
+      </div>
+
+      <p class="sidebar__desc">
+        Escribe el nombre, referencia o descripción de cualquier producto del catálogo Sonepar. La IA genera una ficha técnica completa con características, aplicaciones y consejo de instalación.
+      </p>
+
+      <div class="sidebar__tip">
+        <div class="sidebar__tip-label">Consejo</div>
+        <p class="sidebar__tip-text">Útil para dar respuesta rápida al técnico de mostrador.</p>
+      </div>
+
+      <div class="sidebar__footer">
+        <p class="sidebar__footer-text">Sonepar España · A Coruña</p>
+        <p class="sidebar__footer-text">PFC CFGS · 2026</p>
+      </div>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="main">
+
+      <!-- HEADER -->
+      <div class="main__header anim-fade-up">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:8px;">
+          <span class="label label--brand">CATÁLOGO</span>
+          <span class="label">65+ referencias</span>
+        </div>
+        <h1 class="main__title">Fichas Técnicas</h1>
+        <p class="main__subtitle">Busca por referencia o navega por categoría para encontrar el producto exacto.</p>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="search-bar anim-fade-up anim-delay-1">
+        <input type="text" class="search-bar__input" placeholder="Referencia, nombre o descripción...">
+        <button class="search-bar__btn">Buscar</button>
+      </div>
+
+      <!-- VIEW TOGGLE -->
+      <div class="view-toggle anim-fade-up anim-delay-2">
+        <button class="view-toggle__btn view-toggle__btn--active">Navegar</button>
+        <button class="view-toggle__btn">Buscar</button>
+      </div>
+
+      <!-- CATEGORIES -->
+      <div class="anim-fade-up anim-delay-2">
+        <div class="categories-label">Categorías</div>
+      </div>
+      <div class="categories-grid anim-fade-up anim-delay-3">
+        <div class="category-card">
+          <div class="category-card__icon">⚡</div>
+          <div class="category-card__info">
+            <div class="category-card__name">Variadores</div>
+            <div class="category-card__count">12 referencias</div>
+          </div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">🔌</div>
+          <div class="category-card__info">
+            <div class="category-card__name">Contactores</div>
+            <div class="category-card__count">14 referencias</div>
+          </div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">🛡️</div>
+          <div class="category-card__info">
+            <div class="category-card__name">Guardamotores</div>
+            <div class="category-card__count">7 referencias</div>
+          </div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">📊</div>
+          <div class="category-card__info">
+            <div class="category-card__name">PLCs</div>
+            <div class="category-card__count">8 referencias</div>
+          </div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">📡</div>
+          <div class="category-card__info">
+            <div class="category-card__name">Sensores</div>
+            <div class="category-card__count">5 referencias</div>
+          </div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">⚙️</div>
+          <div class="category-card__info">
+            <div class="category-card__name">Protección</div>
+            <div class="category-card__count">11 referencias</div>
+          </div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">💡</div>
+          <div class="category-card__info">
+            <div class="category-card__name">Iluminación</div>
+            <div class="category-card__count">4 referencias</div>
+          </div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">🚗</div>
+          <div class="category-card__info">
+            <div class="category-card__name">Vehículo Eléctrico</div>
+            <div class="category-card__count">4 referencias</div>
+          </div>
+        </div>
+        <div class="category-card">
+          <div class="category-card__icon">☀️</div>
+          <div class="category-card__info">
+            <div class="category-card__name">Energía Solar</div>
+            <div class="category-card__count">5 referencias</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRANDS SECTION (simulated selection) -->
+      <div class="brands-section anim-fade-up anim-delay-4">
+        <div class="section-header">
+          <div class="section-title">Marcas — Variadores</div>
+        </div>
+        <div class="brands-grid">
+          <div class="brand-card">
+            <div class="brand-card__logo">
+              <div class="brand-card__logo-fallback" style="background:#3DCD58;">SE</div>
+            </div>
+            <div class="brand-card__name">Schneider Electric</div>
+            <div class="brand-card__count">2 gamas</div>
+          </div>
+          <div class="brand-card">
+            <div class="brand-card__logo">
+              <div class="brand-card__logo-fallback" style="background:#FF000F;">AB</div>
+            </div>
+            <div class="brand-card__name">ABB</div>
+            <div class="brand-card__count">1 gama</div>
+          </div>
+          <div class="brand-card">
+            <div class="brand-card__logo">
+              <div class="brand-card__logo-fallback" style="background:#E60012;">ME</div>
+            </div>
+            <div class="brand-card__name">Mitsubishi Electric</div>
+            <div class="brand-card__count">1 gama</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCES -->
+      <div class="anim-fade-up anim-delay-5">
+        <div class="section-header">
+          <div class="section-title">ATV320 — Monofásico 230V</div>
+          <span class="label">3 referencias</span>
+        </div>
+      </div>
+      <div class="refs-list anim-fade-up anim-delay-6">
+        <div class="ref-card">
+          <div>
+            <div class="ref-card__code">ATV320U07M2B</div>
+            <div class="ref-card__desc">Variador Schneider ATV320 0.75kW monofásico 230V</div>
+          </div>
+          <div class="ref-card__price">185€</div>
+        </div>
+        <div class="ref-card">
+          <div>
+            <div class="ref-card__code">ATV320U11M2B</div>
+            <div class="ref-card__desc">Variador Schneider ATV320 1.1kW monofásico 230V</div>
+          </div>
+          <div class="ref-card__price">210€</div>
+        </div>
+        <div class="ref-card" style="border-color: var(--blue-200); box-shadow: var(--shadow-card);">
+          <div>
+            <div class="ref-card__code">ATV320U22M2B</div>
+            <div class="ref-card__desc">Variador Schneider ATV320 2.2kW monofásico 230V</div>
+          </div>
+          <div class="ref-card__price">310€</div>
+        </div>
+      </div>
+
+      <!-- FICHA CARD -->
+      <div class="anim-fade-up anim-delay-7" style="margin-top: var(--space-10);">
+        <div class="section-header">
+          <div class="section-title">Ficha Técnica</div>
+          <div class="breadcrumb">
+            <span>Variadores</span>
+            <span>›</span>
+            <span>Schneider</span>
+            <span>›</span>
+            <span>ATV320</span>
+            <span>›</span>
+            <span class="breadcrumb__current">ATV320U22M2B</span>
+          </div>
+        </div>
+
+        <div class="ficha-card">
+          <div class="ficha-card__header">
+            <div>
+              <span class="label label--brand" style="margin-bottom:8px; display:inline-block;">REFERENCIA</span>
+              <div class="ficha-card__ref">ATV320U22M2B</div>
+              <div class="ficha-card__desc">Variador Schneider ATV320 2.2kW monofásico 230V</div>
+            </div>
+            <div class="ficha-card__price">
+              <div class="ficha-card__price-value">310€</div>
+              <div class="ficha-card__price-label">IVA incluido</div>
+            </div>
+          </div>
+
+          <div class="ficha-card__specs">
+            <div class="ficha-card__spec">
+              <div class="ficha-card__spec-label">Marca</div>
+              <div class="ficha-card__spec-value">Schneider Electric</div>
+            </div>
+            <div class="ficha-card__spec">
+              <div class="ficha-card__spec-label">Gama</div>
+              <div class="ficha-card__spec-value">ATV320</div>
+            </div>
+            <div class="ficha-card__spec">
+              <div class="ficha-card__spec-label">Tipo</div>
+              <div class="ficha-card__spec-value">Monofásico 230V</div>
+            </div>
+            <div class="ficha-card__spec">
+              <div class="ficha-card__spec-label">Potencia</div>
+              <div class="ficha-card__spec-value">2.2kW</div>
+            </div>
+            <div class="ficha-card__spec">
+              <div class="ficha-card__spec-label">Tensión</div>
+              <div class="ficha-card__spec-value">230V</div>
+            </div>
+          </div>
+
+          <div class="ficha-card__actions">
+            <button class="btn btn--primary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copiar referencia
+            </button>
+            <button class="btn btn--secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              Ficha fabricante
+            </button>
+            <button class="btn btn--secondary">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+              Presupuesto
+            </button>
+          </div>
+        </div>
+
+        <div class="tip-card">
+          <div class="tip-card__label">💡 Consejo Técnico</div>
+          <p class="tip-card__text">
+            Para ATV320 de Schneider Electric en aplicación monofásico 230v, verificar compatibilidad con dispositivos auxiliares. Consultar disponibilidad en tienda.sonepar.es antes de presupuestar.
+          </p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>
