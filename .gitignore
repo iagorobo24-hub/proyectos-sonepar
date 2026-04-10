@@ -36,3 +36,8 @@ htmlcov/
 .DS_Store
 Thumbs.db
 ```
+.gitnexus
+
+# Git worktrees
+.worktrees/
+
