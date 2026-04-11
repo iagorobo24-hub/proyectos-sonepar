@@ -36,15 +36,14 @@ const HeroContent = () => {
         simulación y asistencia con IA en un solo entorno.
       </motion.p>
 
-      <motion.div 
-        className={styles.contextText}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.3 }}
+      <motion.div
+       className={styles.contextText}
+       initial={{ opacity: 0 }}
+       animate={{ opacity: 1 }}
+       transition={{ duration: 0.6, delay: 0.3 }}
       >
-        Desarrollado por <span style={{ color: 'var(--sonepar-blue)', fontWeight: 'bold' }}>Ismael Aguilar</span> en CIFP Universidad Laboral
+       Desarrollado por <span style={{ color: 'var(--sonepar-blue)', fontWeight: 'bold' }}>Iago Durán</span> en CIFP Universidad Laboral
       </motion.div>
-
       <motion.div 
         className={styles.actions}
         initial={{ opacity: 0, y: 20 }}
