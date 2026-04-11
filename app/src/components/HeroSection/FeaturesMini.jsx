@@ -8,7 +8,7 @@ import {
   GraduationCap, 
   Database,
   FileDown,
-  CloudZap
+  Zap
 } from 'lucide-react';
 import styles from './styles/FeaturesMini.module.css';
 
@@ -52,7 +52,7 @@ const FeaturesMini = () => {
     { 
       title: "Optimización Cloud", 
       desc: "Arquitectura serverless diseñada para máxima velocidad.", 
-      icon: <CloudZap size={20} /> 
+      icon: <Zap size={20} /> 
     }
   ];
 
