@@ -1,9 +1,25 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Layout, Zap, ShieldCheck, Database, Cpu } from 'lucide-react';
 import styles from './styles/HeroVisual.module.css';
 
+const SCREENSHOTS = [
+  { id: 'fichas', url: '/screenshots/final-design-fichas.png', label: 'fichas-tecnicas' },
+  { id: 'sonex', url: '/screenshots/final-design-sonex.png', label: 'asistente-ia' },
+  { id: 'kpi', url: '/screenshots/final-kpi.png', label: 'analisis-logistico' },
+  { id: 'almacen', url: '/screenshots/final-almacen.png', label: 'simulador-almacen' }
+];
+
 const HeroVisual = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % SCREENSHOTS.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className={styles.visualContainer}>
       {/* Glow effect behind mockup */}
@@ -27,20 +43,28 @@ const HeroVisual = () => {
               <span className={styles.dot} />
               <span className={styles.dot} />
             </div>
-            <div className={styles.addressBar}>sonepar-tools.app/dashboard</div>
+            <div className={styles.addressBar}>sonepar-tools.app/{SCREENSHOTS[currentIndex].label}</div>
           </div>
-          
+
           <div className={styles.mockupContent}>
-            <img 
-              src="/screenshots/final-design-fichas.png" 
-              alt="Sonepar Tools Dashboard" 
-              className={styles.mockupImage}
-            />
-            
+            <AnimatePresence mode="wait">
+              <motion.img 
+                key={SCREENSHOTS[currentIndex].id}
+                src={SCREENSHOTS[currentIndex].url} 
+                alt="Sonepar Tools Dashboard" 
+                className={styles.mockupImage}
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -10 }}
+                transition={{ duration: 0.5 }}
+              />
+            </AnimatePresence>
+
             {/* Overlay to simulate depth/interaction */}
             <div className={styles.mockupOverlay} />
           </div>
         </div>
+
 
         {/* Floating cards container - aligned in row */}
         <div className={styles.floatingCardsRow}>
