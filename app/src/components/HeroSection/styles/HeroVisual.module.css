@@ -84,9 +84,12 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  /* Aspect ratio de una captura estándar para evitar saltos de altura */
-  aspect-ratio: 16 / 10;
-  background: var(--gray-50);
+  /* Proporción estándar de pantalla para evitar recortes */
+  aspect-ratio: 16 / 9;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mockupImage {
@@ -95,7 +98,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* Contain asegura que se vea toda la web sin recortes */
+  object-fit: contain;
   display: block;
 }
 
