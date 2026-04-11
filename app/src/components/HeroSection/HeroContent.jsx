@@ -55,7 +55,7 @@ const HeroContent = () => {
           <ArrowRight size={18} style={{ marginLeft: '8px' }} />
         </Link>
         <a 
-          href="https://linkedin.com" 
+          href="https://www.linkedin.com/in/iago-dur%C3%A1n-romera-72b1a13ba/" 
           target="_blank" 
           rel="noopener noreferrer" 
           className={styles.secondaryBtn}

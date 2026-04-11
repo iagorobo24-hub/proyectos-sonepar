@@ -19,7 +19,7 @@ const HeroHeader = () => {
         </div>
         
         <nav className={styles.nav}>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className={styles.navLink}>
+          <a href="https://www.linkedin.com/in/iago-dur%C3%A1n-romera-72b1a13ba/" target="_blank" rel="noopener noreferrer" className={styles.navLink}>
             <Linkedin size={18} />
             <span>LinkedIn</span>
           </a>
