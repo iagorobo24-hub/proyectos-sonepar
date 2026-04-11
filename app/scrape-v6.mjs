@@ -64,10 +64,10 @@ async function main() {
   const seenRefs = new Set(productos.map(p => p.ref));
   console.log(`📊 Estado: ${productos.length} refs | Familia ${progress.catIndex + 1}/${FAMILIAS.length} | Página ${progress.page}\n`);
 
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({ headless: false, slowMo: 50 });
   const context = await browser.newContext({ 
     viewport: { width: 1920, height: 1080 },
-    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
   });
   const page = await context.newPage();
 
@@ -84,14 +84,27 @@ async function main() {
   });
 
   // Init session
-  console.log('📍 Iniciando sesión...');
-  await page.goto('https://tienda.sonepar.es/', { waitUntil: 'domcontentloaded', timeout: 15000 });
-  await sleep(1000);
+  console.log('📍 Iniciando sesión (revisa la ventana del navegador)...');
+  await page.goto('https://tienda.sonepar.es/', { waitUntil: 'domcontentloaded', timeout: 30000 });
+  await sleep(2000);
   try {
-    const btn = await page.$('button:has-text("ACEPTAR"), button:has-text("Aceptar")');
-    if (btn) await btn.click();
+    // Intentar cerrar cookies de varias formas
+    const cookieSelectors = [
+      'button:has-text("ACEPTAR")', 
+      'button:has-text("Aceptar")',
+      '#onetrust-accept-btn-handler',
+      '.cookie-accept'
+    ];
+    for (const sel of cookieSelectors) {
+      const btn = await page.$(sel);
+      if (btn) {
+        await btn.click();
+        console.log('✅ Cookies aceptadas');
+        break;
+      }
+    }
   } catch {}
-  await sleep(500);
+  await sleep(1000);
 
   // ════════════════════════════════════════════════════════
   // SCRAPE EACH FAMILY
@@ -113,15 +126,19 @@ async function main() {
 
       const responsePromise = new Promise(resolve => {
         pendingResolve = resolve;
-        setTimeout(() => { if (pendingResolve) { pendingResolve = null; resolve(null); } }, 8000);
+        // Aumentado a 15 segundos por lentitud de Sonepar
+        setTimeout(() => { if (pendingResolve) { pendingResolve = null; resolve(null); } }, 15000);
       });
 
-      await page.goto(url, { waitUntil: 'commit', timeout: 10000 }).catch(() => {});
+      console.log(`    🔍 Navegando a pág ${pageNum}...`);
+      await page.goto(url, { waitUntil: 'networkidle', timeout: 20000 }).catch(() => {});
       
       const apiData = await responsePromise;
 
       if (!apiData || !apiData.dataRes || apiData.dataRes.length === 0) {
-        console.log(`    🏁 Fin de categoría en página ${pageNum} (${familyNewCount} nuevas refs)`);
+        console.log(`    🏁 Fin de categoría o error en pág ${pageNum} (${familyNewCount} nuevas refs)`);
+        // Si no hay datos, esperamos un poco por si es un microbloqueo
+        await sleep(2000);
         break;
       }
 
@@ -134,7 +151,7 @@ async function main() {
         // ═══════════════════════════════════════════════
         // CAMPO MARCA REAL — no regex, dato directo
         // ═══════════════════════════════════════════════
-        const marcaReal = (art.marca || '').trim().toUpperCase() || '';
+        const marcaReal = (art.marca || '').trim().toUpperCase() || 'GENÉRICO';
         
         productos.push({
           ref,
@@ -156,9 +173,7 @@ async function main() {
       }
       familyNewCount += newInPage;
 
-      if (newInPage > 0 || pageNum % 100 === 0) {
-        console.log(`    📄 Pág ${pageNum}: +${newInPage} refs (${newInPage > 0 ? familyNewCount + ' nuevas' : 'saltadas'})`);
-      }
+      console.log(`    📄 Pág ${pageNum}: +${newInPage} refs (${familyNewCount} acumuladas en esta categoría)`);
 
       pageNum++;
 
@@ -166,11 +181,11 @@ async function main() {
       if (pageNum % 10 === 0) {
         saveProgress({ catIndex: i, page: pageNum, total: productos.length });
         fs.writeFileSync(RESULT_FILE, JSON.stringify(productos, null, 2));
-        console.log(`      💾 Guardado: ${productos.length} refs totales`);
+        console.log(`      💾 Guardado incremental: ${productos.length} refs totales`);
       }
 
-      // Rate limit — 100ms entre páginas
-      await sleep(100);
+      // Delay aleatorio más humano entre 1.5s y 3s
+      await sleep(1500 + Math.random() * 1500);
     }
 
     // Final de familia

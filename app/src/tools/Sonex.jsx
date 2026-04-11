@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from 'react-router-dom'
-import { CATALOGO_PLANO, getProductoPorRef } from '../data/catalogoSonepar'
+import catalogService from '../services/catalogService'
 import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
@@ -54,13 +54,25 @@ export default function Sonex() {
     return elementos;
   };
 
-  const extraerReferencias = (texto) => {
+  const extraerReferencias = async (texto) => {
     if (!texto) return [];
-    const delCatalogo = CATALOGO_PLANO.filter(item => texto.includes(item.ref));
-    if (delCatalogo.length > 0) return delCatalogo.slice(0, 3);
+    
+    // Detectar patrones que parecen referencias (Alfanuméricos, mayúsculas, min 5 caracteres)
     const patron = /\b([A-Z]{2,}[\d]{1,}[A-Z0-9]{1,}[A-Z0-9\-]*)\b/g;
-    const matches = [...new Set(texto.match(patron) || [])].filter(ref => ref.length >= 5 && ref.length <= 30 && /\d/.test(ref)).slice(0, 3);
-    return matches.map(ref => ({ ref, desc: ref, marca: 'Ver catálogo', precio: 'Consultar' }));
+    const matches = [...new Set(texto.match(patron) || [])].filter(ref => ref.length >= 5 && ref.length <= 30 && /\d/.test(ref));
+    
+    if (matches.length === 0) return [];
+
+    // Buscar los datos reales en Firestore para verificar existencia
+    try {
+      const resultados = await Promise.all(
+        matches.slice(0, 5).map(ref => catalogService.getProductoPorRef(ref))
+      );
+      return resultados.filter(Boolean).slice(0, 3);
+    } catch (error) {
+      console.error("Error al extraer referencias de Firestore:", error);
+      return [];
+    }
   };
 
   const irAFicha = (referencia) => { navigate(`/fichas?ref=${encodeURIComponent(referencia)}`); toast.show(`Abriendo ficha de ${referencia}`, 'success'); };
@@ -87,7 +99,8 @@ export default function Sonex() {
     setIsLoading(true);
     try {
       const aiResponse = await generarRespuestaIA(userMessage);
-      const aiMsg = { id: Date.now() + 1, role: "assistant", content: aiResponse, timestamp: new Date(), referencias: extraerReferencias(aiResponse) };
+      const refs = await extraerReferencias(aiResponse);
+      const aiMsg = { id: Date.now() + 1, role: "assistant", content: aiResponse, timestamp: new Date(), referencias: refs };
       setMessages(prev => [...prev, aiMsg]);
       if (aiMsg.referencias.length > 0) setRefsTurno(prev => [...prev, ...aiMsg.referencias]);
     } catch (error) { toast.show("Error al procesar la consulta"); }
@@ -182,7 +195,7 @@ export default function Sonex() {
                   </div>
                   <div className={styles.message__time}>{message.timestamp.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</div>
                   {message.role === 'assistant' && (() => {
-                    const refs = message.referencias || extraerReferencias(message.content);
+                    const refs = message.referencias || [];
                     if (refs.length === 0) return null;
                     return (
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '8px' }}>

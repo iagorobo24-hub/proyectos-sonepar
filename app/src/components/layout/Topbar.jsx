@@ -18,13 +18,13 @@ function getUserInitials(name) {
 
 /* Herramientas de la suite con su ruta y nombre */
 const TOOLS = [
-  { path: '/fichas',       label: 'Fichas Técnicas' },
-  { path: '/almacen',      label: 'Almacén' },
-  { path: '/incidencias',  label: 'Incidencias' },
-  { path: '/kpi',          label: 'KPI' },
-  { path: '/presupuestos', label: 'Presupuestos' },
-  { path: '/formacion',    label: 'Formación' },
-  { path: '/sonex',        label: 'Sonex' },
+  { path: '/app/fichas',       label: 'Fichas Técnicas' },
+  { path: '/app/almacen',      label: 'Almacén' },
+  { path: '/app/incidencias',  label: 'Incidencias' },
+  { path: '/app/kpi',          label: 'KPI' },
+  { path: '/app/presupuestos', label: 'Presupuestos' },
+  { path: '/app/formacion',    label: 'Formación' },
+  { path: '/app/sonex',        label: 'Sonex' },
 ]
 
 /* Topbar — barra superior con logo, navegación, usuario y logout */

@@ -1,24 +1,18 @@
 /**
- * Hook para navegación jerárquica de Fichas Técnicas
+ * Hook para navegación jerárquica de Fichas Técnicas conectado a Firestore
  * Flujo: Categoría → Marca → Gama → Tipo → Referencia → Ficha
  */
 
-import { useState, useCallback, useMemo } from 'react'
-import {
-  CATALOGO_PLANO,
-  getMarcas,
-  getGamasPorMarcaYCategoria,
-  getProductosPorGama,
-  getProductoPorRef,
-} from '../data/catalogoSonepar'
-import { FULL_CATEGORY_INFO, CATEGORY_IDS } from '../data/categoryMapping'
+import { useState, useCallback, useMemo, useEffect } from 'react'
+import catalogService from '../services/catalogService'
+import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 
 // Generamos las categorías dinámicamente desde el mapping
 const CATEGORIAS = Object.keys(FULL_CATEGORY_INFO).map(key => ({
   id: key,
   label: key,
   icon: FULL_CATEGORY_INFO[key].icon,
-  color: '#3b82f6' // Color por defecto o mapeado si fuera necesario
+  color: '#3b82f6'
 }))
 
 export default function useNavegacionFichas() {
@@ -30,39 +24,72 @@ export default function useNavegacionFichas() {
   const [tipo, setTipo] = useState(null)
   const [referencia, setReferencia] = useState(null)
 
+  /* Datos cargados desde Firestore */
+  const [marcasDisponibles, setMarcasDisponibles] = useState([])
+  const [gamasDisponibles, setGamasDisponibles] = useState([])
+  const [tiposDisponibles, setTiposDisponibles] = useState([])
+  const [referenciasDisponibles, setReferenciasDisponibles] = useState([])
+  const [cargando, setCargando] = useState(false)
+
   /* Historial de navegación para botón "Volver" */
   const [historial, setHistorial] = useState([])
 
-  /* ── Datos para cada paso ── */
-  const marcasDisponibles = useMemo(() => {
-    if (!categoria) return []
-    // Adaptamos el array de nombres a objetos para el componente
-    return getMarcas(categoria).map(nombre => ({ nombre }))
+  /* ── Efectos para cargar datos según el paso ── */
+
+  // Cargar Marcas al seleccionar Categoría
+  useEffect(() => {
+    if (!categoria) {
+      setMarcasDisponibles([])
+      return
+    }
+    
+    async function load() {
+      setCargando(true)
+      const data = await catalogService.getMarcasPorCategoria(categoria)
+      setMarcasDisponibles(data)
+      setCargando(false)
+    }
+    load()
   }, [categoria])
 
-  const gamasDisponibles = useMemo(() => {
-    if (!categoria || !marca) return []
-    // getGamasPorMarcaYCategoria espera (marca, categoria)
-    return getGamasPorMarcaYCategoria(marca, categoria)
+  // Cargar Gamas al seleccionar Marca
+  useEffect(() => {
+    if (!categoria || !marca) {
+      setGamasDisponibles([])
+      return
+    }
+
+    async function load() {
+      setCargando(true)
+      const data = await catalogService.getGamasPorMarcaYCategoria(marca, categoria)
+      setGamasDisponibles(data.map(g => g.nombre))
+      setCargando(false)
+    }
+    load()
   }, [categoria, marca])
 
-  const tiposDisponibles = useMemo(() => {
-    if (!categoria || !marca || !gama) return []
-    return [...new Set(
-      getProductosPorGama(categoria, gama)
-        .filter(p => p.marca === marca)
-        .map(p => p.tipo)
-    )]
-  }, [categoria, marca, gama])
-
-  const referenciasDisponibles = useMemo(() => {
-    if (!categoria || !marca || !gama) return []
-    const refs = getProductosPorGama(categoria, gama).filter(p => p.marca === marca)
-    if (tipo) {
-      return refs.filter(p => p.tipo === tipo)
+  // Cargar Productos (Tipos y Refs) al seleccionar Gama
+  useEffect(() => {
+    if (!categoria || !marca || !gama) {
+      setTiposDisponibles([])
+      setReferenciasDisponibles([])
+      return
     }
-    return refs
-  }, [categoria, marca, gama, tipo])
+
+    async function load() {
+      setCargando(true)
+      const products = await catalogService.getProductosPorGama(categoria, marca, gama)
+      
+      // Extraer tipos únicos
+      const uniqueTypes = [...new Set(products.map(p => p.tipo))].filter(Boolean)
+      setTiposDisponibles(uniqueTypes.sort())
+      
+      // Guardar productos para el paso de referencias
+      setReferenciasDisponibles(products)
+      setCargando(false)
+    }
+    load()
+  }, [categoria, marca, gama])
 
   /* ── Navegación hacia adelante ── */
   const seleccionarCategoria = useCallback((catId) => {
@@ -100,11 +127,23 @@ export default function useNavegacionFichas() {
   }, [])
 
   const seleccionarReferencia = useCallback((refId) => {
-    const ficha = getProductoPorRef(refId)
-    setReferencia(ficha)
-    setPaso('ficha')
-    setHistorial(prev => [...prev, { paso: 'referencias' }])
-  }, [])
+    // Si ya lo tenemos en el array de referenciasDisponibles, no hace falta pedirlo
+    const found = referenciasDisponibles.find(p => p.ref === refId)
+    if (found) {
+      setReferencia(found)
+      setPaso('ficha')
+      setHistorial(prev => [...prev, { paso: 'referencias' }])
+    } else {
+      // Si no, lo pedimos a Firestore (pasa en búsquedas directas)
+      setCargando(true)
+      catalogService.getProductoPorRef(refId).then(ficha => {
+        setReferencia(ficha)
+        setPaso('ficha')
+        setHistorial(prev => [...prev, { paso: 'referencias' }])
+        setCargando(false)
+      })
+    }
+  }, [referenciasDisponibles])
 
   /* ── Navegación hacia atrás ── */
   const volver = useCallback(() => {
@@ -112,7 +151,6 @@ export default function useNavegacionFichas() {
     const anterior = nuevoHistorial.pop()
 
     if (!anterior) {
-      // No hay historial, volver a categorías
       setPaso('categorias')
       setCategoria(null)
       setMarca(null)
@@ -165,7 +203,6 @@ export default function useNavegacionFichas() {
     setHistorial(nuevoHistorial)
   }, [historial])
 
-  /* ── Volver al inicio completo ── */
   const reiniciar = useCallback(() => {
     setPaso('categorias')
     setCategoria(null)
@@ -186,25 +223,17 @@ export default function useNavegacionFichas() {
     return parts
   }, [categoria, marca, gama, tipo])
 
-  /* ── Total de referencias por categoría (para badge) ── */
-  const conteoPorCategoria = useMemo(() => {
-    const conteo = {}
-    Object.keys(FULL_CATEGORY_INFO).forEach(catId => {
-      // Calculamos el total de productos en esa familia
-      const familia = catId
-      const subfamilias = getGamasPorMarcaYCategoria('', familia)
-      let total = 0
-      subfamilias.forEach(g => {
-        total += getProductosPorGama(familia, g).length
-      })
-      conteo[catId] = total
-    })
-    return conteo
-  }, [])
+  /* ── Filtrado de referencias por Tipo ── */
+  const referenciasFiltradas = useMemo(() => {
+    if (!tipo) return referenciasDisponibles
+    return referenciasDisponibles.filter(p => p.tipo === tipo)
+  }, [referenciasDisponibles, tipo])
 
   /* ── Búsqueda directa por referencia ── */
-  const buscarReferenciaDirecta = useCallback((texto) => {
-    const p = getProductoPorRef(texto.toUpperCase())
+  const buscarReferenciaDirecta = useCallback(async (texto) => {
+    setCargando(true)
+    const p = await catalogService.getProductoPorRef(texto.toUpperCase())
+    setCargando(false)
     if (p) {
       setReferencia(p)
       setPaso('ficha')
@@ -215,7 +244,6 @@ export default function useNavegacionFichas() {
   }, [])
 
   return {
-    /* Estado */
     paso,
     categoria,
     marca,
@@ -223,19 +251,17 @@ export default function useNavegacionFichas() {
     tipo,
     referencia,
     historial,
+    cargando,
 
-    /* Datos para cada paso */
     categorias: CATEGORIAS,
     marcasDisponibles,
     gamasDisponibles,
     tiposDisponibles,
-    referenciasDisponibles,
-    conteoPorCategoria,
+    referenciasDisponibles: referenciasFiltradas,
+    conteoPorCategoria: {}, // El conteo exacto ya no es viable calcularlo al vuelo para todos
 
-    /* Breadcrumb */
     breadcrumb,
 
-    /* Navegación */
     seleccionarCategoria,
     seleccionarMarca,
     seleccionarGama,
@@ -244,7 +270,6 @@ export default function useNavegacionFichas() {
     volver,
     reiniciar,
 
-    /* Búsqueda */
     buscarReferenciaDirecta,
   }
 }

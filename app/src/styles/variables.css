@@ -8,7 +8,10 @@
 
 :root {
   /* ── Colores corporativos ── */
-  --blue-900: #001a4d;
+  --sonepar-blue: #0072CE;
+  --sonepar-blue-dark: #00569e;
+  --sonepar-black: #0f172a;
+  --blue-900: #0f172a;
   --blue-800: #003087;
   --blue-700: #0044b3;
   --blue-600: #0056d9;
@@ -96,11 +99,18 @@
 
   /* ── Transiciones ── */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
   --duration-fast: 150ms;
-  --duration-normal: 250ms;
-  --duration-slow: 400ms;
+  --duration-normal: 300ms;
+  --duration-slow: 600ms;
+  --duration-extra-slow: 1000ms;
+
+  /* ── Sombras SaaS ── */
+  --shadow-saas: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.05), 0 12px 24px rgba(0, 0, 0, 0.05);
+  --shadow-saas-hover: 0 0 0 1px rgba(0, 114, 206, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05), 0 20px 40px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 20px rgba(0, 114, 206, 0.15);
 
   /* ── Z-index ── */
   --z-dropdown: 100;

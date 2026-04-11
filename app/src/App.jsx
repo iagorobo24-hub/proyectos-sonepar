@@ -1,15 +1,19 @@
+import { Suspense, lazy } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import AppShell from './components/layout/AppShell'
 import LoginPage from './components/auth/LoginPage'
+import LandingPage from './pages/LandingPage'
 import ProtectedRoute from './components/auth/ProtectedRoute'
-import FichasTecnicas from './tools/FichasTecnicas'
-import SimuladorAlmacen from './tools/SimuladorAlmacen'
-import DashboardIncidencias from './tools/DashboardIncidencias'
-import KpiLogistico from './tools/KpiLogistico'
-import Presupuestos from './tools/Presupuestos'
-import FormacionInterna from './tools/FormacionInterna'
-import Sonex from './tools/Sonex'
 import useDocumentTitle from './hooks/useDocumentTitle'
+
+/* Carga diferida (Code Splitting) para optimización Vercel */
+const FichasTecnicas = lazy(() => import('./tools/FichasTecnicas'))
+const SimuladorAlmacen = lazy(() => import('./tools/SimuladorAlmacen'))
+const DashboardIncidencias = lazy(() => import('./tools/DashboardIncidencias'))
+const KpiLogistico = lazy(() => import('./tools/KpiLogistico'))
+const Presupuestos = lazy(() => import('./tools/Presupuestos'))
+const FormacionInterna = lazy(() => import('./tools/FormacionInterna'))
+const Sonex = lazy(() => import('./tools/Sonex'))
 
 /* Componentes wrapper con títulos dinámicos */
 const FichasTecnicasPage    = () => { useDocumentTitle('Fichas Técnicas');    return <FichasTecnicas /> }
@@ -20,30 +24,45 @@ const PresupuestosPage      = () => { useDocumentTitle('Presupuestos');       re
 const FormacionInternaPage  = () => { useDocumentTitle('Formación Interna');  return <FormacionInterna /> }
 const SonexPage             = () => { useDocumentTitle('Sonex');              return <Sonex /> }
 
-/* App — ruta pública /login + resto protegido con un solo ProtectedRoute */
+/* Placeholder de carga para Suspense */
+const PageLoader = () => (
+  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'var(--blue-800)' }}>
+    <div className="animate-pulse">Cargando herramienta...</div>
+  </div>
+)
+
 export default function App() {
   return (
     <Routes>
-      {/* Ruta pública de login */}
+      {/* Rutas públicas */}
+      <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Rutas protegidas: un solo ProtectedRoute envuelve todo el AppShell */}
+      {/* Rutas protegidas */}
       <Route
-        path="/"
+        path="/app"
         element={
           <ProtectedRoute>
             <AppShell />
           </ProtectedRoute>
         }
       >
-        <Route index element={<Navigate to="/fichas" replace />} />
-        <Route path="fichas"       element={<FichasTecnicasPage />} />
-        <Route path="almacen"      element={<SimuladorAlmacenPage />} />
-        <Route path="incidencias"  element={<DashboardIncidenciasPage />} />
-        <Route path="kpi"          element={<KpiLogisticoPage />} />
-        <Route path="presupuestos" element={<PresupuestosPage />} />
-        <Route path="formacion"    element={<FormacionInternaPage />} />
-        <Route path="sonex"        element={<SonexPage />} />
+        <Route index element={<Navigate to="/app/fichas" replace />} />
+        
+        {/* Envolvemos las rutas en Suspense para manejar la carga diferida */}
+        <Route path="*" element={
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="fichas"       element={<FichasTecnicasPage />} />
+              <Route path="almacen"      element={<SimuladorAlmacenPage />} />
+              <Route path="incidencias"  element={<DashboardIncidenciasPage />} />
+              <Route path="kpi"          element={<KpiLogisticoPage />} />
+              <Route path="presupuestos" element={<PresupuestosPage />} />
+              <Route path="formacion"    element={<FormacionInternaPage />} />
+              <Route path="sonex"        element={<SonexPage />} />
+            </Routes>
+          </Suspense>
+        } />
       </Route>
     </Routes>
   )
