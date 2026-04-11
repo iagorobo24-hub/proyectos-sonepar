@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Linkedin, AppWindow } from 'lucide-react';
-import styles from './HeroHeader.module.css';
+import styles from './styles/HeroHeader.module.css';
 
 const HeroHeader = () => {
   return (
