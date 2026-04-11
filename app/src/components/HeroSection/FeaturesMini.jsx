@@ -6,41 +6,53 @@ import {
   Cpu, 
   FileSpreadsheet, 
   GraduationCap, 
-  Layers 
+  Database,
+  FileDown,
+  CloudZap
 } from 'lucide-react';
 import styles from './styles/FeaturesMini.module.css';
 
 const FeaturesMini = () => {
   const features = [
     { 
-      title: "Catálogo Técnico", 
-      desc: "Acceso a más de 1200 referencias de material eléctrico.", 
+      title: "Catálogo Pro", 
+      desc: "Más de 100k referencias clasificadas por Familia y Marca.", 
       icon: <BookText size={20} /> 
     },
     { 
-      title: "KPI Calculator", 
-      desc: "Métricas de rendimiento para personal de almacén.", 
+      title: "KPI Analítica", 
+      desc: "Métricas logísticas y rendimiento de almacén en tiempo real.", 
       icon: <Calculator size={20} /> 
     },
     { 
-      title: "IA Assistant", 
-      desc: "Soporte especializado impulsado por Claude API.", 
+      title: "Asistente SONEX", 
+      desc: "Consultor de material eléctrico con IA avanzada.", 
       icon: <Cpu size={20} /> 
     },
     { 
-      title: "Generador de Presupuestos", 
-      desc: "Crea simulaciones de costes profesionales.", 
+      title: "Presupuestos", 
+      desc: "Generador de simulaciones de costes profesionales.", 
       icon: <FileSpreadsheet size={20} /> 
     },
     { 
-      title: "Simulación de Formación", 
-      desc: "Entrenamiento interactivo para nuevos empleados.", 
+      title: "Simulador 3D", 
+      desc: "Entrenamiento interactivo en entornos de almacén.", 
       icon: <GraduationCap size={20} /> 
     },
     { 
-      title: "Multi-herramienta", 
-      desc: "Todo lo que necesitas en una sola plataforma.", 
-      icon: <Layers size={20} /> 
+      title: "Seguridad Firestore", 
+      desc: "Base de datos asíncrona con cifrado y backups diarios.", 
+      icon: <Database size={20} /> 
+    },
+    { 
+      title: "Exportación PDF", 
+      desc: "Genera informes y fichas técnicas listos para el cliente.", 
+      icon: <FileDown size={20} /> 
+    },
+    { 
+      title: "Optimización Cloud", 
+      desc: "Arquitectura serverless diseñada para máxima velocidad.", 
+      icon: <CloudZap size={20} /> 
     }
   ];
 

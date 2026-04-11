@@ -5,13 +5,15 @@ import styles from './styles/StatsSection.module.css';
 
 const Counter = ({ value, suffix = "" }) => {
   const [displayValue, setDisplayValue] = useState(0);
-  const ref = useRef(null);
-  const isInView = true; // For simplicity in this demo, usually use useInView
 
   useEffect(() => {
     const controls = animate(0, value, {
       duration: 2,
-      onUpdate: (latest) => setDisplayValue(Math.floor(latest)),
+      onUpdate: (latest) => {
+        // Si tiene decimales, mostramos uno. Si es entero, ninguno.
+        const decimals = value % 1 === 0 ? 0 : 1;
+        setDisplayValue(latest.toFixed(decimals));
+      },
       ease: "easeOut"
     });
     return () => controls.stop();
@@ -22,10 +24,10 @@ const Counter = ({ value, suffix = "" }) => {
 
 const StatsSection = () => {
   const stats = [
-    { label: "Referencias", value: 1200, suffix: "+" },
-    { label: "Herramientas", value: 7, suffix: "" },
-    { label: "IA Integrada", value: 100, suffix: "%" },
-    { label: "Simulación", value: 1, suffix: "x" }
+    { label: "Referencias Firestore", value: 100, suffix: "k+" },
+    { label: "Herramientas Pro", value: 8, suffix: "" },
+    { label: "Latencia Asistente", value: 2, suffix: "s" },
+    { label: "Disponibilidad Cloud", value: 99.9, suffix: "%" }
   ];
 
   return (
