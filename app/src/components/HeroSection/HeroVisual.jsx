@@ -9,7 +9,10 @@ const SCREENSHOTS = [
   { id: 'fichas', url: '/screenshots/final-design-fichas.png', label: 'Fichas Técnicas', href: '/app/fichas' },
   { id: 'sonex', url: '/screenshots/final-design-sonex.png', label: 'Asistente SONEX', href: '/app/sonex' },
   { id: 'kpi', url: '/screenshots/final-kpi.png', label: 'KPI Logístico', href: '/app/kpi' },
-  { id: 'almacen', url: '/screenshots/final-almacen.png', label: 'Simulador Almacén', href: '/app/almacen' }
+  { id: 'almacen', url: '/screenshots/final-almacen.png', label: 'Simulador Almacén', href: '/app/almacen' },
+  { id: 'incidencias', url: '/screenshots/final-incidencias.png', label: 'Incidencias', href: '/app/incidencias' },
+  { id: 'presupuestos', url: '/screenshots/final-presupuestos.png', label: 'Presupuestos', href: '/app/presupuestos' },
+  { id: 'formacion', url: '/screenshots/final-formacion.png', label: 'Formación Interna', href: '/app/formacion' }
 ];
 
 const HeroVisual = () => {
@@ -25,7 +28,7 @@ const HeroVisual = () => {
 
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % SCREENSHOTS.length);
-    }, 4000);
+    }, 5000);
 
     const fetchStats = async () => {
       const stats = await catalogService.getCatalogStats();
