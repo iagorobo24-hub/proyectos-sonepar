@@ -144,6 +144,10 @@
   flex: 1;
   min-width: 200px;
   max-width: 320px;
+  padding: var(--space-4) var(--space-5);
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-lg);
 }
 
 .filtroGrupo__titulo {
