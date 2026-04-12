@@ -35,9 +35,26 @@ htmlcov/
 # OS
 .DS_Store
 Thumbs.db
-```
-.gitnexus
+
+# Git tooling
+.gitnexus/
+
+# AI agents and skills
+.agents/
+.claude/
+skills-lock.json
+
+# Vercel local config
+.vercel/
 
 # Git worktrees
 .worktrees/
+
+# Cloud service account keys
+service-account.json
+*.service-account.json
+*-firebase-adminsdk-*.json
+
+# Null/artefact files
+$null
 
