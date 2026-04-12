@@ -1,17 +1,19 @@
 /**
  * SERVICIO DE CATÁLOGO (FIRESTORE) - JERARQUÍA PROFUNDA
  * N1 (Familia) -> MARCA -> N2 (Subfamilia) -> N3 (Categoría)
+ * Fallback local desde hierarchy.json si Firestore no tiene el árbol
  */
-import { 
-  collection, 
-  doc, 
-  getDoc, 
-  getDocs, 
-  query, 
-  where, 
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
   limit,
 } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
+import localHierarchy from '../data/hierarchy.json';
 
 let hierarchyCache = null;
 const productCache = new Map();
@@ -22,11 +24,20 @@ async function getHierarchy() {
     const docRef = doc(db, 'catalog_metadata', 'hierarchy');
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
-      hierarchyCache = docSnap.data().tree || {};
-      return hierarchyCache;
+      const data = docSnap.data();
+      // Si existe el árbol en Firestore, usarlo
+      if (data.tree && Object.keys(data.tree).length > 0) {
+        hierarchyCache = data.tree;
+        return hierarchyCache;
+      }
     }
-  } catch (error) { console.error('Error loading hierarchy:', error); }
-  return {};
+  } catch (error) {
+    console.warn('Firestore hierarchy no disponible, usando fallback local:', error.message);
+  }
+  // Fallback: usar jerarquía local
+  console.log('📂 Usando jerarquía local (hierarchy.json)');
+  hierarchyCache = localHierarchy;
+  return hierarchyCache;
 }
 
 /** Obtiene marcas de una Familia (N1) */
