@@ -1,4 +1,5 @@
 import { useState, useEffect, useReducer } from "react";
+import React from "react";
 import { useSearchParams } from 'react-router-dom'
 import { Euro } from 'lucide-react'
 import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
@@ -47,6 +48,7 @@ export default function Presupuestos() {
   const [guardando, setGuardando] = useState(false);
   const [historial, setHistorial] = useState([]);
   const [numPresupuesto, setNumPresupuesto] = useState(genNum());
+  const formRef = React.useRef(null);
 
   useEffect(() => { try { const h = localStorage.getItem("sonepar_presupuestos_historial"); if (h) setHistorial(JSON.parse(h)); } catch {} }, []);
   useEffect(() => {
@@ -120,6 +122,9 @@ export default function Presupuestos() {
                 <Button variant="primary" size="md" onClick={() => {
                   const catDemos = DEMOS[categoria] || {};
                   setRespuestas(Object.fromEntries(Object.entries(catDemos).map(([k, v]) => [k, v])));
+                  setTimeout(() => {
+                    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                  }, 100);
                 }}>
                   Continuar →
                 </Button>
@@ -128,7 +133,7 @@ export default function Presupuestos() {
 
             {/* Form de respuestas */}
             {categoria && Object.keys(respuestas).length > 0 && vista === 'wizard' && (
-              <div className={styles.formCard} style={{ maxWidth: 500, margin: '24px auto 0' }}>
+              <div ref={formRef} className={styles.formCard} style={{ maxWidth: 500, margin: '24px auto 0' }}>
                 {Object.entries(DEMOS[categoria] || {}).map(([key, val]) => (
                   <div key={key} className={styles.formCard__group}>
                     <label className={styles.formCard__label}>{key.replace(/_/g, ' ').toUpperCase()}</label>
