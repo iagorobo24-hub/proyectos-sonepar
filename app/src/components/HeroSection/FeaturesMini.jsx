@@ -14,45 +14,45 @@ import styles from './styles/FeaturesMini.module.css';
 
 const FeaturesMini = () => {
   const features = [
-    { 
-      title: "Catálogo Pro", 
-      desc: "Más de 100k referencias clasificadas por Familia y Marca.", 
-      icon: <BookText size={20} /> 
+    {
+      title: "Asistente SONEX",
+      desc: "Consultor de material eléctrico con IA avanzada.",
+      icon: <Cpu size={20} />
     },
-    { 
-      title: "KPI Analítica", 
-      desc: "Métricas logísticas y rendimiento de almacén en tiempo real.", 
-      icon: <Calculator size={20} /> 
+    {
+      title: "Catálogo Real",
+      desc: "Más de 64k referencias clasificadas por Familia y Marca.",
+      icon: <BookText size={20} />
     },
-    { 
-      title: "Asistente SONEX", 
-      desc: "Consultor de material eléctrico con IA avanzada.", 
-      icon: <Cpu size={20} /> 
+    {
+      title: "KPI Analítica",
+      desc: "Métricas logísticas y rendimiento de almacén en tiempo real.",
+      icon: <Calculator size={20} />
     },
-    { 
-      title: "Presupuestos", 
-      desc: "Generador de simulaciones de costes profesionales.", 
-      icon: <FileSpreadsheet size={20} /> 
+    {
+      title: "Presupuestos",
+      desc: "Generador de simulaciones de costes profesionales.",
+      icon: <FileSpreadsheet size={20} />
     },
-    { 
-      title: "Simulador 3D", 
-      desc: "Entrenamiento interactivo en entornos de almacén.", 
-      icon: <GraduationCap size={20} /> 
+    {
+      title: "Simulador de Almacén",
+      desc: "Gestión interactiva de invento y espacio de almacén.",
+      icon: <GraduationCap size={20} />
     },
-    { 
-      title: "Seguridad Firestore", 
-      desc: "Base de datos asíncrona con cifrado y backups diarios.", 
-      icon: <Database size={20} /> 
+    {
+      title: "Seguridad Firestore",
+      desc: "Base de datos asíncrona con cifrado y backups diarios.",
+      icon: <Database size={20} />
     },
-    { 
-      title: "Exportación PDF", 
-      desc: "Genera informes y fichas técnicas listos para el cliente.", 
-      icon: <FileDown size={20} /> 
+    {
+      title: "Exportación PDF",
+      desc: "Genera informes y fichas técnicas listos para el cliente.",
+      icon: <FileDown size={20} />
     },
-    { 
-      title: "Optimización Cloud", 
-      desc: "Arquitectura serverless diseñada para máxima velocidad.", 
-      icon: <Zap size={20} /> 
+    {
+      title: "Optimización Cloud",
+      desc: "Arquitectura serverless diseñada para máxima velocidad.",
+      icon: <Zap size={20} />
     }
   ];
 

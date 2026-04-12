@@ -24,10 +24,10 @@ const Counter = ({ value, suffix = "" }) => {
 
 const StatsSection = () => {
   const stats = [
-    { label: "Referencias Firestore", value: 100, suffix: "k+" },
-    { label: "Herramientas Pro", value: 8, suffix: "" },
-    { label: "Latencia Asistente", value: 2, suffix: "s" },
-    { label: "Disponibilidad Cloud", value: 99.9, suffix: "%" }
+    { label: "Referencias en Catálogo", value: 64, suffix: "k+" },
+    { label: "Herramientas Integradas", value: 7, suffix: "" },
+    { label: "Marcas Disponibles", value: 400, suffix: "+" },
+    { label: "Despliegue Continuo", value: 100, suffix: "%" }
   ];
 
   return (
