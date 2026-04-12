@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { useTheme } from '../../contexts/ThemeContext'
 import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
-import { LogOut, Menu, X } from 'lucide-react'
+import { LogOut, LogIn, Menu, X } from 'lucide-react'
 import styles from './Topbar.module.css'
 
 /* Extrae las iniciales de un nombre o email */
@@ -126,8 +126,8 @@ export default function Topbar() {
           <span>{dark ? 'Claro' : 'Oscuro'}</span>
         </button>
 
-        {/* Avatar + nombre del usuario + logout */}
-        {user && (
+        {/* Usuario autenticado o botón de login */}
+        {user ? (
           <>
             <div className={styles.userInfo}>
               {user.photoURL ? (
@@ -160,6 +160,11 @@ export default function Topbar() {
               <LogOut size={15} />
             </button>
           </>
+        ) : (
+          <Link to="/login" className={styles.loginBtn}>
+            <LogIn size={15} />
+            <span>Iniciar sesión</span>
+          </Link>
         )}
       </div>
 

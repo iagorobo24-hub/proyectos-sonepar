@@ -168,6 +168,29 @@
   color: var(--color-error);
 }
 
+/* ── Login (no autenticado) ── */
+.loginBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--sonepar-blue);
+  color: var(--white);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: all var(--duration-fast) var(--ease-out);
+  box-shadow: var(--shadow-sm);
+}
+
+.loginBtn:hover {
+  background: var(--sonepar-blue-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+  color: var(--white);
+}
+
 /* ── Hamburguesa (mobile) ── */
 .menuBtn {
   display: none;
@@ -265,6 +288,10 @@
   }
 
   .userName {
+    display: none;
+  }
+
+  .loginBtn span {
     display: none;
   }
 }

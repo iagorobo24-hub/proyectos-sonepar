@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import AppShell from './components/layout/AppShell'
 import LoginPage from './components/auth/LoginPage'
 import LandingPage from './pages/LandingPage'
-import ProtectedRoute from './components/auth/ProtectedRoute'
 import useDocumentTitle from './hooks/useDocumentTitle'
 
 /* Carga diferida (Code Splitting) para optimización Vercel */
@@ -34,22 +33,14 @@ const PageLoader = () => (
 export default function App() {
   return (
     <Routes>
-      {/* Rutas públicas */}
+      {/* Rutas públicas — sin autenticación obligatoria */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Rutas protegidas */}
-      <Route
-        path="/app"
-        element={
-          <ProtectedRoute>
-            <AppShell />
-          </ProtectedRoute>
-        }
-      >
+      {/* Herramientas — acceso libre, auth opcional */}
+      <Route path="/app" element={<AppShell />}>
         <Route index element={<Navigate to="/app/sonex" replace />} />
-        
-        {/* Envolvemos las rutas en Suspense para manejar la carga diferida */}
+
         <Route path="*" element={
           <Suspense fallback={<PageLoader />}>
             <Routes>
