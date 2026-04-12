@@ -46,9 +46,11 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-6);
+  justify-items: center;
 }
 
 .toolCard {
+  width: 100%;
   background: var(--white);
   padding: var(--space-6);
   border-radius: var(--radius-lg);

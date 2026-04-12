@@ -147,22 +147,22 @@ const HeroVisual = () => {
             </div>
           </motion.div>
 
-          {/* Card 2: Gestión Pro (Anterior Validación) */}
-          <motion.div 
+          {/* Card 2: Presupuestos */}
+          <motion.div
             className={styles.floatingCard}
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
           >
             <div className={styles.cardHeader}>
-              <div className={styles.iconBox} style={{ color: '#00a86b', background: 'rgba(0, 168, 107, 0.1)' }}>
+              <div className={styles.iconBox} style={{ color: '#d97706', background: 'rgba(217, 119, 6, 0.1)' }}>
                 <Calculator size={14} />
               </div>
-              <span className={styles.cardTitle}>Gestión Pro</span>
+              <span className={styles.cardTitle}>Presupuestos</span>
             </div>
             <div className={styles.cardBody}>
-              <span className={styles.pulseText}>Presupuestos y Simulación</span>
+              <span className={styles.pulseText}>Cotizaciones profesionales</span>
               <div className={styles.statusLine}>
-                <span className={styles.statusValue} style={{ color: '#00a86b' }}>Módulos Activos</span>
+                <span className={styles.statusValue} style={{ color: '#d97706' }}>Módulo Activo</span>
               </div>
             </div>
           </motion.div>

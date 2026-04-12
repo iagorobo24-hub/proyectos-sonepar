@@ -40,8 +40,8 @@ const FeaturesMini = () => {
       icon: <GraduationCap size={20} />
     },
     {
-      title: "Seguridad Firestore",
-      desc: "Base de datos asíncrona con cifrado y backups diarios.",
+      title: "Base de Datos Cloud",
+      desc: "Firestore con sincronización asíncrona y caché inteligente de 3 niveles.",
       icon: <Database size={20} />
     },
     {
@@ -50,8 +50,8 @@ const FeaturesMini = () => {
       icon: <FileDown size={20} />
     },
     {
-      title: "Optimización Cloud",
-      desc: "Arquitectura serverless diseñada para máxima velocidad.",
+      title: "Despliegue Continuo",
+      desc: "Arquitectura serverless en Vercel con actualizaciones automáticas.",
       icon: <Zap size={20} />
     }
   ];
