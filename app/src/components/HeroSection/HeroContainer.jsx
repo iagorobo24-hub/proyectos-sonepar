@@ -46,27 +46,27 @@ const HeroContainer = () => {
       <SectionBreak />
 
       {/* Trust & Stats Section */}
-      <StatsSection />
+      <section id="stats"><StatsSection /></section>
 
       <SectionBreak />
 
       {/* How It Works - 3 Steps */}
-      <HowItWorks />
+      <section id="como-funciona"><HowItWorks /></section>
 
       <SectionBreak />
 
       {/* 7 Tools Showcase */}
-      <ToolsShowcase />
+      <section id="herramientas"><ToolsShowcase /></section>
 
       <SectionBreak />
 
       {/* Roadmap */}
-      <Roadmap />
+      <section id="roadmap"><Roadmap /></section>
 
       <SectionBreak />
 
       {/* Tech Stack */}
-      <TechStack />
+      <section id="tech-stack"><TechStack /></section>
 
       <SectionBreak />
 
@@ -76,7 +76,7 @@ const HeroContainer = () => {
       <SectionBreak />
 
       {/* Key Features Quick Access */}
-      <FeaturesMini />
+      <section id="features"><FeaturesMini /></section>
 
       {/* Footer */}
       <SimpleFooter />
