@@ -27,6 +27,30 @@
   color: var(--gray-900);
   font-weight: var(--font-bold);
   letter-spacing: -0.03em;
+  min-height: 3.2em;
+}
+
+.titleWrapper {
+  display: inline;
+}
+
+.cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.85em;
+  background: var(--sonepar-blue);
+  margin-left: 2px;
+  vertical-align: baseline;
+  border-radius: 1px;
+}
+
+.cursorBlink {
+  animation: cursorBlink 0.8s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
 
 .subtitle {

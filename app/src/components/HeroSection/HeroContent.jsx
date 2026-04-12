@@ -1,8 +1,36 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Construction, ArrowRight, Linkedin } from 'lucide-react';
 import styles from './styles/HeroContent.module.css';
+
+const TITLE_TEXT = 'Suite de herramientas para técnicos del sector eléctrico';
+
+const TypingTitle = () => {
+  const [displayed, setDisplayed] = useState('');
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i <= TITLE_TEXT.length) {
+        setDisplayed(TITLE_TEXT.slice(0, i));
+        i++;
+      } else {
+        clearInterval(interval);
+        setTimeout(() => setShowCursor(false), 800);
+      }
+    }, 35);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <span className={styles.titleWrapper}>
+      {displayed}
+      <span className={`${styles.cursor} ${showCursor ? styles.cursorBlink : ''}`} />
+    </span>
+  );
+};
 
 const HeroContent = () => {
   return (
@@ -17,14 +45,14 @@ const HeroContent = () => {
         <span>Proyecto en desarrollo activo</span>
       </motion.div>
 
-      <motion.h1 
+      <motion.div
         className={styles.title}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
       >
-        Suite de herramientas para técnicos del sector eléctrico
-      </motion.h1>
+        <TypingTitle />
+      </motion.div>
 
       <motion.p 
         className={styles.subtitle}

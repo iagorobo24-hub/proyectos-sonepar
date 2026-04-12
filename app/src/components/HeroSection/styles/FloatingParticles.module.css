@@ -1,0 +1,15 @@
+.particlesContainer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  bottom: -10px;
+  border-radius: 50%;
+  background: var(--sonepar-blue);
+  filter: blur(1px);
+}
