@@ -82,6 +82,39 @@ export default function FichasTecnicas() {
   /* ── Sidebar ─ */
   const renderSidebar = () => (
     <aside className={styles.sidebar} aria-label="Categorías de productos">
+      {/* Buscador en sidebar */}
+      <div className={styles.sidebar__search} role="search">
+        <label htmlFor="catalog-search" className="visually-hidden">Buscar en el catálogo de Sonepar</label>
+        <Input
+          id="catalog-search"
+          value={consulta}
+          onChange={e => setConsulta(e.target.value)}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              buscarReferenciaDirecta(consulta).then(found => {
+                if (!found) buscar()
+              })
+            }
+          }}
+          placeholder="Buscar referencia..."
+          size="sm"
+        />
+        <Button
+          variant="primary"
+          size="sm"
+          loading={isCargando}
+          onClick={() => {
+            buscarReferenciaDirecta(consulta).then(found => {
+              if (!found) buscar()
+            })
+          }}
+          aria-label="Ejecutar búsqueda"
+          style={{ marginTop: '8px', width: '100%' }}
+        >
+          Buscar
+        </Button>
+      </div>
+
       <div className={styles.sidebar__label} id="categories-label">Categorías</div>
       <nav aria-labelledby="categories-label">
         {categorias.map(cat => (
@@ -429,58 +462,6 @@ export default function FichasTecnicas() {
               />
             )}
           </div>
-
-          {/* Search bar con etiquetas de formulario */}
-          <div className={styles.searchBar} role="search">
-            <div style={{ flex: 1 }}>
-              <label htmlFor="catalog-search" className="visually-hidden">Buscar en el catálogo de Sonepar</label>
-              <Input
-                id="catalog-search"
-                value={consulta}
-                onChange={e => setConsulta(e.target.value)}
-                onKeyDown={e => {
-                  if (e.key === 'Enter') {
-                    buscarReferenciaDirecta(consulta).then(found => {
-                      if (!found) buscar()
-                    })
-                  }
-                }}
-                placeholder="Buscar referencia o descripción..."
-              />
-            </div>
-            <Button 
-              variant="primary" 
-              size="md" 
-              loading={isCargando} 
-              onClick={() => {
-                buscarReferenciaDirecta(consulta).then(found => {
-                  if (!found) buscar()
-                })
-              }}
-              aria-label="Ejecutar búsqueda"
-            >
-              Buscar
-            </Button>
-          </div>
-
-          {/* Accesos rápidos */}
-          {accesosRapidos?.length > 0 && (
-            <nav className={styles.quickAccess} aria-label="Búsquedas frecuentes">
-              <div className={styles.quickAccess__label}>Búsquedas frecuentes</div>
-              <div className={styles.quickAccess__wrap}>
-                {accesosRapidos.map(a => (
-                  <button 
-                    key={a} 
-                    className={styles.quickAccess__btn} 
-                    onClick={() => { setConsulta(a); buscar(a) }}
-                    aria-label={`Buscar ${a}`}
-                  >
-                    {a}
-                  </button>
-                ))}
-              </div>
-            </nav>
-          )}
 
           {/* Main content */}
           <section aria-live="polite">
