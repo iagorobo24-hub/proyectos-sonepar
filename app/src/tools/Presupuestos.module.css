@@ -38,6 +38,180 @@
 .catCard__icon { font-size: 1.5rem; }
 .catCard__name { font-size: var(--text-sm); font-weight: 600; color: var(--gray-700); text-align: center; }
 
+/* ── Breadcrumb ─ */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--gray-400);
+  margin-bottom: var(--space-6);
+  justify-content: center;
+}
+
+.breadcrumb__link {
+  background: none;
+  border: none;
+  color: var(--blue-800);
+  cursor: pointer;
+  font-weight: 500;
+  padding: 2px 4px;
+  transition: color 0.2s;
+}
+
+.breadcrumb__link:hover { color: var(--blue-600); text-decoration: underline; }
+.breadcrumb__sep { color: var(--gray-300); }
+.breadcrumb__current { font-weight: 600; color: var(--gray-700); }
+
+/* ── Catálogo búsqueda ─ */
+.catalogSearch {
+  max-width: 500px;
+  margin: 0 auto var(--space-6);
+}
+
+.catalogSearch__input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  color: var(--gray-800);
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: all 0.2s var(--ease-out);
+  box-sizing: border-box;
+}
+
+.catalogSearch__input:focus {
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px var(--blue-50);
+  background: var(--white);
+}
+
+.catalogSearch__input::placeholder { color: var(--gray-400); }
+
+/* ── Catálogo grid ─ */
+.catalogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-4);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.productCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  background: var(--white);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out);
+  text-align: left;
+}
+
+.productCard:hover {
+  border-color: var(--blue-200);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.productCard:active {
+  transform: translateY(0);
+}
+
+.productCard--popular {
+  border-color: var(--blue-200);
+  background: linear-gradient(135deg, var(--blue-50), var(--white));
+}
+
+.productCard__badge {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--blue-800);
+  background: var(--blue-100);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.productCard__ref {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--blue-800);
+}
+
+.productCard__desc {
+  font-size: var(--text-xs);
+  color: var(--gray-500);
+  line-height: 1.4;
+}
+
+.productCard__price {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-top: 4px;
+}
+
+.productCard__added {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: var(--success);
+  background: var(--success-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+/* ── Barra inferior catálogo ─ */
+.catalogBar {
+  position: sticky;
+  bottom: 0;
+  background: var(--white);
+  border-top: 1.5px solid var(--gray-100);
+  padding: var(--space-4) var(--space-6);
+  margin-top: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.04);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.catalogBar__info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--gray-500);
+}
+
+.catalogBar__total {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--blue-800);
+  font-size: var(--text-md);
+}
+
+.catalogBar__actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
 /* ── Recomendaciones IA ─ */
 .recomendacionesGrid {
   display: grid;

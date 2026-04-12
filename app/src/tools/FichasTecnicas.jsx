@@ -84,8 +84,9 @@ export default function FichasTecnicas() {
     <aside className={styles.sidebar} aria-label="Categorías de productos">
       {/* Buscador compacto en sidebar */}
       <div className={styles.sidebar__search} role="search">
-        <Input
+        <input
           id="catalog-search"
+          className={styles.sidebar__searchInput}
           value={consulta}
           onChange={e => setConsulta(e.target.value)}
           onKeyDown={e => {
@@ -96,7 +97,6 @@ export default function FichasTecnicas() {
             }
           }}
           placeholder="Buscar referencia..."
-          size="sm"
         />
         <Button
           variant="primary"
@@ -108,7 +108,7 @@ export default function FichasTecnicas() {
             })
           }}
           aria-label="Ejecutar búsqueda"
-          style={{ marginTop: '8px', width: '100%' }}
+          style={{ width: '100%' }}
         >
           Buscar
         </Button>

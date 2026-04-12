@@ -1,10 +1,8 @@
 import { useState, useEffect, useReducer } from "react";
 import React from "react";
 import { useSearchParams } from 'react-router-dom'
-import { Euro } from 'lucide-react'
 import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import Button from '../components/ui/Button'
-import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
 import styles from './Presupuestos.module.css'
 
@@ -14,13 +12,88 @@ const CATEGORIAS = Object.keys(FULL_CATEGORY_INFO).map(key => ({
   icon: FULL_CATEGORY_INFO[key].icon
 }));
 
-const DEMOS = {
-  automatizacion: { potencia: "22", num_motores: "3", plc: "PLC básico", zona_atex: "No" },
-  iluminacion: { superficie: "800", tipo_espacio: "Almacén industrial", telegestion: "Sí", emergencias: "Sí" },
-  vehiculo_electrico: { num_puntos: "6", potencia_punto: "22 kW", gestion: "Smart", instalacion: "Parking" },
-  cuadro_electrico: { potencia_contratada: "63", num_circuitos: "18", protecciones: "Estándar", tension: "400V" },
-  energia_solar: { potencia_pico: "30", tipo: "Autoconsumo con batería", fases: "Trifásico", monitorizacion: "Sí" },
-  clima: { superficie: "300", tipo_sistema: "VRF/VRV", uso: "Comercial", aero: "No" },
+/* Catálogo de referencias por categoría — se reemplazará con datos scrapeados */
+const CATALOGO = {
+  "AUTOMATIZACION": [
+    { ref: "ATV320U22M2B", desc: "Variador ATV320 2.2kW 200-240V monofásico", precio: 310, uso: "muy_alto" },
+    { ref: "ATV320U40M2", desc: "Variador ATV320 4kW 200-240V monofásico", precio: 445, uso: "alto" },
+    { ref: "ATV320U75N4", desc: "Variador ATV320 7.5kW 380-480V trifásico", precio: 590, uso: "medio" },
+    { ref: "LC1D09M7", desc: "Contactor TeSys D 9A 220V AC-3 1NO+1NC", precio: 28, uso: "muy_alto" },
+    { ref: "LC1D12M7", desc: "Contactor TeSys D 12A 220V AC-3 1NO+1NC", precio: 34, uso: "alto" },
+    { ref: "LC1D25M7", desc: "Contactor TeSys D 25A 220V AC-3 1NO+1NC", precio: 52, uso: "medio" },
+    { ref: "LRD08", desc: "Relé térmico TeSys 2.5-4A", precio: 22, uso: "alto" },
+    { ref: "XPSAV3111", desc: "Relé de seguridad Preventa 24V AC/DC", precio: 145, uso: "medio" },
+    { ref: "XB5RW84M5", desc: "Pulsador luminoso Harmony XB5 22mm", precio: 18, uso: "medio" },
+    { ref: "ABL8REM24030", desc: "Fuente alimentación 24V 3A Phaseo", precio: 65, uso: "alto" },
+    { ref: "TM221CE24R", desc: "PLC Modicon M221 24 E/S 16ent/8sal relé", precio: 185, uso: "medio" },
+    { ref: "RSL1PVUL", desc: "Relé interfaz Zelio 24V AC 1C/O", precio: 12, uso: "alto" },
+  ],
+  "ILUMINACION": [
+    { ref: "BN5021L", desc: "Regleta LED Philips 1200mm 4000K 4000lm", precio: 35, uso: "muy_alto" },
+    { ref: "BN5031L", desc: "Regleta LED Philips 1500mm 4000K 5000lm", precio: 42, uso: "alto" },
+    { ref: "RC120B LED40", desc: "Downlight LED CoreLine 4000K 4000lm", precio: 28, uso: "alto" },
+    { ref: "RC140B LED26", desc: "Downlight empotrable LED 26W 4000K", precio: 32, uso: "medio" },
+    { ref: "BVP162 LED70", desc: "Proyector LED BVP 70W 4000K IP65", precio: 85, uso: "medio" },
+    { ref: "BVP162 LED130", desc: "Proyector LED BVP 130W 4000K IP65", precio: 145, uso: "medio" },
+    { ref: "911401825991", desc: "Panel LED CoreLine 600x600 4000K 4000lm", precio: 55, uso: "alto" },
+    { ref: "911401826001", desc: "Panel LED CoreLine 625x625 4000K 4400lm", precio: 58, uso: "alto" },
+    { ref: "ST801M EM 4FT", desc: "Kit emergencia LED 4FT 3h", precio: 22, uso: "medio" },
+    { ref: "CSG100-4K", desc: "Sensor crepuscular 1-10V IP65", precio: 45, uso: "medio" },
+  ],
+  "SEGURIDAD": [
+    { ref: "A9C30216", desc: "Interruptor diferencial ID 40A 30mA A", precio: 68, uso: "muy_alto" },
+    { ref: "A9F74163", desc: "Disyuntor iC60N 1P 6A curva C", precio: 14, uso: "muy_alto" },
+    { ref: "A9F74110", desc: "Disyuntor iC60N 1P 10A curva C", precio: 14, uso: "muy_alto" },
+    { ref: "A9F74116", desc: "Disyuntor iC60N 1P 16A curva C", precio: 14, uso: "alto" },
+    { ref: "A9F74125", desc: "Disyuntor iC60N 1P 25A curva C", precio: 16, uso: "alto" },
+    { ref: "A9N26920", desc: "Interruptor automático C120N 3P 40A", precio: 165, uso: "medio" },
+    { ref: "A9C20842", desc: "Contactor modular iCT 40A 2NO 230V", precio: 42, uso: "alto" },
+    { ref: "A9L16686", desc: "Protector sobretensiones iPRF1 1P+N 40kA", precio: 95, uso: "medio" },
+    { ref: "A9MEM1520", desc: "Contador energía iEM3050 MID 3F 63A", precio: 280, uso: "bajo" },
+    { ref: "A9C41116", desc: "Bornas de conexión Quick 4mm²", precio: 3, uso: "muy_alto" },
+  ],
+  "DISTRIBUCION": [
+    { ref: "NSX100F", desc: "Interruptor caja moldeada NSX 100F 100A 3P", precio: 320, uso: "medio" },
+    { ref: "NSX160F", desc: "Interruptor caja moldeada NSX 160F 160A 3P", precio: 445, uso: "medio" },
+    { ref: "NSX250N", desc: "Interruptor caja moldeada NSX 250N 250A 3P", precio: 680, uso: "bajo" },
+    { ref: "VW3A3614", desc: "Módulo comunicación Modbus NSX", precio: 125, uso: "bajo" },
+    { ref: "GV2ME08", desc: "Interruptor motor GV2 2.5-4A", precio: 38, uso: "alto" },
+    { ref: "GV2ME14", desc: "Interruptor motor GV2 6-10A", precio: 42, uso: "alto" },
+    { ref: "GV2ME16", desc: "Interruptor motor GV2 9-14A", precio: 45, uso: "medio" },
+    { ref: "VW3A1111", desc: "Tarjeta comunicación CANopen ATV320", precio: 75, uso: "bajo" },
+    { ref: "XS618B1PAL10", desc: "Sensor inductivo M18 NPN NO 18mm", precio: 28, uso: "alto" },
+    { ref: "XS7C1A1DAL10", desc: "Sensor inductivo M30 PNP NO 18mm", precio: 35, uso: "medio" },
+  ],
+  "ENERGIA SOLAR": [
+    { ref: "ABL8BPS24200", desc: "Fuente Phaseo 24V 20A 480W", precio: 185, uso: "medio" },
+    { ref: "A9MEM3255", desc: "Contador iEM3255 RS485 3F 55A", precio: 320, uso: "medio" },
+    { ref: "A9MEM3265", desc: "Contador iEM3265 Ethernet 3F 65A", precio: 480, uso: "bajo" },
+    { ref: "A9C22814", desc: "Contacto iCT 16A 1NO 230V", precio: 18, uso: "alto" },
+    { ref: "A9F74120", desc: "Disyuntor iC60N 1P 20A curva C", precio: 14, uso: "alto" },
+    { ref: "A9F74325", desc: "Disyuntor iC60N 3P 25A curva C", precio: 48, uso: "medio" },
+    { ref: "A9L16694", desc: "Protector sobretensiones iPRF2 3P+N 40kA", precio: 165, uso: "medio" },
+    { ref: "A9N26951", desc: "Interruptor C120N 3P 63A", precio: 195, uso: "bajo" },
+  ],
+  "CLIMA": [
+    { ref: "A9C20842", desc: "Contactor modular 40A 2NO 230V", precio: 42, uso: "alto" },
+    { ref: "A9C20734", desc: "Contactor modular 25A 2NC 230V", precio: 38, uso: "medio" },
+    { ref: "A9MEM1520", desc: "Contador energía iEM3050 3F 63A", precio: 280, uso: "medio" },
+    { ref: "A9C22816", desc: "Contacto iCT 25A 2NO 230V", precio: 24, uso: "alto" },
+    { ref: "A9F74116", desc: "Disyuntor iC60N 1P 16A curva C", precio: 14, uso: "alto" },
+    { ref: "A9F74125", desc: "Disyuntor iC60N 1P 25A curva C", precio: 16, uso: "alto" },
+    { ref: "ABL8REM24030", desc: "Fuente alimentación 24V 3A", precio: 65, uso: "medio" },
+    { ref: "CSG100-4K", desc: "Sensor crepuscular 1-10V", precio: 45, uso: "medio" },
+  ],
+  "VEHICULO ELECTRICO": [
+    { ref: "EV22S22AC4", desc: "Wallbox EVlink Pro AC 22kW Tipo 2", precio: 890, uso: "alto" },
+    { ref: "EV22S7AC22", desc: "Cable carga EV Tipo 2 7m 32A", precio: 185, uso: "alto" },
+    { ref: "EV22S7AC22", desc: "Cable carga EV Tipo 2 4m 16A", precio: 125, uso: "medio" },
+    { ref: "A9C20842", desc: "Contactor modular 40A 2NO 230V", precio: 42, uso: "alto" },
+    { ref: "A9F74132", desc: "Disyuntor iC60N 1P 32A curva C", precio: 18, uso: "alto" },
+    { ref: "A9F74140", desc: "Disyuntor iC60N 1P 40A curva C", precio: 22, uso: "medio" },
+    { ref: "A9L16686", desc: "Protector sobretensiones 1P+N 40kA", precio: 95, uso: "medio" },
+    { ref: "A9MEM1520", desc: "Contador energía iEM3050 3F 63A", precio: 280, uso: "medio" },
+  ],
 };
 
 const genNum = () => { const d = new Date(); return `SNP-${d.getFullYear()}${String(d.getMonth()+1).padStart(2,"0")}-${String(Math.floor(Math.random()*900)+100)}`; };
@@ -29,7 +102,8 @@ function partidasReducer(state, action) {
   switch (action.type) {
     case "SET": return action.payload.map((p, i) => ({ ...p, _id: i }));
     case "UPDATE": return state.map(p => p._id === action.id ? { ...p, [action.field]: action.value, precio_total: action.field === "precio_unitario" ? action.value * p.cantidad : action.field === "cantidad" ? p.precio_unitario * action.value : p.precio_total } : p);
-    case "ADD": return [...state, { _id: state.length, ref: "", desc: "", cantidad: 1, precio_unitario: 0, precio_total: 0, descuento: 0 }];
+    case "ADD": return [...state, { _id: state.length, ref: "", desc: "", cantidad: 1, precio_unitario: 0, precio_total: 0 }];
+    case "ADD_FROM_CATALOG": return [...state, { _id: state.length, ref: action.ref, desc: action.desc, cantidad: action.cantidad || 1, precio_unitario: action.precio || 0, precio_total: (action.precio || 0) * (action.cantidad || 1) }];
     case "DELETE": return state.filter(p => p._id !== action.id);
     default: return state;
   }
@@ -39,48 +113,46 @@ export default function Presupuestos() {
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
   const [categoria, setCategoria] = useState("");
-  const [respuestas, setRespuestas] = useState({});
-  const [recomendaciones, setRecomendaciones] = useState([]);
   const [partidas, dispatchPartidas] = useReducer(partidasReducer, []);
   const [datosCliente, setDatosCliente] = useState({ nombre: "", cif: "", contacto: "", email: "", telefono: "", direccion: "", poblacion: "", cp: "", provincia: "", pais: "España", iva: 21, forma_pago: "Transferencia", plazo_entrega: "15 días", validez: "30 días" });
   const [vista, setVista] = useState("wizard");
-  const [generando, setGenerando] = useState(false);
   const [guardando, setGuardando] = useState(false);
   const [historial, setHistorial] = useState([]);
   const [numPresupuesto, setNumPresupuesto] = useState(genNum());
-  const formRef = React.useRef(null);
+  const [filtroCatalogo, setFiltroCatalogo] = useState("");
+  const [añadidos, setAñadidos] = useState({});
 
   useEffect(() => { try { const h = localStorage.getItem("sonepar_presupuestos_historial"); if (h) setHistorial(JSON.parse(h)); } catch {} }, []);
   useEffect(() => {
     const producto = searchParams.get('producto');
     const referencia = searchParams.get('referencia');
     if (producto && referencia) {
-      dispatchPartidas({ type: "ADD" });
-      const newId = partidas.length;
-      dispatchPartidas({ type: "UPDATE", id: newId, field: "ref", value: referencia });
-      dispatchPartidas({ type: "UPDATE", id: newId, field: "desc", value: producto });
+      dispatchPartidas({ type: "ADD_FROM_CATALOG", ref: referencia, desc: producto, precio: 0 });
       setVista("editor");
     }
   }, [searchParams]);
 
-  const buscarRecomendaciones = async () => {
-    if (!categoria) { toast.show("Selecciona una categoría"); return; }
-    setGenerando(true);
-    try {
-      const { callAnthropicAI, parseAIJsonResponse } = await import('../services/anthropicService');
-      const { text } = await callAnthropicAI({ model: "claude-sonnet-4-20250514", max_tokens: 800, system: "Eres un comercial experto de Sonepar España.", messages: [{ role: "user", content: `Categoría: ${CATEGORIAS.find(c => c.id === categoria)?.label}\nRequisitos: ${Object.entries(respuestas).map(([k, v]) => `- ${k}: ${v}`).join("\n")}\n\nJSON: {"productos": [{"ref":"ATV320U22M2B","desc":"Variador...","precio":310,"cantidad":2,"motivo":"Adecuado..."}]}` }] });
-      const json = parseAIJsonResponse(text, p => p.productos && Array.isArray(p.productos));
-      if (!json || json.error) { toast.show("La IA devolvió una respuesta inválida."); setGenerando(false); return; }
-      setRecomendaciones(json.productos || []);
-      dispatchPartidas({ type: "SET", payload: (json.productos || []).map(p => ({ ...p, cantidad: p.cantidad || 1, descuento: 0 })) });
-      setVista("editor");
-    } catch { toast.show("Error al generar recomendaciones"); }
-    setGenerando(false);
+  const continuarASleccion = () => {
+    if (!categoria) { toast.show("Selecciona una categoría primero"); return; }
+    setVista("seleccion");
+    setAñadidos({});
+  };
+
+  const añadirProducto = (prod) => {
+    const key = prod.ref;
+    dispatchPartidas({ type: "ADD_FROM_CATALOG", ref: prod.ref, desc: prod.desc, precio: prod.precio });
+    setAñadidos(prev => ({ ...prev, [key]: (prev[key] || 0) + 1 }));
+    toast.show(`${prod.ref} añadido al presupuesto`, "success");
+  };
+
+  const irAEditor = () => {
+    if (partidas.length === 0) { toast.show("Añade al menos un producto al presupuesto"); return; }
+    setVista("editor");
   };
 
   const guardar = () => {
     setGuardando(true);
-    const presupuesto = { numero: numPresupuesto, fecha: new Date().toISOString(), cliente: datosCliente, partidas, total: partidas.reduce((s, p) => s + p.precio_total, 0) };
+    const presupuesto = { numero: numPresupuesto, fecha: new Date().toISOString(), cliente: datosCliente, partidas, categoria, total: partidas.reduce((s, p) => s + p.precio_total, 0) };
     const nuevo = [presupuesto, ...historial].slice(0, 20);
     setHistorial(nuevo);
     try { localStorage.setItem("sonepar_presupuestos_historial", JSON.stringify(nuevo)); } catch {}
@@ -91,6 +163,16 @@ export default function Presupuestos() {
   const totalBase = partidas.reduce((s, p) => s + p.precio_total, 0);
   const ivaAmount = totalBase * (datosCliente.iva / 100);
   const totalFinal = totalBase + ivaAmount;
+
+  /* Catálogo filtrado y ordenado por uso */
+  const catalogoFiltrado = React.useMemo(() => {
+    const items = CATALOGO[categoria] || [];
+    const filtrado = filtroCatalogo
+      ? items.filter(p => p.ref.toLowerCase().includes(filtroCatalogo.toLowerCase()) || p.desc.toLowerCase().includes(filtroCatalogo.toLowerCase()))
+      : items;
+    const ordenUso = { muy_alto: 0, alto: 1, medio: 2, bajo: 3 };
+    return filtrado.sort((a, b) => (ordenUso[a.uso] || 2) - (ordenUso[b.uso] || 2));
+  }, [categoria, filtroCatalogo]);
 
   /* ── WIZARD: Selección de categoría ── */
   if (vista === "wizard") {
@@ -103,7 +185,7 @@ export default function Presupuestos() {
                 <span style={{ fontSize: '2rem' }}>💰</span>
                 <h1 className={styles.pageTitle}>Presupuestos</h1>
               </div>
-              <p className={styles.pageSubtitle}>Genera presupuestos técnicos con recomendaciones de IA</p>
+              <p className={styles.pageSubtitle}>Genera presupuestos técnicos seleccionando referencias del catálogo</p>
             </div>
 
             <h3 style={{ textAlign: 'center', fontSize: '0.875rem', fontWeight: 600, color: 'var(--gray-600)', marginBottom: '24px' }}>Selecciona la categoría de instalación</h3>
@@ -116,37 +198,14 @@ export default function Presupuestos() {
               ))}
             </div>
 
-            {/* Botón Continuar tras seleccionar categoría */}
-            {categoria && vista === 'wizard' && recomendaciones.length === 0 && (
-              <div style={{ textAlign: 'center', marginTop: '24px' }}>
-                <Button variant="primary" size="md" onClick={() => {
-                  const catDemos = DEMOS[categoria] || {};
-                  setRespuestas(Object.fromEntries(Object.entries(catDemos).map(([k, v]) => [k, v])));
-                  setTimeout(() => {
-                    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }, 300);
-                }}>
-                  Continuar →
+            {categoria && (
+              <div style={{ textAlign: 'center', marginTop: '32px' }}>
+                <Button variant="primary" size="lg" onClick={continuarASleccion}>
+                  Ver catálogo de {CATEGORIAS.find(c => c.id === categoria)?.label} →
                 </Button>
               </div>
             )}
 
-            {/* Form de respuestas */}
-            {categoria && Object.keys(respuestas).length > 0 && vista === 'wizard' && (
-              <div ref={formRef} className={styles.formCard} style={{ maxWidth: 500, margin: '32px auto 0', border: '2px solid var(--blue-200)', boxShadow: 'var(--shadow-md)' }}>
-                {Object.entries(DEMOS[categoria] || {}).map(([key, val]) => (
-                  <div key={key} className={styles.formCard__group}>
-                    <label className={styles.formCard__label}>{key.replace(/_/g, ' ').toUpperCase()}</label>
-                    <input className={styles.formCard__input} value={respuestas[key] || val} onChange={e => setRespuestas(p => ({ ...p, [key]: e.target.value }))} />
-                  </div>
-                ))}
-                <Button variant="primary" size="md" onClick={buscarRecomendaciones} loading={generando} style={{ width: '100%', marginTop: '8px' }}>
-                  Generar recomendaciones IA →
-                </Button>
-              </div>
-            )}
-
-            {/* Historial */}
             {historial.length > 0 && !categoria && (
               <div style={{ marginTop: '48px' }}>
                 <h3 style={{ textAlign: 'center', fontSize: '0.8125rem', fontWeight: 600, color: 'var(--gray-400)', marginBottom: '16px' }}>Últimos presupuestos</h3>
@@ -170,6 +229,87 @@ export default function Presupuestos() {
     );
   }
 
+  /* ── SELECCIÓN: Catálogo de productos ── */
+  if (vista === "seleccion") {
+    return (
+      <div className={styles.layout}>
+        <main className={styles.main}>
+          <div className={styles.main__content}>
+            <div className={styles.pageHeader}>
+              <h1 className={styles.pageTitle}>
+                <span aria-hidden="true">{CATEGORIAS.find(c => c.id === categoria)?.icon}</span>
+                {' '}{CATEGORIAS.find(c => c.id === categoria)?.label}
+              </h1>
+              <p className={styles.pageSubtitle}>Haz clic en un producto para añadirlo al presupuesto</p>
+            </div>
+
+            {/* Breadcrumb */}
+            <div className={styles.breadcrumb}>
+              <button className={styles.breadcrumb__link} onClick={() => setVista("wizard")}>Categorías</button>
+              <span className={styles.breadcrumb__sep}>›</span>
+              <span className={styles.breadcrumb__current}>{CATEGORIAS.find(c => c.id === categoria)?.label}</span>
+            </div>
+
+            {/* Buscador dentro del catálogo */}
+            <div className={styles.catalogSearch}>
+              <input
+                className={styles.catalogSearch__input}
+                placeholder="Filtrar por referencia o descripción..."
+                value={filtroCatalogo}
+                onChange={e => setFiltroCatalogo(e.target.value)}
+              />
+            </div>
+
+            {/* Lista de productos */}
+            <div className={styles.catalogGrid}>
+              {catalogoFiltrado.map(prod => {
+                const esPopular = prod.uso === 'muy_alto';
+                const vecesAñadido = añadidos[prod.ref] || 0;
+                return (
+                  <button
+                    key={prod.ref}
+                    className={`${styles.productCard} ${esPopular ? styles['productCard--popular'] : ''}`}
+                    onClick={() => añadirProducto(prod)}
+                  >
+                    {esPopular && <span className={styles.productCard__badge}>Popular</span>}
+                    <div className={styles.productCard__ref}>{prod.ref}</div>
+                    <div className={styles.productCard__desc}>{prod.desc}</div>
+                    <div className={styles.productCard__price}>{prod.precio.toFixed(2)} €</div>
+                    {vecesAñadido > 0 && (
+                      <span className={styles.productCard__added}>✓ ×{vecesAñadido}</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {catalogoFiltrado.length === 0 && (
+              <div className={styles.emptyState}>
+                <div className={styles.emptyState__icon}>🔍</div>
+                <div className={styles.emptyState__title}>Sin resultados</div>
+                <div className={styles.emptyState__text}>No se encontraron productos con ese filtro</div>
+              </div>
+            )}
+
+            {/* Barra inferior con resumen y botón editor */}
+            {partidas.length > 0 && (
+              <div className={styles.catalogBar}>
+                <div className={styles.catalogBar__info}>
+                  <span>{partidas.length} producto{partidas.length > 1 ? 's' : ''} añadido{partidas.length > 1 ? 's' : ''}</span>
+                  <span className={styles.catalogBar__total}>{totalBase.toFixed(2)} €</span>
+                </div>
+                <div className={styles.catalogBar__actions}>
+                  <Button variant="secondary" size="md" onClick={() => setVista("wizard")}>Cambiar categoría</Button>
+                  <Button variant="primary" size="md" onClick={irAEditor}>Ir al presupuesto →</Button>
+                </div>
+              </div>
+            )}
+          </div>
+        </main>
+      </div>
+    );
+  }
+
   /* ── EDITOR: Tabla de partidas ── */
   return (
     <div className={styles.layout}>
@@ -177,7 +317,16 @@ export default function Presupuestos() {
         <div className={styles.main__content}>
           <div className={styles.pageHeader}>
             <h1 className={styles.pageTitle}>{numPresupuesto}</h1>
-            <p className={styles.pageSubtitle}>{datosCliente.nombre || 'Presupuesto sin cliente'}</p>
+            <p className={styles.pageSubtitle}>{datosCliente.nombre || 'Presupuesto sin cliente'} · {partidas.length} partidas</p>
+          </div>
+
+          {/* Breadcrumb */}
+          <div className={styles.breadcrumb}>
+            <button className={styles.breadcrumb__link} onClick={() => setVista("wizard")}>Categorías</button>
+            <span className={styles.breadcrumb__sep}>›</span>
+            <button className={styles.breadcrumb__link} onClick={() => setVista("seleccion")}>{CATEGORIAS.find(c => c.id === categoria)?.label || 'Catálogo'}</button>
+            <span className={styles.breadcrumb__sep}>›</span>
+            <span className={styles.breadcrumb__current}>Presupuesto</span>
           </div>
 
           {/* Datos cliente */}
@@ -213,7 +362,7 @@ export default function Presupuestos() {
               </div>
             ))}
             <div style={{ padding: '12px 20px' }}>
-              <Button variant="ghost" size="sm" onClick={() => dispatchPartidas({ type: "ADD" })}>+ Añadir partida</Button>
+              <Button variant="ghost" size="sm" onClick={() => dispatchPartidas({ type: "ADD" })}>+ Añadir partida manual</Button>
             </div>
           </div>
 
@@ -227,9 +376,10 @@ export default function Presupuestos() {
           </div>
 
           {/* Acciones */}
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '24px' }}>
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', marginTop: '24px', flexWrap: 'wrap' }}>
+            <Button variant="secondary" size="md" onClick={() => setVista("seleccion")}>← Volver al catálogo</Button>
             <Button variant="primary" size="md" onClick={guardar} loading={guardando}>Guardar presupuesto</Button>
-            <Button variant="secondary" size="md" onClick={() => { setVista("wizard"); setNumPresupuesto(genNum()); }}>Nuevo presupuesto</Button>
+            <Button variant="ghost" size="md" onClick={() => { setVista("wizard"); setNumPresupuesto(genNum()); }}>Nuevo presupuesto</Button>
           </div>
         </div>
       </main>
