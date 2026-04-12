@@ -6,34 +6,34 @@ import styles from './styles/Roadmap.module.css';
 const Roadmap = () => {
   const phases = [
     {
-      phase: 'Fase 1',
-      title: 'Fundamentos UI',
+      version: 'v1.0.0',
+      title: 'Cimientos de la Suite',
       status: 'done',
-      items: ['Routing y AppShell', 'Sidebar de navegación', 'Sistema de diseño', 'Tipografía y colores']
+      items: ['AppShell con Topbar y Sidebar', 'Router con 7 rutas protegidas', 'Sistema de diseño (variables CSS)', 'Tipografía IBM Plex Sans global']
     },
     {
-      phase: 'Fase 2',
-      title: 'Catálogo Firestore',
+      version: 'v2.0.0',
+      title: 'Rediseño Completo',
       status: 'done',
-      items: ['64.000+ referencias', 'Jerarquía por marcas', 'Sync asíncrona', 'Code splitting']
+      items: ['Componentes UI (Button, Badge, Input)', 'Fichas Técnicas reescrito', '6 herramientas estandarizadas', 'SONEX con IA + flujo integrado']
     },
     {
-      phase: 'Fase 3',
-      title: 'Asistente SONEX',
+      version: 'v3.0.0',
+      title: 'Auth y Producción',
       status: 'done',
-      items: ['Integración Claude API', 'Consultas por referencia', 'Navegación desde SONEX', 'Markdown rendering']
+      items: ['Firebase Auth (Google Sign-In)', 'Responsive con hamburguesa ARIA', '14 tests E2E con Playwright', 'Deploy en Vercel + Edge Functions']
     },
     {
-      phase: 'Fase 4',
-      title: 'Herramientas Pro',
+      version: 'Actual',
+      title: 'Migración a Firestore',
       status: 'progress',
-      items: ['KPIs logísticos', 'Simulador almacén', 'Dashboard incidencias', 'Presupuestos']
+      items: ['Catálogo 64k+ referencias reales', 'Jerarquía 4 niveles por marca', 'Code splitting (React.lazy)', 'Cache 3 niveles + Skeletons']
     },
     {
-      phase: 'Fase 5',
-      title: 'Producción',
+      version: 'Próximo',
+      title: 'Landing y Accesibilidad',
       status: 'pending',
-      items: ['Responsive completo', 'Accesibilidad WCAG', 'Deploy Vercel', 'Analytics']
+      items: ['Hero Section con secciones nuevas', 'WCAG 2.2 completo', 'Sync masiva Firestore completa', 'Eliminación catálogo estático']
     }
   ];
 
@@ -83,7 +83,7 @@ const Roadmap = () => {
                   {p.status === 'pending' && <Circle size={20} />}
                 </div>
                 <div className={styles.phaseInfo}>
-                  <span className={styles.phaseLabel}>{p.phase}</span>
+                  <span className={styles.phaseLabel}>{p.version}</span>
                   <h3 className={styles.phaseTitle}>{p.title}</h3>
                 </div>
                 <span className={`${styles.statusBadge} ${styles[p.status]}`}>
