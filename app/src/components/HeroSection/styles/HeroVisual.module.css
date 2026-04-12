@@ -84,12 +84,33 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  /* Proporción estándar de pantalla para evitar recortes */
   aspect-ratio: 16 / 9;
   background: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.mockupLink {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+}
+
+.mockupLink::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 114, 206, 0);
+  transition: background var(--duration-normal) var(--ease-out);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.mockupLink:hover::after {
+  background: rgba(0, 114, 206, 0.05);
 }
 
 .mockupImage {
@@ -98,7 +119,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* Contain asegura que se vea toda la web sin recortes */
   object-fit: contain;
   display: block;
 }
@@ -113,6 +133,41 @@
   pointer-events: none;
 }
 
+/* Indicadores de rotación */
+.rotationDots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+
+.dotIndicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gray-200);
+  border: none;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-out);
+  padding: 0;
+}
+
+.dotIndicator:hover {
+  background: var(--gray-300);
+  transform: scale(1.2);
+}
+
+.dotActive {
+  background: var(--sonepar-blue);
+  width: 24px;
+  border-radius: var(--radius-full);
+}
+
+.dotActive:hover {
+  background: var(--sonepar-blue-dark);
+}
+
+/* Floating cards */
 .floatingCardsRow {
   display: flex;
   justify-content: center;

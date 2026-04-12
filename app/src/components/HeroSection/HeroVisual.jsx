@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { Layout, Zap, ShieldCheck, Database, Cpu, BarChart3, Calculator } from 'lucide-react';
 import catalogService from '../../services/catalogService';
 import styles from './styles/HeroVisual.module.css';
 
 const SCREENSHOTS = [
-  { id: 'fichas', url: '/screenshots/final-design-fichas.png', label: 'fichas-tecnicas' },
-  { id: 'sonex', url: '/screenshots/final-design-sonex.png', label: 'asistente-ia' },
-  { id: 'kpi', url: '/screenshots/final-kpi.png', label: 'analisis-logistico' },
-  { id: 'almacen', url: '/screenshots/final-almacen.png', label: 'simulador-almacen' }
+  { id: 'fichas', url: '/screenshots/final-design-fichas.png', label: 'Fichas Técnicas', href: '/app/fichas' },
+  { id: 'sonex', url: '/screenshots/final-design-sonex.png', label: 'Asistente SONEX', href: '/app/sonex' },
+  { id: 'kpi', url: '/screenshots/final-kpi.png', label: 'KPI Logístico', href: '/app/kpi' },
+  { id: 'almacen', url: '/screenshots/final-almacen.png', label: 'Simulador Almacén', href: '/app/almacen' }
 ];
 
 const HeroVisual = () => {
@@ -66,26 +67,41 @@ const HeroVisual = () => {
               <span className={styles.dot} />
               <span className={styles.dot} />
             </div>
-            <div className={styles.addressBar}>sonepar-tools.app/{SCREENSHOTS[currentIndex].label}</div>
+            <div className={styles.addressBar}>sonepar-tools.app{SCREENSHOTS[currentIndex].href.replace('/app', '')}</div>
           </div>
 
-          <div className={styles.mockupContent}>
-            <AnimatePresence>
-              <motion.img 
-                key={SCREENSHOTS[currentIndex].id}
-                src={SCREENSHOTS[currentIndex].url} 
-                alt="Sonepar Tools Dashboard" 
-                className={styles.mockupImage}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
-              />
-            </AnimatePresence>
+          {/* Mockup clickeable - link a la herramienta */}
+          <Link to={SCREENSHOTS[currentIndex].href} className={styles.mockupLink}>
+            <div className={styles.mockupContent}>
+              <AnimatePresence>
+                <motion.img
+                  key={SCREENSHOTS[currentIndex].id}
+                  src={SCREENSHOTS[currentIndex].url}
+                  alt={SCREENSHOTS[currentIndex].label}
+                  className={styles.mockupImage}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.8, ease: "easeInOut" }}
+                />
+              </AnimatePresence>
 
-            {/* Overlay to simulate depth/interaction */}
-            <div className={styles.mockupOverlay} />
-          </div>
+              {/* Overlay to simulate depth/interaction */}
+              <div className={styles.mockupOverlay} />
+            </div>
+          </Link>
+        </div>
+
+        {/* Indicadores de rotación (dots) */}
+        <div className={styles.rotationDots}>
+          {SCREENSHOTS.map((screenshot, idx) => (
+            <button
+              key={screenshot.id}
+              className={`${styles.dotIndicator} ${idx === currentIndex ? styles.dotActive : ''}`}
+              onClick={() => setCurrentIndex(idx)}
+              aria-label={`Ver ${screenshot.label}`}
+            />
+          ))}
         </div>
 
 

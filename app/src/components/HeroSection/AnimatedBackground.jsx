@@ -8,26 +8,26 @@ const AnimatedBackground = () => {
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="circuit-pattern" width="200" height="200" patternUnits="userSpaceOnUse">
-            <path 
-              d="M 10 10 L 190 10 L 190 190 L 10 190 Z" 
-              fill="none" 
-              stroke="var(--sonepar-blue)" 
-              strokeWidth="0.5" 
-              opacity="0.05"
+            <path
+              d="M 10 10 L 190 10 L 190 190 L 10 190 Z"
+              fill="none"
+              stroke="var(--sonepar-blue)"
+              strokeWidth="0.8"
+              opacity="0.12"
             />
-            <circle cx="10" cy="10" r="1.2" fill="var(--sonepar-blue)" opacity="0.15" />
-            <circle cx="190" cy="10" r="1.2" fill="var(--sonepar-blue)" opacity="0.15" />
-            <circle cx="190" cy="190" r="1.2" fill="var(--sonepar-blue)" opacity="0.15" />
-            <circle cx="10" cy="190" r="1.2" fill="var(--sonepar-blue)" opacity="0.15" />
-            
+            <circle cx="10" cy="10" r="2" fill="var(--sonepar-blue)" opacity="0.25" />
+            <circle cx="190" cy="10" r="2" fill="var(--sonepar-blue)" opacity="0.25" />
+            <circle cx="190" cy="190" r="2" fill="var(--sonepar-blue)" opacity="0.25" />
+            <circle cx="10" cy="190" r="2" fill="var(--sonepar-blue)" opacity="0.25" />
+
             <motion.path
               d="M 10 100 L 190 100"
               stroke="var(--sonepar-blue)"
-              strokeWidth="1"
+              strokeWidth="1.5"
               initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ 
+              animate={{
                 pathLength: [0, 1, 1, 0],
-                opacity: [0, 0.25, 0.25, 0],
+                opacity: [0, 0.4, 0.4, 0],
                 x: [0, 0, 200, 200]
               }}
               transition={{
@@ -36,6 +36,25 @@ const AnimatedBackground = () => {
                 ease: "linear"
               }}
             />
+
+            <motion.path
+              d="M 100 10 L 100 190"
+              stroke="var(--sonepar-blue)"
+              strokeWidth="1"
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{
+                pathLength: [0, 1, 1, 0],
+                opacity: [0, 0.3, 0.3, 0],
+                y: [0, 200, 200, 0]
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+
+            <circle cx="100" cy="100" r="1.5" fill="var(--sonepar-blue)" opacity="0.15" />
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#circuit-pattern)" />
