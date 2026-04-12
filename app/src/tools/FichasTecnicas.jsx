@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useToast } from '../contexts/ToastContext'
 import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import useNavegacionFichas from '../hooks/useNavegacionFichas'
-import { getGamasPorMarcaYCategoria, getProductosPorGama } from '../data/catalogoSonepar'
-import { CATEGORY_IDS, FULL_CATEGORY_INFO } from '../data/categoryMapping'
+import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import { MARCAS } from '../data/marcasLogos'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
@@ -22,6 +21,21 @@ import {
 } from '../components/ui/CircleLayout'
 import styles from './FichasTecnicas.module.css'
 
+/* Componente Skeleton con atributos de accesibilidad */
+const SkeletonCard = ({ type = 'brand' }) => {
+  const baseStyle = {
+    background: 'linear-gradient(90deg, var(--gray-100) 25%, var(--gray-50) 50%, var(--gray-100) 75%)',
+    backgroundSize: '200% 100%',
+    animation: `${styles.shimmer} 1.5s infinite`,
+    borderRadius: '12px',
+  }
+
+  if (type === 'brand') return <div style={{ ...baseStyle, width: '120px', height: '140px' }} aria-hidden="true" />
+  if (type === 'gama') return <div style={{ ...baseStyle, width: '100%', height: '60px', marginBottom: '12px' }} aria-hidden="true" />
+  if (type === 'ref') return <div style={{ ...baseStyle, width: '180px', height: '100px' }} aria-hidden="true" />
+  return <div style={{ ...baseStyle, width: '100%', height: '200px' }} aria-hidden="true" />
+}
+
 export default function FichasTecnicas() {
   const navigate = useNavigate()
   const { toast } = useToast()
@@ -30,17 +44,18 @@ export default function FichasTecnicas() {
     paso, categoria, marca, gama, tipo, referencia,
     categorias, marcasDisponibles, gamasDisponibles,
     tiposDisponibles, referenciasDisponibles,
-    conteoPorCategoria, breadcrumb,
+    conteoPorCategoria, breadcrumb, cargando: navegacionCargando,
     seleccionarCategoria, seleccionarMarca, seleccionarGama,
     seleccionarTipo, seleccionarReferencia, volver, reiniciar,
     buscarReferenciaDirecta,
   } = useNavegacionFichas()
 
-  const { consulta, setConsulta, resultado, error, cargando, accesosRapidos, buscar } = useFichasTecnicas()
+  const { consulta, setConsulta, resultado, error, cargando: busquedaIACargando, accesosRapidos, buscar } = useFichasTecnicas()
 
   const [modo, setModo] = React.useState('navegacion')
   
   const catInfo = FULL_CATEGORY_INFO[categoria] || {}
+  const isCargando = navegacionCargando || busquedaIACargando
 
   const copiarReferencia = (ref) => {
     navigator.clipboard.writeText(ref)
@@ -61,25 +76,30 @@ export default function FichasTecnicas() {
   const marcasConLogo = marcasDisponibles.map(m => ({
     ...m,
     logo: MARCAS[m.nombre]?.logo || '',
+    color: MARCAS[m.nombre]?.color || '#666'
   }))
 
   /* ── Sidebar ─ */
   const renderSidebar = () => (
-    <aside className={styles.sidebar}>
-      <div className={styles.sidebar__label}>Categorías</div>
-      {categorias.map(cat => (
-        <button
-          key={cat.id}
-          className={`${styles.sidebar__catBtn} ${categoria === cat.id ? styles.sidebar__catBtnActive : ''}`}
-          onClick={() => { seleccionarCategoria(cat.id); setModo('navegacion') }}
-        >
-          <div className={styles.sidebar__catBtn__icon}>{cat.icon}</div>
-          <div className={styles.sidebar__catBtn__info}>
-            <div className={styles.sidebar__catBtn__name}>{cat.label}</div>
-            <div className={styles.sidebar__catBtn__count}>{conteoPorCategoria[cat.id] || 0} refs</div>
-          </div>
-        </button>
-      ))}
+    <aside className={styles.sidebar} aria-label="Categorías de productos">
+      <div className={styles.sidebar__label} id="categories-label">Categorías</div>
+      <nav aria-labelledby="categories-label">
+        {categorias.map(cat => (
+          <button
+            key={cat.id}
+            className={`${styles.sidebar__catBtn} ${categoria === cat.id ? styles.sidebar__catBtnActive : ''}`}
+            onClick={() => { seleccionarCategoria(cat.id); setModo('navegacion') }}
+            aria-pressed={categoria === cat.id}
+            aria-label={`Ver productos de ${cat.label}`}
+          >
+            <div className={styles.sidebar__catBtn__icon} aria-hidden="true">{cat.icon}</div>
+            <div className={styles.sidebar__catBtn__info}>
+              <div className={styles.sidebar__catBtn__name}>{cat.label}</div>
+              <div className={styles.sidebar__catBtn__count}>Ver marcas</div>
+            </div>
+          </button>
+        ))}
+      </nav>
       <div className={styles.sidebar__footer}>
         <p className={styles.sidebar__footerText}>Sonepar España · A Coruña</p>
         <p className={styles.sidebar__footerText}>PFC CFGS · 2026</p>
@@ -87,8 +107,27 @@ export default function FichasTecnicas() {
     </aside>
   )
 
+  /* ── Skeleton Loaders ─ */
+  const renderSkeletons = () => (
+    <div className={styles.circleLayout} aria-busy="true" aria-live="polite">
+      <span className="visually-hidden">Cargando catálogo...</span>
+      <OrbitRing size="inner" className={styles.animPulse} />
+      <div className={styles.orbitRows}>
+        <OrbitRow>
+          <SkeletonCard type={paso === 'gamas' ? 'gama' : 'brand'} />
+          <SkeletonCard type={paso === 'gamas' ? 'gama' : 'brand'} />
+        </OrbitRow>
+        <OrbitRow>
+          <SkeletonCard type={paso === 'gamas' ? 'gama' : 'brand'} />
+        </OrbitRow>
+      </div>
+    </div>
+  )
+
   /* ── Main content ─ */
   const renderMain = () => {
+    if (isCargando) return renderSkeletons()
+
     /* Estado vacío inicial */
     if (!categoria && modo === 'navegacion') {
       return (
@@ -98,7 +137,7 @@ export default function FichasTecnicas() {
             title="Fichas Técnicas"
             desc="Busca por referencia o selecciona una categoría del panel izquierdo para navegar por el catálogo."
           />
-          <OrbitRing size="outer" className={styles.animPulse} />
+          <OrbitRing size="outer" className={styles.animPulse} aria-hidden="true" />
         </div>
       )
     }
@@ -107,8 +146,8 @@ export default function FichasTecnicas() {
     if (paso === 'marcas') {
       return (
         <div className={styles.circleLayout}>
-          <OrbitRing size="inner" className={styles.animPulse} />
-          <OrbitRing size="outer" className={styles.animPulse} />
+          <OrbitRing size="inner" className={styles.animPulse} aria-hidden="true" />
+          <OrbitRing size="outer" className={styles.animPulse} aria-hidden="true" />
 
           <CircleCenter
             icon={catInfo.icon}
@@ -117,31 +156,41 @@ export default function FichasTecnicas() {
             tip={catInfo.tip}
           />
 
-          <div className={styles.orbitRows}>
+          <div className={styles.orbitRows} role="list" aria-label="Marcas disponibles">
             <OrbitRow>
               {marcasConLogo.slice(0, 2).map(m => (
-                <BrandCard
-                  key={m.nombre}
-                  logo={m.logo}
-                  logoFallback={m.nombre.substring(0, 2).toUpperCase()}
-                  logoColor={m.color}
-                  name={m.nombre}
-                  count={`${getGamasPorMarcaYCategoria(m.nombre, categoria).length} gamas`}
-                  onClick={() => seleccionarMarca(m.nombre)}
-                />
+                <div key={m.nombre} role="listitem">
+                  <BrandCard
+                    logo={m.logo}
+                    logoFallback={m.nombre.substring(0, 2).toUpperCase()}
+                    logoColor={m.color}
+                    name={m.nombre}
+                    count="Ver gamas"
+                    onClick={() => seleccionarMarca(m.nombre)}
+                  />
+                </div>
               ))}
             </OrbitRow>
             {marcasConLogo.length > 2 && (
               <OrbitRow>
-                <BrandCard
-                  logo={marcasConLogo[2].logo}
-                  logoFallback={marcasConLogo[2].nombre.substring(0, 2).toUpperCase()}
-                  logoColor={marcasConLogo[2].color}
-                  name={marcasConLogo[2].nombre}
-                  count={`${getGamasPorMarcaYCategoria(marcasConLogo[2].nombre, categoria).length} gamas`}
-                  onClick={() => seleccionarMarca(marcasConLogo[2].nombre)}
-                />
+                {marcasConLogo.slice(2, 5).map(m => (
+                  <div key={m.nombre} role="listitem">
+                    <BrandCard
+                      logo={m.logo}
+                      logoFallback={m.nombre.substring(0, 2).toUpperCase()}
+                      logoColor={m.color}
+                      name={m.nombre}
+                      count="Ver gamas"
+                      onClick={() => seleccionarMarca(m.nombre)}
+                    />
+                  </div>
+                ))}
               </OrbitRow>
+            )}
+            {marcasConLogo.length === 0 && (
+               <OrbitRow>
+                 <p style={{ color: 'var(--gray-600)', fontSize: '0.875rem' }}>No hay marcas disponibles.</p>
+               </OrbitRow>
             )}
           </div>
         </div>
@@ -158,19 +207,22 @@ export default function FichasTecnicas() {
             desc={marca}
           />
 
-          <div className={styles.orbitRows}>
-            {gamasDisponibles.map((gName, i) => {
-               const products = getProductosPorGama(categoria, gName).filter(p => p.marca === marca);
-               return (
-                <OrbitRow key={gName}>
+          <div className={styles.orbitRows} role="list" aria-label={`Gamas de ${marca}`}>
+            {gamasDisponibles.length > 0 ? (
+              gamasDisponibles.map((gName, i) => (
+                <OrbitRow key={gName} role="listitem">
                   <GamaCard
                     name={gName}
-                    meta={`${[...new Set(products.map(p => p.tipo))].length} tipos · ${products.length} referencias`}
+                    meta="Ver productos"
                     onClick={() => seleccionarGama(gName)}
                   />
                 </OrbitRow>
-               );
-            })}
+              ))
+            ) : (
+              <OrbitRow>
+                <p style={{ color: 'var(--gray-600)', fontSize: '0.875rem' }}>No hay gamas disponibles.</p>
+              </OrbitRow>
+            )}
           </div>
         </div>
       )
@@ -186,15 +238,16 @@ export default function FichasTecnicas() {
             desc={`${gama} — ${marca}`}
           />
 
-          <div className={styles.orbitRows}>
+          <div className={styles.orbitRows} role="list" aria-label="Tipos de productos">
             {tiposDisponibles.map(t => (
-              <OrbitRow key={t}>
+              <OrbitRow key={t} role="listitem">
                 <button
                   className={styles.tipoCard}
                   onClick={() => seleccionarTipo(t)}
+                  aria-label={`Seleccionar tipo ${t}`}
                 >
                   <span className={styles.tipoCard__name}>{t}</span>
-                  <span className={styles.tipoCard__arrow}>›</span>
+                  <span className={styles.tipoCard__arrow} aria-hidden="true">›</span>
                 </button>
               </OrbitRow>
             ))}
@@ -207,36 +260,44 @@ export default function FichasTecnicas() {
     if (paso === 'referencias') {
       return (
         <div className={styles.circleLayout}>
-          <div className={styles.sectionHeader}>
+          <div className={styles.sectionHeader} role="status">
             <span className={`${styles.label} ${styles['label--brand']}`}>{referenciasDisponibles.length} referencias</span>
             <h2 className={styles.sectionTitle}>{gama} — {tipo}</h2>
           </div>
 
-          <div className={styles.orbitRows}>
-            {referenciasDisponibles.slice(0, 2).length > 0 && (
+          <div className={styles.orbitRows} role="list" aria-label="Listado de referencias">
+            {referenciasDisponibles.length > 0 ? (
+              <>
+                <OrbitRow>
+                  {referenciasDisponibles.slice(0, 2).map(p => (
+                    <div key={p.ref} role="listitem">
+                      <RefCard
+                        code={p.ref}
+                        desc={p.desc}
+                        price={p.precio}
+                        onClick={() => seleccionarReferencia(p.ref)}
+                      />
+                    </div>
+                  ))}
+                </OrbitRow>
+                {referenciasDisponibles.length > 2 && (
+                  <OrbitRow>
+                    {referenciasDisponibles.slice(2, 6).map(p => (
+                      <div key={p.ref} role="listitem">
+                        <RefCard
+                          code={p.ref}
+                          desc={p.desc}
+                          price={p.precio}
+                          onClick={() => seleccionarReferencia(p.ref)}
+                        />
+                      </div>
+                    ))}
+                  </OrbitRow>
+                )}
+              </>
+            ) : (
               <OrbitRow>
-                {referenciasDisponibles.slice(0, 2).map(p => (
-                  <RefCard
-                    key={p.ref}
-                    code={p.ref}
-                    desc={p.desc}
-                    price={p.precio}
-                    onClick={() => seleccionarReferencia(p.ref)}
-                  />
-                ))}
-              </OrbitRow>
-            )}
-            {referenciasDisponibles.length > 2 && (
-              <OrbitRow>
-                {referenciasDisponibles.slice(2, 6).map(p => (
-                  <RefCard
-                    key={p.ref}
-                    code={p.ref}
-                    desc={p.desc}
-                    price={p.precio}
-                    onClick={() => seleccionarReferencia(p.ref)}
-                  />
-                ))}
+                <p style={{ color: 'var(--gray-600)', fontSize: '0.875rem' }}>No hay referencias.</p>
               </OrbitRow>
             )}
           </div>
@@ -248,15 +309,15 @@ export default function FichasTecnicas() {
     if (paso === 'ficha' && referencia) {
       return (
         <div className={styles.circleLayout}>
-          <div className={styles.fichaSection}>
+          <article className={styles.fichaSection} aria-label={`Detalles de ${referencia.desc}`}>
             <FichaCard
-              ref={referencia.ref}
+              refCode={referencia.ref}
               desc={referencia.desc}
               price={referencia.precio}
               specs={[
                 ['Marca', referencia.marca],
                 ['Familia', referencia.familia],
-                ['Subfamilia', referencia.subfamilia],
+                ['Gama', referencia.gama],
                 ['Tipo', referencia.tipo],
               ]}
               actions={[
@@ -265,29 +326,38 @@ export default function FichasTecnicas() {
                 { label: 'Presupuesto', variant: 'secondary', onClick: () => añadirPresupuesto(referencia) },
               ]}
             />
-            <TipCard text={`Para ${referencia.subfamilia} de ${referencia.marca} en aplicación ${referencia.tipo.toLowerCase()}, verificar compatibilidad con dispositivos auxiliares. Consultar disponibilidad en tienda.sonepar.es.`} />
-          </div>
+            <TipCard text={`Producto: ${referencia.desc}. Marca: ${referencia.marca}. Verificado por Sonepar Tools.`} />
+          </article>
         </div>
       )
     }
 
-    /* Búsqueda IA */
+    /* Resultado Búsqueda */
     if (resultado && !error) {
       return (
         <div className={styles.circleLayout}>
-          <div className={styles.aiResult}>
-            <h2 className={styles.sectionTitle}>Resultado IA</h2>
+          <div className={styles.aiResult} role="status" aria-live="polite">
+            <h2 className={styles.sectionTitle}>Resultado Búsqueda</h2>
             <div className={styles.aiCard}>
-              <div className={styles.aiCard__name}>{resultado.nombre}</div>
-              <div className={styles.aiCard__ref}>{resultado.referencia}</div>
-              <div className={styles.aiCard__desc}>{resultado.descripcion}</div>
-              {resultado.caracteristicas && (
+              <div className={styles.aiCard__name}>{resultado.desc || resultado.nombre}</div>
+              <div className={styles.aiCard__ref}>{resultado.ref || resultado.referencia}</div>
+              <div className={styles.aiCard__desc}>{resultado.desc || resultado.descripcion}</div>
+              {resultado.marca && (
                 <div className={styles.aiCard__specs}>
-                  {resultado.caracteristicas.map((c, i) => (
-                    <span key={i} className={styles.aiCard__spec}>{c}</span>
-                  ))}
+                   <span className={styles.aiCard__spec}>{resultado.marca}</span>
+                   <span className={styles.aiCard__spec}>{resultado.familia}</span>
                 </div>
               )}
+            </div>
+            <div style={{ marginTop: '20px', display: 'flex', gap: '10px', justifyContent: 'center' }}>
+               <Button 
+                 variant="primary" 
+                 size="sm" 
+                 onClick={() => seleccionarReferencia(resultado.ref || resultado.referencia)}
+                 aria-label="Ver detalles completos del producto"
+               >
+                  Ver Ficha Completa
+               </Button>
             </div>
           </div>
         </div>
@@ -298,13 +368,21 @@ export default function FichasTecnicas() {
     if (error) {
       return (
         <div className={styles.circleLayout}>
-          <div className={styles.errorBox}>
-            <div className={styles.errorBox__title}>⚠ Consulta demasiado vaga</div>
+          <div className={styles.errorBox} role="alert">
+            <div className={styles.errorBox__title}>⚠ Sin resultados</div>
             <div className={styles.errorBox__msg}>{error.mensaje}</div>
             {error.sugerencias?.length > 0 && (
               <div className={styles.suggWrap}>
                 {error.sugerencias.map((s, i) => (
-                  <Button key={i} variant="ghost" size="sm" onClick={() => { setConsulta(s); buscar(s) }}>{s}</Button>
+                  <Button 
+                    key={i} 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={() => { setConsulta(s); buscar(s) }}
+                    aria-label={`Buscar sugerencia: ${s}`}
+                  >
+                    {s}
+                  </Button>
                 ))}
               </div>
             )}
@@ -319,26 +397,29 @@ export default function FichasTecnicas() {
   return (
     <div className={styles.layout}>
       {renderSidebar()}
-      <main className={styles.main}>
+      <main className={styles.main} id="main-content">
         <div className={styles.main__content}>
 
-          {/* Breadcrumb */}
+          {/* Breadcrumb con navegación semántica */}
           {breadcrumb.length > 0 && (
-            <Breadcrumb
-              items={[
-                ...breadcrumb.map((label, i) => ({
-                  label,
-                  onClick: i < breadcrumb.length - 1 ? volver : undefined,
-                  current: i === breadcrumb.length - 1,
-                })),
-              ]}
-            />
+            <nav aria-label="Breadcrumb">
+              <Breadcrumb
+                items={[
+                  ...breadcrumb.map((label, i) => ({
+                    label,
+                    onClick: i < breadcrumb.length - 1 ? volver : undefined,
+                    current: i === breadcrumb.length - 1,
+                  })),
+                ]}
+              />
+            </nav>
           )}
 
           {/* Header */}
           <div className={styles.pageHeader}>
             <h1 className={styles.pageTitle}>
-              {categoria ? (catInfo.icon || '') + ' ' : ''}
+              <span aria-hidden="true">{categoria ? (catInfo.icon || '') : ''}</span>
+              {' '}
               {categoria ? categorias.find(c => c.id === categoria)?.label : 'Fichas Técnicas'}
             </h1>
             {categoria && (
@@ -350,48 +431,72 @@ export default function FichasTecnicas() {
             )}
           </div>
 
-          {/* Search bar */}
-          <div className={styles.searchBar}>
-            <Input
-              value={consulta}
-              onChange={e => setConsulta(e.target.value)}
-              onKeyDown={e => {
-                if (e.key === 'Enter') {
-                  const found = buscarReferenciaDirecta(consulta)
+          {/* Search bar con etiquetas de formulario */}
+          <div className={styles.searchBar} role="search">
+            <div style={{ flex: 1 }}>
+              <label htmlFor="catalog-search" className="visually-hidden">Buscar en el catálogo de Sonepar</label>
+              <Input
+                id="catalog-search"
+                value={consulta}
+                onChange={e => setConsulta(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') {
+                    buscarReferenciaDirecta(consulta).then(found => {
+                      if (!found) buscar()
+                    })
+                  }
+                }}
+                placeholder="Buscar referencia o descripción..."
+              />
+            </div>
+            <Button 
+              variant="primary" 
+              size="md" 
+              loading={isCargando} 
+              onClick={() => {
+                buscarReferenciaDirecta(consulta).then(found => {
                   if (!found) buscar()
-                }
+                })
               }}
-              placeholder="Buscar referencia o descripción..."
-            />
-            <Button variant="primary" size="md" loading={cargando} onClick={() => {
-              const found = buscarReferenciaDirecta(consulta)
-              if (!found) buscar()
-            }}>
+              aria-label="Ejecutar búsqueda"
+            >
               Buscar
             </Button>
           </div>
 
           {/* Accesos rápidos */}
           {accesosRapidos?.length > 0 && (
-            <div className={styles.quickAccess}>
+            <nav className={styles.quickAccess} aria-label="Búsquedas frecuentes">
               <div className={styles.quickAccess__label}>Búsquedas frecuentes</div>
               <div className={styles.quickAccess__wrap}>
                 {accesosRapidos.map(a => (
-                  <button key={a} className={styles.quickAccess__btn} onClick={() => { setConsulta(a); buscar(a) }}>
+                  <button 
+                    key={a} 
+                    className={styles.quickAccess__btn} 
+                    onClick={() => { setConsulta(a); buscar(a) }}
+                    aria-label={`Buscar ${a}`}
+                  >
                     {a}
                   </button>
                 ))}
               </div>
-            </div>
+            </nav>
           )}
 
           {/* Main content */}
-          {renderMain()}
+          <section aria-live="polite">
+            {renderMain()}
+          </section>
 
           {/* Back button */}
           {(paso !== 'categorias' && paso !== 'busqueda' && categoria) && (
             <div className={styles.backWrap}>
-              <Button variant="ghost" size="sm" onClick={volver}>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={volver}
+                aria-label="Volver al paso anterior"
+              >
                 ← Volver
               </Button>
             </div>

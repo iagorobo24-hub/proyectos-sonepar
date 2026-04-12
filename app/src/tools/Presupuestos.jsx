@@ -1,7 +1,6 @@
 import { useState, useEffect, useReducer } from "react";
 import { useSearchParams } from 'react-router-dom'
 import { Euro } from 'lucide-react'
-import { CATALOGO_PLANO, getProductoPorRef } from '../data/catalogoSonepar'
 import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'

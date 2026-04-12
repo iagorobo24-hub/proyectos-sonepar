@@ -8,6 +8,16 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == userId;
     }
 
+    // CATÁLOGO SONEPAR — Lectura pública, escritura prohibida (solo via Admin SDK)
+    match /catalog_products/{productId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /catalog_metadata/{metadataId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
     // Colección pública — lecturas globales (búsquedas populares)
     match /global/{docId} {
       allow read: if request.auth != null;
@@ -25,7 +35,7 @@ service cloud.firestore {
       // Subcolecciones dentro del documento de usuario
       match /{document=**} {
         allow read, write: if isOwner(userId)
-          && request.resource.data.size() < 1048576;  // < 1MB por doc
+          && (request.resource == null || request.resource.data.size() < 1048576);  // < 1MB por doc
       }
     }
 

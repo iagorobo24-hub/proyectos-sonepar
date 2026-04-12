@@ -12,7 +12,7 @@ export default function LoginPage() {
   /* Si el usuario ya está logueado, redirigir automáticamente */
   useEffect(() => {
     if (user) {
-      navigate('/fichas', { replace: true })
+      navigate('/app/fichas', { replace: true })
     }
   }, [user, navigate])
 

@@ -1,0 +1,35 @@
+.sectionDivider {
+  width: 100%;
+  max-width: var(--main-max);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+  position: relative;
+  z-index: 2;
+}
+
+.dividerLine {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gray-200) 20%,
+    var(--blue-200) 50%,
+    var(--gray-200) 80%,
+    transparent 100%
+  );
+}
+
+.sectionSpacer {
+  height: var(--space-8);
+}
+
+.sectionGradient {
+  height: var(--space-16);
+  background: linear-gradient(180deg, var(--gray-50) 0%, var(--white) 50%, var(--gray-50) 100%);
+}
+
+@media (max-width: 640px) {
+  .sectionDivider {
+    padding: 0 var(--space-4);
+  }
+}
