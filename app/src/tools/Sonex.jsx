@@ -2,8 +2,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from 'react-router-dom'
 import catalogService from '../services/catalogService'
 import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
-import Button from '../components/ui/Button'
-import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
 import { useSonex } from '../hooks/useSonex'
 import styles from './Sonex.module.css'
@@ -129,12 +127,15 @@ export default function Sonex() {
       {/* Panel izquierdo */}
       <div className={styles.panelBusqueda}>
         {/* Header SONEX */}
-        <div className={styles.seccion}>
-          <div className={styles.sonexHeader}>
-            <div className={styles.sonexAvatar}>S</div>
-            <div>
-              <div className={styles.sonexTitle}>SONEX <span style={{ fontSize: '0.6875rem', color: 'var(--gray-400)', fontWeight: 400 }}>v7</span></div>
-              <div className={styles.sonexSubtitle}>Asistente técnico · Sonepar</div>
+        <div className={styles.sonexHeader}>
+          <div className={styles.sonexIcon}>
+            <span className={styles.sonexIconLetter}>S</span>
+          </div>
+          <div className={styles.sonexInfo}>
+            <div className={styles.sonexName}>SONEX <span className={styles.sonexVersion}>v7</span></div>
+            <div className={styles.sonexStatus}>
+              <span className={styles.statusDot} />
+              Asistente técnico IA · Sonepar
             </div>
           </div>
         </div>
@@ -143,34 +144,42 @@ export default function Sonex() {
         <div className={styles.seccion}>
           <div className={styles.seccionLabel}>MODO DE OPERACIÓN</div>
           {MODO_OBJETOS.map(modo => (
-            <button key={modo.id} onClick={() => handleModoClick(modo.id)} className={`${styles.modoBtn} ${modoActivo === modo.id ? styles['modoBtn--active'] : ''}`}>{modo.label}</button>
+            <button key={modo.id} onClick={() => handleModoClick(modo.id)} className={`${styles.modoBtn} ${modoActivo === modo.id ? styles['modoBtn--active'] : ''}`}>
+              <span className={styles.modoBtnLabel}>{modo.label}</span>
+              <span className={styles.modoBtnDesc}>{modo.desc}</span>
+            </button>
           ))}
         </div>
 
         {/* Categorías */}
         <div className={styles.seccion}>
           <div className={styles.seccionLabel}>CATEGORÍAS</div>
-          {CATEGORIAS.map(cat => (
-            <button key={cat.id} onClick={() => handleCategoriaClick(cat.id)} className={`${styles.catBtn} ${categoriaActiva === cat.id ? styles['catBtn--active'] : ''}`}><span>{cat.icon}</span><span>{cat.label}</span></button>
-          ))}
+          <div className={styles.categoriasGrid}>
+            {CATEGORIAS.map(cat => (
+              <button key={cat.id} onClick={() => handleCategoriaClick(cat.id)} className={`${styles.catBtn} ${categoriaActiva === cat.id ? styles['catBtn--active'] : ''}`}>
+                <span className={styles.catBtnIcon}>{cat.icon}</span>
+                <span className={styles.catBtnLabel}>{cat.label}</span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Contexto */}
         <div className={styles.seccion}>
           <div className={styles.seccionLabel}>CONTEXTO DEL TURNO</div>
           <textarea className={styles.contextoTextarea} value={contextoActivo} onChange={e => setContextoActivo(e.target.value)} placeholder="Ej: Instalación en nave industrial, 400V trifásica..." rows={3} />
-          <Button variant="secondary" size="sm" onClick={handleContextoSet} style={{ width: '100%', marginTop: '8px' }}>Guardar contexto</Button>
+          <button className={styles.contextoSaveBtn} onClick={handleContextoSet}>Guardar contexto</button>
         </div>
 
         {/* Referencias */}
         {refsTurno.length > 0 && (
           <div className={styles.seccion}>
-            <div className={styles.seccionLabel}>REFERENCIAS ({refsTurno.length})</div>
+            <div className={styles.seccionLabel}>REFERENCIAS EN TURNO ({refsTurno.length})</div>
             {refsTurno.slice(0, 5).map((ref, i) => (
-              <div key={i} className={styles.refCard}>
-                <span className={styles.refCard__check}>✓</span>
-                <div><div className={styles.refCard__ref}>{ref.ref}</div><div className={styles.refCard__desc}>{ref.desc}</div></div>
-              </div>
+              <button key={i} className={styles.refCard} onClick={() => irAFicha(ref.ref)}>
+                <span className={styles.refCard__ref}>{ref.ref}</span>
+                <span className={styles.refCard__desc}>{ref.desc}</span>
+              </button>
             ))}
           </div>
         )}
@@ -181,46 +190,58 @@ export default function Sonex() {
         <div className={styles.chatMessages}>
           {messages.length === 0 ? (
             <div className={styles.emptyChat}>
-              <div className={styles.emptyChat__icon}>💬</div>
-              <h2 className={styles.emptyChat__title}>SONEX</h2>
-              <p className={styles.emptyChat__text}>Asistente técnico especializado en material eléctrico e industrial. Escribe tu consulta o elige una sugerencia.</p>
+              <div className={styles.emptyChatAvatar}>S</div>
+              <h2 className={styles.emptyChatTitle}>¿En qué puedo ayudarte?</h2>
+              <p className={styles.emptyChatText}>
+                Soy SONEX, tu asistente técnico especializado en material eléctrico e industrial.
+                Pregúntame por referencias, comparativas o recomendaciones.
+              </p>
+              {sugerenciasMostrar.length > 0 && (
+                <div className={styles.emptyChatSuggestions}>
+                  {sugerenciasMostrar.slice(0, 4).map((sug, i) => (
+                    <button key={i} onClick={() => setInput(sug)} className={styles.sugerenciaBtn}>{sug}</button>
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             messages.map((message) => (
               <div key={message.id} className={`${styles.message} ${message.role === 'user' ? styles['message--user'] : ''}`}>
-                <div className={styles.message__avatar}>{message.role === 'user' ? 'Tú' : 'S'}</div>
-                <div>
+                <div className={styles.message__avatar}>{message.role === 'user' ? 'T' : 'S'}</div>
+                <div className={styles.message__content}>
                   <div className={`${styles.message__bubble} ${message.role}`}>
                     {message.role === 'user' ? message.content : procesarMarkdown(message.content)}
                   </div>
+                  {message.role === 'assistant' && message.referencias && message.referencias.length > 0 && (
+                    <div className={styles.messageRefs}>
+                      {message.referencias.map(item => (
+                        <div key={item.ref} className={styles.messageRef}>
+                          <button onClick={() => irAFicha(item.ref)} className={styles.messageRefBtn}>
+                            📄 Ficha: {item.ref}
+                          </button>
+                          <button onClick={() => irAPresupuesto(item)} className={`${styles.messageRefBtn} ${styles.messageRefBtnSecondary}`}>
+                            💶 Añadir
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                   <div className={styles.message__time}>{message.timestamp.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' })}</div>
-                  {message.role === 'assistant' && (() => {
-                    const refs = message.referencias || [];
-                    if (refs.length === 0) return null;
-                    return (
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '8px' }}>
-                        {refs.map(item => (
-                          <div key={item.ref} style={{ display: 'flex', gap: '4px' }}>
-                            <button onClick={() => irAFicha(item.ref)} style={{ padding: '4px 10px', fontSize: '11px', fontWeight: '600', background: 'var(--blue-800)', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>📄 Ficha: {item.ref}</button>
-                            <button onClick={() => irAPresupuesto(item)} style={{ padding: '4px 10px', fontSize: '11px', fontWeight: '600', background: 'transparent', color: 'var(--blue-800)', border: '1px solid var(--blue-800)', borderRadius: '5px', cursor: 'pointer' }}>💶 Presupuesto</button>
-                          </div>
-                        ))}
-                      </div>
-                    );
-                  })()}
                 </div>
               </div>
             ))
           )}
 
           {isLoading && (
-            <div style={{ display: 'flex', gap: '10px', padding: '12px 16px' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: 'var(--blue-800)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '13px', fontWeight: '700', flexShrink: 0 }}>S</div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'var(--white)', border: '1px solid var(--gray-100)', borderRadius: '12px', padding: '10px 14px' }}>
-                <div className={styles.loadingDots}>
-                  {[0, 1, 2].map(i => <div key={i} className={styles.loadingDots__dot} />)}
+            <div className={styles.message}>
+              <div className={styles.message__avatar} style={{ background: 'var(--blue-800)', color: 'var(--white)' }}>S</div>
+              <div className={styles.message__content}>
+                <div className={styles.message__bubble} style={{ background: 'var(--white)', border: '1px solid var(--gray-100)' }}>
+                  <div className={styles.loadingDots}>
+                    {[0, 1, 2].map(i => <div key={i} className={styles.loadingDots__dot} />)}
+                  </div>
+                  <span style={{ fontSize: '12px', color: 'var(--gray-400)', fontStyle: 'italic', marginLeft: '8px' }}>SONEX está pensando...</span>
                 </div>
-                <span style={{ fontSize: '12px', color: 'var(--gray-400)', fontStyle: 'italic' }}>SONEX está pensando...</span>
               </div>
             </div>
           )}
@@ -229,19 +250,23 @@ export default function Sonex() {
 
         {/* Input area */}
         <div className={styles.chatInput}>
-          {messages.length === 0 && (
-            <div style={{ marginBottom: '12px' }}>
-              <div className={styles.seccionLabel}>{loadingSugerencias ? 'CARGANDO...' : 'SUGERENCIAS'}</div>
-              <div className={styles.sugerenciasWrap}>
-                {sugerenciasMostrar.map((sug, i) => (
-                  <button key={i} onClick={() => setInput(sug)} className={styles.sugerenciaBtn}>{sug}</button>
-                ))}
-              </div>
-            </div>
-          )}
           <div className={styles.chatInputContainer}>
-            <textarea value={input} onChange={e => setInput(e.target.value)} onKeyPress={handleKeyPress} placeholder="Escribe tu consulta técnica..." className={styles.chatInputField} rows={1} disabled={isLoading} />
-            <button onClick={handleSendMessage} disabled={!input.trim() || isLoading} className={styles.chatSendBtn}>{isLoading ? '...' : '→'}</button>
+            <textarea
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleKeyPress}
+              placeholder="Escribe tu consulta técnica..."
+              className={styles.chatInputField}
+              rows={1}
+              disabled={isLoading}
+            />
+            <button
+              onClick={handleSendMessage}
+              disabled={!input.trim() || isLoading}
+              className={styles.chatSendBtn}
+            >
+              →
+            </button>
           </div>
         </div>
       </div>

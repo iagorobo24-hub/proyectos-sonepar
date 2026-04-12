@@ -22,7 +22,7 @@ const DashboardIncidenciasPage = () => { useDocumentTitle('Incidencias');     re
 const KpiLogisticoPage      = () => { useDocumentTitle('KPI Logístico');      return <KpiLogistico /> }
 const PresupuestosPage      = () => { useDocumentTitle('Presupuestos');       return <Presupuestos /> }
 const FormacionInternaPage  = () => { useDocumentTitle('Formación Interna');  return <FormacionInterna /> }
-const SonexPage             = () => { useDocumentTitle('Sonex');              return <Sonex /> }
+const SonexPage             = () => { useDocumentTitle('SONEX — Asistente Técnico'); return <Sonex /> }
 
 /* Placeholder de carga para Suspense */
 const PageLoader = () => (
@@ -47,7 +47,7 @@ export default function App() {
           </ProtectedRoute>
         }
       >
-        <Route index element={<Navigate to="/app/fichas" replace />} />
+        <Route index element={<Navigate to="/app/sonex" replace />} />
         
         {/* Envolvemos las rutas en Suspense para manejar la carga diferida */}
         <Route path="*" element={

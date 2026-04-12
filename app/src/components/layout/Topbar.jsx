@@ -16,15 +16,15 @@ function getUserInitials(name) {
   return name.slice(0, 2).toUpperCase()
 }
 
-/* Herramientas de la suite con su ruta y nombre */
+/* Herramientas de la suite con su ruta y nombre — SONEX primero (más importante) */
 const TOOLS = [
-  { path: '/app/fichas',       label: 'Fichas Técnicas' },
+  { path: '/app/sonex',        label: 'SONEX' },
+  { path: '/app/fichas',       label: 'Fichas' },
   { path: '/app/almacen',      label: 'Almacén' },
-  { path: '/app/incidencias',  label: 'Incidencias' },
   { path: '/app/kpi',          label: 'KPI' },
+  { path: '/app/incidencias',  label: 'Incidencias' },
   { path: '/app/presupuestos', label: 'Presupuestos' },
   { path: '/app/formacion',    label: 'Formación' },
-  { path: '/app/sonex',        label: 'Sonex' },
 ]
 
 /* Topbar — barra superior con logo, navegación, usuario y logout */
