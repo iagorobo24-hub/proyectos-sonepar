@@ -52,6 +52,104 @@
   padding: var(--space-8) 0;
 }
 
+/* ── Form Card (perfil) ─ */
+.formCard {
+  padding: var(--space-6);
+  background: var(--white);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-xl);
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.formCard__group {
+  margin-bottom: var(--space-4);
+}
+
+.formCard__label {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: var(--space-2);
+}
+
+.formCard__input {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--gray-800);
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: all 0.2s var(--ease-out);
+  box-sizing: border-box;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.formCard__input:focus {
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px var(--blue-50);
+}
+
+.formCard__select {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  color: var(--gray-800);
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-100);
+  border-radius: var(--radius-md);
+  outline: none;
+  transition: all 0.2s var(--ease-out);
+  box-sizing: border-box;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234A5568' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 36px;
+}
+
+.formCard__select:focus {
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px var(--blue-50);
+}
+
+.formCard__header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.formCard__icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-2);
+}
+
+.formCard__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--gray-800);
+  margin-bottom: var(--space-1);
+}
+
+.formCard__subtitle {
+  font-size: var(--text-sm);
+  color: var(--gray-400);
+}
+
+.formCard__btn {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
 /* ── Etapas del simulador ─ */
 .etapasGrid {
   display: flex;

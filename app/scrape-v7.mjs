@@ -35,10 +35,10 @@ const FAMILIAS = [
   { slug: 'control-automatizacion-industrial', nombre: 'CONTROL Y AUTOMATIZACION INDUSTRIAL' },
   { slug: 'automatizacion-edificios', nombre: 'AUTOMATIZACION DE EDIFICIOS' },
   { slug: 'iluminacion', nombre: 'ILUMINACION' },
-  { slug: 'hvac-climatizacion', nombre: 'HVAC' },
+  { slug: 'tratamiento-aire', nombre: 'HVAC' },
   { slug: 'seguridad-herramientas', nombre: 'SEGURIDAD Y HERRAMIENTAS' },
   { slug: 'fontaneria', nombre: 'FONTANERIA' },
-  { slug: 'energias-renovables', nombre: 'ENERGIAS RENOVABLES' },
+  { slug: 'solar', nombre: 'ENERGIAS RENOVABLES' },
   { slug: 'servicios', nombre: 'SERVICIOS' },
 ];
 
@@ -292,16 +292,23 @@ async function main() {
 
       pageNum++;
 
-      // Guardar cada 5 páginas
-      if (pageNum % 5 === 0) {
-        fs.writeFileSync(RESULT_FILE, JSON.stringify(productos, null, 2));
-        progress = { mode: 'ampliar', catIndex: i, page: pageNum, total: productos.length, amplified: totalAmplified };
-        saveProgress(progress);
-        console.log(`    💾 Guardado: ${productos.length.toLocaleString()} total, ${totalAmplified.toLocaleString()} ampliados`);
+      // Guardar cada 3 páginas para mayor seguridad
+      if (pageNum % 3 === 0) {
+        try {
+          fs.mkdirSync('./sonepar-catalog-scraper', { recursive: true });
+          const tmpFile = RESULT_FILE + '.tmp';
+          fs.writeFileSync(tmpFile, JSON.stringify(productos, null, 2));
+          fs.renameSync(tmpFile, RESULT_FILE);
+          progress = { mode: 'ampliar', catIndex: i, page: pageNum, total: productos.length, amplified: totalAmplified };
+          saveProgress(progress);
+          console.log(`    💾 Guardado: ${productos.length.toLocaleString()} total, ${totalAmplified.toLocaleString()} ampliados`);
+        } catch (err) {
+          console.error(`    ⚠️  Error al guardar: ${err.message}`);
+        }
         await sleep(2000);
       }
 
-      await sleep(1500);
+      await sleep(800);
     }
 
     // Guardar fin de familia

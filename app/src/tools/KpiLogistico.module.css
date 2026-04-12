@@ -11,18 +11,43 @@
 .pageSubtitle { font-size: var(--text-md); color: var(--gray-400); }
 
 /* ── Formulario ─ */
+.formWrapper {
+  max-width: 700px;
+  margin: 0 auto var(--space-6);
+}
+
 .formGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-4);
-  max-width: 700px;
-  margin: 0 auto var(--space-8);
+}
+
+/* CentrAR última fila cuando está incompleta (2 items en fila de 3) */
+.formGrid > *:nth-last-child(2):first-child,
+.formGrid > *:last-child:nth-child(2) {
+  grid-column: auto;
+}
+
+.formGrid > *:nth-last-child(2):first-child ~ *:last-child {
+  grid-column: auto;
+}
+
+/* Si hay 11 items: los últimos 2 centrados */
+.formGrid > *:nth-child(10) {
+  grid-column: 1 / 2;
+  justify-self: end;
+}
+
+.formGrid > *:nth-child(11) {
+  grid-column: 2 / 3;
+  justify-self: start;
 }
 
 .formGroup {
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  width: 100%;
 }
 
 .formGroup__label {
@@ -46,6 +71,15 @@
 .formGroup__input:focus {
   border-color: var(--blue-500);
   box-shadow: 0 0 0 3px var(--blue-50);
+}
+
+/* ── Botones de acción ─ */
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
 }
 
 /* ── KPIs ─ */

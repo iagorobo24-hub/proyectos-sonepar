@@ -1,4 +1,1170 @@
 {
+  "CABLES": {
+    "GENERAL CABLE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO RZ1 AL LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "COBRE DESNUDO"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN",
+        "CABLES DE MEDIA/ALTA TENSIÓN HEPRZ1 AL",
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 OL / RH5Z1 AL"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE"
+      ]
+    },
+    "EXCEL": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "PRYSMIAN": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO VHOV-K / VOV-K / Z1HOZ1-K (AS) / Z1OZ1-K (AS)",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLE FLEXIBLE DE GOMA",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO RZ1 AL LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA/ALTA TENSIÓN HEPRZ1 AL",
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 OL / RH5Z1 AL"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE"
+      ]
+    },
+    "NEXANS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE FLEXIBLE DE GOMA",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ],
+      "CABLES ESPECIALES": [
+        "COBRE DESNUDO"
+      ]
+    },
+    "TELEVES": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "TUBO PRECABLEADO"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "MIGUELEZ": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ],
+      "CABLES ESPECIALES": [
+        "COBRE DESNUDO"
+      ]
+    },
+    "TOP CABLE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO VHOV-K / VOV-K / Z1HOZ1-K (AS) / Z1OZ1-K (AS)",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLE ARMADO RZ1MZ1-K (AS) /  RZ1FZ1-K (AS)",
+        "CABLE FLEXIBLE DE GOMA",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO RZ1 AL LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA/ALTA TENSIÓN HEPRZ1 AL",
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 2OL",
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 OL / RH5Z1 AL"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "COMMSCOPE": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "GESCABLE": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ]
+    },
+    "CORNING": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "LEGRAND": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "BTICINO": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "LEVITON": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "LAZSA": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN",
+        "TUBO PRECABLEADO"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "DRAKA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC"
+      ]
+    },
+    "SCHNEIDER ELECTRIC": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "EKSELANS BY ITS": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "NETCONNECT": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "EK": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "FENOPLASTICA": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "REVI TUBOS": {
+      "CABLES DE BAJA TENSION": [
+        "TUBO PRECABLEADO"
+      ]
+    },
+    "GOLMAR": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "REVI CABLES": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ]
+    },
+    "CABLES RCT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ]
+    },
+    "CERVI": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLE ARMADO RZ1MZ1-K (AS) /  RZ1FZ1-K (AS)",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ]
+    },
+    "SUMCAB": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLE ARMADO RZ1MZ1-K (AS) /  RZ1FZ1-K (AS)",
+        "CABLE FLEXIBLE DE GOMA",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ]
+    },
+    "NEXANS CS": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "GENÉRICO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLE PLANOS",
+        "CABLES DE ALUMINIO DESNUDO",
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 OL / RH5Z1 AL"
+      ]
+    },
+    "CODEMB": {
+      "CABLES DE BAJA TENSION": [
+        "RESTO DE CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "INCASA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO RZ1 AL LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC"
+      ]
+    },
+    "COURANT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "TUBO PRECABLEADO"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "PANDUIT": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "PHOENIX CONTACT": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ROCKWELL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "ECOTEL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "DIGITUS": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "TELECNOR": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS"
+      ]
+    },
+    "FAGOR ELTRON.": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "COMA": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ]
+    },
+    "APOLO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "DELECSA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FESTO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "CERVINOR": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "COMELIT": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "LUZ NEGRA": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "TEKNOMEGA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "REVALCO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "WAGO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "CUNEXT": {
+      "CABLES ESPECIALES": [
+        "CABLES DE ALUMINIO DESNUDO"
+      ]
+    },
+    "MURRELEKTRONIK": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "BOXTAR": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "COBRE DESNUDO"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "OPENETICS": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "HARTING": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "KNIPEX": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "SPELSBERG": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "TECNICAS DEL CABLE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V"
+      ]
+    },
+    "MAXGE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ELECTRO DH": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "MAGNUM HEATING": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "TUPERSA": {
+      "CABLES DE BAJA TENSION": [
+        "TUBO PRECABLEADO"
+      ]
+    },
+    "ESLA": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "HAGER": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "IDE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "SIMON": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "WEIDMULLER": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "SIEMENS": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "NIESSEN": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "GEWISS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "APC BY SCHNEIDER ELECTRIC": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLE FLEXIBLE DE GOMA"
+      ]
+    },
+    "FONESTAR": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "TIEMME": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ALG": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ]
+    },
+    "MICRO DETECTORS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "CASALS VENT.": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TOSHIBA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "GTLAN": {
+      "CABLES DE DATOS": [
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "AVALVA": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "GAESTOPAS": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "APLICACIONES TECNOLOGICAS": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "COBRE DESNUDO"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "PRITEC": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "AIRZONE": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "OBO BETTERMANN": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "BENTEL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "EATON": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TERASAKI": {
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ]
+    },
+    "WOHNELEC": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "COBRE DESNUDO"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TRES": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "MCI LIGHT": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "VELILLA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ACO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "GROHE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "DUCHAFLEX": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FERCO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "WIELAND": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ONE LIGHT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "CDVI": {
+      "CABLES DE DATOS": [
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "FONTINI": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "TELERGON": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "EGI": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "JANGAR": {
+      "CABLES ESPECIALES": [
+        "CABLE PLANOS"
+      ]
+    },
+    "LUXLIGHT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "COALSA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "AMIDA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "BACHMANN": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ]
+    },
+    "SOFAMEL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE SOLAR H1Z2Z2-K"
+      ]
+    },
+    "ALCAD": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "CHINT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ILARDIA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "GTLED": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "HIKVISION": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "LIGHTED": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "SOCOMEC": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "SODECA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ARMENGOL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "SPIT PASLODE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "GARSACO": {
+      "CABLES ESPECIALES": [
+        "CABLE PLANOS"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "RETEX": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ILME": {
+      "CABLES DE DATOS": [
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "EISSOUND": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "XB COMPONENTS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FAMATEL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "VMC": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "IDEAL": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "BLUELED": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "BRON-METAL": {
+      "CABLES ESPECIALES": [
+        "COBRE DESNUDO"
+      ]
+    },
+    "KAINOS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TELECTRISA": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "IES": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "SLV": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "ELECTRICFOR": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "MT VF": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "COFEM": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ERMA": {
+      "CABLES DE DATOS": [
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "OBSEQUIOS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F"
+      ]
+    },
+    "TSL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TOSCANO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FERMAX": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "TESE": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "PEMSA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "INTERFLEX": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "JUNG": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "SBI": {
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ]
+    },
+    "SICK": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "ERICO": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "CLAVED": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "RIS IBERIA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "WIGAM": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "CANFOR": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "VICENTE TORNS": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "LAPP KABEL": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "HONEYWELL": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "IGUS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    }
+  },
   "DISTRIBUCION DE POTENCIA": {
     "SOLERA": {
       "ENVOLVENTES Y CUADROS ELECTRICOS": [
@@ -43,8 +1209,6 @@
       "DISTRIBUCION MEDIA Y ALTA TENSION": [
         "CALIDAD DE LA ENERGÍA",
         "CANALIZACIÓN ELÉCTRICA PREFABRICADA",
-        "CENTROS DE TRANSFORMACIÓN, TELEGESTIÓN, CBT Y MEDIDA",
-        "DISTRIBUCIÓN ENERGÍA EN MEDIA Y ALTA TENSIÓN",
         "PROTECCIÓN CONTRA EL RAYO"
       ]
     },
@@ -71,8 +1235,7 @@
     "HELLERMANN": {
       "GESTION DE CABLEADO": [
         "ACCESORIOS CABLEADO",
-        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿",
-        "CANALETAS Y MOLDURAS (METÁLICAS Y AISLANTES)"
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
       ]
     },
     "IDE": {
@@ -86,9 +1249,7 @@
       ],
       "GESTION DE CABLEADO": [
         "ACCESORIOS CABLEADO",
-        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿",
-        "CANALETAS Y MOLDURAS (METÁLICAS Y AISLANTES)",
-        "ELEMENTOS DE SUELO Y ESCRITORIO (COLUMNAS, CAJAS SUELO¿)"
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
       ],
       "DISTRIBUCION BAJA TENSION": [
         "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN"
@@ -269,7 +1430,6 @@
         "ACCESORIOS CABLEADO",
         "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿",
         "BANDEJAS (METÁLICAS Y AISLANTES)",
-        "BANDEJAS Y REJILLAS METÁLICAS",
         "CANAL DE PVC",
         "CANALETAS Y MOLDURAS (METÁLICAS Y AISLANTES)",
         "ELEMENTOS DE SUELO Y ESCRITORIO (COLUMNAS, CAJAS SUELO¿)",
@@ -452,7 +1612,6 @@
       ],
       "ENVOLVENTES Y CUADROS ELECTRICOS": [
         "ACCESORIOS PARA CUADROS",
-        "ENVOLVENTE VACÍO (CONTROL Y AUTOMATIZACIÓN)",
         "ENVOLVENTES Y MONTAJE DE CUADROS",
         "SISTEMAS DE ENVOLVENTE"
       ],
@@ -562,6 +1721,16 @@
         "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
       ]
     },
+    "PROIMAN": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ACCESORIOS PARA CUADROS"
+      ]
+    },
+    "DEHN": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ]
+    },
     "BTICINO": {
       "GESTION DE CABLEADO": [
         "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿",
@@ -570,16 +1739,6 @@
       ],
       "ENVOLVENTES Y CUADROS ELECTRICOS": [
         "CAJAS DE CONEXIÓN"
-      ]
-    },
-    "DEHN": {
-      "DISTRIBUCION MEDIA Y ALTA TENSION": [
-        "PROTECCIÓN CONTRA EL RAYO"
-      ]
-    },
-    "PROIMAN": {
-      "ENVOLVENTES Y CUADROS ELECTRICOS": [
-        "ACCESORIOS PARA CUADROS"
       ]
     },
     "BROTHER": {
@@ -616,19 +1775,14 @@
         "APARAMENTA MODULAR"
       ]
     },
-    "TECNOTRAFO": {
-      "DISTRIBUCION MEDIA Y ALTA TENSION": [
-        "CALIDAD DE LA ENERGÍA"
-      ]
-    },
     "KPS": {
       "DISTRIBUCION BAJA TENSION": [
         "APARAMENTA MODULAR"
       ]
     },
-    "APLICACIONES TECNOLOGICAS": {
+    "TECNOTRAFO": {
       "DISTRIBUCION MEDIA Y ALTA TENSION": [
-        "PROTECCIÓN CONTRA EL RAYO"
+        "CALIDAD DE LA ENERGÍA"
       ]
     },
     "GENÉRICO": {
@@ -636,19 +1790,19 @@
         "ACCESORIOS CABLEADO"
       ]
     },
-    "CELLPACK": {
+    "APLICACIONES TECNOLOGICAS": {
       "DISTRIBUCION MEDIA Y ALTA TENSION": [
-        "CONEXIÓN Y HERRAMIENTAS MT/AT"
+        "PROTECCIÓN CONTRA EL RAYO"
       ]
     },
     "APC BY SCHNEIDER ELECTRIC": {
       "DISTRIBUCION BAJA TENSION": [
         "APARAMENTA CAJA MOLDEADA"
-      ],
-      "ENVOLVENTES Y CUADROS ELECTRICOS": [
-        "CAJAS DE CONEXIÓN",
-        "ENVOLVENTE VACÍO (CONTROL Y AUTOMATIZACIÓN)",
-        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ]
+    },
+    "CELLPACK": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "CONEXIÓN Y HERRAMIENTAS MT/AT"
       ]
     },
     "PANDUIT": {
@@ -660,3079 +1814,27 @@
       "GESTION DE CABLEADO": [
         "ACCESORIOS CABLEADO"
       ]
-    },
-    "HENKEL": {
-      "GESTION DE CABLEADO": [
-        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
-      ]
-    }
-  },
-  "CONTROL Y AUTOMATIZACION INDUSTRIAL": {
-    "SCHNEIDER ELECTRIC": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "ARRANCADORES  MOTOR",
-        "CONTROL DE POSICIÓN",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "MOTORES Y MOTORREDUCTORES",
-        "PROTECCIÓN MOTOR",
-        "REDUCTORES DE PLANETARIOS",
-        "VARIADORES DE FRECUENCIA"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN",
-        "VÁLVULAS Y POSICIONADORES"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS",
-        "COMUNICACIONES INDUSTRIALES",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES",
-        "INTERFAZ HOMBRE MÁQUINA - HMI",
-        "PC INDUSTRIALES (IPC)",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES",
-        "RELÉ LÓGICO PROGRAMABLE"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS DE SALIDA - ACTUACIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "EQUIPOS DE CONEXIONADO"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "SIEMENS": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "ARRANCADORES  MOTOR",
-        "CONTROL DE POSICIÓN",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "MOTORES Y MOTORREDUCTORES",
-        "PROTECCIÓN MOTOR",
-        "VARIADORES DE FRECUENCIA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS",
-        "COMUNICACIONES INDUSTRIALES",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES",
-        "INTERFAZ HOMBRE MÁQUINA - HMI",
-        "PC INDUSTRIALES (IPC)",
-        "RELÉ LÓGICO PROGRAMABLE"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS DE SALIDA - ACTUACIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE CAUDAL",
-        "INSTRUMENTACIÓN DE PESAJE",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "EATON": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN DE PRESIÓN",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ARRANCADORES  MOTOR",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "PROTECCIÓN MOTOR",
-        "VARIADORES DE FRECUENCIA"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "INTERFAZ HOMBRE MÁQUINA - HMI",
-        "RELÉ LÓGICO PROGRAMABLE"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "RODMAN": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ]
-    },
-    "PHOENIX CONTACT": {
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS",
-        "COMUNICACIONES INDUSTRIALES",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES",
-        "INTERFAZ HOMBRE MÁQUINA - HMI",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES",
-        "RELÉ LÓGICO PROGRAMABLE"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ARRANCADORES  MOTOR",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "PROTECCIÓN MOTOR"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE SALIDA - ACTUACIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "TOSCANO": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "INSTRUMENTACIÓN DE PRESIÓN",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES",
-        "RELÉ LÓGICO PROGRAMABLE"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "WEIDMULLER": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS",
-        "COMUNICACIONES INDUSTRIALES",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES",
-        "RELÉ LÓGICO PROGRAMABLE"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN"
-      ]
-    },
-    "WEIDMÜLLER": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS INTERFAZ"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "COMUNICACIONES INDUSTRIALES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "TESE": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "INSTRUMENTACIÓN DE PRESIÓN",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "FINDER": {
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE SALIDA - ACTUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "ORBIS": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN DE NIVEL"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS INTERFAZ"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "AKO": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "RELES E INTERFACES": [
-        "RELÉS DE CONTROL Y SUPERVISIÓN"
-      ]
-    },
-    "GAVE": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE NIVEL"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "LEGRAND": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "PROTECCIÓN MOTOR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES"
-      ]
-    },
-    "OMRON": {
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS",
-        "COMUNICACIONES INDUSTRIALES",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES",
-        "INTERFAZ HOMBRE MÁQUINA - HMI",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "VARIADORES DE FRECUENCIA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "EQUIPOS DE CONEXIONADO"
-      ]
-    },
-    "CIRCUTOR": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "LEUZE": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "COMUNICACIONES INDUSTRIALES"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "BTICINO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ]
-    },
-    "ROCKWELL": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS",
-        "COMUNICACIONES INDUSTRIALES",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES",
-        "INTERFAZ HOMBRE MÁQUINA - HMI",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "CONSIGNACIÓN Y SEPARACIÓN DE ENERGÍAS",
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS DE SALIDA - ACTUACIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "ARRANCADORES  MOTOR",
-        "CONTROL DE POSICIÓN",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "MOTORES Y MOTORREDUCTORES",
-        "PROTECCIÓN MOTOR",
-        "VARIADORES DE FRECUENCIA"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN DE PRESIÓN",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ]
-    },
-    "ABB": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ARRANCADORES  MOTOR",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "MOTORES Y MOTORREDUCTORES",
-        "PROTECCIÓN MOTOR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "IDE": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "PROTECCIÓN MOTOR"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "HAGER": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "COMUNICACIONES INDUSTRIALES"
-      ]
-    },
-    "PILZ": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "CONSIGNACIÓN Y SEPARACIÓN DE ENERGÍAS",
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "OTROS PRODUCTOS SEGURIDAD DE MAQUINARIA",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "APC BY SCHNEIDER ELECTRIC": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "ARRANCADORES  MOTOR",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "PROTECCIÓN MOTOR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ]
-    },
-    "HELLERMANN": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "SIMON": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "VEGAYFARRES": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE NIVEL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "SMC": {
-      "HIDRAULICA Y NEUMÁTICA": [
-        "ACTUADORES",
-        "EQUIPOS DE CONEXIONADO",
-        "HIDRAULICA Y NEUMÁTICA",
-        "INSTALACIONES DE VACÍO",
-        "TRATAMIENTO AIRE COMPRIMIDO",
-        "VÁLVULAS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE PRESIÓN",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "ROBOTICA": [
-        "HERRAMIENTAS",
-        "ROBOTICA"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "EJES ELÉCTRICOS"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "CARLO GAVAZZI": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE CAUDAL",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "COMUNICACIONES INDUSTRIALES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "VÁLVULAS"
-      ]
-    },
-    "F.CARRASCO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "CHINT": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES"
-      ]
-    },
-    "DINUY": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "ELTAKO": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "POLYLUX": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "RELECO": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS INTERFAZ"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "IME": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN"
-      ]
-    },
-    "TORRES": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "MURRELEKTRONIK": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "FILSA": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE CAUDAL",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ]
-    },
-    "MOLEX": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "IBIDE": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "SACI": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN DE PRESIÓN"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "BRADY": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "CONSIGNACIÓN Y SEPARACIÓN DE ENERGÍAS",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "PEPPERL FUCHS": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "DELECSA": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "ELIWELL": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ]
-    },
-    "SICK": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "INSTRUMENTACIÓN DE PRESIÓN",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS DE SALIDA - ACTUACIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "COMUNICACIONES INDUSTRIALES"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "HARTING": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "SOCOMEC": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "DITEL": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "COMUNICACIONES INDUSTRIALES",
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "SCHMERSAL": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "GENÉRICO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "CONTROL DE POSICIÓN",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "MOTORES Y MOTORREDUCTORES",
-        "PROTECCIÓN MOTOR",
-        "VARIADORES DE FRECUENCIA"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN",
-        "VÁLVULAS Y POSICIONADORES"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN",
-        "RELÉS INTERFAZ"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "WAGO": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS INTERFAZ"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS",
-        "COMUNICACIONES INDUSTRIALES",
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ]
-    },
-    "GEWISS": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS INTERFAZ"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "FUJI": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "VARIADORES DE FRECUENCIA"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "INTERFAZ HOMBRE MÁQUINA - HMI"
-      ]
-    },
-    "OBO BETTERMANN": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "MOELLER": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "PROTECCIÓN MOTOR"
-      ]
-    },
-    "APOLO": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "LOVATO": {
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "PROTECCIÓN MOTOR"
-      ]
-    },
-    "ELEMATIC": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "INTERRUPTOR / CONMUTADOR DE LEVAS",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ]
-    },
-    "FERRO-PLAST": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "CRADY": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "INTERRUPTOR / CONMUTADOR DE LEVAS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "EFIBAT": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "TELERGON": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "ERICO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "DELTA DORE": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ]
-    },
-    "SALICRU": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "VARIADORES DE FRECUENCIA"
-      ]
-    },
-    "ALB": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "VMC": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "RELES E INTERFACES": [
-        "CONTACTOR INDUSTRIAL Y COMBINACIONES",
-        "RELES E INTERFACES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ARRANCADORES  MOTOR",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "VARIADORES DE FRECUENCIA"
-      ]
-    },
-    "MAXGE": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "PROTECCIÓN MOTOR",
-        "VARIADORES DE FRECUENCIA"
-      ]
-    },
-    "GEORG FISCHER": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "CAME": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "CEPEX": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "ANGUILA": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "ATMOSS": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "LLENARI": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "IES": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ]
-    },
-    "WIBEEE": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT"
-      ]
-    },
-    "HECAPO": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ]
-    },
-    "BOXTAR": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS"
-      ]
-    },
-    "GOLMAR": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "COMA": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "THOMAS & BETTS": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "TEKOX": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "GAESTOPAS": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "FESTO": {
-      "HIDRAULICA Y NEUMÁTICA": [
-        "ACTUADORES",
-        "EQUIPOS DE CONEXIONADO",
-        "HIDRAULICA Y NEUMÁTICA",
-        "TRATAMIENTO AIRE COMPRIMIDO",
-        "VÁLVULAS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN",
-        "VÁLVULAS Y POSICIONADORES"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "SONIBEL": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "MICRODETECTORS": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ]
-    },
-    "D.F.": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "INNOMOTICS": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "MOTORES Y MOTORREDUCTORES"
-      ]
-    },
-    "TORYTRANS": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "EUROMATEL": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "INTERRUPTOR / CONMUTADOR DE LEVAS",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "ADEFER IGLESIAS": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "STEGO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ]
-    },
-    "CES": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "WITTEWNSTEIN": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "REDUCTORES DE PLANETARIOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "SICCIS": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "EQUIPOS DE MEDIDA Y CONTROL, CONTADORES EN BT"
-      ]
-    },
-    "DANFOSS": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "CALEFFI": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "POTERMIC": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ]
-    },
-    "DISIBEINT": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES",
-        "INSTRUMENTACIÓN DE NIVEL",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES",
-        "RELÉS DE CONTROL Y SUPERVISIÓN"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "ITALSAN-NIRON": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "CASTOLIN": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES"
-      ]
-    },
-    "FISCHER": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "DISEÑOS": {
-      "AUTOMATIZACION Y CONTROL": [
-        "REGULADORES, REGISTRADORES, CONVERSORES, VISUALIZADORES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES"
-      ]
-    },
-    "ARMENGOL": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "BASORTRAY": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "TESTO": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE PRESIÓN",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ]
-    },
-    "WIGEVA": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "ELPRESS": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "MOFLASH": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "GIACOMINI": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "ZURC": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "ENTRELEC": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "NIVELGAR": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE TEMPERATURA / HUMEDAD / AMBIENTAL"
-      ]
-    },
-    "CELLPACK": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "BACHMANN": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "INTERFLEX": {
-      "RELES E INTERFACES": [
-        "RELÉS INTERFAZ"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "MICRO DETECTORS": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "INMAEL": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "CONEX/BANINGER": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "KLAXON": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "BALIZAS SEÑALIZACIÓN INDUSTRIALES",
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "KOBAN": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "LIKITECH": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "ACCESORIOS",
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "INSTRUMENTACIÓN DE PRESIÓN"
-      ]
-    },
-    "GENEBRE": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "WILO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "WIELAND": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS LÓGICOS - EVALUACIÓN",
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "HIDROWATER": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "APLICACIONES TECNOLOGICAS": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "ELECTRO DH": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "ARLUS": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "S.ESCODA": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "ISOFIX": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "SCAME": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "INYECTOMETAL": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "TEKNOMEGA": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "MENNEKES": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "GTLAN": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "WOHNELEC": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "RUBSAMEN+HERR": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "EWON": {
-      "AUTOMATIZACION Y CONTROL": [
-        "COMUNICACIONES INDUSTRIALES"
-      ]
-    },
-    "PEMSA": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "SIKA": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "DUCHAFLEX": {
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "KPS": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "COFEM": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "GUT": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "FEMA": {
-      "AUTOMATIZACION Y CONTROL": [
-        "FUENTES DE ALIMENTACIÓN INDUSTRIALES"
-      ]
-    },
-    "FANOX": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "THEBEN": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "RETELEC": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "SOLERA": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "PROTECCIÓN MOTOR"
-      ]
-    },
-    "TP-LINK": {
-      "AUTOMATIZACION Y CONTROL": [
-        "COMUNICACIONES INDUSTRIALES"
-      ]
-    },
-    "RITTAL": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ]
-    },
-    "NVENT HOFFMAN": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "UNEX": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "HT INSTRUMENTS": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ]
-    },
-    "SYP": {
-      "AUTOMATIZACION Y CONTROL": [
-        "COMUNICACIONES INDUSTRIALES"
-      ]
-    },
-    "MITSUBISHI": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "VARIADORES DE FRECUENCIA"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL",
-        "AUTÓMATAS  - PLCS"
-      ]
-    },
-    "HAUPA": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "LLABRES": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "SPELSBERG": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "MURRPLASTIK": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "KIEBACK&PETER": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "HONEYWELL SAF": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "GRUNDFOS": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "TECNOTRAFO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "GRÄSSLIN": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "URANO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "TRES": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "TERASAKI": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "FERRAZ SHAWMUT": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "FLEXAQUICK": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "FAMATEL": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "HASA": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "PRUMSA": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "METALBLINDS": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "PRITEC": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "FAR": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS",
-        "MOTORES Y MOTORREDUCTORES"
-      ]
-    },
-    "RS AMIDATA": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "TECNA": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "ASTRALPOOL": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "GEMAT": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "INTERRUPTOR / CONMUTADOR DE LEVAS"
-      ]
-    },
-    "EBARA": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "SOFAMEL": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "CONSIGNACIÓN Y SEPARACIÓN DE ENERGÍAS"
-      ]
-    },
-    "BSV": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "SENSÓRICA DE DETECCIÓN / MEDICION / ENCODERS / IDENTIFICACION / IMAGEN"
-      ]
-    },
-    "CEAG NORTEM": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR",
-        "MANDO Y SEÑALIZACIÓN PARA CUADROS ELÉCTRICOS"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "KROMSCHROEDER": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES"
-      ]
-    },
-    "BOMBAS VENETO": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "INSTRUMENTACIÓN ANALÍTICA DE LÍQUIDOS Y GASES /SEGURIDAD DE GASES"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "ELECTRICFOR": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "WIRQUIN": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "CROUZET": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "RACOREX": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "FERROLI": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "AUTOM. FOR S.A.": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "REVALCO": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "CONTHIDRA": {
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "VIESSMANN": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "BLOCH": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "BELIMO": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ],
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "MALLOL ASETYC": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ],
-      "RELES E INTERFACES": [
-        "RELÉS INTERFAZ"
-      ]
-    },
-    "KYORITSU": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "UTC FS": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "HONEYWELL HOME": {
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ],
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL",
-        "INSTRUMENTACIÓN DE NIVEL"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "HONEYWELL": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ],
-      "ROBOTICA": [
-        "ROBOTICA"
-      ],
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ],
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "IMEFY": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "IFM": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "ARCO": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "FARRESA": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "ELION": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "NIESSEN": {
-      "DETECCION INDUSTRIAL. MEDIDA Y CONTROL": [
-        "DETECCIÓN INDUSTRIAL. MEDIDA Y CONTROL"
-      ]
-    },
-    "CLAVED": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "SEGURIDAD DE MAQUINARIA"
-      ]
-    },
-    "RTR ENERGIA": {
-      "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS": [
-        "CONTROL DE VELOCIDAD Y ACCIONAMIENTOS"
-      ]
-    },
-    "ATH": {
-      "ROBOTICA": [
-        "ROBOTICA"
-      ]
-    },
-    "MILWAUKEE": {
-      "HIDRAULICA Y NEUMÁTICA": [
-        "HIDRAULICA Y NEUMÁTICA"
-      ]
-    },
-    "MITSUBISHI - CLIMA": {
-      "AUTOMATIZACION Y CONTROL": [
-        "AUTOMATIZACIÓN Y CONTROL"
-      ]
-    },
-    "EUCHNER": {
-      "SEGURIDAD DE MAQUINARIA": [
-        "DISPOSITIVOS DE ENTRADA - DETECCIÓN"
-      ]
-    },
-    "TELEVES": {
-      "DISPOSITIVOS DE CONTROL AUXILIAR": [
-        "DISPOSITIVOS DE CONTROL AUXILIAR"
-      ]
-    },
-    "VAHLE": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
-    },
-    "CESPEDES": {
-      "RELES E INTERFACES": [
-        "RELES E INTERFACES"
-      ]
     }
   },
   "AUTOMATIZACION DE EDIFICIOS": {
     "SIMON": {
       "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SERIES DE MECANISMO CONECTADAS",
         "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
-        "REDES Y DATOS"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO",
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
-        "SISTEMA BUS KNX"
       ]
     },
     "NIESSEN": {
       "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
         "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
-        "CONTROL DE ACCESOS",
-        "SISTEMA BUS KNX",
-        "SISTEMA BUS PROPIETARIO"
       ]
     },
     "SCHNEIDER ELECTRIC": {
       "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "SERIES DE MECANISMO CONECTADAS",
-        "SERIES DE MECANISMOS CONVENCIONALES",
-        "TOMAS Y CLAVIJAS"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
-        "REDES Y DATOS",
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
-        "SISTEMA BUS KNX",
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
+        "SERIES DE MECANISMOS CONVENCIONALES"
       ]
     },
     "LEGRAND": {
       "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "SERIES DE MECANISMO CONECTADAS",
-        "SERIES DE MECANISMOS CONVENCIONALES",
-        "SOLUCIONES DE COMUNICACIÓN PARA HOSPITALITY",
-        "TOMAS Y CLAVIJAS"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
-        "REDES Y DATOS",
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
-        "CONTROL DE ACCESOS",
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH",
-        "SISTEMAS INTRUSIÓN"
-      ]
-    },
-    "TELEVES": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
-        "ELECTRÓNICA DE RED",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
-        "REDES Y DATOS"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SEGURIDAD"
-      ]
-    },
-    "JUNG": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
         "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMA BUS KNX",
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
-      ]
-    },
-    "EXCEL": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
-        "REDES Y DATOS",
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ]
-    },
-    "ORBIS": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE"
-      ]
-    },
-    "BJC": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ]
-    },
-    "FERMAX": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "CONTROL DE ACCESOS",
-        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES"
-      ]
-    },
-    "SOLERA": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
-      ]
-    },
-    "KPS": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "TOMAS Y CLAVIJAS"
-      ]
-    },
-    "FONESTAR": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO",
-        "SEGURIDAD",
-        "SISTEMAS DE SONIDO Y EVACUACIÓN"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
-        "REDES Y DATOS",
-        "TELECOMUNICACIÓN"
-      ]
-    },
-    "DINUY": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "SERIES DE MECANISMOS CONVENCIONALES",
-        "SEÑALIZACIÓN ACÚSTICA"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMA BUS KNX",
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
-      ]
-    },
-    "BTICINO": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SERIES DE MECANISMO CONECTADAS",
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
-        "CONTROL DE ACCESOS",
-        "SISTEMA BUS PROPIETARIO",
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "REDES Y DATOS"
-      ]
-    },
-    "TEGUI": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "CONTROL DE ACCESOS",
-        "SEGURIDAD"
-      ]
-    },
-    "COMMSCOPE": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA"
-      ]
-    },
-    "IDE": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SERIES DE MECANISMOS CONVENCIONALES",
-        "TOMAS Y CLAVIJAS"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
-      ]
-    },
-    "CORNING": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE"
-      ]
-    },
-    "GEWISS": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SERIES DE MECANISMOS CONVENCIONALES",
-        "TOMAS Y CLAVIJAS"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "REDES Y DATOS"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS"
-      ]
-    },
-    "D-LINK": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ELECTRÓNICA DE RED"
-      ]
-    },
-    "BEG": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMA BUS KNX",
-        "SISTEMA BUS PROPIETARIO"
-      ]
-    },
-    "ABB": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "CONTROL DE ACCESOS",
-        "SISTEMA BUS PROPIETARIO"
-      ]
-    },
-    "GENÉRICO": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "TOMAS Y CLAVIJAS"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "CONTROL DE ACCESOS",
-        "REGULACIÓN Y CONTROL DE AMBIENTE",
-        "SISTEMA BUS KNX"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ]
-    },
-    "PRITEC": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ]
-    },
-    "GOLMAR": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO",
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
-        "CONTROL DE ACCESOS",
-        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES",
-        "SEGURIDAD",
-        "SISTEMAS DE VIDEOVIGILANCIA",
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH",
-        "SISTEMAS INTRUSIÓN"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
-        "TELECOMUNICACIÓN"
-      ],
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SOLUCIONES DE COMUNICACIÓN PARA HOSPITALITY"
-      ]
-    },
-    "EISSOUND": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMAS DE SONIDO Y EVACUACIÓN"
-      ]
-    },
-    "DIGITUS": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
-        "ELECTRÓNICA DE RED"
-      ]
-    },
-    "DELTA DORE": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
-        "REGULACIÓN Y CONTROL DE AMBIENTE",
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
-      ]
-    },
-    "RODMAN": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "SEÑALIZACIÓN ACÚSTICA"
-      ]
-    },
-    "TP-LINK": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "ELECTRÓNICA DE RED",
-        "REDES Y DATOS"
-      ]
-    },
-    "WEIDMULLER": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "TOMAS Y CLAVIJAS"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ]
-    },
-    "AVALVA": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO"
-      ]
-    },
-    "FONTINI": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ]
-    },
-    "HAGER": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
-        "REGULACIÓN Y CONTROL DE AMBIENTE",
-        "SISTEMA BUS PROPIETARIO"
-      ]
-    },
-    "ALG": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ]
-    },
-    "APC BY SCHNEIDER ELECTRIC": {
-      "REDES Y TELECOMUNICACIONES": [
-        "REDES Y DATOS",
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ]
-    },
-    "LEVITON": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA"
-      ]
-    },
-    "EK": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO",
-        "SEGURIDAD"
-      ]
-    },
-    "PHOENIX CONTACT": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "TOMAS Y CLAVIJAS"
-      ]
-    },
-    "PHILIPS LIGHTING SOLUTIONS": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMA BUS PROPIETARIO"
-      ]
-    },
-    "PANDUIT": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE COBRE"
-      ]
-    },
-    "SAET-94": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ]
-    },
-    "HIKVISION": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SEGURIDAD",
-        "SISTEMAS DE VIDEOVIGILANCIA"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "REDES Y DATOS"
-      ]
-    },
-    "HELLERMANN": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
-        "REDES Y DATOS"
-      ]
-    },
-    "RITTAL": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "REDES Y DATOS"
-      ]
-    },
-    "EATON": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ]
-    },
-    "DUCASA": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE"
-      ]
-    },
-    "HONEYWELL HOME": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE"
-      ]
-    },
-    "OPTIMUS": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMAS INTRUSIÓN"
-      ]
-    },
-    "BACHMANN": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE"
-      ]
-    },
-    "GAESTOPAS": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA"
-      ]
-    },
-    "INMAEL": {
-      "REDES Y TELECOMUNICACIONES": [
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
-      ]
-    },
-    "SALICRU": {
-      "REDES Y TELECOMUNICACIONES": [
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ]
-    },
-    "GESCABLE": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE"
-      ]
-    },
-    "MENNEKES": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA",
-        "TOMAS Y CLAVIJAS"
-      ]
-    },
-    "INTERFLEX": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "TOMAS Y CLAVIJAS"
-      ]
-    },
-    "ILME": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "TOMAS Y CLAVIJAS"
-      ]
-    },
-    "BAXI": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE"
-      ]
-    },
-    "EGI": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMAS DE SONIDO Y EVACUACIÓN"
-      ]
-    },
-    "LUCECO": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES"
-      ]
-    },
-    "RETEX": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
-        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ]
-    },
-    "QUINTELA": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ]
-    },
-    "FINDER": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE",
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
-      ]
-    },
-    "EFIBAT": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ]
-    },
-    "NEXANS CS": {
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE"
-      ]
-    },
-    "FAMATEL": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SERIES DE MECANISMOS CONVENCIONALES",
-        "TOMAS Y CLAVIJAS"
-      ]
-    },
-    "COMELIT": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "CONTROL DE ACCESOS"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "REDES Y DATOS"
-      ]
-    },
-    "HARTING": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "TOMAS Y CLAVIJAS"
-      ],
-      "REDES Y TELECOMUNICACIONES": [
-        "CONECTIVIDAD REDES CABLEADO DE COBRE"
-      ]
-    },
-    "MMCONECTA": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SERIES DE MECANISMOS CONVENCIONALES"
-      ]
-    },
-    "KOBAN": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ]
-    },
-    "HONEYWELL": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES"
-      ]
-    },
-    "LLENARI": {
-      "REDES Y TELECOMUNICACIONES": [
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ],
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES"
-      ]
-    },
-    "EKSELANS BY ITS": {
-      "REDES Y TELECOMUNICACIONES": [
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
-      ]
-    },
-    "TBK": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMAS DE VIDEOVIGILANCIA"
-      ]
-    },
-    "GIACOMINI": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE"
-      ]
-    },
-    "WAGO": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMA BUS KNX"
-      ]
-    },
-    "CAME": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "AUTOMATIZACIÓN DE ACCESOS",
-        "CONTROL DE ACCESOS",
-        "SEGURIDAD"
-      ]
-    },
-    "FANTON": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES"
-      ]
-    },
-    "GRUPO AGUILERA": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES",
-        "SISTEMA BUS KNX"
-      ]
-    },
-    "INTESIS": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "OTROS SISTEMAS DE BUS ESTÁNDAR"
-      ]
-    },
-    "LIGHTED": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "SENSORES DE MOVIMIENTO/PRESENCIA"
-      ]
-    },
-    "COMA": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES",
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "TOMAS Y CLAVIJAS"
-      ]
-    },
-    "BIACOM": {
-      "REDES Y TELECOMUNICACIONES": [
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
-      ]
-    },
-    "METALBLINDS": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "CONTROL DE ACCESOS",
-        "SEGURIDAD"
-      ]
-    },
-    "WEIDMÜLLER": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
-      ]
-    },
-    "DELTAELECTRONICS": {
-      "REDES Y TELECOMUNICACIONES": [
-        "REDES Y DATOS",
-        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
-      ]
-    },
-    "AUTA": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "CONTROL DE ACCESOS"
-      ]
-    },
-    "POTERMIC": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE"
-      ]
-    },
-    "FENOPLASTICA": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "BASES, CLAVIJAS Y ADAPTADORES"
-      ]
-    },
-    "SONELCO": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMAS DE SONIDO Y EVACUACIÓN"
-      ]
-    },
-    "MAGNUM HEATING": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE"
-      ]
-    },
-    "FAGOR ELTRON.": {
-      "REDES Y TELECOMUNICACIONES": [
-        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
-      ]
-    },
-    "AIRZONE": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN Y CONTROL DE AMBIENTE"
-      ]
-    },
-    "ROCKWELL": {
-      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
-        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
-        "TOMAS Y CLAVIJAS"
-      ]
-    },
-    "LUXLIGHT": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
-      ]
-    },
-    "LYOPRO": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
-      ]
-    },
-    "MONOLYTH": {
-      "REDES Y TELECOMUNICACIONES": [
-        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER"
-      ]
-    },
-    "KIEBACK&PETER": {
-      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
-        "REGULACIÓN DEL CLIMA"
       ]
     }
   }

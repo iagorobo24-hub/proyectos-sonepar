@@ -48,6 +48,7 @@ export default function DashboardIncidencias() {
   const [filtroEstado, setFiltroEstado] = useState("Todas");
   const [filtroSev, setFiltroSev] = useState("Todas");
   const [seleccionada, setSeleccionada] = useState(null);
+  const [mostrandoDetalle, setMostrandoDetalle] = useState(false);
   const [modo, setModo] = useState("lista");
   const [form, setForm] = useState({ equipo: "", zona: ZONAS[0], operario: "", sintoma: "", severidad: "Media" });
   const [cargandoIA, setCargandoIA] = useState(false);
@@ -70,11 +71,11 @@ export default function DashboardIncidencias() {
 
   const cambiarEstado = (id, nuevoEstado) => {
     const data = incidencias.map(i => i.id === id ? { ...i, estado: nuevoEstado, fechaResolucion: nuevoEstado === "Resuelta" ? Date.now() : i.fechaResolucion } : i);
-    guardar(data); if (seleccionada?.id === id) setSeleccionada(data.find(i => i.id === id)); toast.show(`Estado: ${nuevoEstado}`);
+    guardar(data); if (seleccionada?.id === id) { setSeleccionada(data.find(i => i.id === id)); setMostrandoDetalle(true); } toast.show(`Estado: ${nuevoEstado}`);
   };
   const guardarObservacion = (id, texto) => {
     const data = incidencias.map(i => i.id === id ? { ...i, observaciones: texto } : i);
-    guardar(data); if (seleccionada?.id === id) setSeleccionada(data.find(i => i.id === id)); toast.show("Observación guardada");
+    guardar(data); if (seleccionada?.id === id) { setSeleccionada(data.find(i => i.id === id)); setMostrandoDetalle(true); } toast.show("Observación guardada");
   };
   const crearIncidencia = () => {
     if (!form.equipo || !form.operario || !form.sintoma) { toast.show("⚠ Completa todos los campos"); return; }
@@ -163,127 +164,126 @@ export default function DashboardIncidencias() {
             </div>
           )}
 
-          {/* ── LISTA + DETALLE ── */}
-          {modo === 'lista' && (
-            <div style={{ display: seleccionada && modo !== 'nueva' ? 'grid' : 'flex', gridTemplateColumns: seleccionada && modo !== 'nueva' ? '1fr 1fr' : '1fr', gap: '24px' }}>
-              {/* Lista */}
-              <div>
-                {/* Filtros */}
-                <div style={{ display: 'flex', gap: '12px', marginBottom: '16px', flexWrap: 'wrap', justifyContent: 'center' }}>
-                  <div>
-                    <span style={{ fontSize: '0.6875rem', color: 'var(--gray-400)', textTransform: 'uppercase', letterSpacing: '0.06em', marginRight: '4px' }}>Estado</span>
-                    <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-                      {["Todas", ...ESTADOS].map(e => (
-                        <button key={e} className={`${styles.badge} ${filtroEstado === e ? 'badge--abierta' : ''}`} style={{ background: filtroEstado === e ? 'var(--blue-50)' : 'var(--gray-50)', color: filtroEstado === e ? 'var(--blue-800)' : 'var(--gray-400)', border: 'none', cursor: 'pointer', padding: '4px 10px' }} onClick={() => setFiltroEstado(e)}>{e}</button>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.6875rem', color: 'var(--gray-400)', textTransform: 'uppercase', letterSpacing: '0.06em', marginRight: '4px' }}>Severidad</span>
-                    <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
-                      {["Todas", ...SEVERIDADES].map(s => (
-                        <button key={s} className={styles.badge} style={{ background: filtroSev === s ? 'var(--blue-50)' : 'var(--gray-50)', color: filtroSev === s ? 'var(--blue-800)' : 'var(--gray-400)', border: 'none', cursor: 'pointer', padding: '4px 10px' }} onClick={() => setFiltroSev(s)}>{s}</button>
-                      ))}
-                    </div>
+          {/* ── LISTA / DETALLE (vista única) ── */}
+          {modo === 'lista' && !mostrandoDetalle && (
+            <div>
+              {/* Filtros */}
+              <div className={styles.filtrosBlock}>
+                <div className={styles.filtroGrupo}>
+                  <div className={styles.filtroGrupo__titulo}>Estado</div>
+                  <div className={styles.filtroChips}>
+                    {["Todas", ...ESTADOS].map(e => (
+                      <button key={e} className={`${styles.filtroChip} ${filtroEstado === e ? styles['filtroChip--active'] : ''}`} onClick={() => setFiltroEstado(e)}>{e}</button>
+                    ))}
                   </div>
                 </div>
-
-                <div className={styles.incidenciasList}>
-                  {filtradas.length === 0 ? (
-                    <div className={styles.emptyState}>
-                      <div className={styles.emptyState__icon}>🔍</div>
-                      <div className={styles.emptyState__title}>Sin incidencias</div>
-                      <div className={styles.emptyState__text}>No hay incidencias con estos filtros</div>
-                    </div>
-                  ) : (
-                    filtradas.map((inc) => (
-                      <button key={inc.id} className={styles.incidenciaItem} onClick={() => { setSeleccionada(inc); }} style={{ borderColor: seleccionada?.id === inc.id ? 'var(--blue-200)' : 'var(--gray-100)' }}>
-                        <div className={styles.incidenciaItem__info}>
-                          <div className={styles.incidenciaItem__equipo}>{inc.equipo}</div>
-                          <div className={styles.incidenciaItem__sintoma}>{inc.sintoma.slice(0, 80)}{inc.sintoma.length > 80 ? "..." : ""}</div>
-                          <div className={styles.incidenciaItem__meta}>{inc.zona.split("—")[0].trim()} · {formatTiempo(inc.fechaCreacion)}</div>
-                        </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', alignItems: 'flex-end' }}>
-                          <SevBadge sev={inc.severidad} />
-                          <EstBadge est={inc.estado} />
-                        </div>
-                      </button>
-                    ))
-                  )}
+                <div className={styles.filtroGrupo}>
+                  <div className={styles.filtroGrupo__titulo}>Severidad</div>
+                  <div className={styles.filtroChips}>
+                    {["Todas", ...SEVERIDADES].map(s => (
+                      <button key={s} className={`${styles.filtroChip} ${filtroSev === s ? styles['filtroChip--active'] : ''}`} onClick={() => setFiltroSev(s)}>{s}</button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
-              {/* Detalle */}
-              {seleccionada && modo === 'lista' && (
-                <div>
-                  <button onClick={() => setSeleccionada(null)} style={{ fontSize: '0.8125rem', color: 'var(--gray-400)', background: 'none', border: 'none', cursor: 'pointer', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '4px' }}>← Volver a la lista</button>
-                  <div className={styles.detalleCard}>
-                    <div className={styles.detalleCard__header}>
-                      <div>
-                        <span className={styles.badge} style={{ background: 'var(--gray-50)', color: 'var(--gray-500)', fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>INCIDENCIA #{seleccionada.id.toString().slice(-4)}</span>
-                        <div className={styles.detalleCard__title} style={{ marginTop: '8px' }}>{seleccionada.equipo}</div>
-                        <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}><SevBadge sev={seleccionada.severidad} /><EstBadge est={seleccionada.estado} /></div>
+              <div className={styles.incidenciasList}>
+                {filtradas.length === 0 ? (
+                  <div className={styles.emptyState}>
+                    <div className={styles.emptyState__icon}>🔍</div>
+                    <div className={styles.emptyState__title}>Sin incidencias</div>
+                    <div className={styles.emptyState__text}>No hay incidencias con estos filtros</div>
+                  </div>
+                ) : (
+                  filtradas.map((inc) => (
+                    <button key={inc.id} className={styles.incidenciaItem} onClick={() => { setSeleccionada(inc); setMostrandoDetalle(true); }}>
+                      <div className={styles.incidenciaItem__info}>
+                        <div className={styles.incidenciaItem__equipo}>{inc.equipo}</div>
+                        <div className={styles.incidenciaItem__sintoma}>{inc.sintoma.slice(0, 80)}{inc.sintoma.length > 80 ? "..." : ""}</div>
+                        <div className={styles.incidenciaItem__meta}>{inc.zona.split("—")[0].trim()} · {formatTiempo(inc.fechaCreacion)}</div>
                       </div>
-                    </div>
-
-                    <div className={styles.detalleCard__section}>
-                      <div className={styles.detalleCard__label}>Síntoma</div>
-                      <div className={styles.detalleCard__text}>{seleccionada.sintoma}</div>
-                    </div>
-
-                    <div className={styles.detalleCard__section}>
-                      <div className={styles.detalleCard__label}>Cambiar estado</div>
-                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
-                        {ESTADOS.filter(e => e !== seleccionada.estado).map(e => (
-                          <Button key={e} variant="secondary" size="sm" onClick={() => cambiarEstado(seleccionada.id, e)}>{e}</Button>
-                        ))}
+                      <div className={styles.incidenciaItem__badges}>
+                        <SevBadge sev={inc.severidad} />
+                        <EstBadge est={inc.estado} />
                       </div>
-                    </div>
+                    </button>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
 
-                    <div className={styles.detalleCard__section}>
-                      <div className={styles.detalleCard__label}>Observaciones</div>
-                      <ObservacionesEditor initial={seleccionada.observaciones} onSave={(texto) => guardarObservacion(seleccionada.id, texto)} />
-                    </div>
-
-                    {/* Diagnóstico IA */}
-                    <div className={styles.detalleCard__section}>
-                      <div className={styles.detalleCard__label}>Diagnóstico IA</div>
-                      {!seleccionada.diagnostico ? (
-                        <Button variant="primary" size="md" onClick={() => generarDiagnostico(seleccionada)} loading={cargandoIA} style={{ width: '100%' }}>
-                          {cargandoIA ? "Analizando..." : "Generar diagnóstico IA"}
-                        </Button>
-                      ) : (
-                        <div className={styles.diagnosticoCard}>
-                          <div className={styles.diagnosticoCard__item}>
-                            <div className={styles.diagnosticoCard__itemLabel}>Causa probable</div>
-                            <div className={styles.diagnosticoCard__itemText}>{seleccionada.diagnostico.causa_probable}</div>
-                          </div>
-                          <div className={styles.diagnosticoCard__item}>
-                            <div className={styles.diagnosticoCard__itemLabel}>Pasos de verificación</div>
-                            <ul className={styles.diagnosticoCard__steps}>
-                              {seleccionada.diagnostico.pasos_verificacion?.map((item, i) => (
-                                <li key={i} className={styles.diagnosticoCard__step}><span className={styles.diagnosticoCard__stepNum}>{i + 1}</span><span>{item}</span></li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div className={styles.diagnosticoCard__item}>
-                            <div className={styles.diagnosticoCard__itemLabel}>Solución</div>
-                            <div className={styles.diagnosticoCard__itemText}>{seleccionada.diagnostico.solucion}</div>
-                          </div>
-                          <div className={styles.diagnosticoCard__item}>
-                            <div className={styles.diagnosticoCard__itemLabel}>Medidas preventivas</div>
-                            <ul className={styles.diagnosticoCard__steps}>
-                              {seleccionada.diagnostico.medidas_preventivas?.map((item, i) => (
-                                <li key={i} className={styles.diagnosticoCard__step}><span className={styles.diagnosticoCard__stepNum}>{i + 1}</span><span>{item}</span></li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+          {/* ── DETALLE (vista única full-screen) ── */}
+          {modo === 'lista' && mostrandoDetalle && seleccionada && (
+            <div>
+              <button className={styles.volverBtn} onClick={() => { setSeleccionada(null); setMostrandoDetalle(false); }}>
+                ← Volver a la lista
+              </button>
+              <div className={styles.detalleCard}>
+                <div className={styles.detalleCard__header}>
+                  <div>
+                    <span className={styles.badge} style={{ background: 'var(--gray-50)', color: 'var(--gray-500)', fontSize: '0.625rem', fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase' }}>INCIDENCIA #{seleccionada.id.toString().slice(-4)}</span>
+                    <div className={styles.detalleCard__title} style={{ marginTop: '8px' }}>{seleccionada.equipo}</div>
+                    <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}><SevBadge sev={seleccionada.severidad} /><EstBadge est={seleccionada.estado} /></div>
                   </div>
                 </div>
-              )}
+
+                <div className={styles.detalleCard__section}>
+                  <div className={styles.detalleCard__label}>Síntoma</div>
+                  <div className={styles.detalleCard__text}>{seleccionada.sintoma}</div>
+                </div>
+
+                <div className={styles.detalleCard__section}>
+                  <div className={styles.detalleCard__label}>Cambiar estado</div>
+                  <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                    {ESTADOS.filter(e => e !== seleccionada.estado).map(e => (
+                      <Button key={e} variant="secondary" size="sm" onClick={() => cambiarEstado(seleccionada.id, e)}>{e}</Button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className={styles.detalleCard__section}>
+                  <div className={styles.detalleCard__label}>Observaciones</div>
+                  <ObservacionesEditor initial={seleccionada.observaciones} onSave={(texto) => guardarObservacion(seleccionada.id, texto)} />
+                </div>
+
+                {/* Diagnóstico IA */}
+                <div className={styles.detalleCard__section}>
+                  <div className={styles.detalleCard__label}>Diagnóstico IA</div>
+                  {!seleccionada.diagnostico ? (
+                    <Button variant="primary" size="md" onClick={() => generarDiagnostico(seleccionada)} loading={cargandoIA} style={{ width: '100%' }}>
+                      {cargandoIA ? "Analizando..." : "Generar diagnóstico IA"}
+                    </Button>
+                  ) : (
+                    <div className={styles.diagnosticoCard}>
+                      <div className={styles.diagnosticoCard__item}>
+                        <div className={styles.diagnosticoCard__itemLabel}>Causa probable</div>
+                        <div className={styles.diagnosticoCard__itemText}>{seleccionada.diagnostico.causa_probable}</div>
+                      </div>
+                      <div className={styles.diagnosticoCard__item}>
+                        <div className={styles.diagnosticoCard__itemLabel}>Pasos de verificación</div>
+                        <ul className={styles.diagnosticoCard__steps}>
+                          {seleccionada.diagnostico.pasos_verificacion?.map((item, i) => (
+                            <li key={i} className={styles.diagnosticoCard__step}><span className={styles.diagnosticoCard__stepNum}>{i + 1}</span><span>{item}</span></li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className={styles.diagnosticoCard__item}>
+                        <div className={styles.diagnosticoCard__itemLabel}>Solución</div>
+                        <div className={styles.diagnosticoCard__itemText}>{seleccionada.diagnostico.solucion}</div>
+                      </div>
+                      <div className={styles.diagnosticoCard__item}>
+                        <div className={styles.diagnosticoCard__itemLabel}>Medidas preventivas</div>
+                        <ul className={styles.diagnosticoCard__steps}>
+                          {seleccionada.diagnostico.medidas_preventivas?.map((item, i) => (
+                            <li key={i} className={styles.diagnosticoCard__step}><span className={styles.diagnosticoCard__stepNum}>{i + 1}</span><span>{item}</span></li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 

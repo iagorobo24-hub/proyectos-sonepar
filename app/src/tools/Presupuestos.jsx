@@ -114,8 +114,20 @@ export default function Presupuestos() {
               ))}
             </div>
 
+            {/* Botón Continuar tras seleccionar categoría */}
+            {categoria && vista === 'wizard' && recomendaciones.length === 0 && (
+              <div style={{ textAlign: 'center', marginTop: '24px' }}>
+                <Button variant="primary" size="md" onClick={() => {
+                  const catDemos = DEMOS[categoria] || {};
+                  setRespuestas(Object.fromEntries(Object.entries(catDemos).map(([k, v]) => [k, v])));
+                }}>
+                  Continuar →
+                </Button>
+              </div>
+            )}
+
             {/* Form de respuestas */}
-            {categoria && (
+            {categoria && Object.keys(respuestas).length > 0 && vista === 'wizard' && (
               <div className={styles.formCard} style={{ maxWidth: 500, margin: '24px auto 0' }}>
                 {Object.entries(DEMOS[categoria] || {}).map(([key, val]) => (
                   <div key={key} className={styles.formCard__group}>

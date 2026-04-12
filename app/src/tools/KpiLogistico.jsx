@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { TrendingUp } from 'lucide-react';
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceLine } from "recharts";
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import { useToast } from '../contexts/ToastContext'
@@ -15,6 +15,20 @@ const BENCHMARKS = {
   productividad:  { bueno: 90, malo: 70, label: "Productividad", unidad: "%",     desc: "Rendimiento sobre capacidad teórica",                 icono: "👥" },
 };
 
+const EJEMPLO_DATOS = {
+  delegacion: "Sonepar A Coruña",
+  turno: "Mañana",
+  pedidos: "145",
+  horas: "8",
+  errores: "3",
+  tiempo_ciclo: "4.2",
+  ubicaciones_ocupadas: "8750",
+  ubicaciones_total: "12000",
+  devoluciones: "7",
+  lineas_expedidas: "420",
+  operarios: "6",
+};
+
 export default function KPILogistico() {
   const { toast } = useToast();
   const [datos, setDatos] = useState({ delegacion: "", turno: "Mañana", pedidos: "", horas: "", errores: "", tiempo_ciclo: "", ubicaciones_ocupadas: "", ubicaciones_total: "", devoluciones: "", lineas_expedidas: "", operarios: "" });
@@ -23,6 +37,11 @@ export default function KPILogistico() {
   const [historial, setHistorial] = useState([]);
   const [cargando, setCargando] = useState(false);
   const [tab, setTab] = useState("calculo");
+
+  const cargarEjemplo = () => {
+    setDatos(EJEMPLO_DATOS);
+    toast.show("Datos de ejemplo cargados", "success");
+  };
 
   useEffect(() => { try { const h = localStorage.getItem("sonepar_kpi_historial"); if (h) setHistorial(JSON.parse(h)); } catch {} }, []);
 
@@ -101,26 +120,29 @@ export default function KPILogistico() {
           {tab === 'calculo' && (
             <>
               {/* Formulario */}
-              <div className={styles.formGrid}>
-                {CAMPOS.map(({ key, label, placeholder }) => (
-                  <div key={key} className={styles.formGroup}>
-                    <label className={styles.formGroup__label}>{label}</label>
-                    <input className={styles.formGroup__input} type="number" step="0.1" placeholder={placeholder} value={datos[key]} onChange={e => setDatos(p => ({ ...p, [key]: e.target.value }))} />
+              <div className={styles.formWrapper}>
+                <div className={styles.formGrid}>
+                  {CAMPOS.map(({ key, label, placeholder }) => (
+                    <div key={key} className={styles.formGroup}>
+                      <label className={styles.formGroup__label}>{label}</label>
+                      <input className={styles.formGroup__input} type="number" step="0.1" placeholder={placeholder} value={datos[key]} onChange={e => setDatos(p => ({ ...p, [key]: e.target.value }))} />
+                    </div>
+                  ))}
+                  <div className={styles.formGroup}>
+                    <label className={styles.formGroup__label}>TURNO</label>
+                    <select className={styles.formGroup__input} value={datos.turno} onChange={e => setDatos(p => ({ ...p, turno: e.target.value }))}>
+                      <option>Mañana</option><option>Tarde</option><option>Noche</option>
+                    </select>
                   </div>
-                ))}
-                <div className={styles.formGroup}>
-                  <label className={styles.formGroup__label}>TURNO</label>
-                  <select className={styles.formGroup__input} value={datos.turno} onChange={e => setDatos(p => ({ ...p, turno: e.target.value }))}>
-                    <option>Mañana</option><option>Tarde</option><option>Noche</option>
-                  </select>
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.formGroup__label}>DELEGACIÓN</label>
-                  <input className={styles.formGroup__input} placeholder="Sonepar A Coruña" value={datos.delegacion} onChange={e => setDatos(p => ({ ...p, delegacion: e.target.value }))} />
+                  <div className={styles.formGroup}>
+                    <label className={styles.formGroup__label}>DELEGACIÓN</label>
+                    <input className={styles.formGroup__input} placeholder="Sonepar A Coruña" value={datos.delegacion} onChange={e => setDatos(p => ({ ...p, delegacion: e.target.value }))} />
+                  </div>
                 </div>
               </div>
 
-              <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+              <div className={styles.actionButtons}>
+                <Button variant="secondary" size="md" onClick={cargarEjemplo}>Cargar ejemplo</Button>
                 <Button variant="primary" size="lg" onClick={calcular} loading={cargando}>Calcular KPIs e informe IA →</Button>
               </div>
 
@@ -131,7 +153,7 @@ export default function KPILogistico() {
                     {Object.entries(BENCHMARKS).map(([key, b]) => {
                       const valor = kpis[key]; const color = semaforoColor(key, valor);
                       return (
-                        <div key={key} className={`${styles.kpiCard} styles['kpiCard--${color}']`}>
+                        <div key={key} className={`${styles.kpiCard} ${styles[`kpiCard--${color}`]}`}>
                           <div className={styles.kpiCard__value} style={{ color: color === 'verde' ? 'var(--success)' : color === 'rojo' ? 'var(--error)' : color === 'amarillo' ? 'var(--warning)' : 'var(--blue-800)' }}>
                             {valor.toFixed(1)}{b.unidad}
                           </div>

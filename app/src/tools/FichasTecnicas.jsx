@@ -131,13 +131,12 @@ export default function FichasTecnicas() {
     /* Estado vacío inicial */
     if (!categoria && modo === 'navegacion') {
       return (
-        <div className={styles.circleLayout}>
-          <CircleCenter
-            icon="📋"
-            title="Fichas Técnicas"
-            desc="Busca por referencia o selecciona una categoría del panel izquierdo para navegar por el catálogo."
-          />
-          <OrbitRing size="outer" className={styles.animPulse} aria-hidden="true" />
+        <div className={styles.emptyState}>
+          <div className={styles.emptyState__icon} aria-hidden="true">📋</div>
+          <h2 className={styles.emptyState__title}>Fichas Técnicas</h2>
+          <p className={styles.emptyState__desc}>
+            Busca por referencia o selecciona una categoría del panel izquierdo para navegar por el catálogo.
+          </p>
         </div>
       )
     }
