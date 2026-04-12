@@ -82,9 +82,8 @@ export default function FichasTecnicas() {
   /* ── Sidebar ─ */
   const renderSidebar = () => (
     <aside className={styles.sidebar} aria-label="Categorías de productos">
-      {/* Buscador en sidebar */}
+      {/* Buscador compacto en sidebar */}
       <div className={styles.sidebar__search} role="search">
-        <label htmlFor="catalog-search" className="visually-hidden">Buscar en el catálogo de Sonepar</label>
         <Input
           id="catalog-search"
           value={consulta}
@@ -168,7 +167,7 @@ export default function FichasTecnicas() {
           <div className={styles.emptyState__icon} aria-hidden="true">📋</div>
           <h2 className={styles.emptyState__title}>Fichas Técnicas</h2>
           <p className={styles.emptyState__desc}>
-            Busca por referencia o selecciona una categoría del panel izquierdo para navegar por el catálogo.
+            Selecciona una categoría del panel izquierdo o busca por referencia para navegar por el catálogo.
           </p>
         </div>
       )

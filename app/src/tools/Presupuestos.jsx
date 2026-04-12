@@ -124,7 +124,7 @@ export default function Presupuestos() {
                   setRespuestas(Object.fromEntries(Object.entries(catDemos).map(([k, v]) => [k, v])));
                   setTimeout(() => {
                     formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                  }, 100);
+                  }, 300);
                 }}>
                   Continuar →
                 </Button>
@@ -133,7 +133,7 @@ export default function Presupuestos() {
 
             {/* Form de respuestas */}
             {categoria && Object.keys(respuestas).length > 0 && vista === 'wizard' && (
-              <div ref={formRef} className={styles.formCard} style={{ maxWidth: 500, margin: '24px auto 0' }}>
+              <div ref={formRef} className={styles.formCard} style={{ maxWidth: 500, margin: '32px auto 0', border: '2px solid var(--blue-200)', boxShadow: 'var(--shadow-md)' }}>
                 {Object.entries(DEMOS[categoria] || {}).map(([key, val]) => (
                   <div key={key} className={styles.formCard__group}>
                     <label className={styles.formCard__label}>{key.replace(/_/g, ' ').toUpperCase()}</label>
