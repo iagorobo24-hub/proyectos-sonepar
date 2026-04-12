@@ -5,6 +5,9 @@ import HeroVisual from './HeroVisual';
 import StatsSection from './StatsSection';
 import HowItWorks from './HowItWorks';
 import ToolsShowcase from './ToolsShowcase';
+import Roadmap from './Roadmap';
+import TechStack from './TechStack';
+import FinalCTA from './FinalCTA';
 import FeaturesMini from './FeaturesMini';
 import AnimatedBackground from './AnimatedBackground';
 import styles from './styles/HeroContainer.module.css';
@@ -34,6 +37,15 @@ const HeroContainer = () => {
 
       {/* 7 Tools Showcase */}
       <ToolsShowcase />
+
+      {/* Roadmap */}
+      <Roadmap />
+
+      {/* Tech Stack */}
+      <TechStack />
+
+      {/* Final CTA */}
+      <FinalCTA />
 
       {/* Key Features Quick Access */}
       <FeaturesMini />

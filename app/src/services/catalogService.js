@@ -100,5 +100,6 @@ export default {
   getTiposPorGamaMarcaYFamilia,
   getProductosPorFiltro,
   getProductoPorRef,
-  getCatalogStats
+  getCatalogStats,
+  getHierarchy
 };

@@ -17,7 +17,7 @@ const SCREENSHOTS = [
 
 const HeroVisual = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [totalRefs, setTotalRefs] = useState(null);
+  const [stats, setStats] = useState({ totalProducts: null, totalFamilies: 0, totalBrands: 0 });
 
   useEffect(() => {
     // Precarga de imágenes para evitar flashes en blanco
@@ -31,9 +31,25 @@ const HeroVisual = () => {
     }, 5000);
 
     const fetchStats = async () => {
-      const stats = await catalogService.getCatalogStats();
-      if (stats.totalProducts) {
-        setTotalRefs(stats.totalProducts);
+      try {
+        const data = await catalogService.getCatalogStats();
+        if (data.totalProducts) {
+          // Calcular familias y marcas desde la jerarquía
+          const tree = await catalogService.getHierarchy();
+          const families = Object.keys(tree).length;
+          let brands = new Set();
+          Object.values(tree).forEach(fam => {
+            Object.keys(fam).forEach(brand => brands.add(brand));
+          });
+
+          setStats({
+            totalProducts: data.totalProducts,
+            totalFamilies: families,
+            totalBrands: brands.size
+          });
+        }
+      } catch {
+        // Fallback si Firestore no está disponible
       }
     };
     fetchStats();
@@ -42,9 +58,9 @@ const HeroVisual = () => {
   }, []);
 
   const formatRefs = (num) => {
-    if (num === null) return 'Actualizando...';
-    if (num >= 1000) return `${(num / 1000).toFixed(1)}k+ Refs`;
-    return `${num} Refs`;
+    if (num === null) return 'Sincronizando...';
+    if (num >= 1000) return `${(num / 1000).toFixed(1)}k+`;
+    return `${num}`;
   };
 
   return (
@@ -152,7 +168,7 @@ const HeroVisual = () => {
           </motion.div>
 
           {/* Card 3: Catálogo Firestore */}
-          <motion.div 
+          <motion.div
             className={styles.floatingCard}
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
@@ -166,7 +182,10 @@ const HeroVisual = () => {
             <div className={styles.cardBody}>
               <span className={styles.pulseText}>Sincronizado con Firestore</span>
               <div className={styles.statusLine}>
-                <span className={styles.statusValue} style={{ color: '#f0a030' }}>{formatRefs(totalRefs)}</span>
+                <span className={styles.statusValue} style={{ color: '#f0a030' }}>{formatRefs(stats.totalProducts)} refs</span>
+              </div>
+              <div className={styles.statusLine}>
+                <span className={styles.pulseText}>{stats.totalFamilies} familias · {stats.totalBrands} marcas</span>
               </div>
             </div>
           </motion.div>
