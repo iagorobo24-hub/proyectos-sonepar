@@ -58,3 +58,20 @@ service-account.json
 # Null/artefact files
 $null
 
+# Scraper data (raw/catalog dumps)
+*-catalog-scraper/
+scraper-data/
+*.scraper.json
+*catalogo*.json
+*progreso*.json
+*productos*.json
+*subfamilias*.json
+
+# Binary docs (use markdown instead)
+*.docx
+
+# Test screenshots
+e2e/results/
+e2e/screenshots/
+**/screenshots/
+
