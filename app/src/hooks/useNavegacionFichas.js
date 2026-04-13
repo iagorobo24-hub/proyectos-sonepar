@@ -116,6 +116,29 @@ export default function useNavegacionFichas() {
     setPaso('categorias'); setCategoria(null); setMarca(null); setGama(null); setTipo(null); setReferencia(null); setHistorial([]);
   }, [])
 
+  const buscarReferenciaDirecta = useCallback(async (refId) => {
+    if (!refId) return false
+    setCargando(true)
+    try {
+      const ficha = await catalogService.getProductoPorRef(refId)
+      if (ficha) {
+        setCategoria(ficha.familia)
+        setMarca(ficha.marca)
+        setGama(ficha.gama)
+        setTipo(ficha.tipo)
+        setReferencia(ficha)
+        setPaso('ficha')
+        setHistorial(prev => [...prev, { paso: 'categorias' }])
+        setCargando(false)
+        return true
+      }
+    } catch (e) {
+      console.error("Error en búsqueda directa:", e)
+    }
+    setCargando(false)
+    return false
+  }, [])
+
   const breadcrumb = useMemo(() => {
     const b = []; if (categoria) b.push(categoria); if (marca) b.push(marca); if (gama) b.push(gama); if (tipo) b.push(tipo); return b;
   }, [categoria, marca, gama, tipo])
@@ -123,6 +146,7 @@ export default function useNavegacionFichas() {
   return {
     paso, categoria, marca, gama, tipo, referencia, historial, cargando,
     categorias: CATEGORIAS, marcasDisponibles, gamasDisponibles, tiposDisponibles, referenciasDisponibles,
-    breadcrumb, seleccionarCategoria, seleccionarMarca, seleccionarGama, seleccionarTipo, seleccionarReferencia, volver, reiniciar
+    breadcrumb, seleccionarCategoria, seleccionarMarca, seleccionarGama, seleccionarTipo, seleccionarReferencia, volver, reiniciar,
+    buscarReferenciaDirecta
   }
 }

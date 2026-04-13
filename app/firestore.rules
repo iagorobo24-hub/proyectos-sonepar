@@ -11,10 +11,20 @@ service cloud.firestore {
     // CATÁLOGO SONEPAR — Lectura pública, escritura prohibida (solo via Admin SDK)
     match /catalog_products/{productId} {
       allow read: if true;
-      allow write: if false;
     }
     match /catalog_metadata/{metadataId} {
       allow read: if true;
+    }
+    match /catalog_tree/{treeId} {
+      allow read: if true;
+    }
+    match /catalog_products/{productId} {
+      allow write: if false;
+    }
+    match /catalog_metadata/{metadataId} {
+      allow write: if false;
+    }
+    match /catalog_tree/{treeId} {
       allow write: if false;
     }
 
