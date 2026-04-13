@@ -73,6 +73,18 @@ export default function FichasTecnicas() {
     if (url) window.open(url, '_blank', 'noopener,noreferrer')
   }
 
+  const getUrlFabricante = (prod) => {
+    if (!prod) return null
+    // Priorizar enlaces a página de producto en el array de documentos
+    const docPágina = prod.documentos?.find(d => d.nombre?.toLowerCase().includes('página') || d.nombre?.toLowerCase().includes('enlace'))
+    if (docPágina?.url) return docPágina.url
+    // Fallback a cualquier hoja de datos
+    const docFicha = prod.documentos?.find(d => d.nombre?.toLowerCase().includes('hoja') || d.url?.includes('prysmiangroup') || d.url?.includes('generalcable'))
+    if (docFicha?.url) return docFicha.url
+    // Fallback final al pdfUrl antiguo
+    return prod.pdf_url || prod.pdfUrl
+  }
+
   const marcasConLogo = marcasDisponibles.map(m => ({
     ...m,
     logo: MARCAS[m.nombre]?.logo || '',
@@ -353,7 +365,7 @@ export default function FichasTecnicas() {
               ]}
               actions={[
                 { label: 'Copiar referencia', variant: 'primary', onClick: () => copiarReferencia(referencia.ref) },
-                { label: 'Ficha fabricante', variant: 'secondary', onClick: () => abrirPDF(referencia.pdf_url) },
+                { label: 'Ficha fabricante', variant: 'secondary', onClick: () => abrirPDF(getUrlFabricante(referencia)) },
                 { label: 'Presupuesto', variant: 'secondary', onClick: () => añadirPresupuesto(referencia) },
               ]}
             />

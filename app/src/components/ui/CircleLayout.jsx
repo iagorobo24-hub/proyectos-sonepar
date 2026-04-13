@@ -78,13 +78,13 @@ export function RefCard({ code, desc, price, onClick, className = '' }) {
   )
 }
 
-export function FichaCard({ ref, desc, price, specs, actions, className = '' }) {
+export function FichaCard({ refCode, desc, price, specs, actions, className = '' }) {
   return (
     <div className={`${styles.fichaCard} ${className}`}>
       <div className={styles.fichaCard__header}>
         <div>
           <span className={`${styles.label} ${styles['label--brand']}`}>REFERENCIA</span>
-          <div className={styles.fichaCard__ref}>{ref}</div>
+          <div className={styles.fichaCard__ref}>{refCode}</div>
           {desc && <div className={styles.fichaCard__desc}>{desc}</div>}
         </div>
         {price && (
