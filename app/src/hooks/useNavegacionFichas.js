@@ -5,6 +5,7 @@
 import { useState, useCallback, useMemo, useEffect } from 'react'
 import catalogService from '../services/catalogService'
 import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
+import { useToast } from '../contexts/ToastContext'
 
 const CATEGORIAS = Object.keys(FULL_CATEGORY_INFO).map(key => ({
   id: key,
@@ -14,6 +15,7 @@ const CATEGORIAS = Object.keys(FULL_CATEGORY_INFO).map(key => ({
 }))
 
 export default function useNavegacionFichas() {
+  const { toast } = useToast()
   const [paso, setPaso] = useState('categorias') // categorias | marcas | gamas | tipos | referencias | ficha
   const [categoria, setCategoria] = useState(null)
   const [marca, setMarca] = useState(null)
@@ -35,10 +37,13 @@ export default function useNavegacionFichas() {
       setCargando(true)
       const data = await catalogService.getMarcasPorCategoria(categoria)
       setMarcasDisponibles(data)
+      if (data.length === 0) {
+        toast.info(`La categoría ${categoria} aún no tiene productos sincronizados en esta versión.`, { id: 'no-data' })
+      }
       setCargando(false)
     }
     load()
-  }, [categoria])
+  }, [categoria, toast])
 
   // 2. Cargar Subfamilias (N2) al seleccionar Marca
   useEffect(() => {
