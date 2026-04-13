@@ -73,8 +73,10 @@ export default function useNavegacionFichas() {
   useEffect(() => {
     if (!categoria || !marca || !gama || !tipo) return;
     async function load() {
+      console.log('🔍 Buscando productos:', { categoria, marca, gama, tipo })
       setCargando(true)
       const products = await catalogService.getProductosPorFiltro(categoria, marca, gama, tipo)
+      console.log(`📦 Encontrados: ${products.length} productos`)
       setReferenciasDisponibles(products)
       setCargando(false)
     }

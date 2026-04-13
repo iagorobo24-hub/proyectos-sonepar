@@ -101,10 +101,55 @@ export async function getProductosPorFiltro(categoria, marca, gama, tipo) {
 
 export async function getProductoPorRef(ref) {
   if (!ref) return null;
+  const cacheKey = ref.toUpperCase();
+  
+  // Usar caché si existe
+  if (productCache.has(cacheKey)) {
+    console.log(`📦 Usando caché para ref: ${cacheKey}`);
+    return productCache.get(cacheKey);
+  }
+
   try {
-    const docSnap = await getDoc(doc(db, 'catalog_products', ref.toUpperCase()));
-    return docSnap.exists() ? docSnap.data() : null;
+    const docSnap = await getDoc(doc(db, 'catalog_products', cacheKey));
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      productCache.set(cacheKey, data);
+      return data;
+    }
+    
+    // Fallback: buscar por el campo ref si el ID del documento no coincide
+    const q = query(
+      collection(db, 'catalog_products'),
+      where('ref', '==', ref),
+      limit(1)
+    );
+    const snap = await getDocs(q);
+    if (!snap.empty) {
+      const data = snap.docs[0].data();
+      productCache.set(cacheKey, data);
+      return data;
+    }
+    return null;
   } catch (error) { return null; }
+}
+
+/** Búsqueda por palabra clave en el catálogo */
+export async function buscarProductos(termino) {
+  if (!termino || termino.length < 3) return [];
+  const qStr = termino.toLowerCase().trim();
+  
+  try {
+    const q = query(
+      collection(db, 'catalog_products'),
+      where('searchKeywords', 'array-contains', qStr),
+      limit(10)
+    );
+    const snap = await getDocs(q);
+    return snap.docs.map(d => d.data());
+  } catch (error) {
+    console.error('Error buscando productos:', error);
+    return [];
+  }
 }
 
 export default {
@@ -113,6 +158,7 @@ export default {
   getTiposPorGamaMarcaYFamilia,
   getProductosPorFiltro,
   getProductoPorRef,
+  buscarProductos,
   getCatalogStats,
   getHierarchy
 };

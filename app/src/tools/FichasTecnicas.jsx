@@ -172,6 +172,32 @@ export default function FichasTecnicas() {
   const renderMain = () => {
     if (isCargando) return renderSkeletons()
 
+    /* Resultados múltiples de búsqueda real */
+    if (resultadosBusqueda && resultadosBusqueda.length > 0) {
+      return (
+        <div className={styles.circleLayout}>
+          <div className={styles.sectionHeader}>
+            <span className={`${styles.label} ${styles['label--brand']}`}>{resultadosBusqueda.length} resultados encontrados</span>
+            <h2 className={styles.sectionTitle}>Selecciona un producto</h2>
+          </div>
+          <div className={styles.orbitRows} role="list">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px', width: '100%', padding: '20px' }}>
+              {resultadosBusqueda.map(p => (
+                <div key={p.ref} className={styles.aiCard} style={{ cursor: 'pointer', textAlign: 'left' }} onClick={() => seleccionarReferencia(p.ref)}>
+                  <div className={styles.aiCard__name} style={{ fontSize: '0.9rem', marginBottom: '8px' }}>{p.nombre}</div>
+                  <div className={styles.aiCard__ref} style={{ color: 'var(--blue-600)', fontWeight: 'bold' }}>REF: {p.ref}</div>
+                  <div className={styles.aiCard__specs}>
+                    <span className={styles.aiCard__spec}>{p.marca}</span>
+                    <span className={styles.aiCard__spec}>{p.precio}€</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )
+    }
+
     /* Estado vacío inicial */
     if (!categoria && modo === 'navegacion') {
       return (

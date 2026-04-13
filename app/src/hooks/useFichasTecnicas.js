@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import useFirestoreSync from './useFirestoreSync'
 import { callAnthropicAI, parseAIJsonResponse } from '../services/anthropicService'
+import catalogService from '../services/catalogService'
 
 /* Prompts para la API de Anthropic — system prompt separado del input */
 const SYSTEM_FICHA = `Eres un técnico especialista en material eléctrico e industrial de Sonepar España con 15 años de experiencia. El técnico de mostrador te consulta sobre un producto.
@@ -29,6 +30,7 @@ Si la consulta identifica un producto concreto, responde ÚNICAMENTE con este JS
 export default function useFichasTecnicas() {
   const [consulta, setConsulta] = useState('')
   const [resultado, setResultado] = useState(null)
+  const [resultadosBusqueda, setResultadosBusqueda] = useState([])
   const [error, setError] = useState(null)
   const [cargando, setCargando] = useState(false)
 
@@ -72,16 +74,43 @@ export default function useFichasTecnicas() {
     saveHistorial([])
   }
 
-  /* Buscar producto en la API */
+  /* Buscar producto real en el catálogo o en la IA */
   const buscar = async (q = consulta) => {
     if (!q.trim()) return
     setCargando(true)
     setResultado(null)
+    setResultadosBusqueda([])
     setError(null)
 
     try {
+      // 1. INTENTAR BÚSQUEDA EN CATÁLOGO REAL (POR REFERENCIA)
+      const productoReal = await catalogService.getProductoPorRef(q.trim())
+      
+      if (productoReal) {
+        const fichaReal = mapProductoAFicha(productoReal)
+        setResultado(fichaReal)
+        guardarHistorial(q, fichaReal)
+        setCargando(false)
+        return
+      }
+
+      // 2. INTENTAR BÚSQUEDA POR PALABRAS CLAVE (NOMBRE)
+      const productosPorNombre = await catalogService.buscarProductos(q.trim())
+      if (productosPorNombre.length > 0) {
+        if (productosPorNombre.length === 1) {
+          const fichaReal = mapProductoAFicha(productosPorNombre[0])
+          setResultado(fichaReal)
+          guardarHistorial(q, fichaReal)
+        } else {
+          setResultadosBusqueda(productosPorNombre.map(mapProductoAFicha))
+        }
+        setCargando(false)
+        return
+      }
+
+      // 3. SI NO HAY RESULTADOS REALES, PREGUNTAR A LA IA (RAG)
       const { text } = await callAnthropicAI({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-3-5-sonnet-20240620',
         max_tokens: 1000,
         system: SYSTEM_FICHA,
         messages: [{ role: 'user', content: q }],
@@ -100,9 +129,28 @@ export default function useFichasTecnicas() {
     setCargando(false)
   }
 
+  /* Helper para unificar formato de producto real -> formato ficha técnica */
+  const mapProductoAFicha = (p) => ({
+    nombre: p.nombre,
+    ref: p.ref, // Referencia Fabricante (Prioritaria)
+    refSonepar: p.refSonepar,
+    referencia: p.ref, 
+    fabricante: p.marca,
+    marca: p.marca,
+    familia: p.familia,
+    categoria: p.tipo || p.familia,
+    precio_orientativo: `${p.precio || p.pvp} €`,
+    precio: p.precio || p.pvp,
+    descripcion: p.nombre,
+    pdf_url: p.pdf || p.pdfUrl,
+    stock: p.stock,
+    esReal: true
+  })
+
   return {
     consulta, setConsulta,
     resultado, setResultado,
+    resultadosBusqueda,
     error,
     cargando,
     historial,

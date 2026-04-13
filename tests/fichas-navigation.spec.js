@@ -13,7 +13,7 @@ test.describe('Fichas Tecnicas - Bug Fixes Verification', () => {
   });
 
   test('Bug 1 fixed: categories show reference counts > 0', async ({ page }) => {
-    await page.goto('/fichas', { waitUntil: 'domcontentloaded' });
+    await page.goto('/app/fichas', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(2000);
 
     // Wait for heading to appear
@@ -41,7 +41,7 @@ test.describe('Fichas Tecnicas - Bug Fixes Verification', () => {
 
   test('Bug 2 fixed: navigation between tools works without reload', async ({ page }) => {
     // Start at Fichas Tecnicas
-    await page.goto('/fichas', { waitUntil: 'domcontentloaded' });
+    await page.goto('/app/fichas', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(1000);
     await expect(page.getByRole('heading', { name: /Fichas Técnicas/i })).toBeVisible({ timeout: 5000 });
 
@@ -76,7 +76,7 @@ test.describe('Fichas Tecnicas - Bug Fixes Verification', () => {
   });
 
   test('category navigation works - clicking a category shows content', async ({ page }) => {
-    await page.goto('/fichas', { waitUntil: 'domcontentloaded' });
+    await page.goto('/app/fichas', { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(2000);
 
     // Click on "Iluminación" which has 36 refs
