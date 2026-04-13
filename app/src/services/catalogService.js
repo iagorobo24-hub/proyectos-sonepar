@@ -83,6 +83,7 @@ export async function getCatalogStats() {
 
 /** Carga productos filtrados */
 export async function getProductosPorFiltro(categoria, marca, gama, tipo) {
+  console.log('📡 Consultando Firestore:', { familia: categoria, marca, gama, tipo });
   try {
     const q = query(
       collection(db, 'catalog_products'),
@@ -93,8 +94,9 @@ export async function getProductosPorFiltro(categoria, marca, gama, tipo) {
       limit(100)
     );
     const snap = await getDocs(q);
+    console.log(`✅ Firestore devolvió ${snap.size} productos`);
     return snap.docs.map(doc => doc.data());
-  } catch (error) { console.error('Error fetching products:', error); return []; }
+  } catch (error) { console.error('❌ Error fetching products:', error); return []; }
 }
 
 export async function getProductoPorRef(ref) {
