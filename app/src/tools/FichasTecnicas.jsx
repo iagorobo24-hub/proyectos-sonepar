@@ -50,7 +50,16 @@ export default function FichasTecnicas() {
     buscarReferenciaDirecta,
   } = useNavegacionFichas()
 
-  const { consulta, setConsulta, resultado, error, cargando: busquedaIACargando, accesosRapidos, buscar } = useFichasTecnicas()
+  const {
+    consulta,
+    setConsulta,
+    resultado,
+    resultadosBusqueda,
+    error,
+    cargando: busquedaIACargando,
+    accesosRapidos,
+    buscar,
+  } = useFichasTecnicas()
 
   const [modo, setModo] = React.useState('navegacion')
   

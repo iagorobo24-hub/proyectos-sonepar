@@ -1,21 +1,49 @@
-/**
- * Vercel Edge Function — Proxy Anthropic API
- * Seguridad: autenticación Firebase, rate limiting, validación de origen
- */
+import { cert, getApps, initializeApp } from 'firebase-admin/app'
+import { getAuth } from 'firebase-admin/auth'
 
-import { initializeApp } from 'firebase/app'
-import { getAuth, verifyIdToken } from 'firebase-admin/auth'
-import { getFirestore } from 'firebase-admin/firestore'
+const RATE_LIMIT_WINDOW_MS = 60 * 1000
+const RATE_LIMIT_MAX_REQUESTS = 10
+const rateLimitStore = new Map()
 
-/* ── Configuración Firebase Admin (solo servidor) ── */
-const firebaseConfig = {
-  projectId: process.env.FIREBASE_PROJECT_ID || 'proyectos-sonepar',
+const ALLOWED_ORIGINS = new Set([
+  'https://proyectos-sonepar.vercel.app',
+  'https://proyectos-sonepar-iagorobo24-hubs-projects.vercel.app',
+  'https://proyectos-sonepar-iagorobo24-hub-iagorobo24-hubs-projects.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:3000',
+])
+
+function getHeader(req, name) {
+  const value = req.headers?.[name]
+
+  if (Array.isArray(value)) {
+    return value[0]
+  }
+
+  return value
 }
 
-/* ── Rate limiting simple en memoria (por IP) ── */
-const RATE_LIMIT_WINDOW_MS = 60 * 1000       // 1 minuto
-const RATE_LIMIT_MAX_REQUESTS = 10            // máx peticiones por ventana
-const rateLimitStore = new Map()              // IP -> { count, resetAt }
+function setCorsHeaders(req, res) {
+  const origin = getHeader(req, 'origin')
+
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+    res.setHeader('Vary', 'Origin')
+  }
+
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+}
+
+function getClientIp(req) {
+  const forwardedFor = getHeader(req, 'x-forwarded-for')
+
+  if (forwardedFor) {
+    return forwardedFor.split(',')[0].trim()
+  }
+
+  return getHeader(req, 'x-real-ip') || req.socket?.remoteAddress || 'unknown'
+}
 
 function checkRateLimit(ip) {
   const now = Date.now()
@@ -27,98 +55,161 @@ function checkRateLimit(ip) {
   }
 
   if (entry.count >= RATE_LIMIT_MAX_REQUESTS) {
-    return { allowed: false, remaining: 0, retryAfter: Math.ceil((entry.resetAt - now) / 1000) }
+    return {
+      allowed: false,
+      remaining: 0,
+      retryAfter: Math.ceil((entry.resetAt - now) / 1000),
+    }
   }
 
-  entry.count++
+  entry.count += 1
   return { allowed: true, remaining: RATE_LIMIT_MAX_REQUESTS - entry.count }
 }
 
-/* ── Limpieza periódica del store ── */
-setInterval(() => {
-  const now = Date.now()
-  for (const [ip, entry] of rateLimitStore.entries()) {
-    if (now > entry.resetAt) rateLimitStore.delete(ip)
-  }
-}, RATE_LIMIT_WINDOW_MS * 2)
+function getAnthropicApiKey() {
+  return process.env.ANTHROPIC_API_KEY || process.env.VITE_ANTHROPIC_API_KEY || ''
+}
 
-/* ── Handler principal ── */
+function getFirebaseAdminAuth() {
+  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.GCLOUD_PROJECT || 'proyectos-sonepar'
+  const clientEmail = process.env.FIREBASE_CLIENT_EMAIL
+  const privateKey = process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n')
+
+  if (!clientEmail || !privateKey) {
+    return null
+  }
+
+  if (!getApps().length) {
+    initializeApp({
+      credential: cert({
+        projectId,
+        clientEmail,
+        privateKey,
+      }),
+      projectId,
+    })
+  }
+
+  return getAuth()
+}
+
+async function verifyFirebaseTokenIfPresent(req) {
+  const authHeader = getHeader(req, 'authorization')
+
+  if (!authHeader?.startsWith('Bearer ')) {
+    return { ok: true, authenticated: false }
+  }
+
+  const adminAuth = getFirebaseAdminAuth()
+
+  if (!adminAuth) {
+    console.warn('[api/anthropic] Firebase Admin credentials missing; skipping token verification.')
+    return { ok: true, authenticated: false }
+  }
+
+  try {
+    const token = authHeader.slice('Bearer '.length)
+    const decodedToken = await adminAuth.verifyIdToken(token)
+    return { ok: true, authenticated: true, uid: decodedToken.uid }
+  } catch (error) {
+    console.error('[api/anthropic] Firebase token verification failed:', error)
+    return { ok: false }
+  }
+}
+
+function getBody(req) {
+  if (typeof req.body === 'string') {
+    try {
+      return JSON.parse(req.body)
+    } catch {
+      return null
+    }
+  }
+
+  return req.body
+}
+
 export default async function handler(req, res) {
-  /* Solo permite POST */
+  setCorsHeaders(req, res)
+
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end()
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
-  /* ── 1. Verificar Origin (CORS) ── */
-  const allowedOrigins = [
-    'https://proyectos-sonepar.vercel.app',
-    'http://localhost:5173',
-    'http://localhost:3000',
-  ]
-  const origin = req.headers.get('origin')
-  if (origin && !allowedOrigins.includes(origin)) {
+  const origin = getHeader(req, 'origin')
+  if (origin && !ALLOWED_ORIGINS.has(origin)) {
     return res.status(403).json({ error: 'Forbidden: origin not allowed' })
   }
 
-  /* ── 2. Rate limiting por IP ── */
-  const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown'
+  const ip = getClientIp(req)
   const rateCheck = checkRateLimit(ip)
-
-  res.headers.set('X-RateLimit-Limit', String(RATE_LIMIT_MAX_REQUESTS))
-  res.headers.set('X-RateLimit-Remaining', String(rateCheck.remaining))
+  res.setHeader('X-RateLimit-Limit', String(RATE_LIMIT_MAX_REQUESTS))
+  res.setHeader('X-RateLimit-Remaining', String(rateCheck.remaining))
 
   if (!rateCheck.allowed) {
-    res.headers.set('Retry-After', String(rateCheck.retryAfter))
+    res.setHeader('Retry-After', String(rateCheck.retryAfter))
     return res.status(429).json({
       error: 'Too many requests. Please try again later.',
       retryAfter: rateCheck.retryAfter,
     })
   }
 
-  /* ── 3. Verificar autenticación Firebase ── */
-  const authHeader = req.headers.get('authorization')
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ error: 'Unauthorized: missing Firebase token' })
+  const tokenCheck = await verifyFirebaseTokenIfPresent(req)
+  if (!tokenCheck.ok) {
+    return res.status(403).json({ error: 'Forbidden: invalid Firebase token' })
   }
 
-  try {
-    const token = authHeader.split('Bearer ')[1]
-    /* Verificar token con Firebase Admin SDK */
-    const decodedToken = await verifyIdToken(token)
-    if (!decodedToken) {
-      return res.status(403).json({ error: 'Forbidden: invalid token' })
-    }
-  } catch (error) {
-    return res.status(403).json({ error: 'Forbidden: token verification failed' })
-  }
-
-  /* ── 4. Validar body ── */
-  const body = req.body
-  if (!body || !body.messages || !Array.isArray(body.messages)) {
+  const body = getBody(req)
+  if (!body?.messages || !Array.isArray(body.messages)) {
     return res.status(400).json({ error: 'Bad request: missing messages array' })
   }
 
-  /* Limitar max_tokens para evitar abuso */
-  const maxTokens = Math.min(body.max_tokens || 800, 2000)
+  const apiKey = getAnthropicApiKey()
+  if (!apiKey) {
+    console.error('[api/anthropic] Missing Anthropic API key in Vercel environment variables.')
+    return res.status(500).json({
+      error: 'Anthropic API key is not configured on the server.',
+    })
+  }
 
-  /* ── 5. Forward a Anthropic ── */
+  const maxTokens = Math.min(Number(body.max_tokens) || 800, 2000)
+  const payload = {
+    ...body,
+    max_tokens: maxTokens,
+  }
+
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const anthropicResponse = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': process.env.VITE_ANTHROPIC_API_KEY,
+        'x-api-key': apiKey,
         'anthropic-version': '2023-06-01',
       },
-      body: JSON.stringify({
-        ...body,
-        max_tokens: maxTokens,
-      }),
+      body: JSON.stringify(payload),
     })
 
-    const data = await response.json()
-    return res.status(response.status).json(data)
+    const data = await anthropicResponse.json().catch(() => null)
+
+    if (!anthropicResponse.ok) {
+      console.error('[api/anthropic] Anthropic request failed:', {
+        status: anthropicResponse.status,
+        body: data,
+      })
+
+      return res.status(anthropicResponse.status).json({
+        error: data?.error?.message || data?.error || 'Anthropic request failed',
+        details: data,
+      })
+    }
+
+    return res.status(200).json(data)
   } catch (error) {
+    console.error('[api/anthropic] Unexpected proxy error:', error)
     return res.status(500).json({ error: 'Error connecting to Anthropic API' })
   }
 }

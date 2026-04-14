@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext'
 import { useToast } from '../../contexts/ToastContext'
 import { LogOut, LogIn, Menu, X } from 'lucide-react'
 import styles from './Topbar.module.css'
+import { NAV_TOOLS } from '../../config/tools'
 
 /* Extrae las iniciales de un nombre o email */
 function getUserInitials(name) {
@@ -15,17 +16,6 @@ function getUserInitials(name) {
   }
   return name.slice(0, 2).toUpperCase()
 }
-
-/* Herramientas de la suite con su ruta y nombre — SONEX primero (más importante) */
-const TOOLS = [
-  { path: '/app/sonex',        label: 'SONEX' },
-  { path: '/app/fichas',       label: 'Fichas' },
-  { path: '/app/almacen',      label: 'Almacén' },
-  { path: '/app/kpi',          label: 'KPI' },
-  { path: '/app/incidencias',  label: 'Incidencias' },
-  { path: '/app/presupuestos', label: 'Presupuestos' },
-  { path: '/app/formacion',    label: 'Formación' },
-]
 
 /* Topbar — barra superior con logo, navegación, usuario y logout */
 export default function Topbar() {
@@ -80,7 +70,7 @@ export default function Topbar() {
 
       {/* Navegación inline — visible solo en desktop */}
       <nav className={styles.nav}>
-        {TOOLS.map(tool => (
+        {NAV_TOOLS.map(tool => (
           <NavLink
             key={tool.path}
             to={tool.path}
@@ -98,7 +88,7 @@ export default function Topbar() {
       {/* Menú dropdown — visible solo en tablet/mobile cuando está abierto */}
       {menuOpen && (
         <nav className={styles.dropdown} role="navigation" aria-label="Navegación principal">
-          {TOOLS.map(tool => (
+          {NAV_TOOLS.map(tool => (
             <NavLink
               key={tool.path}
               to={tool.path}

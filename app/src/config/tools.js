@@ -6,6 +6,7 @@
 export const TOOLS = [
   {
     path: '/fichas',
+    appPath: '/app/fichas',
     icon: 'FileText',
     nombre: 'Fichas Técnicas',
     descripcion: 'Escribe el nombre, referencia o descripción de cualquier producto del catálogo Sonepar. La IA genera una ficha técnica completa con características, aplicaciones, compatibilidades y consejo de instalación.',
@@ -13,6 +14,7 @@ export const TOOLS = [
   },
   {
     path: '/almacen',
+    appPath: '/app/almacen',
     icon: 'Warehouse',
     nombre: 'Simulador Almacén',
     descripcion: 'Reproduce el ciclo completo de un pedido — recepción, ubicación, picking, verificación y expedición — con cronómetro real. Se presentan incidencias reales durante el proceso.',
@@ -20,6 +22,7 @@ export const TOOLS = [
   },
   {
     path: '/incidencias',
+    appPath: '/app/incidencias',
     icon: 'ShieldAlert',
     nombre: 'Dashboard Incidencias',
     descripcion: 'Registra fallos en equipos industriales con zona, severidad y síntoma. La IA genera un diagnóstico automático con causa probable, solución y pasos de verificación.',
@@ -27,6 +30,7 @@ export const TOOLS = [
   },
   {
     path: '/kpi',
+    appPath: '/app/kpi',
     icon: 'TrendingUp',
     nombre: 'KPI Logístico',
     descripcion: 'Introduce los datos del turno y la herramienta calcula 6 KPIs logísticos clave: pedidos/hora, error de picking, tiempo de ciclo, ocupación, devoluciones y productividad.',
@@ -34,6 +38,7 @@ export const TOOLS = [
   },
   {
     path: '/presupuestos',
+    appPath: '/app/presupuestos',
     icon: 'Euro',
     nombre: 'Presupuestos',
     descripcion: 'Selecciona la categoría de instalación, introduce los parámetros técnicos y la IA genera un presupuesto detallado con referencias del catálogo Sonepar.',
@@ -41,6 +46,7 @@ export const TOOLS = [
   },
   {
     path: '/formacion',
+    appPath: '/app/formacion',
     icon: 'GraduationCap',
     nombre: 'Formación Interna',
     descripcion: 'Gestiona la formación del equipo por empleado. Matriz de competencias visual, registro de módulos completados y plan de formación personalizado generado por IA.',
@@ -48,6 +54,7 @@ export const TOOLS = [
   },
   {
     path: '/sonex',
+    appPath: '/app/sonex',
     icon: 'Bot',
     nombre: 'Sonex',
     descripcion: 'Chatbot técnico especializado en material eléctrico e industrial. Responde consultas técnicas, ayuda a seleccionar productos y genera documentación de apoyo.',
@@ -61,6 +68,17 @@ export const TOOLS_BY_PATH = Object.fromEntries(
 );
 
 // Solo path y label para navegación simple
-export const NAV_TOOLS = TOOLS.map(({ path, nombre }) => ({ path, label: nombre }));
+export const NAV_TOOLS = TOOLS.map(({ appPath, nombre }) => ({ path: appPath, label: nombre }));
 
-export default { TOOLS, TOOLS_BY_PATH, NAV_TOOLS };
+export function normalizeToolPath(pathname = '') {
+  if (!pathname) return '/fichas';
+
+  const normalized = pathname.startsWith('/app/')
+    ? pathname.replace(/^\/app/, '')
+    : pathname;
+
+  const [basePath] = normalized.match(/^\/[^/]+/) || [];
+  return basePath || '/fichas';
+}
+
+export default { TOOLS, TOOLS_BY_PATH, NAV_TOOLS, normalizeToolPath };

@@ -3,10 +3,10 @@
   "outputDirectory": "app/dist",
   "functions": {
     "api/anthropic.js": {
-      "runtime": "edge"
+      "runtime": "nodejs22.x"
     },
     "api/extract-pdf.js": {
-      "runtime": "edge"
+      "runtime": "nodejs22.x"
     }
   },
   "headers": [
