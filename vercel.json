@@ -8,12 +8,8 @@
   },
   "rewrites": [
     {
-      "source": "/api/anthropic",
-      "destination": "/api/anthropic.js"
-    },
-    {
-      "source": "/api/extract-pdf",
-      "destination": "/api/extract-pdf.js"
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
     },
     {
       "source": "/(.*)",
