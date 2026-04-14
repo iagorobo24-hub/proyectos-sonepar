@@ -23,18 +23,19 @@ function getHeader(req, name) {
   return value
 }
 
+function isAllowedOrigin(origin) {
+  if (!origin) return true
+  return ALLOWED_ORIGINS.has(origin) || 
+         origin.endsWith('.vercel.app') || 
+         origin.includes('localhost')
+}
+
 function setCorsHeaders(req, res) {
   const origin = getHeader(req, 'origin')
 
-  if (origin) {
-    const isAllowedOrigin = ALLOWED_ORIGINS.has(origin) || 
-                           origin.endsWith('.vercel.app') || 
-                           origin.includes('localhost')
-
-    if (isAllowedOrigin) {
-      res.setHeader('Access-Control-Allow-Origin', origin)
-      res.setHeader('Vary', 'Origin')
-    }
+  if (origin && isAllowedOrigin(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+    res.setHeader('Vary', 'Origin')
   }
 
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
@@ -147,7 +148,7 @@ export default async function handler(req, res) {
   }
 
   const origin = getHeader(req, 'origin')
-  if (origin && !ALLOWED_ORIGINS.has(origin)) {
+  if (origin && !isAllowedOrigin(origin)) {
     return res.status(403).json({ error: 'Forbidden: origin not allowed' })
   }
 
@@ -182,7 +183,7 @@ export default async function handler(req, res) {
     })
   }
 
-  const maxTokens = Math.min(Number(body.max_tokens) || 800, 2000)
+  const maxTokens = Math.floor(Math.min(Number(body.max_tokens) || 800, 2000))
   const payload = {
     ...body,
     max_tokens: maxTokens,
@@ -199,7 +200,10 @@ export default async function handler(req, res) {
       body: JSON.stringify(payload),
     })
 
-    const data = await anthropicResponse.json().catch(() => null)
+    const contentType = anthropicResponse.headers.get('content-type')
+    const data = contentType?.includes('application/json') 
+      ? await anthropicResponse.json().catch(() => null)
+      : await anthropicResponse.text().catch(() => null)
 
     if (!anthropicResponse.ok) {
       console.error('[api/anthropic] Anthropic request failed:', {

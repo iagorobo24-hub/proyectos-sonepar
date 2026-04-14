@@ -63,34 +63,56 @@ export async function callAnthropicAI(body) {
     }
   }
 
-  const response = await fetch('/api/anthropic', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-    },
-    body: JSON.stringify(body),
-  })
+  try {
+    const response = await fetch('/api/anthropic', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(body),
+    })
 
-  const data = await response.json().catch(() => ({}))
+    const contentType = response.headers.get('content-type')
+    let data = null
+    
+    if (contentType?.includes('application/json')) {
+      data = await response.json().catch(() => null)
+    } else {
+      const textError = await response.text().catch(() => '')
+      console.error('La API no devolvió JSON:', textError)
+      throw new Error(`Error del servidor (${response.status}): Respuesta no válida.`)
+    }
 
-  if (response.status === 429) {
-    throw new Error(`Limite excedido. Reintenta en ${data.retryAfter || '?'}s`)
+    if (response.status === 429) {
+      throw new Error(`Límite excedido. Reintenta en ${data?.retryAfter || '?'}s`)
+    }
+
+    if (response.status === 401 || response.status === 403) {
+      throw new Error(data?.error || 'No tienes permisos para usar la IA ahora mismo.')
+    }
+
+    if (!response.ok) {
+      throw new Error(data?.error || `Error del servidor: ${response.status}`)
+    }
+
+    if (!data) {
+      throw new Error('La IA devolvió una respuesta vacía.')
+    }
+
+    const text = Array.isArray(data.content)
+      ? data.content.map((item) => item?.text || '').join('')
+      : ''
+
+    if (!text && !data.error) {
+      console.warn('Respuesta de Anthropic sin contenido de texto:', data)
+    }
+
+    return { text, raw: data }
+  } catch (error) {
+    console.error('Error en callAnthropicAI:', error)
+    throw error
   }
-
-  if (response.status === 401 || response.status === 403) {
-    throw new Error(data.error || 'No tienes permisos para usar la IA ahora mismo.')
-  }
-
-  if (!response.ok) {
-    throw new Error(data.error || `Error del servidor: ${response.status}`)
-  }
-
-  const text = Array.isArray(data.content)
-    ? data.content.map((item) => item?.text || '').join('')
-    : ''
-
-  return { text, raw: data }
 }
 
 export function parseAIJsonResponse(text, validator) {
