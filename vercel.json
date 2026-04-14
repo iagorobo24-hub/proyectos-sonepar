@@ -2,10 +2,10 @@
   "buildCommand": "cd app && npm install && npm run build",
   "outputDirectory": "app/dist",
   "functions": {
-    "api/anthropic.js": {
+    "api/anthropic.mjs": {
       "runtime": "nodejs22.x"
     },
-    "api/extract-pdf.js": {
+    "api/extract-pdf.mjs": {
       "runtime": "nodejs22.x"
     }
   },
@@ -28,11 +28,11 @@
   "rewrites": [
     {
       "source": "/api/anthropic",
-      "destination": "/api/anthropic"
+      "destination": "/api/anthropic.mjs"
     },
     {
       "source": "/api/extract-pdf",
-      "destination": "/api/extract-pdf"
+      "destination": "/api/extract-pdf.mjs"
     },
     {
       "source": "/(.*)",
