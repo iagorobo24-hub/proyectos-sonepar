@@ -94,7 +94,7 @@ export default function FormacionInterna() {
     setCargandoIA(true); setPlanIA("");
     try {
       const { callAnthropicAI } = await import('../services/anthropicService');
-      const { text } = await callAnthropicAI({ model: "claude-sonnet-4-20250514", max_tokens: 1000, system: "Eres el responsable de formación de Sonepar España.", messages: [{ role: "user", content: PROMPT_PLAN(emp, modulos, progresos[emp.id] || {}) }] });
+      const { text } = await callAnthropicAI({ model: "claude-3-5-sonnet-20240620", max_tokens: 1000, system: "Eres el responsable de formación de Sonepar España.", messages: [{ role: "user", content: PROMPT_PLAN(emp, modulos, progresos[emp.id] || {}) }] });
       setPlanIA(text || "Error al generar el plan.");
     } catch { setPlanIA("Error al generar el plan."); }
     setCargandoIA(false);

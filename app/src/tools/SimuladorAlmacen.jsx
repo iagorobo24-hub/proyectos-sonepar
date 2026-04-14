@@ -190,9 +190,24 @@ export default function SimuladorAlmacen() {
     setPantalla("resultado");
     if (cargando) return;
     setCargando(true);
-    fetch("/api/anthropic", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 800, messages: [{ role: "user", content: PROMPT_ANALISIS(pedidoActivo, todosTiempos, pedidoActivo.categoria, incResueltas, operario.nombre) }] }) })
-      .then(res => res.json()).then(data => { setAnalisis(data.content?.map(i => i.text || "").join("") || ""); setCargando(false); })
-      .catch(() => { setAnalisis("Error al conectar con la IA."); setCargando(false); });
+
+    const callAI = async () => {
+      try {
+        const { callAnthropicAI } = await import('../services/anthropicService');
+        const { text } = await callAnthropicAI({ 
+          model: "claude-3-5-sonnet-20240620", 
+          max_tokens: 800, 
+          messages: [{ role: "user", content: PROMPT_ANALISIS(pedidoActivo, todosTiempos, pedidoActivo.categoria, incResueltas, operario.nombre) }] 
+        });
+        setAnalisis(text || "");
+      } catch (error) {
+        setAnalisis("Error al conectar con la IA.");
+      } finally {
+        setCargando(false);
+      }
+    };
+
+    callAI();
   };
 
   const resetear = () => { setPantalla("onboarding"); setPedidoActivo(null); setTiempos([]); setIncResueltas([]); setIncActiva(null); setFeedbackInc(null); setAnalisis(""); };

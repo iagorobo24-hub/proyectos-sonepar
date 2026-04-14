@@ -80,7 +80,7 @@ export default function Sonex() {
     try {
       const { callAnthropicAI } = await import('../services/anthropicService');
       const systemPrompt = `Eres SONEX, el asistente técnico experto de Sonepar España.\nContexto: ${contextoActivo || "Sin contexto"}\nModo: ${MODO_OBJETOS.find(m => m.id === modoActivo)?.desc}\nCategoría: ${categoriaActiva || "Todas"}\nResponde de forma concisa, enfocándote en soluciones técnicas de Sonepar, referencias de producto y recomendaciones de aplicación.`;
-      const { text } = await callAnthropicAI({ model: "claude-sonnet-4-20250514", max_tokens: 800, system: systemPrompt, messages: [{ role: "user", content: userMessage }] });
+      const { text } = await callAnthropicAI({ model: "claude-3-5-sonnet-20240620", max_tokens: 800, system: systemPrompt, messages: [{ role: "user", content: userMessage }] });
       return text || "Lo siento, no pude procesar tu consulta.";
     } catch (error) {
       const devLog = typeof import.meta !== 'undefined' && import.meta.env?.DEV ? console.error : () => {};

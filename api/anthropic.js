@@ -26,9 +26,15 @@ function getHeader(req, name) {
 function setCorsHeaders(req, res) {
   const origin = getHeader(req, 'origin')
 
-  if (origin && ALLOWED_ORIGINS.has(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-    res.setHeader('Vary', 'Origin')
+  if (origin) {
+    const isAllowedOrigin = ALLOWED_ORIGINS.has(origin) || 
+                           origin.endsWith('.vercel.app') || 
+                           origin.includes('localhost')
+
+    if (isAllowedOrigin) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+      res.setHeader('Vary', 'Origin')
+    }
   }
 
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
