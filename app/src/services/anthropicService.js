@@ -52,66 +52,42 @@ export async function callAnthropicAI(body) {
     throw new Error('Demasiadas peticiones. Espera un momento.')
   }
 
-  let token = null
-  const user = auth.currentUser
-
-  if (user) {
-    try {
-      token = await user.getIdToken()
-    } catch (error) {
-      console.warn('No se pudo obtener el token Firebase:', error)
-    }
-  }
-
   try {
     const response = await fetch('/api/anthropic', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(token ? { Authorization: `Bearer ${token}` } : {}),
       },
       body: JSON.stringify(body),
-    })
+    });
 
-    const contentType = response.headers.get('content-type')
-    let data = null
+    const contentType = response.headers.get('content-type');
+    let data;
     
-    if (contentType?.includes('application/json')) {
-      data = await response.json().catch(() => null)
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
     } else {
-      const textError = await response.text().catch(() => '')
-      console.error('La API no devolvió JSON:', textError)
-      throw new Error(`Error del servidor (${response.status}): Respuesta no válida.`)
-    }
-
-    if (response.status === 429) {
-      throw new Error(`Límite excedido. Reintenta en ${data?.retryAfter || '?'}s`)
-    }
-
-    if (response.status === 401 || response.status === 403) {
-      throw new Error(data?.error || 'No tienes permisos para usar la IA ahora mismo.')
+      const text = await response.text();
+      console.error('[Service] Non-JSON response:', text);
+      throw new Error(`Server returned non-JSON response (${response.status})`);
     }
 
     if (!response.ok) {
-      throw new Error(data?.error || `Error del servidor: ${response.status}`)
+      const errorMsg = data.error?.message || data.error || `Error ${response.status}`;
+      throw new Error(errorMsg);
     }
 
-    if (!data) {
-      throw new Error('La IA devolvió una respuesta vacía.')
-    }
-
-    const text = Array.isArray(data.content)
-      ? data.content.map((item) => item?.text || '').join('')
-      : ''
-
+    // Anthropic returns messages in 'content' array
+    const text = data.content?.map(c => c.text || '').join('') || '';
+    
     if (!text && !data.error) {
       console.warn('Respuesta de Anthropic sin contenido de texto:', data)
     }
 
-    return { text, raw: data }
+    return { text, raw: data };
   } catch (error) {
-    console.error('Error en callAnthropicAI:', error)
-    throw error
+    console.error('[Service] AI Call failed:', error);
+    throw error;
   }
 }
 
