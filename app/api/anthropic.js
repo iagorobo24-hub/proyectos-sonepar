@@ -1,4 +1,7 @@
 export default async function handler(req, res) {
+  console.log('[API] Request received:', req.method, req.url);
+  console.log('[API] Available env vars:', Object.keys(process.env).filter(k => k.includes('ANTHROPIC')));
+  
   // CORS headers
   const origin = req.headers.origin;
   if (origin) {
@@ -17,10 +20,16 @@ export default async function handler(req, res) {
 
   try {
     const apiKey = process.env.ANTHROPIC_API_KEY;
+    console.log('[API] API Key found:', apiKey ? 'YES (length: ' + apiKey.length + ')' : 'NO');
     
     if (!apiKey) {
-      console.error('[API] Missing ANTHROPIC_API_KEY');
-      return res.status(500).json({ error: 'Server configuration error: Missing API Key' });
+      return res.status(500).json({ 
+        error: 'Server configuration error: Missing API Key',
+        debug: {
+          envKeys: Object.keys(process.env).filter(k => k.includes('ANTHROPIC')),
+          nodeEnv: process.env.NODE_ENV
+        }
+      });
     }
 
     const body = req.body;
