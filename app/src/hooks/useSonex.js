@@ -30,9 +30,23 @@ export function useSonex() {
   
   const messagesEndRef = useRef(null);
 
+  // Normalizar timestamps al cargar mensajes desde Firestore
+  const normalizarMensajes = (msgs) => {
+    if (!Array.isArray(msgs)) return [];
+    return msgs.map(m => ({
+      ...m,
+      timestamp: m.timestamp instanceof Date 
+        ? m.timestamp 
+        : (m.timestamp?.toDate ? m.timestamp.toDate() : new Date(m.timestamp?.seconds ? m.timestamp.seconds * 1000 : Date.now()))
+    }));
+  };
+
   // Actualizar mensajes cuando cambian los datos sincronizados
   useEffect(() => {
-    if (historialData) setMessages(historialData);
+    if (historialData) {
+      const normalizados = normalizarMensajes(historialData);
+      setMessages(normalizados);
+    }
   }, [historialData]);
 
   const scrollToBottom = () => {
@@ -44,7 +58,13 @@ export function useSonex() {
   }, [messages]);
 
   const guardarMensaje = useCallback((nuevoMensaje) => {
-    const nuevoHistorial = [...messages, nuevoMensaje].slice(-100);
+    const msgNormalizado = {
+      ...nuevoMensaje,
+      timestamp: nuevoMensaje.timestamp instanceof Date 
+        ? nuevoMensaje.timestamp 
+        : new Date()
+    };
+    const nuevoHistorial = [...messages, msgNormalizado].slice(-100);
     setMessages(nuevoHistorial);
     saveHistorial(nuevoHistorial);
   }, [messages, saveHistorial]);

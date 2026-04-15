@@ -2,18 +2,14 @@
   "buildCommand": "cd app && npm install && npm run build",
   "outputDirectory": "app/dist",
   "functions": {
-    "app/api/*.js": {
+    "api/*.js": {
       "runtime": "nodejs22.x"
     }
   },
   "rewrites": [
     {
-      "source": "/api/anthropic",
-      "destination": "/app/api/anthropic.js"
-    },
-    {
-      "source": "/api/extract-pdf",
-      "destination": "/app/api/extract-pdf.js"
+      "source": "/api/:path*",
+      "destination": "/api/:path*"
     },
     {
       "source": "/(.*)",

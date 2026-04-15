@@ -23,10 +23,11 @@ export default function Sonex() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const {
-    messages, setMessages, input, setInput, isLoading, setIsLoading,
+    messages, input, setInput, isLoading, setIsLoading,
     categoriaActiva, setCategoriaActiva, modoActivo, setModoActivo,
     contextoActivo, setContextoActivo, refsTurno, setRefsTurno,
     messagesEndRef, sugerenciasPopulares, loadingSugerencias,
+    guardarMensaje,
   } = useSonex();
 
   const procesarMarkdown = (texto) => {
@@ -82,7 +83,7 @@ export default function Sonex() {
       const systemPrompt = `Eres SONEX, el asistente técnico experto de Sonepar España. Responde de forma concisa, enfocándote en soluciones técnicas de Sonepar, referencias de producto y recomendaciones de aplicación.`;
       
       const { text } = await callAnthropicAI({ 
-        model: "claude-3-5-sonnet-20240620", 
+        model: "claude-sonnet-4-5-20250929", 
         max_tokens: 1000, 
         system: systemPrompt, 
         messages: [{ role: "user", content: userMessage }] 
@@ -99,13 +100,13 @@ export default function Sonex() {
     if (!input.trim() || isLoading) return;
     const userMessage = input.trim();
     setInput("");
-    setMessages(prev => [...prev, { id: Date.now(), role: "user", content: userMessage, timestamp: new Date() }]);
+    guardarMensaje({ id: Date.now(), role: "user", content: userMessage, timestamp: new Date() });
     setIsLoading(true);
     try {
       const aiResponse = await generarRespuestaIA(userMessage);
       const refs = await extraerReferencias(aiResponse);
       const aiMsg = { id: Date.now() + 1, role: "assistant", content: aiResponse, timestamp: new Date(), referencias: refs };
-      setMessages(prev => [...prev, aiMsg]);
+      guardarMensaje(aiMsg);
       if (aiMsg.referencias.length > 0) setRefsTurno(prev => [...prev, ...aiMsg.referencias]);
     } catch (error) { toast.show("Error al procesar la consulta"); }
     setIsLoading(false);

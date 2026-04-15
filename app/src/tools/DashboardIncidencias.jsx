@@ -86,7 +86,7 @@ export default function DashboardIncidencias() {
     setCargandoIA(true);
     try {
       const { callAnthropicAI, parseAIJsonResponse } = await import('../services/anthropicService');
-      const { text } = await callAnthropicAI({ model: "claude-3-5-sonnet-20240620", max_tokens: 1000, system: PROMPT_DIAGNOSTICO(inc), messages: [{ role: "user", content: "Diagnostica esta incidencia." }] });
+      const { text } = await callAnthropicAI({ model: "claude-sonnet-4-5-20250929", max_tokens: 1000, system: PROMPT_DIAGNOSTICO(inc), messages: [{ role: "user", content: "Diagnostica esta incidencia." }] });
       const diag = parseAIJsonResponse(text, p => p.causa_probable && p.pasos_verificacion);
       if (!diag || diag.error) { toast.show("La IA devolvió una respuesta inválida."); setCargandoIA(false); return; }
       const updated = incidencias.map(i => i.id === inc.id ? { ...i, diagnostico: diag, estado: i.estado === "Abierta" ? "En diagnóstico" : i.estado } : i);

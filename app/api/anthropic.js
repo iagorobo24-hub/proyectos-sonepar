@@ -1,4 +1,7 @@
 export default async function handler(req, res) {
+  // NOTE: This file is deprecated. The Anthropic proxy has been moved to /api/anthropic at the repository root.
+  return res.status(500).json({ error: 'Endpoint deprecated. Use /api/anthropic instead.' });
+
   // 1. Basic CORS for local development and Vercel
   const origin = req.headers.origin;
   if (origin) {
@@ -36,7 +39,7 @@ export default async function handler(req, res) {
         'anthropic-version': '2023-06-01',
       },
       body: JSON.stringify({
-        model: body.model || 'claude-3-5-sonnet-20240620',
+        model: body.model || 'claude-sonnet-4-5-20250929',
         max_tokens: Math.floor(body.max_tokens || 1000),
         system: body.system || '',
         messages: body.messages || [],

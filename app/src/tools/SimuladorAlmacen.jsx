@@ -195,7 +195,7 @@ export default function SimuladorAlmacen() {
       try {
         const { callAnthropicAI } = await import('../services/anthropicService');
         const { text } = await callAnthropicAI({ 
-          model: "claude-3-5-sonnet-20240620", 
+          model: "claude-sonnet-4-5-20250929", 
           max_tokens: 800, 
           messages: [{ role: "user", content: PROMPT_ANALISIS(pedidoActivo, todosTiempos, pedidoActivo.categoria, incResueltas, operario.nombre) }] 
         });

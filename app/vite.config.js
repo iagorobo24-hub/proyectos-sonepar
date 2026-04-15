@@ -7,10 +7,9 @@ export default defineConfig({
     port: 5173,
     strictPort: true,
     proxy: {
-      '/api/anthropic': {
-        target: 'https://api.anthropic.com',
+      '/api': {
+        target: 'http://localhost:3001',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/anthropic/, ''),
       },
     },
   },

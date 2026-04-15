@@ -71,7 +71,7 @@ export default function KPILogistico() {
     setKpis(k); setCargando(true); setInforme("");
     try {
       const { callAnthropicAI } = await import('../services/anthropicService');
-      const { text } = await callAnthropicAI({ model: "claude-3-5-sonnet-20240620", max_tokens: 1000, system: "Eres el responsable de logística de Sonepar España.", messages: [{ role: "user", content: `Turno: ${datos.turno} | ${datos.delegacion || "Delegación"}\nPedidos/hora: ${k.pedidos_hora.toFixed(1)} (obj: >18)\nError picking: ${k.error_picking.toFixed(2)}% (obj: <1%)\nTiempo ciclo: ${k.tiempo_ciclo.toFixed(1)}min (obj: <5)\nOcupación: ${k.ocupacion.toFixed(1)}%\nDevoluciones: ${k.devolucion.toFixed(2)}%\nProductividad: ${k.productividad.toFixed(1)}%\n\n3 párrafos: resumen, puntos críticos, acción próxima.` }] });
+      const { text } = await callAnthropicAI({ model: "claude-sonnet-4-5-20250929", max_tokens: 1000, system: "Eres el responsable de logística de Sonepar España.", messages: [{ role: "user", content: `Turno: ${datos.turno} | ${datos.delegacion || "Delegación"}\nPedidos/hora: ${k.pedidos_hora.toFixed(1)} (obj: >18)\nError picking: ${k.error_picking.toFixed(2)}% (obj: <1%)\nTiempo ciclo: ${k.tiempo_ciclo.toFixed(1)}min (obj: <5)\nOcupación: ${k.ocupacion.toFixed(1)}%\nDevoluciones: ${k.devolucion.toFixed(2)}%\nProductividad: ${k.productividad.toFixed(1)}%\n\n3 párrafos: resumen, puntos críticos, acción próxima.` }] });
       setInforme(text || "Error al conectar."); guardarHistorial({ delegacion: datos.delegacion || "Delegación", turno: datos.turno, fecha: new Date().toISOString(), kpis: k, informe: text });
     } catch { setInforme("Error al conectar."); }
     setCargando(false);
