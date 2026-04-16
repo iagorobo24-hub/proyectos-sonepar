@@ -5,6 +5,7 @@ import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import useNavegacionFichas from '../hooks/useNavegacionFichas'
 import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import { MARCAS } from '../data/marcasLogos'
+import { getBrandLogo, getBrandColor } from '../services/brandLogoService'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import {
@@ -94,11 +95,15 @@ export default function FichasTecnicas() {
     return prod.pdf_url || prod.pdfUrl
   }
 
-  const marcasConLogo = marcasDisponibles.map(m => ({
-    ...m,
-    logo: MARCAS[m.nombre]?.logo || '',
-    color: MARCAS[m.nombre]?.color || '#666'
-  }))
+  const marcasConLogo = marcasDisponibles.map(m => {
+    const localLogo = MARCAS[m.nombre]?.logo
+    const serviceLogo = getBrandLogo(m.nombre)
+    return {
+      ...m,
+      logo: localLogo || serviceLogo || '',
+      color: MARCAS[m.nombre]?.color || getBrandColor(m.nombre)
+    }
+  })
 
   /* ── Sidebar ─ */
   const renderSidebar = () => (
