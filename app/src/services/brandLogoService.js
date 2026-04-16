@@ -142,38 +142,7 @@ export function getBrandLogoData(brandName) {
   }
   
   // Not in LOCAL_LOGOS - generate gradient avatar
-  return { 
-    logo: null, 
-    initials: getInitials(normalized), 
-    gradient: getGradientForBrand(normalized) 
-  };
-}
-  
-  const normalized = brandName.trim().toUpperCase();
-  
-  // Check local logos first (exact match)
-  if (LOCAL_LOGOS[normalized]) {
-    return { 
-      logo: LOCAL_LOGOS[normalized], 
-      initials: getInitials(normalized), 
-      gradient: getGradientForBrand(normalized) 
-    };
-  }
-  
-  // Try case-insensitive
-  const localKey = Object.keys(LOCAL_LOGOS).find(
-    key => key.toUpperCase() === normalized
-  );
-  if (localKey) {
-    return { 
-      logo: LOCAL_LOGOS[localKey], 
-      initials: getInitials(localKey), 
-      gradient: getGradientForBrand(localKey) 
-    };
-  }
-  
-  // No local logo - return initials with gradient (no ugly backgrounds!)
-  return { 
+return { 
     logo: null, 
     initials: getInitials(normalized), 
     gradient: getGradientForBrand(normalized) 
