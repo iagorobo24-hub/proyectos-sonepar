@@ -69,7 +69,7 @@ export async function callAnthropicAI(body) {
       },
       body: JSON.stringify({
         provider: body.provider || 'openrouter',
-        model: body.model || 'google/gemini-2.0-flash-thinking-exp-01-21',
+        model: body.model || 'anthropic/claude-3.5-haiku',
         messages: body.messages || [],
         system: body.system || '',
         max_tokens: body.max_tokens || 1000,

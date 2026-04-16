@@ -84,7 +84,7 @@ export default function Sonex() {
       
       const { text } = await callAnthropicAI({ 
         provider: 'openrouter',
-        model: "google/gemini-2.0-flash-thinking-exp-01-21",
+        model: "anthropic/claude-3.5-haiku",
         max_tokens: 1000, 
         system: systemPrompt, 
         messages: [{ role: "user", content: userMessage }] 

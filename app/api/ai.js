@@ -8,10 +8,10 @@ const PROVIDERS = {
   openrouter: {
     baseUrl: 'https://openrouter.ai/api/v1',
     models: [
-      'google/gemini-2.0-flash-thinking-exp-01-21', // FREE, excellent reasoning
-      'anthropic/claude-3.5-haiku', // FREE
-      'deepseek/deepseek-r1:free', // FREE
-      'qwen/qwen-2.5-72b-instruct:free', // FREE
+      'anthropic/claude-3.5-haiku', // FREE - fast and capable
+      'deepseek/deepseek-r1:free', // FREE - deep reasoning
+      'qwen/qwen-2.5-72b-instruct:free', // FREE - large model
+      'google/gemini-flash-1.5-8b', // FREE
     ]
   },
   groq: {
@@ -25,7 +25,7 @@ const PROVIDERS = {
 
 // Default to OpenRouter
 const DEFAULT_PROVIDER = 'openrouter';
-const DEFAULT_MODEL = 'google/gemini-2.0-flash-thinking-exp-01-21';
+const DEFAULT_MODEL = 'anthropic/claude-3.5-haiku';
 
 export default async function handler(req, res) {
   console.log('[AI API] Request received:', req.method, req.url);
