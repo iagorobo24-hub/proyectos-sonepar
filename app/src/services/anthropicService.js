@@ -1,12 +1,11 @@
 /**
- * Servicio para llamadas a la API de Anthropic
- * Incluye: soporte para sesion opcional de Firebase, validacion JSON y rate limiting cliente
+ * Unified AI Service for Sonex
+ * Supports multiple providers: OpenRouter (default), Groq, Gemini
+ * Free models available via OpenRouter
  */
 
-import { auth } from '../firebase/firebaseConfig'
-
 const CLIENT_RATE_LIMIT = {
-  maxCalls: 10,
+  maxCalls: 20,
   windowMs: 60 * 1000,
 }
 
@@ -36,7 +35,6 @@ function parseAIResponse(text) {
 
 export function sanitizeUrl(url) {
   if (!url) return ''
-
   try {
     const parsed = new URL(url)
     const allowed = ['http:', 'https:', 'mailto:', 'tel:']
@@ -46,6 +44,16 @@ export function sanitizeUrl(url) {
   }
 }
 
+/**
+ * Call the unified AI API
+ * @param {Object} body - Request body
+ * @param {string} body.provider - Provider: 'openrouter', 'groq', 'gemini' (default: openrouter)
+ * @param {string} body.model - Model ID
+ * @param {Array} body.messages - Chat messages
+ * @param {string} body.system - System prompt
+ * @param {number} body.max_tokens - Max tokens (default: 1000)
+ * @param {number} body.temperature - Temperature (default: 0.7)
+ */
 export async function callAnthropicAI(body) {
   const rateCheck = checkClientRateLimit()
   if (!rateCheck.allowed) {
@@ -53,40 +61,47 @@ export async function callAnthropicAI(body) {
   }
 
   try {
-    const response = await fetch('/api/anthropic', {
+    // Use new unified /api/ai endpoint
+    const response = await fetch('/api/ai', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        provider: body.provider || 'openrouter',
+        model: body.model || 'google/gemini-2.0-flash-thinking-exp-01-21',
+        messages: body.messages || [],
+        system: body.system || '',
+        max_tokens: body.max_tokens || 1000,
+        temperature: body.temperature || 0.7
+      }),
     });
 
     const contentType = response.headers.get('content-type');
     let data;
-    
+
     if (contentType && contentType.includes('application/json')) {
       data = await response.json();
     } else {
       const text = await response.text();
-      console.error('[Service] Non-JSON response:', text);
+      console.error('[AI Service] Non-JSON response:', text);
       throw new Error(`Server returned non-JSON response (${response.status})`);
     }
 
     if (!response.ok) {
-      const errorMsg = data.error?.message || data.error || `Error ${response.status}`;
+      const errorMsg = data.error?.message || data.error || data.hint || `Error ${response.status}`;
       throw new Error(errorMsg);
     }
 
-    // Anthropic returns messages in 'content' array
-    const text = data.content?.map(c => c.text || '').join('') || '';
-    
+    const text = data.text || '';
+
     if (!text && !data.error) {
-      console.warn('Respuesta de Anthropic sin contenido de texto:', data)
+      console.warn('AI response without text content:', data);
     }
 
-    return { text, raw: data };
+    return { text, raw: data, provider: data.provider, model: data.model };
   } catch (error) {
-    console.error('[Service] AI Call failed:', error);
+    console.error('[AI Service] AI Call failed:', error);
     throw error;
   }
 }
@@ -98,18 +113,29 @@ export function parseAIJsonResponse(text, validator) {
     return { error: true, message: 'La IA devolvio una respuesta invalida. Intenta de nuevo.' }
   }
 
-  if (validator && typeof validator === 'function') {
-    const valid = validator(parsed)
-    if (!valid) {
-      return { error: true, message: 'Respuesta incompleta. Intenta de nuevo.' }
+  if (validator) {
+    const validation = validator(parsed)
+    if (!validation.valid) {
+      return { error: true, message: validation.message || 'Respuesta invalida. Intenta de nuevo.' }
     }
   }
 
-  return parsed
+  return { error: false, data: parsed }
 }
 
-export function useAIRateLimit() {
-  return { checkRateLimit: checkClientRateLimit }
+export function formatAIResponse(text) {
+  if (!text) return ''
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code style="background:#f1f3f4;padding:2px 4px;border-radius:4px;font-size:12px">$1</code>')
+    .replace(/\n/g, '<br>')
 }
 
-export default { callAnthropicAI, parseAIJsonResponse, sanitizeUrl, useAIRateLimit }
+export default {
+  callAnthropicAI,
+  parseAIJsonResponse,
+  parseAIResponse,
+  formatAIResponse,
+  sanitizeUrl
+}

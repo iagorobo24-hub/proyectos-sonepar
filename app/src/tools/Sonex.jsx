@@ -83,7 +83,8 @@ export default function Sonex() {
       const systemPrompt = `Eres SONEX, el asistente técnico experto de Sonepar España. Responde de forma concisa, enfocándote en soluciones técnicas de Sonepar, referencias de producto y recomendaciones de aplicación.`;
       
       const { text } = await callAnthropicAI({ 
-        model: "claude-sonnet-4-5-20250929", 
+        provider: 'openrouter',
+        model: "google/gemini-2.0-flash-thinking-exp-01-21",
         max_tokens: 1000, 
         system: systemPrompt, 
         messages: [{ role: "user", content: userMessage }] 
