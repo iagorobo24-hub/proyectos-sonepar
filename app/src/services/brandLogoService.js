@@ -1,305 +1,178 @@
 /**
- * Brand Logo Service - Complete mapping
+ * Brand Logo Service - Clean Version
  * 
- * Priority:
- * 1. Local logos in /public/logos/
- * 2. Brand-specific domains → Clearbit Logo API
- * 3. Generic fallback
+ * Uses text-based avatars with nice gradient backgrounds
+ * No external API dependencies to avoid ugly logo backgrounds
  */
 
 const LOCAL_LOGOS = {
-  // Top Spanish/European brands in catalog
+  // Only use local logos that you have personally - these are guaranteed to look good
   "SCHNEIDER ELECTRIC": "/logos/schneider.png",
-  "SIMON": "/logos/simon.png",
   "LEGRAND": "/logos/legrand.png",
-  "NIESSEN": "/logos/niessen.png",
+  "SIMON": "/logos/simon.png",
   "SIEMENS": "/logos/siemens.png",
+  "ABB": "/logos/abb.png",
   "HAGER": "/logos/hager.png",
   "PHOENIX CONTACT": "/logos/phoenix.png",
-  "BTICINO": "/logos/bticino.png",
-  "BJC": "/logos/bjc.png",
-  "TOP CABLE": "/logos/topcable.png",
-  "IDE": "/logos/ide.png",
-  "MIGUELEZ": "/logos/miguelez.png",
-  "JUNG": "/logos/jung.png",
-  "UNEX": "/logos/unex.png",
-  "TELEVES": "/logos/televes.png",
-  "GENERAL CABLE": "/logos/generalcable.png",
-  "PRYSMIAN": "/logos/prysmians.png",
-  "EXCEL": "/logos/excel.png",
-  "NEXANS": "/logos/nexans.png",
-  "SOLERA": "/logos/solera.png",
-  "COMMSCOPE": "/logos/commscope.png",
-  "FERMAX": "/logos/fermax.png",
-  "WEIDMULLER": "/logos/weidmuller.png",
-  "GEWISS": "/logos/gewiss.png",
   "RITTAL": "/logos/rittal.png",
   "EATON": "/logos/eaton.png",
-  "GOLMAR": "/logos/golmar.png",
-  "HELLERMANN": "/logos/hellermann.png",
-  "ABB": "/logos/abb.png",
   "WAGO": "/logos/wago.png",
   "CAME": "/logos/came.png",
+  "NEXANS": "/logos/nexans.png",
+  "BTICINO": "/logos/bticino.png",
+  "JUNG": "/logos/jung.png",
+  "BJC": "/logos/bjc.png",
+  "NIESSEN": "/logos/niessen.png",
+  "IDE": "/logos/ide.png",
+  "TELEVES": "/logos/televes.png",
+  "FERMAX": "/logos/fermax.png",
+  "UNEX": "/logos/unex.png",
+  "HIKVISION": "/logos/hikvision.png",
+  "LAPP KABEL": "/logos/lapp.png",
+  "TOP CABLE": "/logos/topcable.png",
+  "SOLERA": "/logos/solera.png",
+  "GENERAL CABLE": "/logos/generalcable.png",
+  "PRYSMIAN": "/logos/prysmian.png",
+  "EXCEL": "/logos/excel.png",
+  "COMMSCOPE": "/logos/commscope.png",
   "CORNING": "/logos/corning.png",
   "HARTING": "/logos/harting.png",
-  "ROCKWELL": "/logos/rockwell.png",
+  "WEIDMULLER": "/logos/weidmuller.png",
+  "GEWISS": "/logos/gewiss.png",
   "OBO BETTERMANN": "/logos/obo.png",
-  "HIKVISION": "/logos/hikvision.png",
+  "ROCKWELL": "/logos/rockwell.png",
   "PEMSA": "/logos/pemsa.png",
   "FAMATEL": "/logos/famatel.png",
   "SALICRU": "/logos/salicru.png",
   "TUPERSA": "/logos/tupersa.png",
-  "MURRELEKTRONIK": "/logos/murrelektronik.png",
-  "LAPP KABEL": "/logos/lapp.png",
   "SODECA": "/logos/sodeca.png",
   "FINDER": "/logos/finder.png",
-  "CAME": "/logos/came.png",
   "BEG": "/logos/beg.png",
-  "KIEBACK&PETER": "/logos/kieback.png",
-  "BXI": "/logos/baxi.png",
   
-  // Legacy mappings (lowercase variants)
+  // Legacy names
   "Schneider Electric": "/logos/schneider.png",
   "Legrand": "/logos/legrand.png",
-  "Siemens": "/logos/siemens.png",
-  "Abb": "/logos/abb.png",
-};
-
-// Map brand to domain for Clearbit API
-const BRAND_DOMAINS = {
-  // Top 30 brands - almost all have clearbit logos
-  "SCHNEIDER ELECTRIC": "schneider-electric.com",
-  "SIMON": "simon.es",
-  "LEGRAND": "legrand.com",
-  "NIESSEN": "niessen.es",
-  "SIEMENS": "siemens.com",
-  "HAGER": "hager.es",
-  "PHOENIX CONTACT": "phoenixcontact.com",
-  "BTICINO": "bticino.com",
-  "BJC": "bjc.es",
-  "TOP CABLE": "topcable.es",
-  "IDE": "ide.es",
-  "MIGUELEZ": "miguelez.es",
-  "JUNG": "jung.de",
-  "UNEX": "unex.es",
-  "TELEVES": "televes.com",
-  "GENERAL CABLE": "generalcable.com",
-  "PRYSMIAN": "prysmiangroup.com",
-  "EXCEL": "excelcable.com",
-  "NEXANS": "nexans.com",
-  "SOLERA": "solera.es",
-  "COMMSCOPE": "commscope.com",
-  "FERMAX": "fermax.es",
-  "WEIDMULLER": "weidmueller.com",
-  "GEWISS": "gewiss.com",
-  "RITTAL": "rittal.com",
-  "EATON": "eaton.com",
-  "GOLMAR": "golmar.com",
-  "HELLERMANN": "hellermanntyton.com",
-  "ABB": "abb.com",
-  "WAGO": "wago.com",
-  "CAME": "came.com",
-  "HARTING": "harting.com",
-  "ROCKWELL": "rockwellautomation.com",
-  "OBO BETTERMANN": "obobettermann.com",
-  "HIKVISION": "hikvision.com",
-  "PEMSA": "pemsa.es",
-  "FAMATEL": "famatel.es",
-  "SALICRU": "salicru.com",
-  "TUPERSA": "tupersa.es",
-  "MURRELEKTRONIK": "murrelektronik.com",
-  "LAPP KABEL": "lapp.com",
-  "SODECA": "sodeca.com",
-  "FINDER": "finder.eu",
-  "CORNING": "corning.com",
-  "COMELIT": "comelitgroup.com",
-  "FERRAZ SHAWMUT": "ferrazshawmut.com",
-  "SOCOMEC": "socomec.com",
-  "CAHORS": "cahors.es",
-  "MENNEKES": "mennekes.com",
-  "GESCABLE": "gescable.es",
-  "NEXANS CS": "nexans.com",
-  "GAVE": "gave.com",
-  "DRAKA": "draka.com",
-  "BXI": "baxi.es",
-  "TOSHIBA": "toshiba.com",
-  "CABLES RCT": "rct.es",
-  "TP-LINK": "tp-link.com",
-  "D-LINK": "dlink.com",
-  "PANDUIT": "panduit.com",
-  "LEVITON": "leviton.com",
-  "APOLO": "apolo.es",
-  "CERVINOR": "cervinor.es",
-  "CERVI": "cervi.es",
-  "CEMBRE": "cembre.it",
-  "ORBIS": "orbis.es",
-  "AISCAN": "aiscan.com",
-  "CABLES RCT": "rct.es",
-  "DINUY": "dinuy.com",
-  "AVALVA": "avalva.es",
-  "REVALCO": "revalco.es",
-  "INCASA": "incasa.es",
-  "HONEYWELL": "honeywell.com",
-  "BEG": "beg-tech.de",
-  "TEKOX": "tekox.com",
-  "LLENARI": "llenari.es",
-  "ARMENGOL": "armengol.es",
-  "RETEX": "retex.es",
-  "INMAEL": "inmael.es",
-  "PINAZO": "pinazo.es",
-  "ECOTEL": "ecotel.es",
-  "BASORPLAST": "basorplast.es",
-  "SEAVI": "seavi.es",
-  "FONTINI": "fontini.com",
-  "FAGOR ELTRON.": "fagor.com",
-  "CIRPROTEC": "cirprotec.com",
-  "WOHNELEC": "wohnelec.com",
-  "ALG": "alg.es",
-  "ILME": "ilme.com",
-  "OPENETICS": "openetics.com",
-  "TOSCANO": "toscano.es",
-  "MICRO DETECTORS": "micro-detectors.com",
-  "NILED": "niled.com",
-  "KPS": "kps-group.com",
-  "EKSELANS BY ITS": "ekselans.com",
-  "GTLAN": "gtlan.es",
-  "QUINTELA": "quintela.es",
-  "BASORFIL": "basorfil.es",
-  "BACHMANN": "bachmann.com",
-  "MMCONECTA": "mmconecta.es",
-  "CIRCUTOR": "circutor.com",
-  "KLK": "klk-elektro.de",
-  "BOXTAR": "boxtrac.com",
-  "FENOPLASTICA": "fenoplastica.es",
-  "TECNOTRAFO": "tecnitrafo.es",
-  "METALBLINDS": "metalblinds.com",
-  "DELECSA": "delecsa.es",
-  "GRUPO AGUILERA": "grupoaguilera.es",
-  "POLYLUX": "polylux.com",
-  "KNIPEX": "knipex.de",
-  "SPELSBERG": "spelsberg.de",
-  "GTLED": "gtled.es",
-  "EISSOUND": "eissound.com",
-  "BASORTRAY": "basortray.es",
-  "ELECTRO DH": "electro-dh.com",
-  "MAXGE": "maxge.es",
-  "PRONUTEC": "pronutec.com",
-  "WIELAND": "wieland-electric.com",
-  "DEHN": "dehn.de",
-  "LUCECO": "luceco.es",
-  "PRITEC": "pritec.es",
-  "RODMAN": "rodman.com",
-  "DELTAELECTRONICS": "deltaelectronics.com",
-  "TECNICAS DEL CABLE": "tecnicasdelcable.es",
-  "GARSACO": "garsaco.es",
-  "MAGNUM HEATING": "magnumheating.eu",
-  "MORA": "mora.es",
-  "SIBA": "siba.es",
-  "EFIBAT": "efibat.es",
-  "AIRZONE": "airzone.es",
-  "TELECTRISA": "telectrisa.es",
-  "INTESIS": "intesis.com",
-  "TEKNOMEGA": "teknomega.it",
-  "GIACOMINI": "giacomini.com",
-  "SONELCO": "sonelco.com",
-  "MCI LIGHT": "mcilight.com",
-  "ILARDIA": "ilardia.com",
-  "TELERGON": "telergon.com",
-  "TESE": "tese.es",
-  "ACO": "aco.com",
-  "PHILIPS LIGHTING SOLUTIONS": "philips.com",
-  "SAET-94": "saet-94.it",
-  "INDUSTRIAS MORA": "industriasmora.es",
-  "LIGHTED": "lighted.es",
-  "CELLPACK": "cellpack.com",
-  "ONE LIGHT": "onelight.es",
-  "IDEAL": "ideal.es",
-  "AUTA": "auta.es",
-  "OBSEQUIOS": "obsequios.es",
-  "IES": "ies.es",
-  "FLEXAQUICK": "flexaquick.com",
-  "LUXLIGHT": "luxlight.es",
-  "ENVERTEC": "envertec.com",
-  "KAINOS": "kainos.es",
-  "GAVE": "gave.es",
-  "SPIT PASLODE": "spit-paslode.com",
-  "ESLA": "esla.es",
-  "DUCASA": "ducasa.com",
-  "KIEBACK&PETER": "kieback-peter.de",
-  "MT VF": "mtvf.es",
-  "SODECA": "sodeca.es",
-  "CODEMB": "codemb.es",
-  "BENTEL": "bentel.com",
-  "TSL": "tsl.es",
-  "SLV": "slv.com",
-  "AMIDA": "amida.es",
-  "JANGAR": "jangar.es",
-  "TRES": "tres.es",
-  "CANFOR": "canfor.com",
-  "JISO": "jiso.es",
-  "BASORFIX": "basorfix.es",
-  "BLUELED": "blueled.es",
-  "VELILLA": "velilla.es",
-  "GROHE": "grohe.com",
-  "MONOLYTH": "monolith.es",
-  "WOHNER": "whoner.de",
-  "TBK": "tbk.com",
-  "LUZ NEGRA": "luznegra.es",
-  "ETI": "eti.si",
-  "SCHUTZ": "schutz.de",
-  "PLYMOUTH": "plymouth.com",
-  "ERICO": "erico.com",
-  "FISCHER": "fischer-group.com",
-  "FESTO": "festo.com",
-  "POTERMIC": "potermic.com",
 };
 
 /**
- * Get logo URL for a brand
+ * Generate nice gradient colors for brands
  */
-export function getBrandLogo(brandName) {
-  if (!brandName) return null;
+function getGradientForBrand(brandName) {
+  if (!brandName) return 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+  
+  // Predefined gradient pairs - assign consistently based on brand name
+  const gradients = [
+    ['#667eea', '#764ba2'], // Purple
+    ['#f093fb', '#f5576c'], // Pink
+    ['#4facfe', '#00f2fe'], // Blue cyan
+    ['#43e97b', '#38f9d7'], // Green
+    ['#fa709a', '#fee140'], // Pink yellow
+    ['#a8edea', '#fed6e3'], // Pastel
+    ['#ff9a9e', '#fecfef'], // Rose
+    ['#ffecd2', '#fcb69f'], // Peach
+    ['#fbc2eb', '#a6c1ee'], // Lavender
+    ['#ff6b6b', '#feca57'], // Red orange
+    ['#84fab0', '#8fd3f4'], // Mint blue
+    ['#cfd9df', '#e2ebf0'], // Silver
+    ['#a1c4fd', '#c2e9fb'], // Light blue
+    ['#d4fc79', '#96e6a1'], // Lime
+    ['#e0c3fc', '#8ec5fc'], // Light purple
+  ];
+  
+  // Hash brand name to get consistent gradient
+  let hash = 0;
+  for (let i = 0; i < brandName.length; i++) {
+    hash = brandName.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const index = Math.abs(hash) % gradients.length;
+  
+  return `linear-gradient(135deg, ${gradients[index][0]} 0%, ${gradients[index][1]} 100%)`;
+}
+
+/**
+ * Get initials from brand name (max 2 characters)
+ */
+function getInitials(brandName) {
+  if (!brandName) return '??';
+  
+  const clean = brandName.trim().toUpperCase();
+  
+  // Handle multi-word brands
+  const words = clean.split(/\s+/);
+  if (words.length >= 2) {
+    return words[0].charAt(0) + words[1].charAt(0);
+  }
+  
+  // Single word - take first 2 letters
+  return clean.substring(0, 2).padEnd(2, '?');
+}
+
+/**
+ * Get logo data for a brand
+ * @returns {Object} { logo: string|null, initials: string, gradient: string }
+ */
+export function getBrandLogoData(brandName) {
+  if (!brandName) {
+    return { logo: null, initials: '??', gradient: getGradientForBrand('') };
+  }
   
   const normalized = brandName.trim().toUpperCase();
   
-  // 1. Check local logos (exact match)
+  // Check local logos first (exact match)
   if (LOCAL_LOGOS[normalized]) {
-    return LOCAL_LOGOS[normalized];
+    return { 
+      logo: LOCAL_LOGOS[normalized], 
+      initials: getInitials(normalized), 
+      gradient: getGradientForBrand(normalized) 
+    };
   }
   
-  // 2. Try case-insensitive local
+  // Try case-insensitive
   const localKey = Object.keys(LOCAL_LOGOS).find(
     key => key.toUpperCase() === normalized
   );
-  if (localKey) return LOCAL_LOGOS[localKey];
-  
-  // 3. Try Clearbit with known domains
-  if (BRAND_DOMAINS[normalized]) {
-    return `https://logo.clearbit.com/${BRAND_DOMAINS[normalized]}`;
+  if (localKey) {
+    return { 
+      logo: LOCAL_LOGOS[localKey], 
+      initials: getInitials(localKey), 
+      gradient: getGradientForBrand(localKey) 
+    };
   }
   
-  // 4. No logo found
-  return null;
+  // No local logo - return initials with gradient (no ugly backgrounds!)
+  return { 
+    logo: null, 
+    initials: getInitials(normalized), 
+    gradient: getGradientForBrand(normalized) 
+  };
 }
 
 /**
- * Get brand color based on first letter
+ * Legacy function - returns logo URL or null
  */
-export function getBrandColor(brandName) {
-  if (!brandName) return '#666666';
-  
-  const colors = {
-    A: '#E74C3C', B: '#3498DB', C: '#9B59B6', D: '#E67E22',
-    E: '#1ABC9C', F: '#F39C12', G: '#2ECC71', H: '#E91E63',
-    I: '#00BCD4', J: '#FF9800', K: '#8BC34A', L: '#673AB7',
-    M: '#F44336', N: '#03A9F4', O: '#4CAF50', P: '#FF5722',
-    Q: '#9C27B0', R: '#00BCD4', S: '#FFEB3B', T: '#009688',
-    U: '#CDDC39', V: '#3F51B5', W: '#FFC107', X: '#795548',
-    Y: '#607D8B', Z: '#4DB6AC'
-  };
-  
-  const first = brandName.charAt(0).toUpperCase();
-  return colors[first] || '#666666';
+export function getBrandLogo(brandName) {
+  const data = getBrandLogoData(brandName);
+  return data.logo;
 }
 
-export default { getBrandLogo, getBrandColor };
+/**
+ * Legacy function - returns brand color
+ */
+export function getBrandColor(brandName) {
+  const gradients = [
+    '#667eea', '#f093fb', '#4facfe', '#43e97b', '#fa709a',
+    '#a8edea', '#ff9a9e', '#ffecd2', '#fbc2eb', '#ff6b6b',
+    '#84fab0', '#cfd9df', '#a1c4fd', '#d4fc79', '#e0c3fc'
+  ];
+  
+  if (!brandName) return '#667eea';
+  
+  let hash = 0;
+  for (let i = 0; i < brandName.length; i++) {
+    hash = brandName.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  
+  return gradients[Math.abs(hash) % gradients.length];
+}
+
+export default { getBrandLogo, getBrandColor, getBrandLogoData };

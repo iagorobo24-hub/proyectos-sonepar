@@ -36,14 +36,14 @@ export function OrbitRow({ children, className = '' }) {
   )
 }
 
-export function BrandCard({ logo, logoFallback, logoColor, name, count, onClick, className = '' }) {
+export function BrandCard({ logo, logoFallback, logoColor, logoGradient, name, count, onClick, className = '' }) {
   return (
     <button className={`${styles.brandCard} ${className}`} onClick={onClick}>
       <div className={styles.brandCard__logo}>
         {logo ? (
           <img src={logo} alt={name} />
         ) : (
-          <div className={styles.brandCard__logoFallback} style={{ background: logoColor }}>
+          <div className={styles.brandCard__logoFallback} style={{ background: logoGradient || logoColor }}>
             {logoFallback}
           </div>
         )}

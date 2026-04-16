@@ -96,12 +96,13 @@ export default function FichasTecnicas() {
   }
 
   const marcasConLogo = marcasDisponibles.map(m => {
-    const localLogo = MARCAS[m.nombre]?.logo
-    const serviceLogo = getBrandLogo(m.nombre)
+    const logoData = getBrandLogoData(m.nombre)
     return {
       ...m,
-      logo: localLogo || serviceLogo || '',
-      color: MARCAS[m.nombre]?.color || getBrandColor(m.nombre)
+      logo: logoData.logo || '',
+      logoFallback: logoData.initials,
+      logoGradient: logoData.gradient,
+      color: MARCAS[m.nombre]?.color || logoData.gradient
     }
   })
 
@@ -245,8 +246,8 @@ export default function FichasTecnicas() {
                 <div key={m.nombre} role="listitem">
                   <BrandCard
                     logo={m.logo}
-                    logoFallback={m.nombre.substring(0, 2).toUpperCase()}
-                    logoColor={m.color}
+                    logoFallback={m.logoFallback}
+                    logoGradient={m.logoGradient}
                     name={m.nombre}
                     count="Ver gamas"
                     onClick={() => seleccionarMarca(m.nombre)}
@@ -260,8 +261,8 @@ export default function FichasTecnicas() {
                   <div key={m.nombre} role="listitem">
                     <BrandCard
                       logo={m.logo}
-                      logoFallback={m.nombre.substring(0, 2).toUpperCase()}
-                      logoColor={m.color}
+                      logoFallback={m.logoFallback}
+                      logoGradient={m.logoGradient}
                       name={m.nombre}
                       count="Ver gamas"
                       onClick={() => seleccionarMarca(m.nombre)}
