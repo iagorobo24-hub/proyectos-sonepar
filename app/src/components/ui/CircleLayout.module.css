@@ -137,13 +137,16 @@
   justify-content: center;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--white);
+  background: transparent;
 }
 
 .brandCard__logo img {
   max-width: 72px;
   max-height: 72px;
+  width: auto;
+  height: auto;
   object-fit: contain;
+  object-position: center;
 }
 
 .brandCard__logoFallback {
