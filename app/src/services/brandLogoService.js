@@ -122,6 +122,35 @@ export function getBrandLogoData(brandName) {
   
   const normalized = brandName.trim().toUpperCase();
   
+  // Check if brand exists in LOCAL_LOGOS (including null for brands without files)
+  if (normalized in LOCAL_LOGOS) {
+    const logoPath = LOCAL_LOGOS[normalized];
+    // Only use logo if it's a valid path (not null)
+    if (logoPath) {
+      return { 
+        logo: logoPath, 
+        initials: getInitials(normalized), 
+        gradient: getGradientForBrand(normalized) 
+      };
+    }
+    // Brand in LOCAL_LOGOS but with null = has real products, use gradient fallback
+    return { 
+      logo: null, 
+      initials: getInitials(normalized), 
+      gradient: getGradientForBrand(normalized) 
+    };
+  }
+  
+  // Not in LOCAL_LOGOS - generate gradient avatar
+  return { 
+    logo: null, 
+    initials: getInitials(normalized), 
+    gradient: getGradientForBrand(normalized) 
+  };
+}
+  
+  const normalized = brandName.trim().toUpperCase();
+  
   // Check local logos first (exact match)
   if (LOCAL_LOGOS[normalized]) {
     return { 
