@@ -110,7 +110,7 @@ export default function useFichasTecnicas() {
 
       // 3. SI NO HAY RESULTADOS REALES, PREGUNTAR A LA IA (RAG)
       const { text } = await callAnthropicAI({
-        model: 'claude-sonnet-4-5-20250929',
+        model: 'anthropic/claude-3.5-haiku',
         max_tokens: 1000,
         system: SYSTEM_FICHA,
         messages: [{ role: 'user', content: q }],
