@@ -5,7 +5,7 @@ import useFichasTecnicas from '../hooks/useFichasTecnicas'
 import useNavegacionFichas from '../hooks/useNavegacionFichas'
 import { FULL_CATEGORY_INFO } from '../data/categoryMapping'
 import { MARCAS } from '../data/marcasLogos'
-import { getBrandLogo, getBrandColor } from '../services/brandLogoService'
+import { getBrandLogo, getBrandColor, getBrandLogoData } from '../services/brandLogoService'
 import Button from '../components/ui/Button'
 import Input from '../components/ui/Input'
 import {
