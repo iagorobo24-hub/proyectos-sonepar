@@ -1,0 +1,42 @@
+{
+  "buildCommand": "cd app && npm install && npm run build",
+  "outputDirectory": "app/dist",
+  "functions": {
+    "api/anthropic.js": {
+      "runtime": "nodejs22.x"
+    },
+    "api/extract-pdf.js": {
+      "runtime": "nodejs22.x"
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://apis.google.com https://*.googleapis.com https://*.firebaseapp.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https:; connect-src 'self' https://api.anthropic.com https://*.googleapis.com https://*.firebaseio.com https://*.firebase.google.com https://www.se.com https://search.abb.com https://mall.industry.siemens.com https://www.ifm.com https://www.pepperl-fuchs.com https://www.lighting.philips.es https://www.ledvance.es https://www.zemper.es https://wallbox.com https://hager.es https://www.fronius.com https://www.sma.es https://www.pylontech.com.cn https://www.victronenergy.es https://www.mitsubishielectric.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com; font-src 'self' data:; frame-src https://*.firebaseapp.com https://www.google.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+        }
+      ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/anthropic",
+      "destination": "/api/anthropic"
+    },
+    {
+      "source": "/api/extract-pdf",
+      "destination": "/api/extract-pdf"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+```
+# Compiled and build artifacts
+*.pyc
+__pycache__/
+*.o
+*.obj
+dist/
+build/
+target/
+
+# Dependencies
+node_modules/
+.venv/
+venv/
+.env
+.env.local
+.env.*
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git tooling
+.gitnexus/
+
+# AI agents and skills
+.agents/
+.claude/
+skills-lock.json
+
+# Vercel local config
+.vercel/
+
+# Git worktrees
+.worktrees/
+
+# Cloud service account keys
+service-account.json
+*.service-account.json
+*-firebase-adminsdk-*.json
+
+# Null/artefact files
+$null
+
+# Scraper data (raw/catalog dumps)
+*-catalog-scraper/
+scraper-data/
+*.scraper.json
+*catalogo*.json
+*progreso*.json
+*productos*.json
+*subfamilias*.json
+
+# Binary docs (use markdown instead)
+*.docx
+
+# Test screenshots
+e2e/results/
+e2e/screenshots/
+**/screenshots/
+

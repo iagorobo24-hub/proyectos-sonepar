@@ -1,0 +1,2597 @@
+{
+  "CABLES": {
+    "GENERAL CABLE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO RZ1 AL LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "COBRE DESNUDO"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA/ALTA TENSIÓN HEPRZ1 AL",
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 OL / RH5Z1 AL",
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE"
+      ]
+    },
+    "EXCEL": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLES DE FIBRA ÓPTICA",
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "PRYSMIAN": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO RZ1 AL LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLE FLEXIBLE DE GOMA",
+        "CABLE APANTALLADO VHOV-K / VOV-K / Z1HOZ1-K (AS) / Z1OZ1-K (AS)",
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA/ALTA TENSIÓN HEPRZ1 AL",
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 OL / RH5Z1 AL"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE"
+      ]
+    },
+    "NEXANS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLE FLEXIBLE DE GOMA",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V"
+      ],
+      "CABLES ESPECIALES": [
+        "COBRE DESNUDO"
+      ]
+    },
+    "TELEVES": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "TUBO PRECABLEADO"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "MIGUELEZ": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLE ARMADO RVMV-K / RVFV-K"
+      ],
+      "CABLES ESPECIALES": [
+        "COBRE DESNUDO"
+      ]
+    },
+    "TOP CABLE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO RZ1 AL LIBRE HALÓGENOS",
+        "CABLE FLEXIBLE DE GOMA",
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLE ARMADO RZ1MZ1-K (AS) /  RZ1FZ1-K (AS)",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLE APANTALLADO VHOV-K / VOV-K / Z1HOZ1-K (AS) / Z1OZ1-K (AS)"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA/ALTA TENSIÓN HEPRZ1 AL",
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 2OL",
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 OL / RH5Z1 AL"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "COMMSCOPE": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLES DE FIBRA ÓPTICA",
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "GESCABLE": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA",
+        "CABLEADO FIBRA ÓPTICA"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ]
+    },
+    "CORNING": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLES DE FIBRA ÓPTICA",
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "LEGRAND": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "BTICINO": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "LEVITON": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "LAZSA": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "TUBO PRECABLEADO",
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "DRAKA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC"
+      ]
+    },
+    "SCHNEIDER ELECTRIC": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "EKSELANS BY ITS": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "NETCONNECT": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "EK": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO RED COBRE",
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "FENOPLASTICA": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "REVI TUBOS": {
+      "CABLES DE BAJA TENSION": [
+        "TUBO PRECABLEADO"
+      ]
+    },
+    "GOLMAR": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "REVI CABLES": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLE SOLAR H1Z2Z2-K"
+      ]
+    },
+    "CABLES RCT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F"
+      ]
+    },
+    "CERVI": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLES DE ENERGÍA 500/750 V PVC",
+        "CABLE ARMADO RZ1MZ1-K (AS) /  RZ1FZ1-K (AS)",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K (AS+) / SZ1-K (AS+)"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ]
+    },
+    "SUMCAB": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLE ARMADO RVMV-K / RVFV-K",
+        "CABLE FLEXIBLE DE GOMA",
+        "CABLE ARMADO RZ1MZ1-K (AS) /  RZ1FZ1-K (AS)",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLE SOLAR H1Z2Z2-K"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ]
+    },
+    "NEXANS CS": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "GENÉRICO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE SOLAR H1Z2Z2-K",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU"
+      ],
+      "CABLES ESPECIALES": [
+        "RESTO CABLES ESPECIALES",
+        "CABLES DE ALUMINIO DESNUDO",
+        "CABLES ESPECIALES",
+        "CABLE PLANOS"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA",
+        "CABLEADO FIBRA ÓPTICA"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA/ALTA TENSIÓN RHZ1 OL / RH5Z1 AL"
+      ]
+    },
+    "CODEMB": {
+      "CABLES DE BAJA TENSION": [
+        "RESTO DE CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "INCASA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO RZ1 AL LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA  TRENZADOS RZ AL / RZ CU",
+        "CABLES DE ENERGÍA 500/750 V PVC"
+      ]
+    },
+    "COURANT": {
+      "CABLES DE BAJA TENSION": [
+        "TUBO PRECABLEADO",
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 500/750 V PVC"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "PANDUIT": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA",
+        "CABLEADO FIBRA ÓPTICA"
+      ]
+    },
+    "PHOENIX CONTACT": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ROCKWELL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "RESTO CABLES ESPECIALES"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "ECOTEL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE ENERGÍA H03V-H05V/H05Z1Z1-K / F",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLES DE ENERGÍA 0,6/1KV RZ1-K LIBRE DE HALÓGENOS",
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "DIGITUS": {
+      "CABLES DE DATOS": [
+        "CABLEADO RED COBRE",
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA",
+        "CABLEADO FIBRA ÓPTICA"
+      ]
+    },
+    "TELECNOR": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 500/750 V LIBRE HALÓGENOS",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F",
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FAGOR ELTRON.": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES",
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "COMA": {
+      "CABLES ESPECIALES": [
+        "RESTO CABLES ESPECIALES",
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ]
+    },
+    "APOLO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "DELECSA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FESTO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "COMELIT": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "CERVINOR": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLE APANTALLADO YCY / LIYCY / VC4V-K",
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "LUZ NEGRA": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "TEKNOMEGA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "REVALCO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "WAGO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "CUNEXT": {
+      "CABLES ESPECIALES": [
+        "CABLES DE ALUMINIO DESNUDO"
+      ]
+    },
+    "MURRELEKTRONIK": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "BOXTAR": {
+      "CABLES ESPECIALES": [
+        "COBRE DESNUDO",
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "OPENETICS": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO RED COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "HARTING": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO RED COBRE"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "KNIPEX": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "SPELSBERG": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "TECNICAS DEL CABLE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE ENERGÍA 0,6/1KV B.T. ALUMINIO XZ1 (S) AL/ RV AL/ U1000 AR2V"
+      ]
+    },
+    "MAXGE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ELECTRO DH": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "MAGNUM HEATING": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "TUPERSA": {
+      "CABLES DE BAJA TENSION": [
+        "TUBO PRECABLEADO"
+      ]
+    },
+    "ESLA": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "HAGER": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "IDE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "SIMON": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO RED COBRE"
+      ]
+    },
+    "WEIDMULLER": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "SIEMENS": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "NIESSEN": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "GEWISS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "APC BY SCHNEIDER ELECTRIC": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLE FLEXIBLE DE GOMA"
+      ]
+    },
+    "FONESTAR": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "TIEMME": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ALG": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "RESTO CABLES ESPECIALES",
+        "CABLES ESPECIALES"
+      ]
+    },
+    "MICRO DETECTORS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "CASALS VENT.": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TOSHIBA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "GTLAN": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA",
+        "CABLEADO FIBRA ÓPTICA",
+        "CABLEADO RED COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "AVALVA": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "GAESTOPAS": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "APLICACIONES TECNOLOGICAS": {
+      "CABLES ESPECIALES": [
+        "COBRE DESNUDO",
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "PRITEC": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "AIRZONE": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "OBO BETTERMANN": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "BENTEL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "EATON": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TERASAKI": {
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ]
+    },
+    "WOHNELEC": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES",
+        "COBRE DESNUDO"
+      ],
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TRES": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "MCI LIGHT": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "VELILLA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ACO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "GROHE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "DUCHAFLEX": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FERCO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "WIELAND": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ONE LIGHT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "CDVI": {
+      "CABLES DE DATOS": [
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "FONTINI": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "TELERGON": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "EGI": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "JANGAR": {
+      "CABLES ESPECIALES": [
+        "CABLE PLANOS"
+      ]
+    },
+    "LUXLIGHT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "COALSA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "AMIDA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "BACHMANN": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES ESPECIALES": [
+        "RESTO CABLES ESPECIALES",
+        "CABLES ESPECIALES"
+      ]
+    },
+    "SOFAMEL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE SOLAR H1Z2Z2-K"
+      ]
+    },
+    "ALCAD": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "CHINT": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ILARDIA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "GTLED": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE",
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "HIKVISION": {
+      "CABLES DE DATOS": [
+        "CABLEADO SEGURIDAD, SONIDO Y COMUNICACIONES"
+      ]
+    },
+    "LIGHTED": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "SOCOMEC": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ],
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "SODECA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ARMENGOL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "SPIT PASLODE": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "GARSACO": {
+      "CABLES ESPECIALES": [
+        "CABLE PLANOS"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "RETEX": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ILME": {
+      "CABLES DE DATOS": [
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "EISSOUND": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "XB COMPONENTS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FAMATEL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "VMC": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "IDEAL": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ],
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "BLUELED": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "KAINOS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TELECTRISA": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "IES": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "SLV": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "ELECTRICFOR": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "MT VF": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "COFEM": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "ERMA": {
+      "CABLES DE DATOS": [
+        "CABLES DE FIBRA ÓPTICA"
+      ]
+    },
+    "OBSEQUIOS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLE APANTALLADO Z1C4Z1-K (AS)-RC4Z1-K (AS)",
+        "CABLES DE ENERGÍA 0,6/1KV RV / U-1000 R2V / RV-K / VV-K / F"
+      ]
+    },
+    "TSL": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "TOSCANO": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "FERMAX": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "TESE": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ],
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "PEMSA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "INTERFLEX": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "JUNG": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "SBI": {
+      "CABLES DE MEDIA Y ALTA TENSION": [
+        "CABLES DE MEDIA Y ALTA TENSIÓN"
+      ]
+    },
+    "SICK": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "ERICO": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "CLAVED": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "RIS IBERIA": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "WIGAM": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    },
+    "CANFOR": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "VICENTE TORNS": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "LAPP KABEL": {
+      "CABLES ESPECIALES": [
+        "CABLES ESPECIALES"
+      ]
+    },
+    "HONEYWELL": {
+      "CABLES DE DATOS": [
+        "CABLES DE DATOS DE COBRE"
+      ]
+    },
+    "IGUS": {
+      "CABLES DE BAJA TENSION": [
+        "CABLES DE BAJA TENSIÓN"
+      ]
+    }
+  },
+  "DISTRIBUCION DE POTENCIA": {
+    "SOLERA": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN",
+        "SISTEMAS DE ENVOLVENTE",
+        "ACCESORIOS PARA CUADROS",
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO",
+        "CANAL DE PVC",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ],
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR"
+      ]
+    },
+    "SCHNEIDER ELECTRIC": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR",
+        "APARAMENTA CAJA MOLDEADA",
+        "OTROS DISPOSITIVOS BAJA TENSIÓN",
+        "SMART ELECTRICAL PANEL",
+        "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS DE ENVOLVENTE",
+        "ACCESORIOS PARA CUADROS",
+        "GESTIÓN TÉRMICA DE CUADROS",
+        "CAJAS DE CONEXIÓN",
+        "ENVOLVENTE VACÍO (CONTROL Y AUTOMATIZACIÓN)",
+        "ENVOLVENTES Y MONTAJE DE CUADROS",
+        "SISTEMAS INSTALACIÓN DE ENLACE"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO",
+        "PUESTOS DE TRABAJO",
+        "CANAL DE PVC",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿",
+        "BANDEJAS (METÁLICAS Y AISLANTES)"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO",
+        "CANALIZACIÓN ELÉCTRICA PREFABRICADA",
+        "CALIDAD DE LA ENERGÍA"
+      ]
+    },
+    "LEGRAND": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN",
+        "SISTEMAS DE ENVOLVENTE",
+        "ACCESORIOS PARA CUADROS"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO",
+        "CANAL DE PVC",
+        "PUESTOS DE TRABAJO"
+      ],
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR",
+        "APARAMENTA CAJA MOLDEADA",
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ]
+    },
+    "HELLERMANN": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ]
+    },
+    "IDE": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN",
+        "SISTEMAS DE ENVOLVENTE",
+        "ACCESORIOS PARA CUADROS",
+        "ENVOLVENTE VACÍO (CONTROL Y AUTOMATIZACIÓN)",
+        "GESTIÓN TÉRMICA DE CUADROS",
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿",
+        "ACCESORIOS CABLEADO"
+      ],
+      "DISTRIBUCION BAJA TENSION": [
+        "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN"
+      ]
+    },
+    "AISCAN": {
+      "GESTION DE CABLEADO": [
+        "TUBO DE INSTALACIÓN CORRUGADO PVC",
+        "TUBO PVC RÍGIDO",
+        "TUBO CANALIZACIÓN",
+        "TUBO DE INSTALACIÓN METÁLICO"
+      ]
+    },
+    "SIMON": {
+      "GESTION DE CABLEADO": [
+        "PUESTOS DE TRABAJO",
+        "ACCESORIOS CABLEADO",
+        "ELEMENTOS DE SUELO Y ESCRITORIO (COLUMNAS, CAJAS SUELO¿)"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN",
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ],
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ]
+    },
+    "KLK": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ]
+    },
+    "TEKOX": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "SOFAMEL": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA",
+        "ELEMENTOS DE SEGURIDAD Y SEÑALIZACIÓN",
+        "CONEXIÓN Y HERRAMIENTAS MT/AT"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "REVI TUBOS": {
+      "GESTION DE CABLEADO": [
+        "TUBO DE INSTALACIÓN CORRUGADO PVC",
+        "TUBO PVC RÍGIDO",
+        "TUBO CANALIZACIÓN"
+      ]
+    },
+    "MORA": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ]
+    },
+    "TUPERSA": {
+      "GESTION DE CABLEADO": [
+        "TUBO DE INSTALACIÓN CORRUGADO PVC",
+        "TUBO PVC RÍGIDO",
+        "TUBO CANALIZACIÓN"
+      ]
+    },
+    "FERRAZ SHAWMUT": {
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ]
+    },
+    "OBO BETTERMANN": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO",
+        "BANDEJAS Y REJILLAS METÁLICAS"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ACCESORIOS PARA CUADROS",
+        "CAJAS DE CONEXIÓN"
+      ]
+    },
+    "APOLO": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO",
+        "BANDEJAS Y REJILLAS METÁLICAS",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ACCESORIOS PARA CUADROS"
+      ]
+    },
+    "INDUSTRIAS MORA": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ]
+    },
+    "CEMBRE": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "ORBIS": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR",
+        "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ]
+    },
+    "CIRCUTOR": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR",
+        "APARAMENTA CAJA MOLDEADA"
+      ]
+    },
+    "WEIDMULLER": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ACCESORIOS PARA CUADROS"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ]
+    },
+    "HAGER": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR",
+        "APARAMENTA CAJA MOLDEADA",
+        "OTROS DISPOSITIVOS BAJA TENSIÓN",
+        "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS DE ENVOLVENTE",
+        "ACCESORIOS PARA CUADROS",
+        "ENVOLVENTE VACÍO (CONTROL Y AUTOMATIZACIÓN)",
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ],
+      "GESTION DE CABLEADO": [
+        "CANAL DE PVC",
+        "CANALETAS Y MOLDURAS (METÁLICAS Y AISLANTES)"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ]
+    },
+    "FAMATEL": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "INTERFLEX": {
+      "GESTION DE CABLEADO": [
+        "BANDEJAS Y REJILLAS METÁLICAS",
+        "ACCESORIOS CABLEADO",
+        "TUBO DE INSTALACIÓN METÁLICO",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ]
+    },
+    "ABB": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR",
+        "APARAMENTA CAJA MOLDEADA",
+        "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS DE ENVOLVENTE"
+      ]
+    },
+    "UNEX": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO",
+        "CANAL DE PVC",
+        "PUESTOS DE TRABAJO",
+        "CANALETAS Y MOLDURAS (METÁLICAS Y AISLANTES)",
+        "ELEMENTOS DE SUELO Y ESCRITORIO (COLUMNAS, CAJAS SUELO¿)",
+        "BANDEJAS (METÁLICAS Y AISLANTES)",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ]
+    },
+    "PEMSA": {
+      "GESTION DE CABLEADO": [
+        "BANDEJAS Y REJILLAS METÁLICAS",
+        "ACCESORIOS CABLEADO",
+        "TUBO PVC RÍGIDO",
+        "TUBO DE INSTALACIÓN METÁLICO",
+        "TUBO DE INSTALACIÓN CORRUGADO PVC"
+      ]
+    },
+    "ARMENGOL": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ],
+      "GESTION DE CABLEADO": [
+        "TUBO DE INSTALACIÓN METÁLICO"
+      ]
+    },
+    "GEWISS": {
+      "GESTION DE CABLEADO": [
+        "TUBO PVC RÍGIDO",
+        "TUBO DE INSTALACIÓN METÁLICO",
+        "ACCESORIOS CABLEADO",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN",
+        "SISTEMAS DE ENVOLVENTE"
+      ]
+    },
+    "PINAZO": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS INSTALACIÓN DE ENLACE"
+      ],
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ]
+    },
+    "3M MERCADOS ELECTRICOS": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "CONEXIÓN Y HERRAMIENTAS MT/AT"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "GAESTOPAS": {
+      "GESTION DE CABLEADO": [
+        "TUBO PVC RÍGIDO",
+        "ACCESORIOS CABLEADO",
+        "TUBO DE INSTALACIÓN CORRUGADO PVC",
+        "BANDEJAS Y REJILLAS METÁLICAS",
+        "TUBO DE INSTALACIÓN METÁLICO"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ACCESORIOS PARA CUADROS",
+        "SISTEMAS INSTALACIÓN DE ENLACE"
+      ]
+    },
+    "SIEMENS": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR",
+        "APARAMENTA CAJA MOLDEADA",
+        "OTROS DISPOSITIVOS BAJA TENSIÓN",
+        "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS DE ENVOLVENTE",
+        "ACCESORIOS PARA CUADROS",
+        "ENVOLVENTE VACÍO (CONTROL Y AUTOMATIZACIÓN)",
+        "SISTEMAS INSTALACIÓN DE ENLACE",
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ]
+    },
+    "INMAEL": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN"
+      ]
+    },
+    "SEAVI": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN"
+      ]
+    },
+    "NILED": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "RED TRENZADA",
+        "CONEXIÓN Y HERRAMIENTAS MT/AT"
+      ]
+    },
+    "QUINTELA": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ACCESORIOS PARA CUADROS",
+        "CAJAS DE CONEXIÓN"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ]
+    },
+    "TOSCANO": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ]
+    },
+    "PHOENIX CONTACT": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ACCESORIOS PARA CUADROS",
+        "ENVOLVENTES Y MONTAJE DE CUADROS",
+        "CAJAS DE CONEXIÓN"
+      ],
+      "GESTION DE CABLEADO": [
+        "CANAL DE PVC",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿",
+        "ACCESORIOS CABLEADO"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ],
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA CAJA MOLDEADA",
+        "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN"
+      ]
+    },
+    "DINUY": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR"
+      ]
+    },
+    "BASORFIL": {
+      "GESTION DE CABLEADO": [
+        "BANDEJAS Y REJILLAS METÁLICAS"
+      ]
+    },
+    "CIRPROTEC": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ]
+    },
+    "CLAVED": {
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS INSTALACIÓN DE ENLACE",
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ],
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ]
+    },
+    "BASORPLAST": {
+      "GESTION DE CABLEADO": [
+        "CANAL DE PVC",
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "EATON": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR",
+        "APARAMENTA CAJA MOLDEADA",
+        "DISTRIBUCIÓN ELÉCTRICA BAJA TENSIÓN",
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS DE ENVOLVENTE",
+        "ACCESORIOS PARA CUADROS",
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ]
+    },
+    "SIBA": {
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ]
+    },
+    "MMCONECTA": {
+      "GESTION DE CABLEADO": [
+        "PUESTOS DE TRABAJO",
+        "DISTRIBUCION ELÉCTRICA"
+      ]
+    },
+    "WAGO": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "POLYLUX": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "CALIDAD DE LA ENERGÍA"
+      ]
+    },
+    "GAVE": {
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ]
+    },
+    "CAHORS": {
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS INSTALACIÓN DE ENLACE"
+      ],
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "RED TRENZADA"
+      ]
+    },
+    "BJC": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN"
+      ]
+    },
+    "BASORFIX": {
+      "GESTION DE CABLEADO": [
+        "BANDEJAS Y REJILLAS METÁLICAS"
+      ]
+    },
+    "RITTAL": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "GESTIÓN TÉRMICA DE CUADROS",
+        "ACCESORIOS PARA CUADROS",
+        "ENVOLVENTE VACÍO (CONTROL Y AUTOMATIZACIÓN)",
+        "CAJAS DE CONEXIÓN",
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ]
+    },
+    "COMA": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS DE ENVOLVENTE"
+      ]
+    },
+    "ETI": {
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ]
+    },
+    "PRONUTEC": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PUESTA A TIERRA"
+      ],
+      "DISTRIBUCION BAJA TENSION": [
+        "OTROS DISPOSITIVOS BAJA TENSIÓN"
+      ]
+    },
+    "BEG": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR"
+      ]
+    },
+    "FLEXAQUICK": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "NIESSEN": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "SISTEMAS DE ENVOLVENTE"
+      ]
+    },
+    "BASORTRAY": {
+      "GESTION DE CABLEADO": [
+        "BANDEJAS Y REJILLAS METÁLICAS"
+      ]
+    },
+    "FISCHER": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ]
+    },
+    "PROIMAN": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ACCESORIOS PARA CUADROS"
+      ]
+    },
+    "DEHN": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ]
+    },
+    "BTICINO": {
+      "GESTION DE CABLEADO": [
+        "PUESTOS DE TRABAJO",
+        "ELEMENTOS DE SUELO Y ESCRITORIO (COLUMNAS, CAJAS SUELO¿)",
+        "ACCESORIOS DE CABLEADO, CONECTORES, CLEMAS, ¿"
+      ],
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "CAJAS DE CONEXIÓN"
+      ]
+    },
+    "BROTHER": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "NVENT HOFFMAN": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "GESTIÓN TÉRMICA DE CUADROS",
+        "ENVOLVENTE VACÍO (CONTROL Y AUTOMATIZACIÓN)",
+        "ACCESORIOS PARA CUADROS",
+        "ENVOLVENTES Y MONTAJE DE CUADROS",
+        "CAJAS DE CONEXIÓN"
+      ]
+    },
+    "WOHNER": {
+      "ENVOLVENTES Y CUADROS ELECTRICOS": [
+        "ENVOLVENTES Y MONTAJE DE CUADROS"
+      ]
+    },
+    "EXCEL": {
+      "GESTION DE CABLEADO": [
+        "PUESTOS DE TRABAJO"
+      ]
+    },
+    "ENVERTEC": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "AVIFAUNA"
+      ]
+    },
+    "FINDER": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR"
+      ]
+    },
+    "KPS": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA MODULAR"
+      ]
+    },
+    "TECNOTRAFO": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "CALIDAD DE LA ENERGÍA"
+      ]
+    },
+    "GENÉRICO": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    },
+    "APLICACIONES TECNOLOGICAS": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "PROTECCIÓN CONTRA EL RAYO"
+      ]
+    },
+    "APC BY SCHNEIDER ELECTRIC": {
+      "DISTRIBUCION BAJA TENSION": [
+        "APARAMENTA CAJA MOLDEADA"
+      ]
+    },
+    "CELLPACK": {
+      "DISTRIBUCION MEDIA Y ALTA TENSION": [
+        "CONEXIÓN Y HERRAMIENTAS MT/AT"
+      ]
+    },
+    "PANDUIT": {
+      "GESTION DE CABLEADO": [
+        "ELEMENTOS DE SUELO Y ESCRITORIO (COLUMNAS, CAJAS SUELO¿)"
+      ]
+    },
+    "ETELEC": {
+      "GESTION DE CABLEADO": [
+        "ACCESORIOS CABLEADO"
+      ]
+    }
+  },
+  "AUTOMATIZACION DE EDIFICIOS": {
+    "SIMON": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "SERIES DE MECANISMO CONECTADAS",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "BASES, CLAVIJAS Y ADAPTADORES"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
+        "REDES Y DATOS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO",
+        "SISTEMA BUS KNX",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS"
+      ]
+    },
+    "NIESSEN": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS PROPIETARIO",
+        "SISTEMA BUS KNX",
+        "CONTROL DE ACCESOS",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
+      ]
+    },
+    "SCHNEIDER ELECTRIC": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "TOMAS Y CLAVIJAS",
+        "SERIES DE MECANISMO CONECTADAS",
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "REDES Y DATOS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS KNX",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS"
+      ]
+    },
+    "LEGRAND": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "TOMAS Y CLAVIJAS",
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "SERIES DE MECANISMO CONECTADAS",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
+        "SOLUCIONES DE COMUNICACIÓN PARA HOSPITALITY",
+        "BASES, CLAVIJAS Y ADAPTADORES"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
+        "REDES Y DATOS",
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "CONTROL DE ACCESOS",
+        "SISTEMAS INTRUSIÓN",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
+      ]
+    },
+    "TELEVES": {
+      "REDES Y TELECOMUNICACIONES": [
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
+        "ELECTRÓNICA DE RED",
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "REDES Y DATOS",
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SEGURIDAD"
+      ]
+    },
+    "JUNG": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS KNX",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS"
+      ]
+    },
+    "EXCEL": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
+        "REDES Y DATOS"
+      ]
+    },
+    "ORBIS": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "SENSORES DE MOVIMIENTO/PRESENCIA"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    },
+    "BJC": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
+        "TOMAS Y CLAVIJAS"
+      ]
+    },
+    "FERMAX": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "CONTROL DE ACCESOS",
+        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES"
+      ]
+    },
+    "SOLERA": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
+      ]
+    },
+    "KPS": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "TOMAS Y CLAVIJAS"
+      ]
+    },
+    "FONESTAR": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO",
+        "SISTEMAS DE SONIDO Y EVACUACIÓN",
+        "SEGURIDAD"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
+        "REDES Y DATOS",
+        "TELECOMUNICACIÓN"
+      ]
+    },
+    "DINUY": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "SEÑALIZACIÓN ACÚSTICA"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS KNX",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
+      ]
+    },
+    "BTICINO": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
+        "SERIES DE MECANISMO CONECTADAS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "CONTROL DE ACCESOS",
+        "SISTEMA BUS PROPIETARIO",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "REDES Y DATOS"
+      ]
+    },
+    "TEGUI": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "CONTROL DE ACCESOS",
+        "SEGURIDAD"
+      ]
+    },
+    "COMMSCOPE": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER"
+      ]
+    },
+    "IDE": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "TOMAS Y CLAVIJAS",
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
+        "SERIES DE MECANISMOS CONVENCIONALES"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER"
+      ]
+    },
+    "CORNING": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "REDES Y DATOS"
+      ]
+    },
+    "GEWISS": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "TOMAS Y CLAVIJAS",
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "REDES Y DATOS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS"
+      ]
+    },
+    "D-LINK": {
+      "REDES Y TELECOMUNICACIONES": [
+        "ELECTRÓNICA DE RED"
+      ]
+    },
+    "BEG": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS PROPIETARIO",
+        "SISTEMA BUS KNX"
+      ]
+    },
+    "ABB": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS PROPIETARIO",
+        "CONTROL DE ACCESOS"
+      ]
+    },
+    "GENÉRICO": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "TOMAS Y CLAVIJAS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS KNX",
+        "CONTROL DE ACCESOS",
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
+      ]
+    },
+    "PRITEC": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA"
+      ]
+    },
+    "GOLMAR": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES",
+        "CONTROL DE ACCESOS",
+        "SISTEMAS DE VIDEOVIGILANCIA",
+        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
+        "SISTEMAS INTRUSIÓN",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH",
+        "SEGURIDAD",
+        "SISTEMAS DE SONIDO Y EVACUACIÓN"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
+        "TELECOMUNICACIÓN"
+      ],
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SOLUCIONES DE COMUNICACIÓN PARA HOSPITALITY"
+      ]
+    },
+    "EISSOUND": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMAS DE SONIDO Y EVACUACIÓN"
+      ]
+    },
+    "DIGITUS": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
+        "ELECTRÓNICA DE RED"
+      ]
+    },
+    "DELTA DORE": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS",
+        "SEGURIDAD"
+      ]
+    },
+    "RODMAN": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "SEÑALIZACIÓN ACÚSTICA"
+      ]
+    },
+    "TP-LINK": {
+      "REDES Y TELECOMUNICACIONES": [
+        "ELECTRÓNICA DE RED",
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "REDES Y DATOS"
+      ]
+    },
+    "WEIDMULLER": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "TOMAS Y CLAVIJAS",
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
+      ]
+    },
+    "AVALVA": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO"
+      ]
+    },
+    "FONTINI": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES"
+      ]
+    },
+    "HAGER": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS PROPIETARIO",
+        "REGULACIÓN Y CONTROL DE AMBIENTE",
+        "AUTOMATIZACIÓN DE EDIFICIOS Y VIVIENDAS"
+      ]
+    },
+    "ALG": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA"
+      ]
+    },
+    "APC BY SCHNEIDER ELECTRIC": {
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
+        "REDES Y DATOS"
+      ]
+    },
+    "LEVITON": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER"
+      ]
+    },
+    "EK": {
+      "REDES Y TELECOMUNICACIONES": [
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE",
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
+        "ELECTRÓNICA DE RED"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "AUDIOVISUALES, PRODUCTOS CONSUMO DE MEGAFONÍA Y VÍDEO",
+        "SEGURIDAD"
+      ]
+    },
+    "PHOENIX CONTACT": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "TOMAS Y CLAVIJAS",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ]
+    },
+    "PHILIPS LIGHTING SOLUTIONS": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS PROPIETARIO"
+      ]
+    },
+    "PANDUIT": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER"
+      ]
+    },
+    "SAET-94": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA"
+      ]
+    },
+    "HIKVISION": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMAS DE VIDEOVIGILANCIA",
+        "SEGURIDAD"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "REDES Y DATOS"
+      ]
+    },
+    "HELLERMANN": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
+        "REDES Y DATOS"
+      ]
+    },
+    "RITTAL": {
+      "REDES Y TELECOMUNICACIONES": [
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER",
+        "REDES Y DATOS"
+      ]
+    },
+    "EATON": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
+      ]
+    },
+    "DUCASA": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    },
+    "HONEYWELL HOME": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    },
+    "OPTIMUS": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMAS INTRUSIÓN"
+      ]
+    },
+    "BACHMANN": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "SERIES DE MECANISMOS CONVENCIONALES"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE"
+      ]
+    },
+    "GAESTOPAS": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE",
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA"
+      ]
+    },
+    "INMAEL": {
+      "REDES Y TELECOMUNICACIONES": [
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
+      ]
+    },
+    "SALICRU": {
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
+      ]
+    },
+    "GESCABLE": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE"
+      ]
+    },
+    "MENNEKES": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "TOMAS Y CLAVIJAS"
+      ]
+    },
+    "INTERFLEX": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "TOMAS Y CLAVIJAS",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ]
+    },
+    "ILME": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "TOMAS Y CLAVIJAS"
+      ]
+    },
+    "BAXI": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    },
+    "EGI": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMAS DE SONIDO Y EVACUACIÓN"
+      ]
+    },
+    "LUCECO": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "BASES, CLAVIJAS Y ADAPTADORES"
+      ]
+    },
+    "RETEX": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE FIBRA ÓPTICA",
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER"
+      ]
+    },
+    "QUINTELA": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES"
+      ]
+    },
+    "FINDER": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE",
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
+      ]
+    },
+    "EFIBAT": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA"
+      ]
+    },
+    "NEXANS CS": {
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE"
+      ]
+    },
+    "FAMATEL": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "TOMAS Y CLAVIJAS",
+        "SERIES DE MECANISMOS CONVENCIONALES",
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ]
+    },
+    "COMELIT": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "CONTROL DE ACCESOS"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "REDES Y DATOS"
+      ]
+    },
+    "HARTING": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "TOMAS Y CLAVIJAS",
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ],
+      "REDES Y TELECOMUNICACIONES": [
+        "CONECTIVIDAD REDES CABLEADO DE COBRE"
+      ]
+    },
+    "MMCONECTA": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SERIES DE MECANISMOS CONVENCIONALES"
+      ]
+    },
+    "KOBAN": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ]
+    },
+    "HONEYWELL": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES"
+      ]
+    },
+    "LLENARI": {
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA"
+      ],
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES"
+      ]
+    },
+    "EKSELANS BY ITS": {
+      "REDES Y TELECOMUNICACIONES": [
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
+      ]
+    },
+    "TBK": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMAS DE VIDEOVIGILANCIA"
+      ]
+    },
+    "GIACOMINI": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    },
+    "WAGO": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS KNX"
+      ]
+    },
+    "CAME": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "CONTROL DE ACCESOS",
+        "SEGURIDAD",
+        "AUTOMATIZACIÓN DE ACCESOS"
+      ]
+    },
+    "FANTON": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "BASES, CLAVIJAS Y ADAPTADORES"
+      ]
+    },
+    "GRUPO AGUILERA": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "PROTECCIÓN CONTRA INCENDIOS Y DETECCIÓN DE GASES",
+        "SISTEMA BUS KNX"
+      ]
+    },
+    "INTESIS": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "OTROS SISTEMAS DE BUS ESTÁNDAR",
+        "SISTEMA BUS KNX"
+      ]
+    },
+    "LIGHTED": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "SENSORES DE MOVIMIENTO/PRESENCIA"
+      ]
+    },
+    "COMA": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS",
+        "BASES, CLAVIJAS Y ADAPTADORES",
+        "TOMAS Y CLAVIJAS",
+        "SERIES DE MECANISMOS CONVENCIONALES"
+      ]
+    },
+    "BIACOM": {
+      "REDES Y TELECOMUNICACIONES": [
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
+      ]
+    },
+    "METALBLINDS": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SEGURIDAD",
+        "CONTROL DE ACCESOS"
+      ]
+    },
+    "WEIDMÜLLER": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ]
+    },
+    "DELTAELECTRONICS": {
+      "REDES Y TELECOMUNICACIONES": [
+        "SISTEMAS DE ALIMENTACIÓN ININTERRUMPIDA",
+        "REDES Y DATOS"
+      ]
+    },
+    "AUTA": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "CONTROL DE ACCESOS"
+      ]
+    },
+    "POTERMIC": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    },
+    "FENOPLASTICA": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "BASES, CLAVIJAS Y ADAPTADORES"
+      ]
+    },
+    "SONELCO": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMAS DE SONIDO Y EVACUACIÓN"
+      ]
+    },
+    "MAGNUM HEATING": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    },
+    "FAGOR ELTRON.": {
+      "REDES Y TELECOMUNICACIONES": [
+        "INSTALACIONES RADIO, TELEVISIÓN Y SATÉLITE"
+      ]
+    },
+    "AIRZONE": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    },
+    "ROCKWELL": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "TOMAS Y CLAVIJAS",
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ]
+    },
+    "LUXLIGHT": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
+      ]
+    },
+    "LYOPRO": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMAS INALÁMBRICOS / BLUETOOTH"
+      ]
+    },
+    "MONOLYTH": {
+      "REDES Y TELECOMUNICACIONES": [
+        "ARMARIOS RACK TELECOMUNICACIONES Y DATA CENTER"
+      ]
+    },
+    "KIEBACK&PETER": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN DEL CLIMA"
+      ]
+    },
+    "OBO BETTERMANN": {
+      "DISPOSITIVOS DE CONEXION Y ACCESORIOS": [
+        "DISPOSITIVOS DE CONEXIÓN Y ACCESORIOS"
+      ]
+    },
+    "TELECTRISA": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "CONTROL DE ACCESOS"
+      ]
+    },
+    "IES": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SEGURIDAD"
+      ]
+    },
+    "EELECTRON": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "SISTEMA BUS KNX"
+      ]
+    },
+    "GTLED": {
+      "REDES Y TELECOMUNICACIONES": [
+        "REDES Y DATOS"
+      ]
+    },
+    "SCHUTZ": {
+      "SEGURIDAD, INCENDIO Y AUTOMATIZACION DE EDIFICIOS": [
+        "REGULACIÓN Y CONTROL DE AMBIENTE"
+      ]
+    }
+  }
+}

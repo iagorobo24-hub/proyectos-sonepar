@@ -30,8 +30,7 @@ service cloud.firestore {
 
     // Colección pública — lecturas globales (búsquedas populares)
     match /global/{docId} {
-      // Allow public read for popular searches and other global docs
-      allow read: if true;
+      allow read: if request.auth != null;
       // Escritura restringida a popularSearches con validación de esquema
       allow write: if request.auth != null
         && docId == 'popularSearches'
