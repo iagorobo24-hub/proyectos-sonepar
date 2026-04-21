@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import useFirestoreSync from './useFirestoreSync'
+import useSupabaseSync from './useSupabaseSync'
 import { callAnthropicAI, parseAIJsonResponse } from '../services/anthropicService'
-import catalogService from '../services/catalogService'
+import catalogService from '../services/supabaseCatalogService'
 
 /* Prompts para la API de Anthropic — system prompt separado del input */
 const SYSTEM_FICHA = `Eres un técnico especialista en material eléctrico e industrial de Sonepar España con 15 años de experiencia. El técnico de mostrador te consulta sobre un producto.
@@ -38,7 +38,7 @@ export default function useFichasTecnicas() {
   const {
     data: historial,
     saveData: saveHistorial,
-  } = useFirestoreSync('fichas/history', 'default', [], 'sonepar_fichas_historial')
+  } = useSupabaseSync('user_fichas_history', 'default', [], 'sonepar_fichas_historial')
 
   /* Calcular accesos rápidos dinámicos basados en frecuencia de búsqueda */
   const accesosRapidos = historial && historial.length > 0
