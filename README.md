@@ -175,9 +175,43 @@ El menú hamburguesa incluye:
 
 ---
 
-## Sincronización del Catálogo
+## Catálogo de Productos (Supabase)
 
-El script `app/scripts/sync-catalog-enhanced.mjs` sincroniza productos desde un JSON (generado por scraping) a Firestore:
+El catálogo de productos se almacena en **Supabase** (PostgreSQL) con un esquema relacional completo:
+
+- **`brands`** — Marcas / fabricantes
+- **`categories`** — Jerarquía: Familia → Subfamilia → Tipo
+- **`products`** — Todas las referencias (ref fabricante + ref Sonepar)
+- **`product_prices`** — Historial de precios (tarifa + neto)
+- **`product_documents`** — Fichas técnicas, manuales, certificados
+- **`product_specifications`** — Specs técnicas (key-value)
+- **`product_stock`** — _Vacía, preparada para conexión futura con software de almacén_
+
+Para configurar Supabase, añade en `app/.env`:
+
+```env
+VITE_SUPABASE_URL=https://xxx.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJ...
+```
+
+Si no se configura Supabase, la app usa **Firestore** como fallback automático.
+
+### Scraper & Sync
+
+```bash
+# 1. Scraping de tienda.sonepar.es
+cd app/scripts/scraper
+SONEPAR_USER=email SONEPAR_PASS=pass node sonepar-scraper.mjs
+
+# 2. Sync a Supabase
+SUPABASE_URL=xxx SUPABASE_SERVICE_KEY=xxx node sync-to-supabase.mjs
+```
+
+Ver [app/scripts/scraper/README.md](app/scripts/scraper/README.md) para documentación completa.
+
+### Sincronización Legacy (Firestore)
+
+El script `app/scripts/sync-catalog-enhanced.mjs` sincroniza productos desde un JSON a Firestore:
 
 ```bash
 cd app

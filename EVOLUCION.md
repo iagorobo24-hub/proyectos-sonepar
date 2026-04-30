@@ -192,22 +192,53 @@ Evolución del sistema de logos:
 
 ---
 
+## Fase 13 — Migración del catálogo a Supabase (30 abr 2026)
+
+**Objetivo:** Diseñar un esquema relacional completo en Supabase para almacenar todas las referencias de tienda.sonepar.es, con datos oficiales y documentación técnica, preparado para integrarse con fichas técnicas, SONEX, presupuestos y cualquier herramienta futura.
+
+**Decisión clave:** Firestore tenía límites en plan gratuito (50K escrituras/día) y carecía de búsquedas full-text avanzadas. Supabase (PostgreSQL) ofrece:
+- Esquema relacional con JOINs y vistas
+- Full-text search nativo (tsvector + websearch_to_tsquery)
+- Búsqueda fuzzy con pg_trgm
+- RPC (funciones SQL) para consultas complejas
+- Sin límites de escritura en plan gratuito
+
+**Esquema diseñado (9 tablas + 3 vistas + 3 funciones RPC):**
+- `brands` — Marcas (48 fabricantes conocidos con logos, colores, países)
+- `categories` — Jerarquía autorreferencial: Familia (N1) → Subfamilia (N2) → Tipo (N3)
+- `products` — Productos con ref fabricante, ref Sonepar, EAN, búsqueda full-text
+- `product_prices` — Historial de precios (tarifa + neto + % descuento)
+- `product_documents` — Fichas técnicas, manuales, certificados, PDFs
+- `product_specifications` — Specs técnicas key-value (por grupo)
+- `product_stock` — Vacía, preparada para conexión futura con software de almacén
+- `product_relations` — Accesorios, complementos, alternativas
+- `scrape_runs` — Registro de ejecuciones del scraper
+
+**Herramientas creadas:**
+- `sonepar-scraper.mjs` — Scraper v3 con Playwright (login + interceptación XHR + DOM)
+- `sync-to-supabase.mjs` — Sync con upserts en batch (marcas → categorías → productos → precios → docs → specs)
+- `supabaseCatalogService.js` — Drop-in replacement del catalogService de Firestore
+- Detección automática: si Supabase está configurado se usa, si no → Firestore legacy
+
+---
+
 ## Estado actual (Abril 2026)
 
 **Stack:**
 - React 19 + Vite 7 + React Router DOM v7
 - CSS Modules + IBM Plex Sans
 - Firebase Auth (Google Sign-In)
-- Firestore (datos por usuario + catálogo)
+- **Supabase** (catálogo de productos — PostgreSQL) / Firestore (legacy, datos por usuario)
 - OpenRouter API (gateway IA gratuito)
 - Vercel (deploy + edge functions)
 
 **7 módulos funcionales + landing page + autenticación + modo oscuro.**
 
 **Próximos pasos planificados:**
-- Migrar catálogo de Firestore a Supabase (problemas con límites de Firestore)
-- Mantener Firebase solo para OAuth
-- Actualizar catálogo con datos reales completos
+- Ejecutar scraper completo contra tienda.sonepar.es
+- Sincronizar datos reales al esquema Supabase
+- Conectar fichas técnicas expandidas (docs, specs, precios) al frontend
+- Mantener Firebase solo para OAuth y datos de usuario
 
 ---
 
@@ -233,7 +264,8 @@ Evolución del sistema de logos:
 | **Devin (Cognition)** | IA Agente | Análisis de repo, limpieza, documentación | Activo |
 | **Playwright** | Scraping/Test | Web scraping catálogo sonepar.es | Activo |
 | **Firebase Auth** | Autenticación | Google Sign-In OAuth | Activo |
-| **Firestore** | Base de datos | Catálogo 75K productos + datos por usuario | Activo |
+| **Firestore** | Base de datos | Datos por usuario (legacy catálogo) | Activo |
+| **Supabase** | Base de datos | Catálogo de productos (PostgreSQL, esquema relacional) | Activo |
 
 ---
 
