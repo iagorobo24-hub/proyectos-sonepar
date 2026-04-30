@@ -60,8 +60,8 @@ async function syncCatalog() {
     const nombre = p.nombre || '';
     
     // Extract potential gama/tipo from nombre if missing
-    const gama = extractGamaFromNombre(nombre) || 'GENERAL';
-    const tipo = extractTipoFromNombre(nombre) || 'GENERAL';
+    const gama = p.gama || extractGamaFromNombre(nombre) || 'GENERAL';
+    const tipo = p.tipo || extractTipoFromNombre(nombre) || 'GENERAL';
 
     // Build product with complete fields
     const product = {
@@ -158,13 +158,13 @@ function parsePrice(value) {
 
 function extractGamaFromNombre(nombre) {
   if (!nombre) return null;
-  const keywords = ['CABLE', 'CONDUCTOR', 'CORDÓN', 'FIBRA', 'COBRE'];
+  const keywords = ['FIBRA', 'COBRE', 'CORDÓN', 'CONDUCTOR', 'CABLE'];
   for (const kw of keywords) {
     if (nombre.toUpperCase().includes(kw)) {
-      return keywords.indexOf(kw) === 0 ? 'CABLES DE BAJA TENSION' : 
-             keywords.indexOf(kw) === 1 ? 'CABLES ESPECIALES' :
-             keywords.indexOf(kw) === 2 ? 'CABLES ESPECIALES' :
-             keywords.indexOf(kw) === 3 ? 'CABLES DE DATOS' : 'CABLES';
+      return kw === 'FIBRA' ? 'CABLES DE DATOS' : 
+             kw === 'COBRE' ? 'CABLES ESPECIALES' :
+             kw === 'CORDÓN' ? 'CABLES ESPECIALES' :
+             kw === 'CONDUCTOR' ? 'CABLES ESPECIALES' : 'CABLES DE BAJA TENSION';
     }
   }
   return null;
