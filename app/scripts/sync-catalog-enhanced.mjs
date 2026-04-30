@@ -180,12 +180,13 @@ function extractTipoFromNombre(nombre) {
 }
 
 function generateSearchKeywords(product) {
+  const nameWords = (product.nombre || '').toLowerCase().split(/\s+/).filter(w => w.length > 2);
   const keywords = [
     product.ref?.toLowerCase(),
     product.refSonepar?.toLowerCase(),
     product.marca?.toLowerCase(),
     product.familia?.toLowerCase(),
-    product.nombre?.toLowerCase().split(' ').slice(0, 5).join(' ')
+    ...nameWords
   ].filter(Boolean);
   return [...new Set(keywords)];
 }
