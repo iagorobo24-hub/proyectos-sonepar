@@ -146,40 +146,6 @@
 .catBtnIcon { font-size: 16px; }
 .catBtnLabel { font-size: var(--text-xs); }
 
-/* ── Contexto ── */
-.contextoTextarea {
-  width: 100%;
-  padding: var(--space-3) var(--space-4);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  color: var(--gray-800);
-  background: var(--gray-50);
-  border: 1.5px solid var(--gray-100);
-  border-radius: var(--radius-md);
-  outline: none;
-  resize: vertical;
-  min-height: 60px;
-}
-
-.contextoTextarea:focus { border-color: var(--sonepar-blue); box-shadow: 0 0 0 3px var(--blue-50); }
-
-.contextoSaveBtn {
-  display: block;
-  width: 100%;
-  margin-top: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--sonepar-blue);
-  background: var(--blue-50);
-  border: 1px solid var(--blue-100);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  transition: all var(--duration-fast) var(--ease-out);
-}
-
-.contextoSaveBtn:hover { background: var(--blue-100); border-color: var(--blue-200); }
-
 /* ── Referencias ── */
 .refCard {
   display: flex;

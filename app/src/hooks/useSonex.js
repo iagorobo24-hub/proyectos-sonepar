@@ -25,7 +25,6 @@ export function useSonex() {
   const [isLoading, setIsLoading] = useState(false);
   const [categoriaActiva, setCategoriaActiva] = useState("");
   const [modoActivo, setModoActivo] = useState("busqueda");
-  const [contextoActivo, setContextoActivo] = useState("");
   const [refsTurno, setRefsTurno] = useState([]);
   
   const messagesEndRef = useRef(null);
@@ -114,7 +113,6 @@ export function useSonex() {
     isLoading, setIsLoading,
     categoriaActiva, setCategoriaActiva,
     modoActivo, setModoActivo,
-    contextoActivo, setContextoActivo,
     refsTurno, setRefsTurno,
     sugerenciasPopulares,
     loadingSugerencias,

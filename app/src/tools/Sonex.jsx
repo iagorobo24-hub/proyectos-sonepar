@@ -25,7 +25,7 @@ export default function Sonex() {
   const {
     messages, input, setInput, isLoading, setIsLoading,
     categoriaActiva, setCategoriaActiva, modoActivo, setModoActivo,
-    contextoActivo, setContextoActivo, refsTurno, setRefsTurno,
+    refsTurno, setRefsTurno,
     messagesEndRef, sugerenciasPopulares, loadingSugerencias,
     guardarMensaje,
   } = useSonex();
@@ -80,7 +80,20 @@ export default function Sonex() {
   const generarRespuestaIA = async (userMessage) => {
     try {
       const { callAnthropicAI } = await import('../services/anthropicService');
-      const systemPrompt = `Eres SONEX, el asistente técnico experto de Sonepar España. Responde de forma concisa, enfocándote en soluciones técnicas de Sonepar, referencias de producto y recomendaciones de aplicación.`;
+
+      const modoInfo = MODO_OBJETOS.find(m => m.id === modoActivo);
+      const modoInstrucciones = {
+        busqueda: 'El usuario está en modo BÚSQUEDA. Prioriza encontrar referencias exactas, especificaciones técnicas y fichas de producto. Incluye códigos de referencia Sonepar cuando sea posible.',
+        comparativa: 'El usuario está en modo COMPARATIVA. Organiza la respuesta en formato de comparación: tablas, pros/contras, diferencias técnicas clave entre productos. Destaca qué producto es mejor para cada caso de uso.',
+        asistencia: 'El usuario está en modo ASISTENCIA. Actúa como asesor técnico-comercial: recomienda productos según las necesidades del usuario, sugiere alternativas y explica por qué cada opción es adecuada.',
+        formacion: 'El usuario está en modo FORMACIÓN. Explica conceptos técnicos de forma didáctica, incluye pasos de instalación, normativa aplicable y buenas prácticas. Usa un tono educativo.',
+      };
+
+      const categoriaTexto = categoriaActiva
+        ? `\nEl usuario está consultando sobre la categoría: ${categoriaActiva}. Enfoca tus respuestas en productos y soluciones de esta familia.`
+        : '';
+
+      const systemPrompt = `Eres SONEX, el asistente técnico experto de Sonepar España. Responde de forma concisa, enfocándote en soluciones técnicas de Sonepar, referencias de producto y recomendaciones de aplicación.\n\n${modoInstrucciones[modoActivo] || modoInstrucciones.busqueda}${categoriaTexto}`;
       
       const { text } = await callAnthropicAI({ 
         provider: 'openrouter',
@@ -125,7 +138,6 @@ export default function Sonex() {
     if (modo) setInput(`Necesito ayuda con: ${modo.desc}`);
   };
 
-  const handleContextoSet = () => { if (contextoActivo.trim()) toast.show("Contexto guardado para esta sesión"); };
   const handleKeyPress = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); } };
 
   const sugerenciasMostrar = (sugerenciasPopulares || []).length > 0 ? sugerenciasPopulares : ["Buscar variadores 3kW", "Comparar contactores", "Recomendar iluminación LED", "Ayuda con instalación VE", "Especificaciones cuadro"];
@@ -170,13 +182,6 @@ export default function Sonex() {
               </button>
             ))}
           </div>
-        </div>
-
-        {/* Contexto */}
-        <div className={styles.seccion}>
-          <div className={styles.seccionLabel}>CONTEXTO DEL TURNO</div>
-          <textarea className={styles.contextoTextarea} value={contextoActivo} onChange={e => setContextoActivo(e.target.value)} placeholder="Ej: Instalación en nave industrial, 400V trifásica..." rows={3} />
-          <button className={styles.contextoSaveBtn} onClick={handleContextoSet}>Guardar contexto</button>
         </div>
 
         {/* Referencias */}
