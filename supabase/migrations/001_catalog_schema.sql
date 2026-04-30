@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS categories (
   sort_order  INT DEFAULT 0,
   created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
-  UNIQUE (name, parent_id)
+  UNIQUE NULLS NOT DISTINCT (name, parent_id)
 );
 
 CREATE INDEX idx_categories_parent  ON categories (parent_id);

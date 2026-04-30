@@ -281,6 +281,14 @@ async function main() {
 
       // Upsert productos
       if (productsToUpsert.length > 0) {
+        // Check which refs already exist to track new vs updated
+        const batchRefs = productsToUpsert.map(p => p.ref_fabricante);
+        const { data: existing } = await supabase
+          .from('products')
+          .select('ref_fabricante')
+          .in('ref_fabricante', batchRefs);
+        const existingRefs = new Set((existing || []).map(e => e.ref_fabricante));
+
         const { data: upserted, error } = await supabase
           .from('products')
           .upsert(productsToUpsert, { onConflict: 'ref_fabricante' })
@@ -291,6 +299,9 @@ async function main() {
           log('warn', `  Error batch productos: ${error.message}`);
         } else {
           uploaded += upserted.length;
+          for (const row of upserted) {
+            if (!existingRefs.has(row.ref_fabricante)) newProducts++;
+          }
           const refToId = new Map(upserted.map(r => [r.ref_fabricante, r.id]));
 
           // Insert precios

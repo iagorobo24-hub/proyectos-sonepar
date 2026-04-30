@@ -272,4 +272,5 @@ export default {
   getProductoPorRef,
   buscarProductos,
   getCatalogStats,
+  getHierarchy,
 };

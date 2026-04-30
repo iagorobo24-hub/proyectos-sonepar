@@ -481,8 +481,8 @@ function classifyDocType(name) {
   if (n.includes('ficha') || n.includes('datasheet') || n.includes('hoja de datos')) return 'ficha_tecnica';
   if (n.includes('manual') || n.includes('instruc')) return 'manual';
   if (n.includes('certificado') || n.includes('certif')) return 'certificado';
-  if (n.includes('declaración') || n.includes('conformidad') || n.includes('CE')) return 'declaracion_ce';
-  if (n.includes('esquema') || n.includes('CAD') || n.includes('DWG')) return 'esquema';
+  if (n.includes('declaración') || n.includes('conformidad') || n.includes('ce')) return 'declaracion_ce';
+  if (n.includes('esquema') || n.includes('cad') || n.includes('dwg')) return 'esquema';
   if (n.includes('catálogo') || n.includes('catalog')) return 'catalogo';
   return 'hoja_datos';
 }

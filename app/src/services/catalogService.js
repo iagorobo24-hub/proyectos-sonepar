@@ -168,7 +168,7 @@ const resolvedService = USE_SUPABASE ? {
   getProductoPorRef:              supabaseCatalog.getProductoPorRef,
   buscarProductos:                supabaseCatalog.buscarProductos,
   getCatalogStats:                supabaseCatalog.getCatalogStats,
-  getHierarchy,
+  getHierarchy:                   supabaseCatalog.getHierarchy,
 } : {
   getMarcasPorCategoria,
   getGamasPorMarcaYCategoria,
