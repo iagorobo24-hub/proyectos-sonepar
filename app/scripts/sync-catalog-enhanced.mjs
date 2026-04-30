@@ -125,16 +125,17 @@ async function syncCatalog() {
     const chunk = products.slice(i, i + BATCH_SIZE);
 
     for (const p of chunk) {
-      try {
-        const docRef = db.collection('catalog_products').doc(p.ref);
-        batch.set(docRef, p);
-        uploaded++;
-      } catch (e) {
-        errors++;
-      }
+      const docRef = db.collection('catalog_products').doc(p.ref);
+      batch.set(docRef, p);
     }
 
-    await batch.commit();
+    try {
+      await batch.commit();
+      uploaded += chunk.length;
+    } catch (e) {
+      errors += chunk.length;
+      console.error(`   ⚠️ Error en batch: ${e.message}`);
+    }
     
     const progress = ((i + chunk.length) / products.length * 100).toFixed(1);
     console.log(`   📊 Progreso: ${progress}% (${uploaded}/${products.length})`);
@@ -157,7 +158,7 @@ function parsePrice(value) {
 
 function extractGamaFromNombre(nombre) {
   if (!nombre) return null;
-  const keywords = ['CABLE', 'CONDUCTOR', 'CORDÓN', 'FIBRA', 'Cobre'];
+  const keywords = ['CABLE', 'CONDUCTOR', 'CORDÓN', 'FIBRA', 'COBRE'];
   for (const kw of keywords) {
     if (nombre.toUpperCase().includes(kw)) {
       return keywords.indexOf(kw) === 0 ? 'CABLES DE BAJA TENSION' : 
@@ -172,7 +173,7 @@ function extractGamaFromNombre(nombre) {
 function extractTipoFromNombre(nombre) {
   if (!nombre) return null;
   // Try to extract common types from product name
-  const match = nombre.match(/\d+x\d+|\d+G\d+|H07Z1|RZ1|RV|K/i);
+  const match = nombre.match(/\d+x\d+|\d+G\d+|H07Z1|RZ1|RV-K|RV/i);
   return match ? match[0] : 'GENERAL';
 }
 
