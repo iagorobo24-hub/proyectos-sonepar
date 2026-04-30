@@ -1,8 +1,13 @@
 /**
- * SERVICIO DE CATÁLOGO (FIRESTORE) - JERARQUÍA PROFUNDA
+ * SERVICIO DE CATÁLOGO — JERARQUÍA PROFUNDA
  * N1 (Familia) -> MARCA -> N2 (Subfamilia) -> N3 (Categoría)
- * Fallback local desde hierarchy.json si Firestore no tiene el árbol
+ *
+ * Backend automático:
+ *   - Si VITE_SUPABASE_URL está definido → Supabase (nuevo)
+ *   - Si no → Firestore (legacy) con fallback local hierarchy.json
  */
+import { supabase } from '../supabase/supabaseClient';
+import supabaseCatalog from './supabaseCatalogService';
 import {
   collection,
   doc,
@@ -14,6 +19,8 @@ import {
 } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
 import localHierarchy from '../data/hierarchy.json';
+
+const USE_SUPABASE = !!supabase;
 
 let hierarchyCache = null;
 const productCache = new Map();
@@ -152,7 +159,17 @@ export async function buscarProductos(termino) {
   }
 }
 
-export default {
+// ── Wrapper: delegar a Supabase si está configurado ────────
+const resolvedService = USE_SUPABASE ? {
+  getMarcasPorCategoria:          supabaseCatalog.getMarcasPorCategoria,
+  getGamasPorMarcaYCategoria:     supabaseCatalog.getGamasPorMarcaYCategoria,
+  getTiposPorGamaMarcaYFamilia:   supabaseCatalog.getTiposPorGamaMarcaYFamilia,
+  getProductosPorFiltro:          supabaseCatalog.getProductosPorFiltro,
+  getProductoPorRef:              supabaseCatalog.getProductoPorRef,
+  buscarProductos:                supabaseCatalog.buscarProductos,
+  getCatalogStats:                supabaseCatalog.getCatalogStats,
+  getHierarchy,
+} : {
   getMarcasPorCategoria,
   getGamasPorMarcaYCategoria,
   getTiposPorGamaMarcaYFamilia,
@@ -160,5 +177,13 @@ export default {
   getProductoPorRef,
   buscarProductos,
   getCatalogStats,
-  getHierarchy
+  getHierarchy,
 };
+
+if (USE_SUPABASE) {
+  console.log('📦 Catálogo usando Supabase');
+} else {
+  console.log('📦 Catálogo usando Firestore (legacy)');
+}
+
+export default resolvedService;
