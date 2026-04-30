@@ -83,7 +83,7 @@ proyectos-sonepar/
 │   ├── vercel.json                # Configuración de deploy
 │   ├── vite.config.js
 │   └── package.json
-├── CLAUDE.md                      # Índice de skills para Claude Code
+├── CLAUDE.md                      # Índice de skills para agentes IA
 ├── EVOLUCION.md                   # Guía cronológica de la evolución del proyecto
 ├── LICENSE                        # MIT
 ├── .gitignore

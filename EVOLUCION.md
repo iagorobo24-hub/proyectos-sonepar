@@ -211,15 +211,29 @@ Evolución del sistema de logos:
 
 ---
 
-## Herramientas de IA usadas en el desarrollo
+## Herramientas de IA y desarrollo usadas
 
-| Herramienta | Uso |
-|-------------|-----|
-| **Claude (Anthropic)** | Generación de artefactos iniciales (Fase 0), integración como backend IA (SONEX) |
-| **Claude Code** | Refactorización, sistema de diseño, tests E2E, skills |
-| **Codex (OpenAI)** | Intento de fix de deploy (generó `.codex-deploy-fix/`) |
-| **Devin (Cognition)** | Análisis de repo, limpieza, documentación |
-| **OpenRouter** | Gateway API para modelos gratuitos en producción |
+| Herramienta | Tipo | Uso | Estado |
+|-------------|------|-----|--------|
+| **Claude (Web)** | Artefactos/Chat | Diseño inicial de 7 páginas JSX independientes | Activo |
+| **VSCode** | Editor | Desarrollo local con GitHub Copilot | Activo |
+| **GitHub Copilot** | IA Code Assistant | Generar versiones y documentar cambios | Agotado |
+| **Vercel** | Deploy | Despliegue automático gratuito | Activo |
+| **GitHub** | Version Control | Branching workflow para no romper main | Activo |
+| **Windsurf** | IDE con IA | Modelos ilimitados gratuitos (tras agotar Copilot) | Activo |
+| **Gemini CLI** | CLI IA | Autenticación por cuentas/auth | Activo |
+| **Qwen CLI** | CLI IA | 1000 req/día gratis | Cerrado (15 abr 2026) |
+| **OpenCode** | CLI IA | Modelos MiniMax, BigPickle, NVIDIA Nemotron | Activo |
+| **OpenRouter** | API | Gateway API para modelos gratuitos en producción | Activo |
+| **Codex (OpenAI)** | IDE con IA | Alternativa probada (generó `.codex-deploy-fix/`) | Descartado |
+| **Cursor** | IDE con IA | Alternativa probada | Descartado |
+| **Trae** | IDE con IA | Alternativa probada | Descartado |
+| **Kiro** | IDE con IA | Alternativa probada | Descartado |
+| **Antigravity** | IDE con IA | Alternativa probada | Descartado |
+| **Devin (Cognition)** | IA Agente | Análisis de repo, limpieza, documentación | Activo |
+| **Playwright** | Scraping/Test | Web scraping catálogo sonepar.es | Activo |
+| **Firebase Auth** | Autenticación | Google Sign-In OAuth | Activo |
+| **Firestore** | Base de datos | Catálogo 75K productos + datos por usuario | Activo |
 
 ---
 
