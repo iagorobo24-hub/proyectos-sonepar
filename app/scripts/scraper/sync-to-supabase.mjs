@@ -97,7 +97,12 @@ async function main() {
     const brandNames = [...new Set(rawProducts.map(p => (p.marca || '').toUpperCase()).filter(Boolean))];
     const brandMap = new Map(); // name → UUID
 
-    if (!DRY_RUN) {
+    if (DRY_RUN) {
+      // Populate brandMap with placeholder IDs so product prep loop works
+      for (const name of brandNames) {
+        brandMap.set(name, `dry-run-brand-${slugify(name)}`);
+      }
+    } else {
       for (const name of brandNames) {
         const { data, error } = await supabase
           .from('brands')
@@ -329,7 +334,9 @@ async function main() {
               file_format: d.file_format,
             }));
           if (docs.length > 0) {
-            await supabase.from('product_documents').insert(docs);
+            await supabase.from('product_documents').upsert(docs, {
+              onConflict: 'product_id,url',
+            });
           }
 
           // Insert specs (upsert para no duplicar)

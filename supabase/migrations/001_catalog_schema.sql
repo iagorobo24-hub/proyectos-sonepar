@@ -133,7 +133,8 @@ CREATE TABLE IF NOT EXISTS product_documents (
   file_format TEXT,           -- 'pdf', 'dwg', 'step', 'jpg'
   file_size   INT,            -- bytes
   language    TEXT DEFAULT 'es',
-  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (product_id, url)
 );
 
 CREATE INDEX idx_docs_product ON product_documents (product_id);

@@ -33,16 +33,30 @@ async function getHierarchy() {
     console.warn('Supabase hierarchy no disponible, usando fallback:', err.message);
   }
 
-  // Fallback: construir desde tablas directas
+  // Fallback: build from distinct tuples (avoids PostgREST 1000-row limit)
   try {
-    const { data: products } = await supabase
-      .from('products')
-      .select('familia, brand_id, subfamilia, tipo, brands(name)')
-      .eq('is_active', true);
+    const allRows = [];
+    const PAGE = 1000;
+    let from = 0;
+    let hasMore = true;
+    while (hasMore) {
+      const { data: rows } = await supabase
+        .from('products')
+        .select('familia, subfamilia, tipo, brands(name)')
+        .eq('is_active', true)
+        .range(from, from + PAGE - 1);
+      if (rows && rows.length > 0) {
+        allRows.push(...rows);
+        from += PAGE;
+        hasMore = rows.length === PAGE;
+      } else {
+        hasMore = false;
+      }
+    }
 
-    if (products && products.length > 0) {
+    if (allRows.length > 0) {
       const tree = {};
-      for (const p of products) {
+      for (const p of allRows) {
         const fam = p.familia || 'OTRAS';
         const marca = p.brands?.name || 'GENÉRICO';
         const sub = p.subfamilia || 'GENERAL';
