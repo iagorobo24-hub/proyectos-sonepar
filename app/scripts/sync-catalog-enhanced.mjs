@@ -152,7 +152,9 @@ async function syncCatalog() {
 // Helper functions
 function parsePrice(value) {
   if (!value) return 0;
-  const cleaned = value.toString().replace(/[^\d.,]/g, '').replace(',', '.');
+  const str = value.toString().replace(/[^\d.,]/g, '');
+  // Handle European format: strip thousands dots, then replace decimal comma
+  const cleaned = str.includes(',') ? str.replace(/\./g, '').replace(',', '.') : str;
   return parseFloat(cleaned) || 0;
 }
 
