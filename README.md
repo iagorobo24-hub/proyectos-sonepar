@@ -1,29 +1,29 @@
-# ⚡ Proyectos Sonepar
+# Proyectos Sonepar
 
 > **Ecosistema de herramientas web para automatización industrial y logística.**
 
-Aplicación SPA (Single Page Application) con **7 módulos funcionales**, autenticación con Google, diseño responsive y asistente técnico impulsado por IA.
+Aplicación SPA con **7 módulos funcionales**, autenticación con Google, diseño responsive y asistente técnico impulsado por IA.
 
-**🌐 Demo:** [proyectos-sonepar.vercel.app](https://proyectos-sonepar.vercel.app)
+**Demo:** [proyectos-sonepar.vercel.app](https://proyectos-sonepar.vercel.app)
 
 ---
 
-## 📦 Módulos
+## Módulos
 
 | Ruta | Módulo | Descripción |
 |------|--------|-------------|
 | `/login` | **Login** | Autenticación con Google (Firebase Auth) |
-| `/fichas` | **Fichas Técnicas** | Catálogo de 65+ productos con generación IA |
+| `/fichas` | **Fichas Técnicas** | Catálogo de productos con navegación jerárquica |
 | `/almacen` | **Simulador Almacén** | Simulación de ciclo completo de pedido |
 | `/incidencias` | **Dashboard Incidencias** | Registro y diagnóstico de fallos industriales |
 | `/kpi` | **KPI Logístico** | 6 KPIs con semáforo e informe ejecutivo |
 | `/presupuestos` | **Presupuestos** | Generador de presupuestos con referencias del catálogo |
 | `/formacion` | **Formación Interna** | Matriz de competencias y planes personalizados |
-| `/sonex` | **SONEX** | Asistente técnico con IA (Anthropic Claude) |
+| `/sonex` | **SONEX** | Asistente técnico con IA (OpenRouter) |
 
 ---
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 ### Frontend
 - **React 19** + **Vite 7**
@@ -33,53 +33,66 @@ Aplicación SPA (Single Page Application) con **7 módulos funcionales**, autent
 - **lucide-react** — Iconografía
 - **Tipografía:** IBM Plex Sans
 
-### Autenticación & Backend
+### Autenticación y Backend
 - **Firebase Auth** — Google Sign-In
 - **Firestore** — Base de datos (datos por usuario)
-- **Anthropic Claude API** — Asistente SONEX (proxy vía Vercel Edge Functions)
-
-### Testing & Calidad
-- **Playwright** — Suite E2E (14 tests visuales)
-- **ESLint v9** — react-hooks + react-refresh plugins
+- **OpenRouter API** — Gateway IA gratuito (Claude 3.5 Haiku, DeepSeek, Qwen) via Vercel Functions
 
 ### Deploy
-- **Vercel** — Build automático + Edge Functions
+- **Vercel** — Build automático + Serverless Functions
 
 ---
 
-## ️ Arquitectura
+## Arquitectura
 
 ```
 proyectos-sonepar/
-├── api/
-│   └── anthropic.js              # Vercel Edge Function — proxy a Anthropic
 ├── app/
+│   ├── api/
+│   │   └── ai.js                  # Vercel Function — gateway IA (OpenRouter/Groq)
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── auth/             # LoginPage, ProtectedRoute
-│   │   │   ├── layout/           # AppShell, Topbar, Sidebar (responsive)
-│   │   │   └── ui/               # Componentes reutilizables
+│   │   │   ├── auth/              # LoginPage, ProtectedRoute
+│   │   │   ├── HeroSection/       # Landing page (14 componentes + estilos)
+│   │   │   ├── layout/            # AppShell, Topbar, Sidebar (responsive)
+│   │   │   ├── fichas/            # TarjetaFicha
+│   │   │   └── ui/                # Button, Badge, Input, Card, Spinner...
 │   │   ├── contexts/
-│   │   │   ├── AuthContext.jsx   # Estado de autenticación
-│   │   │   ├── ThemeContext.jsx  # Modo claro/oscuro
-│   │   │   └── ToastContext.jsx  # Notificaciones
+│   │   │   ├── AuthContext.jsx    # Estado de autenticación
+│   │   │   ├── ThemeContext.jsx   # Modo claro/oscuro
+│   │   │   └── ToastContext.jsx   # Notificaciones
 │   │   ├── firebase/
-│   │   │   └── firebaseConfig.js # Inicialización Firebase
-│   │   ├── data/
-│   │   │   └── catalogoSonepar.js  # Catálogo unificado 65+ referencias
-│   │   ├── tools/                # 7 módulos (Fichas, Almacén, Incidencias...)
-│   │   ├── App.jsx               # Router + rutas protegidas
-│   │   └── main.jsx              # Entry point + providers
-│   ├── e2e/                      # Tests Playwright (14 tests)
+│   │   │   └── firebaseConfig.js  # Inicialización Firebase
+│   │   ├── data/                  # Catálogo, jerarquía, logos
+│   │   ├── hooks/                 # 10 custom hooks (uno por módulo)
+│   │   ├── pages/                 # LandingPage
+│   │   ├── services/              # anthropicService, brandLogoService, catalogService, firestoreService
+│   │   ├── styles/                # Variables CSS, animaciones
+│   │   ├── tools/                 # 7 módulos (componentes de página)
+│   │   ├── App.jsx                # Router + rutas protegidas
+│   │   └── main.jsx               # Entry point + providers
+│   ├── scripts/
+│   │   └── sync-catalog-enhanced.mjs  # Script de sincronización de catálogo a Firestore
+│   ├── public/
+│   │   ├── logos/                  # Logos de 14 fabricantes
+│   │   └── screenshots/           # Capturas para la landing page
+│   ├── eslint.config.js
+│   ├── firestore.rules            # Reglas de seguridad Firestore
+│   ├── firebase.json
+│   ├── playwright.config.js
+│   ├── vercel.json                # Configuración de deploy
+│   ├── vite.config.js
 │   └── package.json
-├── vercel.json                   # Configuración de despliegue
+├── CLAUDE.md                      # Índice de skills para agentes IA
+├── EVOLUCION.md                   # Guía cronológica de la evolución del proyecto
+├── LICENSE                        # MIT
 ├── .gitignore
 └── README.md
 ```
 
 ---
 
-## 🚀 Inicio Rápido
+## Inicio Rápido
 
 ### Prerrequisitos
 - Node.js (último LTS)
@@ -103,50 +116,42 @@ npm run build
 npm run preview
 ```
 
-### Tests E2E
-
-```bash
-cd app
-npx playwright install chromium
-npx playwright test
-```
-
-14 tests cubren: login, responsive (3 tamaños), navegación, hamburguesa, sidebar, dark mode, performance y errores JS.
-
 ---
 
-## 🔐 Configuración
+## Configuración
 
 ### Variables de entorno
 
 Crea `app/.env`:
 
 ```env
-VITE_ANTHROPIC_API_KEY=sk-ant-...
+OPENROUTER_API_KEY=sk-or-...
 ```
 
 | Variable | Descripción |
 |----------|-------------|
-| `VITE_ANTHROPIC_API_KEY` | API key de Anthropic Claude (para SONEX) |
+| `OPENROUTER_API_KEY` | API key de OpenRouter (para SONEX y funciones IA) |
 
-Las credenciales de Firebase están en `app/src/firebase/firebaseConfig.js` y son **públicas por diseño** (las Firebase API keys no son secretas). La seguridad real se gestiona con las **Firebase Security Rules**.
+Obtén una API key gratuita en [openrouter.ai](https://openrouter.ai/).
+
+Las credenciales de Firebase están en `app/src/firebase/firebaseConfig.js` y son **públicas por diseño** (las Firebase API keys no son secretas). La seguridad real se gestiona con las **Firebase Security Rules** (`app/firestore.rules`).
 
 ### Firebase Console
 
 1. Crear proyecto en [Firebase Console](https://console.firebase.google.com/)
 2. **Authentication → Sign-in method** → Activar **Google**
-3. **Firestore Database** → Crear base de datos (modo prueba)
+3. **Firestore Database** → Crear base de datos
 4. Añadir `localhost` y `proyectos-sonepar.vercel.app` como **Authorized Domains**
 
 ### Vercel
 
-1. Conectar repo a Vercel
-2. Añadir variable `VITE_ANTHROPIC_API_KEY` en settings del proyecto
+1. Conectar repo a Vercel (root directory: `app`)
+2. Añadir variable `OPENROUTER_API_KEY` en settings del proyecto
 3. Deploy automático en cada push a `main`
 
 ---
 
-## 📱 Responsive Design
+## Responsive Design
 
 | Breakpoint | Comportamiento |
 |------------|----------------|
@@ -160,7 +165,7 @@ El menú hamburguesa incluye:
 
 ---
 
-## 🔒 Autenticación
+## Autenticación
 
 - **Google Sign-In** vía Firebase Auth
 - **Rutas protegidas:** Todo el AppShell requiere autenticación
@@ -170,38 +175,29 @@ El menú hamburguesa incluye:
 
 ---
 
-## 🧪 Testing
+## Sincronización del Catálogo
 
-Suite E2E con **Playwright** — 14 tests automáticos:
+El script `app/scripts/sync-catalog-enhanced.mjs` sincroniza productos desde un JSON (generado por scraping) a Firestore:
 
-| Test | Cobertura |
-|------|-----------|
-| `01-login` | Elementos y accesibilidad |
-| `02-login` | Responsive (desktop, tablet, mobile) |
-| `03-rutas` | Redirección sin auth (7 rutas) |
-| `04-vistas` | Screenshots de 7 herramientas (desktop) |
-| `05-vistas` | Screenshots de 7 herramientas (tablet) |
-| `06-vistas` | Screenshots de 7 herramientas (mobile) |
-| `07-navegación` | Navegación entre herramientas |
-| `08-sidebar` | Colapsar/expandir |
-| `09-topbar` | Usuario con avatar de iniciales |
-| `10-dark-mode` | Toggle de tema |
-| `11-performance` | Tiempos de carga |
-| `12-sin-errores` | Cero errores JS en todas las páginas |
-| `13-hamburguesa` | Menú mobile (abrir, navegar, cerrar) |
-| `14-hamburguesa` | Menú tablet |
+```bash
+cd app
+node scripts/sync-catalog-enhanced.mjs
+```
+
+Requiere:
+- `service-account.json` (Firebase Admin SDK)
+- `sonepar-catalog-scraper/catalogo-final-v12.json` (datos del catálogo)
 
 ---
 
-## 📝 Historial de Versiones
+## Historial de Versiones
 
 ### v3.0.0 (Abril 2026)
-- 🔐 Autenticación con Google (Firebase Auth)
-- 📱 Menú hamburguesa responsive (tablet + mobile)
-- 🎨 Avatar con iniciales cuando no hay foto
-- ⚡ Spinner de carga durante autenticación
-- 🧪 Suite de tests E2E con Playwright (14 tests)
-- ♿ Accesibilidad ARIA en menú hamburguesa
+- Autenticación con Google (Firebase Auth)
+- Menú hamburguesa responsive (tablet + mobile)
+- Avatar con iniciales cuando no hay foto
+- Spinner de carga durante autenticación
+- Accesibilidad ARIA en menú hamburguesa
 
 ### v2.0.0 (Marzo 2026)
 - Rediseño completo en 5 fases (F1–F5)
@@ -209,6 +205,14 @@ Suite E2E con **Playwright** — 14 tests automáticos:
 - SONEX con procesamiento de markdown
 - Sidebar dinámico con iconos lucide-react
 
+### v1.0.0 (Marzo 2026)
+- 7 herramientas como artefactos React independientes
+- Integración inicial con Claude API
+
 ---
 
-© 2024–2026 **iagorobo24-hub** | *Powering the Sonepar digital transformation.*
+Para una guía detallada de la evolución del proyecto, ver [EVOLUCION.md](./EVOLUCION.md).
+
+---
+
+© 2024–2026 **iagorobo24-hub** · MIT License
